@@ -200,29 +200,48 @@
     soundBtn.textContent = muted ? "🔇" : "🔊";
   }
 
-  const quotes = [
-    "「真正的靜默，\n是思想的靜止。」",
-    "「靜坐不是努力，\n而是放下努力。」",
-    "「你的內在有一份平靜，\n那是你與生俱來的。」",
-    "「昆達里尼是你自己的能量，\n純潔的，溫柔的。」",
-    "「愛是一切靈性成長的基礎，\n從愛自己開始。」",
-  ];
+  let quotes = [];
   let current = 0;
   const textEl = document.getElementById("quoteText");
   const authorEl = document.getElementById("quoteAuthor");
 
+  // 從 GitHub 動態載入語錄
+  const QUOTES_URL = "https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/quotes.json";
+
+  fetch(QUOTES_URL)
+    .then(r => r.json())
+    .then(data => {
+      quotes = data;
+      // 隨機打亂順序
+      quotes.sort(() => Math.random() - 0.5);
+    })
+    .catch(() => {
+      // 載入失敗時的備用語錄
+      quotes = [
+        { zh: "真正的靜默，是思想的靜止。", author: "Shri Mataji" },
+        { zh: "靜坐不是努力，而是放下努力。", author: "Shri Mataji" },
+      ];
+    });
+
   function showQuote(index) {
+    if (quotes.length === 0) return;
     textEl.classList.remove("visible");
     authorEl.classList.remove("visible");
     setTimeout(() => {
-      textEl.innerHTML = quotes[index].replace(/\n/g, "<br>");
+      textEl.innerHTML = "「" + quotes[index].zh + "」";
+      authorEl.textContent = "— " + quotes[index].author;
       textEl.classList.add("visible");
       authorEl.classList.add("visible");
     }, 900);
   }
 
   function startQuotes() {
-    textEl.innerHTML = quotes[0].replace(/\n/g, "<br>");
+    if (quotes.length === 0) {
+      setTimeout(startQuotes, 300);
+      return;
+    }
+    textEl.innerHTML = "「" + quotes[0].zh + "」";
+    authorEl.textContent = "— " + quotes[0].author;
     setTimeout(() => {
       textEl.classList.add("visible");
       authorEl.classList.add("visible");
