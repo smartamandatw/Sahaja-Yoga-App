@@ -31,10 +31,13 @@
   .enter-screen.hide { opacity: 0; pointer-events: none; }
 
   .enter-logo {
-    font-family: "Pinyon Script", cursive;
-    font-size: clamp(58px, 15vw, 82px);
-    color: #F0E8D0; line-height: 1.1;
+    font-family: "Noto Serif TC", serif;
+    font-size: clamp(20px, 5.5vw, 28px);
+    color: #F0E8D0; line-height: 1.8;
     text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    letter-spacing: 0.12em;
+    font-weight: 400;
+    text-align: center;
     margin-bottom: 8px;
   }
 
@@ -148,7 +151,7 @@
 
 <!-- 進入畫面 -->
 <div class="enter-screen" id="enterScreen" onclick="startApp()">
-  <div class="enter-logo">Sahaja Yoga</div>
+  <div class="enter-logo">歡迎你的到來<br>這是一趟向內的旅程</div>
   <div class="enter-tap">輕觸進入</div>
 </div>
 
