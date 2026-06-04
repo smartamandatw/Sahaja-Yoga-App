@@ -228,7 +228,7 @@
     textEl.classList.remove("visible");
     authorEl.classList.remove("visible");
     setTimeout(() => {
-      textEl.innerHTML = "「" + quotes[index].zh + "」";
+      const line2 = quotes[index].zh2 ? "<br>" + quotes[index].zh2 : ""; textEl.innerHTML = quotes[index].zh + line2;
       authorEl.textContent = "— " + quotes[index].author;
       textEl.classList.add("visible");
       authorEl.classList.add("visible");
@@ -240,7 +240,7 @@
       setTimeout(startQuotes, 300);
       return;
     }
-    textEl.innerHTML = "「" + quotes[0].zh + "」";
+    const line2first = quotes[0].zh2 ? "<br>" + quotes[0].zh2 : ""; textEl.innerHTML = quotes[0].zh + line2first;
     authorEl.textContent = "— " + quotes[0].author;
     setTimeout(() => {
       textEl.classList.add("visible");
