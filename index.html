@@ -63,18 +63,16 @@
   .quote-wrap.show { opacity: 1; }
 
   .quote-box {
-    background: rgba(230,222,205,0.10);
-    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-    border-radius: 0;
+    background: none;
     padding: clamp(22px,5.5vw,30px) clamp(24px,6vw,32px);
     text-align: center;
-    border: none;
   }
 
   .quote-text {
-    font-family: "LXGW WenKai TC", "Noto Serif TC", serif;
-    font-size: clamp(19px,5vw,22px);
-    color: #1C1609; line-height: 2.1; letter-spacing: 0.10em;
+    font-family: "Noto Serif TC", serif;
+    font-size: clamp(18px,4.8vw,22px);
+    color: #F0E8D0; line-height: 2; letter-spacing: 0.2em;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.4);
   }
   .quote-text .char {
     opacity: 0;
@@ -89,9 +87,10 @@
   .quote-author {
     font-family: "Noto Serif TC", serif;
     font-size: clamp(13px,3.4vw,15px);
-    color: #4A3510; margin-top: 12px;
-    letter-spacing: 0.06em; font-weight: 400;
+    color: rgba(240,232,210,0.75); margin-top: 12px;
+    letter-spacing: 0.15em; font-weight: 400;
     opacity: 0; transition: opacity 1.5s ease;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.4);
   }
 
   /* 按鈕 — 下方至中，絕對定位 */
