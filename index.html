@@ -75,7 +75,7 @@
     font-family: "LXGW WenKai TC", "Noto Serif TC", serif;
     font-size: clamp(19px,5vw,22px);
     color: #1C1609; line-height: 2.1; letter-spacing: 0.10em;
-    opacity: 0; transition: opacity 0.9s ease;
+    opacity: 0; transition: opacity 1.8s ease;
   }
   .quote-text.visible { opacity: 1; }
 
@@ -84,7 +84,7 @@
     font-size: clamp(13px,3.4vw,15px);
     color: #4A3510; margin-top: 12px;
     letter-spacing: 0.06em; font-weight: 400;
-    opacity: 0; transition: opacity 0.9s ease 0.3s;
+    opacity: 0; transition: opacity 1.8s ease 0.5s;
   }
   .quote-author.visible { opacity: 1; }
 
@@ -240,7 +240,7 @@
       setInterval(() => {
         current = (current + 1) % quotes.length;
         showQuote(current);
-      }, 5000);
+      }, 8000);
     };
     tryStart();
   }
