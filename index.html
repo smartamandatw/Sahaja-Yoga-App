@@ -59,7 +59,7 @@
     position: fixed; inset: 0; z-index: 5;
     display: flex; flex-direction: column;
     align-items: center; justify-content: flex-end;
-    padding-bottom: 5vh;
+    padding-bottom: 3vh;
     opacity: 0; transition: opacity 1s ease 0.3s;
     pointer-events: none;
   }
@@ -166,11 +166,13 @@
   <div class="buttons">
     <button class="btn btn-main" onclick="enterMeditation()" style="font-size:clamp(20px,5.2vw,24px);">直接進入冥想室</button>
     <button class="btn btn-sub" onclick="openMenu()" style="font-size:clamp(12px,3.2vw,14px);">功能選單</button>
+    <div style="display:flex;justify-content:flex-end;width:100%;margin-top:4px;">
+      <div id="soundBtn" onclick="toggleSound()" style="width:34px;height:34px;border-radius:50%;background:rgba(230,220,200,0.55);backdrop-filter:blur(6px);border:0.5px solid rgba(255,255,255,0.4);display:none;align-items:center;justify-content:center;cursor:pointer;font-size:17px;">🔊</div>
+    </div>
   </div>
 </div>
 
 <div class="streak" id="streak"></div>
-<div class="sound-btn" id="soundBtn" onclick="toggleSound()">🔊</div>
 
 <script>
   const audio = document.getElementById("bgMusic");
@@ -189,7 +191,7 @@
 
     setTimeout(() => {
       document.getElementById("mainScreen").classList.add("show");
-      soundBtn.classList.add("show");
+      soundBtn.style.display = "flex";
       startQuotes();
     }, 400);
   }
