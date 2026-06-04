@@ -163,8 +163,10 @@
 <!-- 進入畫面 -->
 <div class="enter-screen" id="enterScreen" onclick="startApp()">
   <div class="enter-text">歡迎你的到來<br>這是一趟向內的旅程</div>
-  <div class="enter-tap" onclick="startApp()">輕觸開始旅程 »</div>
 </div>
+
+<!-- 輕觸開始旅程 -->
+<div id="enterTap" onclick="startApp()" style="position:fixed;bottom:calc(2% + 175px);left:0;right:0;text-align:right;padding-right:4px;font-family:'Noto Serif TC',serif;font-size:clamp(14px,3.8vw,17px);color:rgba(240,232,210,0.9);letter-spacing:0.05em;white-space:nowrap;cursor:pointer;text-shadow:0 1px 8px rgba(0,0,0,0.4);animation:pulse 2s ease-in-out infinite;z-index:11;">輕觸開始旅程 »</div>
 
 <!-- 語錄框 -->
 <div class="quote-wrap" id="quoteWrap">
@@ -199,7 +201,7 @@
     started = true;
     audio.volume = 0.5;
     audio.play().catch(e => console.log(e));
-    document.getElementById("enterScreen").classList.add("hide");
+    document.getElementById("enterScreen").classList.add("hide"); document.getElementById("enterTap").style.display="none";
     setTimeout(() => {
       document.getElementById("quoteWrap").classList.add("show");
       document.getElementById("buttons").classList.add("show");
