@@ -170,7 +170,21 @@
   // 預設背景
   document.getElementById("bg").style.backgroundImage = `url('${BASE}forest.png')`;
 
-  let selBg = null, selBgUrl = null, selMusic = null;
+  let selBg = null, selBgUrl = null, selMusic = null, selMusicUrl = null;
+
+  // 動態載入音樂清單
+  fetch(BASE + "music.json")
+    .then(r => r.json())
+    .then(list => {
+      const musicList = document.getElementById("musicList");
+      list.forEach(m => {
+        const item = document.createElement("div");
+        item.className = "music-item";
+        item.textContent = m.label;
+        item.onclick = () => selectMusic(item, m.key, m.file ? BASE + m.file : "");
+        musicList.appendChild(item);
+      });
+    });
 
   function selectBg(card, key, url) {
     document.querySelectorAll(".option-card").forEach(c => c.classList.remove("selected"));
@@ -181,10 +195,11 @@
     document.getElementById("nextBtn1").disabled = false;
   }
 
-  function selectMusic(item, key) {
+  function selectMusic(item, key, url) {
     document.querySelectorAll(".music-item").forEach(i => i.classList.remove("selected"));
     item.classList.add("selected");
     selMusic = key;
+    selMusicUrl = url;
     document.getElementById("nextBtn2").disabled = false;
   }
 
@@ -203,6 +218,7 @@
   function startMeditation() {
     localStorage.setItem("sahaja_bg_url", selBgUrl);
     localStorage.setItem("sahaja_music", selMusic);
+    localStorage.setItem("sahaja_music_url", selMusicUrl);
     alert("進入靜坐（開發中）");
   }
 </script>
