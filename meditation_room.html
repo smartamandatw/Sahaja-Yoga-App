@@ -143,7 +143,6 @@
 <script>
   const BASE = "https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/";
 
-  // 背景圖設定（想新增或更換只需改這裡）
   const BG_LIST = [
     { key:"forest",     label:"🌲 霧中森林",    file:"forest.png" },
     { key:"lake",       label:"🌊 湖面夜景",    file:"lake.png" },
@@ -153,7 +152,10 @@
     { key:"flower",     label:"🌸 夕陽野花",    file:"flower.png" },
   ];
 
-  // 動態建立背景選項卡片
+  // 變數宣告
+  let selBg = null, selBgUrl = null, selMusic = null, selMusicUrl = null;
+
+  // 建立背景選項卡片
   const grid = document.getElementById("bgGrid");
   BG_LIST.forEach(bg => {
     const url = BASE + bg.file;
@@ -161,9 +163,7 @@
     card.className = "option-card";
     card.dataset.url = url;
     card.dataset.key = bg.key;
-    card.innerHTML = `
-      <div class="option-bg" style="background-image:url('${url}')"></div>
-      <div class="option-label">${bg.label}</div>`;
+    card.innerHTML = `<div class="option-bg" style="background-image:url('${url}')"></div><div class="option-label">${bg.label}</div>`;
     card.addEventListener("click", function() {
       selectBg(this, this.dataset.key, this.dataset.url);
     });
@@ -171,18 +171,11 @@
   });
 
   // 預設選第一張
-  const firstCard = grid.firstChild;
-  if (firstCard) {
-    const firstBg = BG_LIST[0];
-    const firstUrl = BASE + firstBg.file;
-    firstCard.classList.add("selected");
-    selBg = firstBg.key;
-    selBgUrl = firstUrl;
-    document.getElementById("bg").style.backgroundImage = `url('${firstUrl}')`;
-    document.getElementById("nextBtn1").disabled = false;
-  }
-
-  let selBg = null, selBgUrl = null, selMusic = null, selMusicUrl = null;
+  selBg = BG_LIST[0].key;
+  selBgUrl = BASE + BG_LIST[0].file;
+  grid.children[0].classList.add("selected");
+  document.getElementById("bg").style.backgroundImage = "url('" + selBgUrl + "')";
+  document.getElementById("nextBtn1").disabled = false;
 
   // 動態載入音樂清單
   fetch(BASE + "music.json?t=" + Date.now())
@@ -203,7 +196,7 @@
     card.classList.add("selected");
     selBg = key;
     selBgUrl = url;
-    document.getElementById("bg").style.backgroundImage = `url('${url}')`;
+    document.getElementById("bg").style.backgroundImage = "url('" + url + "')";
     document.getElementById("nextBtn1").disabled = false;
   }
 
@@ -228,6 +221,7 @@
   }
 
   function startMeditation() {
+    localStorage.setItem("sahaja_bg", selBg);
     localStorage.setItem("sahaja_bg_url", selBgUrl);
     localStorage.setItem("sahaja_music", selMusic);
     localStorage.setItem("sahaja_music_url", selMusicUrl);
