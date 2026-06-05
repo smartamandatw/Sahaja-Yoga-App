@@ -200,12 +200,25 @@
     document.getElementById("nextBtn1").disabled = false;
   }
 
+  const previewAudio = document.getElementById("previewAudio");
+
   function selectMusic(item, key, url) {
     document.querySelectorAll(".music-item").forEach(i => i.classList.remove("selected"));
     item.classList.add("selected");
     selMusic = key;
     selMusicUrl = url;
     document.getElementById("nextBtn2").disabled = false;
+
+    // 試聽
+    previewAudio.pause();
+    if (url) {
+      previewAudio.src = url;
+      previewAudio.volume = 0.5;
+      previewAudio.play().catch(e => console.log(e));
+    } else {
+      // 靜默
+      previewAudio.src = "";
+    }
   }
 
   function goToStep2() {
@@ -228,5 +241,6 @@
     alert("進入靜坐（開發中）");
   }
 </script>
+<audio id="previewAudio" loop></audio>
 </body>
 </html>
