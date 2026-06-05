@@ -147,7 +147,9 @@
     { key:'flower',     label:'🌸 夕陽野花',    file:'flower.png' },
   ];
 
-  let selBg = null, selBgUrl = null, selMusic = null, selMusicUrl = null;
+  let selBg = null, selBgUrl = null;
+  let selMusic = null, selMusicUrl = null;
+  let selGuide = null, selGuideUrl = null;
 
   // 建立背景選項卡片
   const grid = document.getElementById('bgGrid');
@@ -195,16 +197,38 @@
         });
         musicList.appendChild(item);
       });
-
-      // 預設選第一個音樂
       if (list.length > 0) {
         musicList.children[0].classList.add('selected');
         selMusic = list[0].key;
         selMusicUrl = list[0].file ? BASE + list[0].file : '';
         document.getElementById('nextBtn2').disabled = false;
       }
-    })
-    .catch(function(e) { console.log('music.json 載入失敗:', e.message); });
+    });
+
+  // 動態載入引導音頻清單
+  fetch(BASE + 'guide.json?t=' + Date.now())
+    .then(function(r) { return r.json(); })
+    .then(function(list) {
+      const guideList = document.getElementById('guideList');
+      list.forEach(function(g) {
+        const item = document.createElement('div');
+        item.className = 'music-item';
+        item.textContent = g.label;
+        item.dataset.key = g.key;
+        item.dataset.file = g.file || '';
+        item.addEventListener('click', function() {
+          const url = this.dataset.file ? BASE + this.dataset.file : '';
+          selectGuide(this, this.dataset.key, url);
+        });
+        guideList.appendChild(item);
+      });
+      if (list.length > 0) {
+        guideList.children[0].classList.add('selected');
+        selGuide = list[0].key;
+        selGuideUrl = list[0].file ? BASE + list[0].file : '';
+        document.getElementById('nextBtn3').disabled = false;
+      }
+    });
 
   function selectBg(card, key, url) {
     document.querySelectorAll('.option-card').forEach(function(c) { c.classList.remove('selected'); });
@@ -216,12 +240,20 @@
   }
 
   function selectMusic(item, key, url) {
-    document.querySelectorAll('.music-item').forEach(function(i) { i.classList.remove('selected'); });
+    document.querySelectorAll('#musicList .music-item').forEach(function(i) { i.classList.remove('selected'); });
     item.classList.add('selected');
     selMusic = key;
     selMusicUrl = url;
     document.getElementById('nextBtn2').disabled = false;
     playPreview(url);
+  }
+
+  function selectGuide(item, key, url) {
+    document.querySelectorAll('#guideList .music-item').forEach(function(i) { i.classList.remove('selected'); });
+    item.classList.add('selected');
+    selGuide = key;
+    selGuideUrl = url;
+    document.getElementById('nextBtn3').disabled = false;
   }
 
   function playPreview(url) {
@@ -230,9 +262,7 @@
     if (url) {
       audio.src = url;
       audio.volume = 0.5;
-      audio.play()
-        .then(function() { console.log('播放成功'); })
-        .catch(function(e) { console.log('播放失敗:', e.message); });
+      audio.play().catch(function(e) { console.log(e); });
     } else {
       audio.src = '';
     }
@@ -242,25 +272,37 @@
     document.getElementById('step1').classList.remove('show');
     document.getElementById('step2').classList.add('show');
     document.getElementById('backBtn').classList.add('show');
-    // 按下「下一步」是用戶觸摸事件，此時播放音樂不會被擋
-    if (selMusicUrl) {
-      playPreview(selMusicUrl);
-    }
+    if (selMusicUrl) playPreview(selMusicUrl);
+  }
+
+  function goToStep3() {
+    document.getElementById('previewAudio').pause();
+    document.getElementById('step2').classList.remove('show');
+    document.getElementById('step3').classList.add('show');
   }
 
   function goBack() {
     document.getElementById('previewAudio').pause();
-    document.getElementById('step2').classList.remove('show');
-    document.getElementById('step1').classList.add('show');
-    document.getElementById('backBtn').classList.remove('show');
+    const step3 = document.getElementById('step3');
+    const step2 = document.getElementById('step2');
+    const step1 = document.getElementById('step1');
+    if (step3.classList.contains('show')) {
+      step3.classList.remove('show');
+      step2.classList.add('show');
+      if (selMusicUrl) playPreview(selMusicUrl);
+    } else {
+      step2.classList.remove('show');
+      step1.classList.add('show');
+      document.getElementById('backBtn').classList.remove('show');
+    }
   }
 
   function startMeditation() {
-    localStorage.setItem('sahaja_bg', selBg);
+    document.getElementById('previewAudio').pause();
     localStorage.setItem('sahaja_bg_url', selBgUrl);
-    localStorage.setItem('sahaja_music', selMusic);
-    localStorage.setItem('sahaja_music_url', selMusicUrl);
-    alert('進入靜坐（開發中）');
+    localStorage.setItem('sahaja_music_url', selMusicUrl || '');
+    localStorage.setItem('sahaja_guide_url', selGuideUrl || '');
+    window.location.href = 'meditation.html';
   }
 </script>
 <audio id="previewAudio" loop></audio>
