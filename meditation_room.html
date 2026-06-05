@@ -113,11 +113,13 @@
   #meditationPage.show { opacity:1; pointer-events:auto; }
 
   #timer {
-    position:fixed; top:18px; right:18px; z-index:10;
+    position:fixed; bottom:calc(50% - 120px); left:50%;
+    transform:translateX(-50%);
+    z-index:10;
     font-family:"Noto Serif TC",serif;
     font-size:clamp(13px,3.5vw,15px);
-    color:rgba(240,232,210,0.5); letter-spacing:0.1em;
-    pointer-events:none;
+    color:rgba(240,232,210,0.45); letter-spacing:0.15em;
+    pointer-events:none; text-align:center;
   }
 
   #tipWrap {
@@ -487,7 +489,7 @@
     localStorage.setItem('sahaja_last_duration', seconds);
 
     // 回主畫面（歡迎頁第二層）
-    window.location.href = 'index.html#main';
+    sessionStorage.setItem('fromMeditation','1'); window.location.href = 'index.html';
   }
 </script>
 </body>
