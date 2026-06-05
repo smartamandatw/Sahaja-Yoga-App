@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Sahaja Yoga — 功能選單</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC",sans-serif; }
+
+#bg {
+  position:fixed; inset:0; z-index:0;
+  background-size:cover; background-position:center;
+  transition: opacity 0.8s ease;
+}
+#overlay {
+  position:fixed; inset:0; z-index:1;
+  background: linear-gradient(
+    to bottom,
+    rgba(10,12,8,0.45) 0%,
+    rgba(10,12,8,0.60) 50%,
+    rgba(10,12,8,0.72) 100%
+  );
+}
+
+/* 主容器 */
+.container {
+  position: fixed; inset:0; z-index:5;
+  display: flex; flex-direction: column;
+  align-items: center;
+  padding: 0 5vw;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 頂部 */
+.header {
+  width:100%; max-width:380px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: max(env(safe-area-inset-top), 20px);
+  padding-bottom: 4vw;
+  flex-shrink: 0;
+}
+.back-btn {
+  font-family:"Noto Serif TC",serif;
+  font-size: clamp(13px,3.5vw,15px);
+  color: rgba(240,232,210,0.55);
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  background: none; border: none;
+  padding: 8px 0;
+  transition: color 0.2s;
+}
+.back-btn:active { color: rgba(240,232,210,0.9); }
+
+.header-title {
+  font-family:"Noto Serif TC",serif;
+  font-size: clamp(15px,4vw,17px);
+  color: rgba(240,232,210,0.75);
+  letter-spacing: 0.2em;
+  text-align: center;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+}
+
+.header-spacer { width: 52px; } /* 平衡左邊的返回按鈕 */
+
+/* 副標 */
+.subtitle {
+  font-family:"Noto Serif TC",serif;
+  font-size: clamp(12px,3.2vw,14px);
+  color: rgba(240,232,210,0.4);
+  letter-spacing: 0.15em;
+  text-align: center;
+  margin-bottom: 5vw;
+  flex-shrink: 0;
+}
+
+/* 選單列表 */
+.menu-list {
+  width:100%; max-width:380px;
+  display: flex; flex-direction: column;
+  gap: 10px;
+  padding-bottom: max(env(safe-area-inset-bottom), 24px);
+  flex-shrink: 0;
+}
+
+/* 每一個選單項目 */
+.menu-item {
+  width:100%;
+  padding: 16px 20px;
+  border-radius: 14px;
+  border: 0.5px solid rgba(255,255,255,0.18);
+  background: rgba(230,220,200,0.10);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  cursor: pointer;
+  display: flex; align-items: center; gap: 16px;
+  transition: background 0.2s, border-color 0.2s, transform 0.1s;
+  position: relative;
+  overflow: hidden;
+}
+.menu-item::before {
+  content: '';
+  position: absolute; inset:0;
+  background: rgba(240,232,210,0.04);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.menu-item:active {
+  transform: scale(0.98);
+  background: rgba(230,220,200,0.18);
+}
+.menu-item:active::before { opacity:1; }
+
+/* 即將開放的樣式 */
+.menu-item.coming-soon {
+  opacity: 0.65;
+}
+
+/* icon 圓圈 */
+.menu-icon {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: rgba(240,232,210,0.12);
+  border: 0.5px solid rgba(240,232,210,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+/* 文字區 */
+.menu-text {
+  flex: 1;
+  display: flex; flex-direction: column; gap: 3px;
+}
+.menu-label {
+  font-family:"Noto Serif TC",serif;
+  font-size: clamp(15px,4vw,17px);
+  color: rgba(240,232,210,0.90);
+  letter-spacing: 0.08em;
+  line-height: 1.3;
+}
+.menu-desc {
+  font-family:"Noto Sans TC",sans-serif;
+  font-size: clamp(11px,3vw,13px);
+  color: rgba(240,232,210,0.45);
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+}
+
+/* 右側箭頭 / 標籤 */
+.menu-arrow {
+  font-size: 16px;
+  color: rgba(240,232,210,0.35);
+  flex-shrink: 0;
+  transition: color 0.2s, transform 0.2s;
+}
+.menu-item:active .menu-arrow {
+  color: rgba(240,232,210,0.7);
+  transform: translateX(3px);
+}
+
+.badge-soon {
+  font-family:"Noto Sans TC",sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: rgba(240,232,210,0.4);
+  border: 0.5px solid rgba(240,232,210,0.25);
+  border-radius: 999px;
+  padding: 2px 8px;
+  flex-shrink: 0;
+}
+
+/* 「即將開放」提示彈窗 */
+.toast {
+  position: fixed;
+  bottom: max(env(safe-area-inset-bottom), 40px);
+  left: 50%; transform: translateX(-50%) translateY(20px);
+  z-index: 100;
+  background: rgba(30,26,23,0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 0.5px solid rgba(240,232,210,0.2);
+  border-radius: 999px;
+  padding: 12px 28px;
+  font-family:"Noto Serif TC",serif;
+  font-size: clamp(13px,3.5vw,15px);
+  color: rgba(240,232,210,0.75);
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* 入場動畫 */
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(16px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.menu-item {
+  opacity:0;
+  animation: fadeUp 0.5s ease forwards;
+}
+.menu-item:nth-child(1) { animation-delay: 0.05s; }
+.menu-item:nth-child(2) { animation-delay: 0.12s; }
+.menu-item:nth-child(3) { animation-delay: 0.19s; }
+.menu-item:nth-child(4) { animation-delay: 0.26s; }
+.menu-item:nth-child(5) { animation-delay: 0.33s; }
+.menu-item:nth-child(6) { animation-delay: 0.40s; }
+.menu-item:nth-child(7) { animation-delay: 0.47s; }
+
+.header-title, .subtitle {
+  opacity:0;
+  animation: fadeUp 0.5s ease forwards;
+}
+.header-title { animation-delay: 0s; }
+.subtitle { animation-delay: 0.03s; }
+
+</style>
+</head>
+<body>
+
+<div id="bg"></div>
+<div id="overlay"></div>
+
+<div class="container">
+  <div class="header">
+    <button class="back-btn" onclick="goBack()">← 返回</button>
+    <div class="header-title">探索更多</div>
+    <div class="header-spacer"></div>
+  </div>
+
+  <div class="subtitle">選擇你想深入的方向</div>
+
+  <div class="menu-list" id="menuList"></div>
+</div>
+
+<!-- 提示彈窗 -->
+<div class="toast" id="toast">✦ 即將開放，敬請期待</div>
+
+<script>
+const BASE = 'https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/';
+
+// 設定背景
+document.getElementById('bg').style.backgroundImage = "url('" + BASE + "app_menu.png')";
+
+// 選單資料（未來可抽成 JSON）
+const menuItems = [
+  {
+    icon: '🌸',
+    label: '認識 Sahaja Yoga',
+    desc: '了解這門古老的冥想智慧',
+    url: null  // null = 即將開放
+  },
+  {
+    icon: '✨',
+    label: '瑜伽初體驗',
+    desc: '自覺引導，感受內在能量',
+    url: null
+  },
+  {
+    icon: '🌊',
+    label: '靜坐小密訣',
+    desc: '含腳部浴等淨化技巧',
+    url: null
+  },
+  {
+    icon: '🕐',
+    label: '10 分鐘靜坐系列',
+    desc: '適合日常快速練習',
+    url: null
+  },
+  {
+    icon: '🕑',
+    label: '20 分鐘靜坐系列',
+    desc: '更深入的靜心體驗',
+    url: null
+  },
+  {
+    icon: '🌍',
+    label: '了解更多',
+    desc: '官方資源與社群連結',
+    url: null
+  },
+  {
+    icon: '⭐',
+    label: '更多功能',
+    desc: '持續更新中…',
+    url: null
+  }
+];
+
+// 建立選單
+const list = document.getElementById('menuList');
+menuItems.forEach(function(item) {
+  const el = document.createElement('div');
+  el.className = 'menu-item coming-soon';
+
+  el.innerHTML =
+    '<div class="menu-icon">' + item.icon + '</div>' +
+    '<div class="menu-text">' +
+      '<div class="menu-label">' + item.label + '</div>' +
+      '<div class="menu-desc">' + item.desc + '</div>' +
+    '</div>' +
+    '<span class="badge-soon">即將開放</span>';
+
+  el.addEventListener('click', function() {
+    if (item.url) {
+      window.location.href = item.url;
+    } else {
+      showToast();
+    }
+  });
+
+  list.appendChild(el);
+});
+
+// Toast 提示
+let toastTimer = null;
+function showToast() {
+  const toast = document.getElementById('toast');
+  toast.classList.add('show');
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(function() {
+    toast.classList.remove('show');
+  }, 2000);
+}
+
+// 返回
+function goBack() {
+  if (document.referrer && document.referrer.indexOf('index.html') !== -1) {
+    history.back();
+  } else {
+    window.location.href = 'index.html';
+  }
+}
+</script>
+
+</body>
+</html>
