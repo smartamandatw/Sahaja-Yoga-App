@@ -149,6 +149,7 @@
 
   // 變數宣告
   let selBg = null, selBgUrl = null, selMusic = null, selMusicUrl = null;
+  const previewAudio = document.getElementById("previewAudio");
 
   // 建立背景選項卡片
   const grid = document.getElementById("bgGrid");
@@ -196,8 +197,6 @@
     document.getElementById("bg").style.backgroundImage = "url('" + url + "')";
     document.getElementById("nextBtn1").disabled = false;
   }
-
-  const previewAudio = document.getElementById("previewAudio");
 
   function selectMusic(item, key, url) {
     document.querySelectorAll(".music-item").forEach(i => i.classList.remove("selected"));
