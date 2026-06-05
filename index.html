@@ -151,6 +151,22 @@ const soundBtn = document.getElementById("soundBtn");
 let muted = false;
 let started = false;
 
+// 從靜坐結束回來，直接跳過進入畫面
+if (sessionStorage.getItem('fromMeditation') === '1') {
+  sessionStorage.removeItem('fromMeditation');
+  started = true;
+  audio.volume = 0.5;
+  audio.play().catch(e => console.log(e));
+  document.getElementById("page1").classList.add("hide");
+  setTimeout(() => {
+    document.getElementById("quoteWrap").classList.add("show");
+    document.getElementById("tapEnter").style.display = "block";
+    document.getElementById("menuBtn").style.display = "flex";
+    soundBtn.classList.add("show");
+    startQuotes();
+  }, 300);
+}
+
 function startApp() {
   if (started) return;
   started = true;

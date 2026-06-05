@@ -113,12 +113,12 @@
   #meditationPage.show { opacity:1; pointer-events:auto; }
 
   #timer {
-    position:fixed; bottom:calc(50% - 120px); left:50%;
+    position:fixed; bottom:calc(50% - 140px); left:50%;
     transform:translateX(-50%);
     z-index:10;
     font-family:"Noto Serif TC",serif;
-    font-size:clamp(13px,3.5vw,15px);
-    color:rgba(240,232,210,0.45); letter-spacing:0.15em;
+    font-size:clamp(16px,4.5vw,20px);
+    color:rgba(240,232,210,0.55); letter-spacing:0.2em;
     pointer-events:none; text-align:center;
   }
 
@@ -141,7 +141,8 @@
   #pauseOverlay {
     position:fixed; inset:0; z-index:20;
     display:flex; flex-direction:column;
-    align-items:center; justify-content:center; gap:16px;
+    align-items:center; justify-content:flex-end;
+    padding-bottom:12vh; gap:16px;
     background:rgba(10,12,8,0.6);
     opacity:0; pointer-events:none; transition:opacity 0.3s;
   }
