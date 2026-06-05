@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Sahaja Yoga</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+  html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC",sans-serif; }
+
+  #bg {
+    position:fixed; inset:0; z-index:0;
+    background-size:cover; background-position:center;
+    transition:background-image 0.6s ease;
+  }
+  #overlay { position:fixed; inset:0; z-index:1; background:rgba(10,12,8,0.45); }
+
+  .page {
+    position:fixed; inset:0; z-index:5;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    padding:0 5vw;
+    opacity:0; pointer-events:none;
+    transition:opacity 0.5s ease;
+  }
+  .page.show { opacity:1; pointer-events:auto; }
+
+  .page-title {
+    font-family:"Noto Serif TC",serif;
+    font-size:clamp(16px,4.5vw,20px);
+    color:rgba(240,232,210,0.9);
+    letter-spacing:0.2em; text-align:center;
+    margin-bottom:4vh;
+    text-shadow:0 1px 8px rgba(0,0,0,0.4);
+  }
+
+  /* 6格 3×2 */
+  .options-grid {
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:8px;
+    width:100%; max-width:380px;
+  }
+
+  .option-card {
+    position:relative; border-radius:10px;
+    overflow:hidden; cursor:pointer;
+    aspect-ratio:1/1;
+    border:2px solid transparent;
+    transition:border-color 0.2s, transform 0.15s;
+    background:#1a1a1a;
+  }
+  .option-card:active { transform:scale(0.95); }
+  .option-card.selected { border-color:rgba(240,232,210,0.9); }
+  .option-card.selected::after {
+    content:"✓"; position:absolute; top:5px; right:7px;
+    font-size:14px; color:#F0E8D0;
+    text-shadow:0 1px 4px rgba(0,0,0,0.6);
+  }
+  .option-bg {
+    width:100%; height:100%;
+    background-size:cover; background-position:center;
+  }
+  .option-label {
+    position:absolute; bottom:0; left:0; right:0;
+    padding:5px 4px;
+    background:linear-gradient(transparent,rgba(0,0,0,0.65));
+    font-size:clamp(10px,2.5vw,12px);
+    color:#F0E8D0; text-align:center; letter-spacing:0.05em;
+  }
+
+  /* 音樂選項 */
+  .music-list {
+    display:flex; flex-direction:column;
+    gap:10px; width:100%; max-width:320px;
+  }
+  .music-item {
+    padding:13px 18px; border-radius:999px;
+    border:0.5px solid rgba(255,255,255,0.2);
+    background:rgba(230,220,200,0.1);
+    backdrop-filter:blur(8px);
+    color:rgba(240,232,210,0.8);
+    font-family:"Noto Serif TC",serif;
+    font-size:clamp(14px,4vw,16px);
+    letter-spacing:0.1em; cursor:pointer; text-align:center;
+    transition:background 0.2s, border-color 0.2s, transform 0.1s;
+  }
+  .music-item:active { transform:scale(0.97); }
+  .music-item.selected {
+    background:rgba(230,220,200,0.28);
+    border-color:rgba(240,232,210,0.7);
+    color:#F0E8D0;
+  }
+
+  .next-btn {
+    margin-top:4vh; padding:14px 44px; border-radius:999px;
+    background:rgba(210,200,178,0.52);
+    backdrop-filter:blur(10px);
+    border:0.5px solid rgba(255,255,255,0.45);
+    color:#1C1609; font-family:"Noto Sans TC",sans-serif;
+    font-size:clamp(15px,4vw,17px); letter-spacing:0.1em;
+    cursor:pointer; transition:background 0.2s, transform 0.1s;
+  }
+  .next-btn:active { transform:scale(0.97); }
+  .next-btn:disabled { opacity:0.35; pointer-events:none; }
+
+  #backBtn {
+    position:fixed; top:20px; left:18px; z-index:10;
+    font-family:"Noto Serif TC",serif; font-size:14px;
+    color:rgba(240,232,210,0.7); cursor:pointer;
+    letter-spacing:0.05em; display:none;
+  }
+  #backBtn.show { display:block; }
+</style>
+</head>
+<body>
+
+<div id="bg"></div>
+<div id="overlay"></div>
+<div id="backBtn" onclick="goBack()">← 返回</div>
+
+<!-- 步驟一：選背景 -->
+<div class="page show" id="step1">
+  <div class="page-title">選擇你的靜坐空間</div>
+  <div class="options-grid" id="bgGrid"></div>
+  <button class="next-btn" id="nextBtn1" disabled onclick="goToStep2()">下一步 →</button>
+</div>
+
+<!-- 步驟二：選音樂 -->
+<div class="page" id="step2">
+  <div class="page-title">選擇背景音樂</div>
+  <div class="music-list">
+    <div class="music-item" onclick="selectMusic(this,'indian')">🎵 印度古典音樂</div>
+    <div class="music-item" onclick="selectMusic(this,'bhajan')">🙏 巴贊</div>
+    <div class="music-item" onclick="selectMusic(this,'nature')">🌿 大自然聲音</div>
+    <div class="music-item" onclick="selectMusic(this,'silence')">🔇 靜默</div>
+  </div>
+  <button class="next-btn" id="nextBtn2" disabled onclick="startMeditation()">開始靜坐 »</button>
+</div>
+
+<script>
+  const BASE = "https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/";
+
+  // 背景圖設定（想新增或更換只需改這裡）
+  const BG_LIST = [
+    { key:"forest",     label:"🌲 霧中森林",    file:"forest.png" },
+    { key:"lake",       label:"🌊 湖面夜景",    file:"lake.png" },
+    { key:"stars",      label:"✨ 星空銀河",    file:"stars.png" },
+    { key:"sun",        label:"🌅 山間日出",    file:"sun.png" },
+    { key:"shrimataji", label:"🙏 Shri Mataji", file:"shrimataji.png" },
+    { key:"flower",     label:"🌸 夕陽野花",    file:"flower.png" },
+  ];
+
+  // 動態建立背景選項卡片
+  const grid = document.getElementById("bgGrid");
+  BG_LIST.forEach(bg => {
+    const url = BASE + bg.file;
+    const card = document.createElement("div");
+    card.className = "option-card";
+    card.dataset.url = url;
+    card.onclick = () => selectBg(card, bg.key, url);
+    card.innerHTML = `
+      <div class="option-bg" style="background-image:url('${url}')"></div>
+      <div class="option-label">${bg.label}</div>`;
+    grid.appendChild(card);
+  });
+
+  // 預設背景
+  document.getElementById("bg").style.backgroundImage = `url('${BASE}forest.png')`;
+
+  let selBg = null, selBgUrl = null, selMusic = null;
+
+  function selectBg(card, key, url) {
+    document.querySelectorAll(".option-card").forEach(c => c.classList.remove("selected"));
+    card.classList.add("selected");
+    selBg = key;
+    selBgUrl = url;
+    document.getElementById("bg").style.backgroundImage = `url('${url}')`;
+    document.getElementById("nextBtn1").disabled = false;
+  }
+
+  function selectMusic(item, key) {
+    document.querySelectorAll(".music-item").forEach(i => i.classList.remove("selected"));
+    item.classList.add("selected");
+    selMusic = key;
+    document.getElementById("nextBtn2").disabled = false;
+  }
+
+  function goToStep2() {
+    document.getElementById("step1").classList.remove("show");
+    document.getElementById("step2").classList.add("show");
+    document.getElementById("backBtn").classList.add("show");
+  }
+
+  function goBack() {
+    document.getElementById("step2").classList.remove("show");
+    document.getElementById("step1").classList.add("show");
+    document.getElementById("backBtn").classList.remove("show");
+  }
+
+  function startMeditation() {
+    localStorage.setItem("sahaja_bg_url", selBgUrl);
+    localStorage.setItem("sahaja_music", selMusic);
+    alert("進入靜坐（開發中）");
+  }
+</script>
+</body>
+</html>
