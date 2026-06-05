@@ -397,8 +397,12 @@
     // 載入靜心提示語
     loadTips();
 
-    // 引導結束自動跳結束
-    guideAudio.addEventListener('ended', endMeditation);
+    // 引導結束自動跳結束（至少靜坐60秒才觸發）
+    guideAudio.addEventListener('ended', function() {
+      if (seconds >= 60) {
+        endMeditation();
+      }
+    });
   }
 
   // 計時器
