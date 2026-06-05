@@ -2,5 +2,6 @@
   { "key": "indian", "label": "🎵 鋼琴+小提琴", "file": "piano-violin-and-vocal.mp3" },
   { "key": "bhajan", "label": "🙏 鋼琴+笛聲", "file": "" },
   { "key": "nature", "label": "🌿 大自然聲音", "file": "" },
+  { "key": "om", "label": "🌿 OM", "file": "" },
   { "key": "silence", "label": "🔇 靜默", "file": "" }
 ]
