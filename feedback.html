@@ -32,7 +32,7 @@
     font-size:clamp(17px,4.8vw,22px);
     color:rgba(240,232,210,0.9);
     letter-spacing:0.2em; text-align:center;
-    margin-bottom:5vh;
+    margin-bottom:5vh; margin-top:10vh;
     text-shadow:0 1px 8px rgba(0,0,0,0.4);
   }
 
@@ -107,7 +107,7 @@
   .action-btn:active { transform:scale(0.97); }
   .skip-btn {
     font-family:"Noto Serif TC",serif;
-    font-size:clamp(12px,3.2vw,14px);
+    font-size:clamp(15px,4vw,17px);
     color:rgba(240,232,210,0.4); cursor:pointer;
     letter-spacing:0.08em; margin-top:10px;
     background:none; border:none;
@@ -127,13 +127,13 @@
   }
   .stats-label {
     font-family:"Noto Serif TC",serif;
-    font-size:clamp(14px,4vw,18px);
+    font-size:clamp(18px,5vw,22px);
     color:rgba(240,232,210,0.7); letter-spacing:0.15em;
     margin-top:-8px;
   }
   .stats-duration {
     font-family:"Noto Serif TC",serif;
-    font-size:clamp(13px,3.5vw,15px);
+    font-size:clamp(16px,4.5vw,20px);
     color:rgba(240,232,210,0.5); letter-spacing:0.1em;
   }
   .stats-divider {
@@ -176,12 +176,11 @@
 <!-- 步驟三：統計 -->
 <div class="page" id="step3">
   <div class="stats-wrap">
-    <div style="font-size:32px;">🔥</div>
     <div class="stats-streak" id="statsStreak">1</div>
     <div class="stats-label">連續靜坐天數</div>
     <div class="stats-duration" id="statsDuration"></div>
     <div class="stats-divider"></div>
-    <div class="stats-msg" id="statsMsg">繼續保持，每天一點點<br>內在的改變正在發生。</div>
+    <div class="stats-msg" id="statsMsg">繼續保持，每天一點點<br>內在的改變正在發生</div>
     <button class="action-btn" onclick="goHome()" style="margin-top:3vh;">回到主畫面</button>
   </div>
 </div>
@@ -263,7 +262,7 @@
     document.getElementById('statsDuration').textContent = '本次靜坐 ' + m + ' 分 ' + s + ' 秒';
 
     // 連續天數對應鼓勵語
-    let msg = '繼續保持，每天一點點<br>內在的改變正在發生。';
+    let msg = '繼續保持，每天一點點<br>內在的改變正在發生';
     if (streak >= 30) msg = '連續 ' + streak + ' 天！<br>你的靜坐習慣已經深深紮根。';
     else if (streak >= 7) msg = '一週以上了！<br>堅持就是力量，繼續加油。';
     else if (streak >= 3) msg = '已經連續 ' + streak + ' 天了！<br>好的開始，繼續保持。';
