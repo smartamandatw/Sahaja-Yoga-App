@@ -121,7 +121,7 @@
   }
 
   #tipWrap {
-    position:fixed; top:62%; left:0; right:0; z-index:6;
+    position:fixed; top:68%; left:0; right:0; z-index:6;
     display:flex; flex-direction:column; align-items:center; gap:20px;
     padding:0 clamp(24px,7vw,48px); pointer-events:none;
   }
@@ -195,8 +195,10 @@
 
 <!-- 靜坐畫面 -->
 <div id="meditationPage">
-  <div id="timer">00:00</div>
-  <div id="tipWrap"><div id="tipText"></div></div>
+  <div id="tipWrap">
+    <div id="tipText"></div>
+    <div id="timer">00:00</div>
+  </div>
   <div id="tapLayer" onclick="togglePause()"></div>
   <div id="pauseOverlay">
     <button class="pause-btn" onclick="resumeMeditation()">▶ 繼續靜坐</button>
