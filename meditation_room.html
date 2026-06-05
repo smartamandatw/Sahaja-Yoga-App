@@ -170,13 +170,22 @@
     grid.appendChild(card);
   });
 
-  // 預設背景
-  document.getElementById("bg").style.backgroundImage = `url('${BASE}forest.png')`;
+  // 預設選第一張
+  const firstCard = grid.firstChild;
+  if (firstCard) {
+    const firstBg = BG_LIST[0];
+    const firstUrl = BASE + firstBg.file;
+    firstCard.classList.add("selected");
+    selBg = firstBg.key;
+    selBgUrl = firstUrl;
+    document.getElementById("bg").style.backgroundImage = `url('${firstUrl}')`;
+    document.getElementById("nextBtn1").disabled = false;
+  }
 
   let selBg = null, selBgUrl = null, selMusic = null, selMusicUrl = null;
 
   // 動態載入音樂清單
-  fetch(BASE + "music.json")
+  fetch(BASE + "music.json?t=" + Date.now())
     .then(r => r.json())
     .then(list => {
       const musicList = document.getElementById("musicList");

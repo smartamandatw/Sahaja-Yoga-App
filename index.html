@@ -176,7 +176,7 @@ let quotes = [], current = 0;
 const textEl = document.getElementById("quoteText");
 const authorEl = document.getElementById("quoteAuthor");
 
-fetch("https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/quotes.json")
+fetch("https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/quotes.json?t=" + Date.now())
   .then(r => r.json())
   .then(data => { quotes = data; quotes.sort(() => Math.random()-0.5); })
   .catch(() => {
