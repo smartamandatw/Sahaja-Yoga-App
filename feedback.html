@@ -188,9 +188,7 @@
   const BASE = 'https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/';
 
   // 設定背景
-  const bgUrl = localStorage.getItem('sahaja_bg_url') || 'https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/forest.png';
-  console.log('背景圖:', bgUrl);
-  document.getElementById('bg').style.backgroundImage = "url('" + bgUrl + "')";
+  document.getElementById('bg').style.backgroundImage = "url('" + BASE + "meditation_end.png')";
 
   // 讀取統計
   const streak = parseInt(localStorage.getItem('sahaja_streak') || '1');
