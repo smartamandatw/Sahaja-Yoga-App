@@ -160,10 +160,13 @@
     const card = document.createElement("div");
     card.className = "option-card";
     card.dataset.url = url;
-    card.onclick = () => selectBg(card, bg.key, url);
+    card.dataset.key = bg.key;
     card.innerHTML = `
       <div class="option-bg" style="background-image:url('${url}')"></div>
       <div class="option-label">${bg.label}</div>`;
+    card.addEventListener("click", function() {
+      selectBg(this, this.dataset.key, this.dataset.url);
+    });
     grid.appendChild(card);
   });
 
