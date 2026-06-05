@@ -181,6 +181,7 @@
   fetch(BASE + "music.json?t=" + Date.now())
     .then(r => r.json())
     .then(list => {
+      console.log("music.json 載入成功:", JSON.stringify(list));
       const musicList = document.getElementById("musicList");
       list.forEach(m => {
         const item = document.createElement("div");
@@ -189,7 +190,8 @@
         item.onclick = () => selectMusic(item, m.key, m.file ? BASE + m.file : "");
         musicList.appendChild(item);
       });
-    });
+    })
+    .catch(e => console.log("music.json 載入失敗:", e.message));
 
   function selectBg(card, key, url) {
     document.querySelectorAll(".option-card").forEach(c => c.classList.remove("selected"));
@@ -214,9 +216,10 @@
     if (url) {
       previewAudio.src = url;
       previewAudio.volume = 0.5;
-      previewAudio.play().catch(e => console.log(e));
+      previewAudio.play()
+        .then(() => console.log("播放成功:", url))
+        .catch(e => console.log("播放失敗:", e.message, url));
     } else {
-      // 靜默
       previewAudio.src = "";
     }
   }
