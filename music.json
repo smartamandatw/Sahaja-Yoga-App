@@ -1,8 +1,8 @@
 [
-  { "key": "piano", "label": "🎵 鋼琴+小提琴", "file": "audio/Piano.mp3" },
-  { "key": "flute", "label": "🙏 鋼琴+笛聲", "file": "audio/Flute.mp3" },
-  { "key": "bird", "label": "🌿 吉他+鳥聲", "file": "audio/Bird.mp3" },
-  { "key": "om", "label": "宇宙原始 OM ", "file": "audio/OM.mp3" },
- { "key": "india", "label": "印度古典靜坐音樂 ", "file": "audio/Raga.mp3" },
-  { "key": "silence", "label": "🔇 靜默", "file": "" }
+  { "key": "piano", "label": "鋼琴+小提琴", "file": "audio/Piano.mp3" },
+  { "key": "flute", "label": "鋼琴+笛聲", "file": "audio/Flute.mp3" },
+  { "key": "bird", "label": "吉他+鳥聲", "file": "audio/Bird.mp3" },
+  { "key": "om", "label": "OM", "file": "audio/OM.mp3" },
+ { "key": "india", "label": "印度古典音樂 ", "file": "audio/Raga.mp3" },
+  { "key": "silence", "label": "無音樂", "file": "" }
 ]
