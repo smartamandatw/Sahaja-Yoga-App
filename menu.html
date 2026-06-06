@@ -13,41 +13,37 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC"
 #bg {
   position:fixed; inset:0; z-index:0;
   background-size:cover; background-position:center;
-  transition: opacity 0.8s ease;
 }
 #overlay {
   position:fixed; inset:0; z-index:1;
   background: linear-gradient(
     to bottom,
-    rgba(10,12,8,0.45) 0%,
-    rgba(10,12,8,0.60) 50%,
-    rgba(10,12,8,0.72) 100%
+    rgba(10,12,8,0.50) 0%,
+    rgba(10,12,8,0.68) 50%,
+    rgba(10,12,8,0.78) 100%
   );
 }
 
-/* 主容器 */
 .container {
   position: fixed; inset:0; z-index:5;
   display: flex; flex-direction: column;
   align-items: center;
-  padding: 0 5vw;
+  padding: 0 14px;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
 
-/* 頂部 */
 .header {
-  width:100%; max-width:380px;
+  width:100%; max-width:420px;
   display: flex; align-items: center; justify-content: space-between;
   padding-top: max(env(safe-area-inset-top), 20px);
-  padding-bottom: 4vw;
+  padding-bottom: 16px;
   flex-shrink: 0;
 }
 .back-btn {
   font-family:"Noto Serif TC",serif;
   font-size: clamp(13px,3.5vw,15px);
   color: rgba(240,232,210,0.55);
-  letter-spacing: 0.1em;
   cursor: pointer;
   background: none; border: none;
   padding: 8px 0;
@@ -58,129 +54,85 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC"
 .header-title {
   font-family:"Noto Serif TC",serif;
   font-size: clamp(15px,4vw,17px);
-  color: rgba(240,232,210,0.75);
+  color: rgba(240,232,210,0.80);
   letter-spacing: 0.2em;
-  text-align: center;
   text-shadow: 0 1px 8px rgba(0,0,0,0.4);
 }
+.header-spacer { width: 52px; }
 
-.header-spacer { width: 52px; } /* 平衡左邊的返回按鈕 */
-
-/* 副標 */
-.subtitle {
-  font-family:"Noto Serif TC",serif;
-  font-size: clamp(12px,3.2vw,14px);
-  color: rgba(240,232,210,0.4);
-  letter-spacing: 0.15em;
-  text-align: center;
-  margin-bottom: 5vw;
+.grid {
+  width:100%; max-width:420px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding-bottom: max(env(safe-area-inset-bottom), 28px);
   flex-shrink: 0;
 }
 
-/* 選單列表 */
-.menu-list {
-  width:100%; max-width:380px;
+.card {
+  border-radius: 16px;
+  padding: 22px 18px 20px;
+  background: rgba(38,33,28,0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 0.5px solid rgba(240,232,210,0.14);
+  cursor: pointer;
   display: flex; flex-direction: column;
   gap: 10px;
-  padding-bottom: max(env(safe-area-inset-bottom), 24px);
-  flex-shrink: 0;
+  min-height: 148px;
+  position: relative; overflow: hidden;
+  transition: transform 0.15s, background 0.2s;
+}
+.card:active {
+  transform: scale(0.96);
+  background: rgba(55,48,40,0.80);
+}
+.card.coming-soon { opacity: 0.55; }
+.card.available {
+  border-color: rgba(240,232,210,0.28);
+  background: rgba(44,38,30,0.78);
 }
 
-/* 每一個選單項目 */
-.menu-item {
-  width:100%;
-  padding: 16px 20px;
-  border-radius: 14px;
-  border: 0.5px solid rgba(255,255,255,0.18);
-  background: rgba(230,220,200,0.10);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  cursor: pointer;
-  display: flex; align-items: center; gap: 16px;
-  transition: background 0.2s, border-color 0.2s, transform 0.1s;
-  position: relative;
-  overflow: hidden;
-}
-.menu-item::before {
-  content: '';
-  position: absolute; inset:0;
-  background: rgba(240,232,210,0.04);
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-.menu-item:active {
-  transform: scale(0.98);
-  background: rgba(230,220,200,0.18);
-}
-.menu-item:active::before { opacity:1; }
-
-/* 即將開放的樣式 */
-.menu-item.coming-soon {
-  opacity: 0.65;
-}
-
-/* icon 圓圈 */
-.menu-icon {
-  width: 44px; height: 44px;
-  border-radius: 50%;
-  background: rgba(240,232,210,0.12);
-  border: 0.5px solid rgba(240,232,210,0.2);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 20px;
-  flex-shrink: 0;
-  transition: background 0.2s;
-}
-
-/* 文字區 */
-.menu-text {
+.card-icon { font-size: 26px; line-height: 1; }
+.card-body {
   flex: 1;
-  display: flex; flex-direction: column; gap: 3px;
+  display: flex; flex-direction: column;
+  justify-content: flex-end;
+  gap: 5px;
 }
-.menu-label {
+.card-label {
   font-family:"Noto Serif TC",serif;
-  font-size: clamp(15px,4vw,17px);
-  color: rgba(240,232,210,0.90);
-  letter-spacing: 0.08em;
-  line-height: 1.3;
+  font-size: clamp(16px,4.5vw,19px);
+  color: rgba(240,232,210,0.92);
+  letter-spacing: 0.06em;
+  line-height: 1.35;
+  font-weight: 600;
 }
-.menu-desc {
+.card-desc {
   font-family:"Noto Sans TC",sans-serif;
-  font-size: clamp(11px,3vw,13px);
+  font-size: clamp(11px,2.8vw,12px);
   color: rgba(240,232,210,0.45);
-  letter-spacing: 0.05em;
-  line-height: 1.4;
-}
-
-/* 右側箭頭 / 標籤 */
-.menu-arrow {
-  font-size: 16px;
-  color: rgba(240,232,210,0.35);
-  flex-shrink: 0;
-  transition: color 0.2s, transform 0.2s;
-}
-.menu-item:active .menu-arrow {
-  color: rgba(240,232,210,0.7);
-  transform: translateX(3px);
+  letter-spacing: 0.04em;
+  line-height: 1.5;
 }
 
 .badge-soon {
+  position: absolute; top: 12px; right: 12px;
   font-family:"Noto Sans TC",sans-serif;
-  font-size: 10px;
-  letter-spacing: 0.06em;
-  color: rgba(240,232,210,0.4);
-  border: 0.5px solid rgba(240,232,210,0.25);
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  color: rgba(240,232,210,0.35);
+  border: 0.5px solid rgba(240,232,210,0.2);
   border-radius: 999px;
-  padding: 2px 8px;
-  flex-shrink: 0;
+  padding: 2px 7px;
 }
 
-/* 「即將開放」提示彈窗 */
 .toast {
   position: fixed;
   bottom: max(env(safe-area-inset-bottom), 40px);
   left: 50%; transform: translateX(-50%) translateY(20px);
   z-index: 100;
-  background: rgba(30,26,23,0.88);
+  background: rgba(30,26,23,0.90);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 0.5px solid rgba(240,232,210,0.2);
@@ -191,39 +143,25 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC"
   color: rgba(240,232,210,0.75);
   letter-spacing: 0.12em;
   white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
+  opacity: 0; pointer-events: none;
   transition: opacity 0.3s, transform 0.3s;
 }
-.toast.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
+.toast.show { opacity:1; transform: translateX(-50%) translateY(0); }
 
-/* 入場動畫 */
 @keyframes fadeUp {
-  from { opacity:0; transform:translateY(16px); }
+  from { opacity:0; transform:translateY(18px); }
   to   { opacity:1; transform:translateY(0); }
 }
-.menu-item {
-  opacity:0;
-  animation: fadeUp 0.5s ease forwards;
-}
-.menu-item:nth-child(1) { animation-delay: 0.05s; }
-.menu-item:nth-child(2) { animation-delay: 0.12s; }
-.menu-item:nth-child(3) { animation-delay: 0.19s; }
-.menu-item:nth-child(4) { animation-delay: 0.26s; }
-.menu-item:nth-child(5) { animation-delay: 0.33s; }
-.menu-item:nth-child(6) { animation-delay: 0.40s; }
-.menu-item:nth-child(7) { animation-delay: 0.47s; }
-
-.header-title, .subtitle {
-  opacity:0;
-  animation: fadeUp 0.5s ease forwards;
-}
-.header-title { animation-delay: 0s; }
-.subtitle { animation-delay: 0.03s; }
-
+.card { opacity:0; animation: fadeUp 0.45s ease forwards; }
+.card:nth-child(1) { animation-delay:0.04s; }
+.card:nth-child(2) { animation-delay:0.10s; }
+.card:nth-child(3) { animation-delay:0.16s; }
+.card:nth-child(4) { animation-delay:0.22s; }
+.card:nth-child(5) { animation-delay:0.28s; }
+.card:nth-child(6) { animation-delay:0.34s; }
+.card:nth-child(7) { animation-delay:0.40s; }
+.card:nth-child(8) { animation-delay:0.46s; }
+.header-title { opacity:0; animation: fadeUp 0.4s ease forwards 0s; }
 </style>
 </head>
 <body>
@@ -237,111 +175,52 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC"
     <div class="header-title">探索更多</div>
     <div class="header-spacer"></div>
   </div>
-
-  <div class="subtitle">選擇你想深入的方向</div>
-
-  <div class="menu-list" id="menuList"></div>
+  <div class="grid" id="grid"></div>
 </div>
 
-<!-- 提示彈窗 -->
 <div class="toast" id="toast">✦ 即將開放，敬請期待</div>
 
 <script>
 const BASE = 'https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/';
-
-// 設定背景
 document.getElementById('bg').style.backgroundImage = "url('" + BASE + "app_menu.png')";
 
-// 選單資料（未來可抽成 JSON）
-const menuItems = [
-  {
-    icon: '🌸',
-    label: '認識 Sahaja Yoga',
-    desc: '了解這門古老的冥想智慧',
-    url: null  // null = 即將開放
-  },
-  {
-    icon: '✨',
-    label: '瑜伽初體驗',
-    desc: '自覺引導，感受內在能量',
-    url: null
-  },
-  {
-    icon: '🌊',
-    label: '靜坐小密訣',
-    desc: '含腳部浴等淨化技巧',
-    url: null
-  },
-  {
-    icon: '🕐',
-    label: '10 分鐘靜坐系列',
-    desc: '適合日常快速練習',
-    url: null
-  },
-  {
-    icon: '🕑',
-    label: '20 分鐘靜坐系列',
-    desc: '更深入的靜心體驗',
-    url: null
-  },
-  {
-    icon: '🌍',
-    label: '了解更多',
-    desc: '官方資源與社群連結',
-    url: null
-  },
-  {
-    icon: '⭐',
-    label: '更多功能',
-    desc: '持續更新中…',
-    url: null
-  }
-];
-
-// 建立選單
-const list = document.getElementById('menuList');
-menuItems.forEach(function(item) {
-  const el = document.createElement('div');
-  el.className = 'menu-item coming-soon';
-
-  el.innerHTML =
-    '<div class="menu-icon">' + item.icon + '</div>' +
-    '<div class="menu-text">' +
-      '<div class="menu-label">' + item.label + '</div>' +
-      '<div class="menu-desc">' + item.desc + '</div>' +
-    '</div>' +
-    '<span class="badge-soon">即將開放</span>';
-
-  el.addEventListener('click', function() {
-    if (item.url) {
-      window.location.href = item.url;
-    } else {
-      showToast();
-    }
-  });
-
-  list.appendChild(el);
-});
-
-// Toast 提示
 let toastTimer = null;
 function showToast() {
-  const toast = document.getElementById('toast');
-  toast.classList.add('show');
+  const t = document.getElementById('toast');
+  t.classList.add('show');
   if (toastTimer) clearTimeout(toastTimer);
-  toastTimer = setTimeout(function() {
-    toast.classList.remove('show');
-  }, 2000);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2000);
 }
 
-// 返回
 function goBack() {
-  if (document.referrer && document.referrer.indexOf('index.html') !== -1) {
-    history.back();
-  } else {
-    window.location.href = 'index.html';
-  }
+  window.location.href = 'index.html';
 }
+
+fetch(BASE + 'menu.json?t=' + Date.now())
+  .then(r => r.json())
+  .then(items => {
+    const grid = document.getElementById('grid');
+    items.forEach(item => {
+      const el = document.createElement('div');
+      el.className = 'card' + (item.coming_soon ? ' coming-soon' : ' available');
+      el.innerHTML =
+        '<div class="card-icon">' + item.icon + '</div>' +
+        '<div class="card-body">' +
+          '<div class="card-label">' + item.label + '</div>' +
+          '<div class="card-desc">' + item.desc + '</div>' +
+        '</div>' +
+        (item.coming_soon ? '<span class="badge-soon">即將開放</span>' : '');
+      el.addEventListener('click', () => {
+        if (item.url) window.location.href = item.url;
+        else showToast();
+      });
+      grid.appendChild(el);
+    });
+  })
+  .catch(() => {
+    document.getElementById('grid').innerHTML =
+      '<p style="color:rgba(240,232,210,0.4);padding:40px;grid-column:span 2;text-align:center;font-family:Noto Serif TC,serif;">載入失敗，請稍後再試</p>';
+  });
 </script>
 
 </body>

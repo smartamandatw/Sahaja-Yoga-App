@@ -1,0 +1,51 @@
+[
+  {
+    "icon": "🌸",
+    "label": "認識 Sahaja Yoga",
+    "desc": "了解這門古老的冥想智慧",
+    "url": "about_sy.html",
+    "coming_soon": false
+  },
+  {
+    "icon": "✨",
+    "label": "瑜伽初體驗",
+    "desc": "自覺引導，感受內在能量",
+    "url": null,
+    "coming_soon": true
+  },
+  {
+    "icon": "🌊",
+    "label": "學習技巧",
+    "desc": "呼吸法、大自然元素清潔法",
+    "url": null,
+    "coming_soon": true
+  },
+  {
+    "icon": "🕐",
+    "label": "靜坐引導系列",
+    "desc": "因應每個人日常狀況的引導",
+    "url": null,
+    "coming_soon": true
+  },
+  {
+    "icon": "📖",
+    "label": "知識庫",
+    "desc": "更深入的 Sahaja Yoga 知識",
+    "url": null,
+    "coming_soon": true
+  },
+  {
+    "icon": "🌍",
+    "label": "了解更多",
+    "desc": "官方資源與社群連結",
+    "url": null,
+    "coming_soon": true
+  },
+  {
+    "icon": "⭐",
+    "label": "更多功能",
+    "desc": "持續更新中…",
+    "url": null,
+    "coming_soon": true
+  }
+]
