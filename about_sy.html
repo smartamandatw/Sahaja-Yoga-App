@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>認識 Sahaja Yoga</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC",sans-serif; background:#1C1A17; }
+
+/* 背景 */
+#bg {
+  position:fixed; inset:0; z-index:0;
+  background: url('https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/flower.png') center/cover;
+}
+#overlay {
+  position:fixed; inset:0; z-index:1;
+  background: linear-gradient(to bottom, rgba(10,12,8,0.60) 0%, rgba(10,12,8,0.78) 100%);
+}
+
+/* Header */
+.header {
+  position: fixed; top:0; left:0; right:0; z-index:20;
+  padding-top: max(env(safe-area-inset-top), 16px);
+  padding-bottom: 0;
+  background: linear-gradient(to bottom, rgba(10,12,8,0.85) 0%, transparent 100%);
+}
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 16px 12px;
+}
+.back-btn {
+  font-family:"Noto Serif TC",serif;
+  font-size: clamp(13px,3.5vw,15px);
+  color: rgba(240,232,210,0.55);
+  background: none; border: none; cursor: pointer;
+  padding: 8px 4px;
+  transition: color 0.2s;
+}
+.back-btn:active { color: rgba(240,232,210,0.9); }
+.header-title {
+  font-family:"Noto Serif TC",serif;
+  font-size: clamp(15px,4vw,17px);
+  color: rgba(240,232,210,0.85);
+  letter-spacing: 0.15em;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+}
+.header-spacer { width: 52px; }
+
+/* Tab Bar */
+.tab-bar {
+  position: fixed; z-index:20;
+  left:0; right:0;
+  background: rgba(10,12,8,0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 0.5px solid rgba(240,232,210,0.1);
+  display: flex; overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.tab-bar::-webkit-scrollbar { display: none; }
+.tab-item {
+  flex: 1; min-width: 70px;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 10px 8px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.25s, opacity 0.25s;
+  opacity: 0.5;
+}
+.tab-item.active {
+  border-bottom-color: rgba(240,232,210,0.7);
+  opacity: 1;
+}
+.tab-icon { font-size: 18px; line-height: 1; }
+.tab-label {
+  font-family:"Noto Serif TC",serif;
+  font-size: clamp(10px,2.8vw,12px);
+  color: rgba(240,232,210,0.85);
+  letter-spacing: 0.08em;
+  margin-top: 4px;
+  white-space: nowrap;
+}
+
+/* 主內容區 */
+.content-wrap {
+  position: fixed; inset:0; z-index:5;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.content-pane {
+  display: none;
+  padding-bottom: max(env(safe-area-inset-bottom), 32px);
+}
+.content-pane.active { display: block; }
+
+/* 各元素樣式 */
+.section-intro {
+  padding: 20px 20px 0;
+  font-family:"Noto Serif TC",serif;
+  font-size: clamp(16px,4.2vw,18px);
+  color: rgba(240,232,210,0.9);
+  line-height: 1.9;
+  letter-spacing: 0.06em;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.3);
+}
+
+.section-image {
+  margin: 20px 20px 0;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 0.5px solid rgba(240,232,210,0.15);
+}
+.section-image img {
+  width: 100%; display: block;
+  object-fit: cover; max-height: 220px;
+}
+.section-image figcaption {
+  padding: 8px 14px;
+  font-size: clamp(11px,3vw,12px);
+  color: rgba(240,232,210,0.45);
+  letter-spacing: 0.1em;
+  font-family:"Noto Serif TC",serif;
+  background: rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+.section-paragraph {
+  margin: 20px 20px 0;
+  padding: 16px 18px;
+  border-radius: 12px;
+  background: rgba(240,232,210,0.06);
+  border: 0.5px solid rgba(240,232,210,0.12);
+}
+.section-paragraph h3 {
+  font-family:"Noto Serif TC",serif;
+  font-size: clamp(14px,3.8vw,16px);
+  color: rgba(240,232,210,0.75);
+  letter-spacing: 0.12em;
+  margin-bottom: 8px;
+}
+.section-paragraph p {
+  font-size: clamp(14px,3.6vw,15px);
+  color: rgba(240,232,210,0.7);
+  line-height: 1.8;
+  letter-spacing: 0.04em;
+}
+
+.section-quote {
+  margin: 20px 20px 0;
+  padding: 18px 20px;
+  border-radius: 12px;
+  background: rgba(240,232,210,0.04);
+  border-left: 3px solid rgba(240,232,210,0.35);
+}
+.section-quote p {
+  font-family:"Noto Serif TC",serif;
+  font-size: clamp(14px,3.8vw,16px);
+  color: rgba(240,232,210,0.80);
+  line-height: 1.9;
+  letter-spacing: 0.06em;
+  font-style: italic;
+}
+.section-quote .author {
+  margin-top: 8px;
+  font-size: clamp(12px,3vw,13px);
+  color: rgba(240,232,210,0.45);
+  letter-spacing: 0.12em;
+  font-style: normal;
+}
+
+/* Steps */
+.section-steps {
+  margin: 20px 20px 0;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.step-item {
+  display: flex; gap: 14px; align-items: flex-start;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: rgba(240,232,210,0.06);
+  border: 0.5px solid rgba(240,232,210,0.12);
+}
+.step-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: rgba(240,232,210,0.15);
+  border: 0.5px solid rgba(240,232,210,0.25);
+  display: flex; align-items: center; justify-content: center;
+  font-family:"Noto Serif TC",serif;
+  font-size: 13px;
+  color: rgba(240,232,210,0.75);
+  flex-shrink: 0;
+}
+.step-text h4 {
+  font-family:"Noto Serif TC",serif;
+  font-size: clamp(14px,3.8vw,15px);
+  color: rgba(240,232,210,0.85);
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+.step-text p {
+  font-size: clamp(13px,3.4vw,14px);
+  color: rgba(240,232,210,0.60);
+  line-height: 1.7;
+  letter-spacing: 0.03em;
+}
+
+/* 影片 */
+.section-videos {
+  margin: 20px 20px 0;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.video-card {
+  border-radius: 14px; overflow: hidden;
+  background: rgba(240,232,210,0.06);
+  border: 0.5px solid rgba(240,232,210,0.12);
+}
+.video-embed {
+  position: relative; padding-bottom: 56.25%; height: 0;
+  overflow: hidden;
+}
+.video-embed iframe {
+  position: absolute; top:0; left:0; width:100%; height:100%;
+  border: none;
+}
+.video-info {
+  padding: 12px 16px;
+}
+.video-info h4 {
+  font-family:"Noto Serif TC",serif;
+  font-size: clamp(14px,3.8vw,15px);
+  color: rgba(240,232,210,0.85);
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+.video-info p {
+  font-size: clamp(12px,3.2vw,13px);
+  color: rgba(240,232,210,0.50);
+  line-height: 1.6;
+}
+
+/* 載入動畫 */
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(14px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.content-pane.active .section-intro,
+.content-pane.active .section-image,
+.content-pane.active .section-paragraph,
+.content-pane.active .section-quote,
+.content-pane.active .section-steps,
+.content-pane.active .section-videos {
+  opacity: 0;
+  animation: fadeUp 0.4s ease forwards;
+}
+.content-pane.active > *:nth-child(1) { animation-delay: 0.05s; }
+.content-pane.active > *:nth-child(2) { animation-delay: 0.12s; }
+.content-pane.active > *:nth-child(3) { animation-delay: 0.19s; }
+.content-pane.active > *:nth-child(4) { animation-delay: 0.26s; }
+.content-pane.active > *:nth-child(5) { animation-delay: 0.33s; }
+</style>
+</head>
+<body>
+
+<div id="bg"></div>
+<div id="overlay"></div>
+
+<div class="header">
+  <div class="header-inner">
+    <button class="back-btn" onclick="goBack()">← 返回</button>
+    <div class="header-title">認識 Sahaja Yoga</div>
+    <div class="header-spacer"></div>
+  </div>
+  <div class="tab-bar" id="tabBar"></div>
+</div>
+
+<div class="content-wrap" id="contentWrap">
+  <!-- 動態產生 -->
+</div>
+
+<script>
+const BASE = 'https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/';
+let currentTab = 0;
+
+// 計算頂部高度（header + tab bar）
+function getTopOffset() {
+  const header = document.querySelector('.header');
+  return header ? header.offsetHeight : 100;
+}
+
+// 渲染 Tab Bar
+function renderTabs(tabs) {
+  const bar = document.getElementById('tabBar');
+  bar.innerHTML = tabs.map((t, i) =>
+    `<div class="tab-item ${i===0?'active':''}" onclick="switchTab(${i})">
+      <span class="tab-icon">${t.icon}</span>
+      <span class="tab-label">${t.label}</span>
+    </div>`
+  ).join('');
+}
+
+// 渲染內容
+function renderContent(tabs) {
+  const wrap = document.getElementById('contentWrap');
+  wrap.innerHTML = tabs.map((tab, i) => {
+    let html = `<div class="content-pane ${i===0?'active':''}" id="pane-${i}">`;
+    // 頂部留空（header 高度）
+    html += `<div style="height:calc(${document.querySelector('.header').offsetHeight}px + 8px)"></div>`;
+
+    if (tab.sections) {
+      tab.sections.forEach(s => {
+        if (s.type === 'intro') {
+          html += `<p class="section-intro">${s.text}</p>`;
+        } else if (s.type === 'image') {
+          html += `<figure class="section-image"><img src="${s.src}" alt="${s.caption||''}"><figcaption>${s.caption||''}</figcaption></figure>`;
+        } else if (s.type === 'paragraph') {
+          html += `<div class="section-paragraph"><h3>${s.title}</h3><p>${s.text}</p></div>`;
+        } else if (s.type === 'quote') {
+          html += `<blockquote class="section-quote"><p>${s.text}</p><div class="author">${s.author}</div></blockquote>`;
+        } else if (s.type === 'steps') {
+          html += `<div class="section-steps">`;
+          s.items.forEach(item => {
+            html += `<div class="step-item"><div class="step-num">${item.step}</div><div class="step-text"><h4>${item.title}</h4><p>${item.text}</p></div></div>`;
+          });
+          html += `</div>`;
+        }
+      });
+    }
+
+    if (tab.videos) {
+      html += `<div class="section-videos">`;
+      tab.videos.forEach(v => {
+        html += `<div class="video-card">
+          <div class="video-embed">
+            <iframe src="https://www.youtube.com/embed/${v.youtube_id}" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-info"><h4>${v.title}</h4><p>${v.desc}</p></div>
+        </div>`;
+      });
+      html += `</div>`;
+    }
+
+    html += `</div>`;
+    return html;
+  }).join('');
+}
+
+// 切換 Tab
+function switchTab(idx) {
+  currentTab = idx;
+  document.querySelectorAll('.tab-item').forEach((el, i) => {
+    el.classList.toggle('active', i === idx);
+  });
+  document.querySelectorAll('.content-pane').forEach((el, i) => {
+    el.classList.toggle('active', i === idx);
+  });
+  document.getElementById('contentWrap').scrollTop = 0;
+}
+
+// 返回
+function goBack() {
+  if (document.referrer) history.back();
+  else window.location.href = 'menu.html';
+}
+
+// 載入 JSON
+fetch(BASE + 'about_sy.json?t=' + Date.now())
+  .then(r => r.json())
+  .then(data => {
+    renderTabs(data.tabs);
+    // 等 header render 完再算高度
+    setTimeout(() => {
+      renderContent(data.tabs);
+    }, 50);
+  })
+  .catch(() => {
+    document.getElementById('contentWrap').innerHTML =
+      '<p style="color:rgba(240,232,210,0.5);padding:120px 24px;text-align:center;font-family:Noto Serif TC,serif;">內容載入失敗，請稍後再試。</p>';
+  });
+</script>
+
+</body>
+</html>

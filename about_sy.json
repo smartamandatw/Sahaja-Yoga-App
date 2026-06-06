@@ -1,0 +1,124 @@
+{
+  "tabs": [
+    {
+      "key": "what",
+      "label": "什麼是 SY",
+      "icon": "🌸",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Sahaja Yoga 是由 Shri Mataji Nirmala Devi 於 1970 年創立的一種冥想方法。「Sahaja」在梵文中意為「自然生發」，「Yoga」意為「與自我的連結」。"
+        },
+        {
+          "type": "image",
+          "src": "https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/ShriMataji.png",
+          "caption": "Shri Mataji Nirmala Devi"
+        },
+        {
+          "type": "paragraph",
+          "title": "自我實現",
+          "text": "Sahaja Yoga 的核心是「自我實現」—— 一種真實的、可感知的內在覺醒體驗。透過這個過程，沉睡在脊椎底部的昆達里尼能量得以甦醒，穿越七個脈輪，最終在頭頂帶來清涼的微風感受。"
+        },
+        {
+          "type": "paragraph",
+          "title": "完全免費",
+          "text": "Sahaja Yoga 向全世界免費提供，因為靈性的恩典是無法被出售的。全球超過 100 個國家有 Sahaja Yoga 的靜坐課程，所有人都可以自由參加。"
+        }
+      ]
+    },
+    {
+      "key": "founder",
+      "label": "創始人",
+      "icon": "✨",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Shri Mataji Nirmala Devi（1923–2011）被譽為二十世紀最偉大的靈性導師之一。她畢生致力於將自我實現帶給每一個尋求者。"
+        },
+        {
+          "type": "image",
+          "src": "https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/ShriMataji.png",
+          "caption": "Shri Mataji，攝於倫敦"
+        },
+        {
+          "type": "paragraph",
+          "title": "早年生涯",
+          "text": "1923 年生於印度，自幼即展現非凡的靈性智慧。曾積極參與印度獨立運動，與聖雄甘地共同為自由奮鬥。"
+        },
+        {
+          "type": "paragraph",
+          "title": "創立 Sahaja Yoga",
+          "text": "1970 年 5 月 5 日，在深度冥想後，Shri Mataji 找到了能夠讓大眾集體獲得自我實現的方法。此後數十年，她不辭辛勞地環遊世界，親自傳授這份禮物。"
+        },
+        {
+          "type": "quote",
+          "text": "「你必須成長，像樹一樣生長，因為你是生命之樹。」",
+          "author": "— Shri Mataji"
+        }
+      ]
+    },
+    {
+      "key": "practice",
+      "label": "如何實踐",
+      "icon": "🕊️",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Sahaja Yoga 的修習非常簡單，任何人都可以在家中練習，每天只需 10–20 分鐘。"
+        },
+        {
+          "type": "steps",
+          "items": [
+            {
+              "step": "1",
+              "title": "放鬆坐下",
+              "text": "舒適地坐在椅子或地上，雙腳平放地面，雙手掌心向上放在膝蓋上。"
+            },
+            {
+              "step": "2",
+              "title": "自我確認",
+              "text": "輕聲或在心中重複正向的確認語，幫助脈輪放鬆與開放。"
+            },
+            {
+              "step": "3",
+              "title": "感受昆達里尼",
+              "text": "靜靜等待，感受手掌或頭頂是否有清涼或溫暖的微風感。"
+            },
+            {
+              "step": "4",
+              "title": "靜坐冥想",
+              "text": "保持在這種無思慮的靜默狀態中，享受內在的寧靜與喜悅。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "title": "腳部浴（Foot Soaking）",
+          "text": "將雙腳浸泡在加了少許鹽的溫水中靜坐，是 Sahaja Yoga 中常用的淨化方法，有助於去除負面能量，深化靜坐體驗。"
+        }
+      ]
+    },
+    {
+      "key": "video",
+      "label": "影片",
+      "icon": "▶️",
+      "videos": [
+        {
+          "title": "什麼是 Sahaja Yoga？",
+          "desc": "三分鐘了解 Sahaja Yoga 的核心",
+          "youtube_id": "dQw4w9WgXcQ"
+        },
+        {
+          "title": "Shri Mataji 談自我實現",
+          "desc": "聆聽創始人親自解說自我實現的意義",
+          "youtube_id": "dQw4w9WgXcQ"
+        },
+        {
+          "title": "初學者靜坐引導",
+          "desc": "跟著引導完成你的第一次 Sahaja Yoga 體驗",
+          "youtube_id": "dQw4w9WgXcQ"
+        }
+      ]
+    }
+  ]
+}
