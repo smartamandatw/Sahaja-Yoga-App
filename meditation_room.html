@@ -208,6 +208,17 @@
     cursor:pointer; transition:transform 0.1s;
   }
   .end-btn:active { transform:scale(0.97); }
+
+  #backToSelect {
+    position:fixed; top:20px; left:18px; z-index:25;
+    background:none; border:none;
+    font-family:"Noto Serif TC",serif; font-size:14px;
+    color:rgba(240,232,210,0.65); cursor:pointer;
+    letter-spacing:0.08em;
+    padding:6px 10px;
+    transition:color 0.2s;
+  }
+  #backToSelect:active { color:rgba(240,232,210,1); }
 </style>
 </head>
 <body>
@@ -246,6 +257,7 @@
 
 <!-- 靜坐畫面 -->
 <div id="meditationPage">
+  <button id="backToSelect" onclick="backToSelect()">← 返回</button>
   <div id="tipWrap">
     <div id="tipText"></div>
     <div id="timer">00:00</div>
@@ -361,6 +373,22 @@
         }
       });
     });
+
+  // ── 返回選擇畫面 ──
+  function backToSelect() {
+    document.getElementById('guideAudio').pause();
+    document.getElementById('bgAudio').pause();
+    document.getElementById('previewAudio').pause();
+    clearInterval(timerInterval);
+    seconds = 0; paused = false;
+    document.getElementById('timer').textContent = '00:00';
+    document.getElementById('tipText').innerHTML = '';
+    document.getElementById('pauseOverlay').classList.remove('show');
+    document.getElementById('tapLayer').classList.remove('show');
+    document.getElementById('meditationPage').classList.remove('show');
+    document.getElementById('selectPage').classList.remove('hide');
+    document.getElementById('overlay').style.background = 'rgba(10,12,8,0.5)';
+  }
 
   // ── 開始靜坐 ──
   function startMeditation() {
