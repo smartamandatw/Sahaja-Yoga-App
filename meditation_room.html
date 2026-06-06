@@ -209,6 +209,17 @@
   }
   .end-btn:active { transform:scale(0.97); }
 
+#controlBar{
+  position:fixed;
+  bottom:28px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:30;
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+
   #backToSelect {
     position:fixed; top:20px; left:18px; z-index:25;
     background:none; border:none;
@@ -262,9 +273,8 @@
     <div id="tipText"></div>
     <div id="timer">00:00</div>
   </div>
-  <div id="tapLayer" onclick="togglePause()"></div>
-  <div id="pauseOverlay">
-    <button class="pause-btn" onclick="resumeMeditation()">▶ 繼續靜坐</button>
+  <div id="controlBar">
+    <button class="pause-btn" id="pauseBtn" onclick="togglePauseButton()">⏸ 暫停</button>
     <button class="end-btn" onclick="endMeditation()">結束靜坐</button>
   </div>
 </div>
@@ -381,10 +391,9 @@
     document.getElementById('previewAudio').pause();
     clearInterval(timerInterval);
     seconds = 0; paused = false;
+    const pb=document.getElementById('pauseBtn'); if(pb) pb.innerHTML='⏸ 暫停';
     document.getElementById('timer').textContent = '00:00';
     document.getElementById('tipText').innerHTML = '';
-    document.getElementById('pauseOverlay').classList.remove('show');
-    document.getElementById('tapLayer').classList.remove('show');
     document.getElementById('meditationPage').classList.remove('show');
     document.getElementById('selectPage').classList.remove('hide');
     document.getElementById('overlay').style.background = 'rgba(10,12,8,0.5)';
@@ -392,6 +401,8 @@
 
   // ── 開始靜坐 ──
   function startMeditation() {
+    paused = false;
+    const pb=document.getElementById('pauseBtn'); if(pb) pb.innerHTML='⏸ 暫停';
     document.getElementById('previewAudio').pause();
     document.getElementById('selectPage').classList.add('hide');
     document.getElementById('overlay').style.background = 'rgba(10,12,8,0.5)';
@@ -411,7 +422,6 @@
     }
 
     document.getElementById('meditationPage').classList.add('show');
-    document.getElementById('tapLayer').classList.add('show');
 
     startTimer();
     loadTips();
@@ -470,27 +480,27 @@
   }
 
   // ── 暫停／繼續 ──
-  function togglePause() {
-    if (paused) resumeMeditation(); else pauseMeditation();
+  function togglePauseButton() {
+
+    const btn = document.getElementById('pauseBtn');
+
+    if (!paused) {
+      paused = true;
+      document.getElementById('guideAudio').pause();
+      document.getElementById('bgAudio').pause();
+      clearInterval(timerInterval);
+      btn.innerHTML = '▶ 繼續';
+    } else {
+      paused = false;
+      document.getElementById('guideAudio').play().catch(function(){});
+      if (selMusicUrl) {
+        document.getElementById('bgAudio').play().catch(function(){});
+      }
+      startTimer();
+      btn.innerHTML = '⏸ 暫停';
+    }
   }
 
-  function pauseMeditation() {
-    paused = true;
-    document.getElementById('guideAudio').pause();
-    document.getElementById('bgAudio').pause();
-    clearInterval(timerInterval);
-    document.getElementById('pauseOverlay').classList.add('show');
-    document.getElementById('tapLayer').style.zIndex = '0';
-  }
-
-  function resumeMeditation() {
-    paused = false;
-    document.getElementById('guideAudio').play().catch(function(e) { console.log(e); });
-    if (selMusicUrl) document.getElementById('bgAudio').play().catch(function(e) { console.log(e); });
-    startTimer();
-    document.getElementById('pauseOverlay').classList.remove('show');
-    document.getElementById('tapLayer').style.zIndex = '15';
-  }
 
   function endMeditation() {
     document.getElementById('guideAudio').pause();
