@@ -1,10 +1,58 @@
 [
-  { "key": "love1", "label": "示範", "file": "meditation-guide/love-meditation1.mp3" },
-  { "key": "love2", "label": "減少壓力與焦慮", "file": "" },
-  { "key": "love3", "label": "緩解過度思考與失眠", "file": "" },
-  { "key": "love5", "label": "改善注意力無法集中", "file": "" },
-  { "key": "love6", "label": "平衡情緒不穩", "file": "" },
-  { "key": "love7", "label": "改善沮喪低落", "file": "" },
-  { "key": "love12", "label": "向內探索", "file": "" },
-  { "key": "love12", "label": "無需引導", "file": "" }
+  {
+    "key": "love1",
+    "label": "初次體驗・示範引導",
+    "description": "適合第一次嘗試靜坐的你，跟著聲音一步步進入狀態。",
+    "duration": "10–15 分鐘",
+    "file": "meditation-guide/love-meditation1.mp3"
+  },
+  {
+    "key": "love2",
+    "label": "釋放壓力與焦慮",
+    "description": "適合感到緊繃、焦慮或情緒壓抑時使用。",
+    "duration": "15–20 分鐘",
+    "file": ""
+  },
+  {
+    "key": "love3",
+    "label": "平息思緒・改善失眠",
+    "description": "適合思緒停不下來、夜晚難以入睡的你。",
+    "duration": "15–20 分鐘",
+    "file": ""
+  },
+  {
+    "key": "love4",
+    "label": "提升專注・找回清明",
+    "description": "適合注意力渙散、容易分心或腦霧的狀態。",
+    "duration": "10–15 分鐘",
+    "file": ""
+  },
+  {
+    "key": "love5",
+    "label": "穩定情緒・回到中心",
+    "description": "適合情緒起伏大、容易被外在影響的時候。",
+    "duration": "15–20 分鐘",
+    "file": ""
+  },
+  {
+    "key": "love6",
+    "label": "走出低落・重拾輕盈",
+    "description": "適合感到沮喪、提不起勁或對生活失去熱情時。",
+    "duration": "15–20 分鐘",
+    "file": ""
+  },
+  {
+    "key": "love7",
+    "label": "向內探索・認識自己",
+    "description": "適合想更深入了解自己內在狀態的練習者。",
+    "duration": "20–30 分鐘",
+    "file": ""
+  },
+  {
+    "key": "love8",
+    "label": "靜默同在・無需引導",
+    "description": "適合已有一定練習基礎，想在寂靜中自然安住的你。",
+    "duration": "20–30 分鐘",
+    "file": ""
+  }
 ]
