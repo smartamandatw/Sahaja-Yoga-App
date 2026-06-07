@@ -289,7 +289,7 @@
 <div id="selectPage">
   <button id="backHomeBtn" onclick="goHome()">← 主畫面</button>
   <div class="page-title">
-        ✼專屬於你的私人冥想菜單✼<br>
+        ✼你的私人冥想菜單✼<br>
   	① + ② + ③
   </div>
 
@@ -424,6 +424,11 @@
           btn.classList.add('selected');
           selGuide = g.key;
           selGuideUrl = g.file ? BASE + g.file : '';
+          // 試聽
+          const pa = document.getElementById('previewAudio');
+          pa.pause();
+          if (selGuideUrl) { pa.src = selGuideUrl; pa.volume = 0.4; pa.play().catch(function(){}); }
+
           checkReady();
         });
         el.appendChild(btn);
