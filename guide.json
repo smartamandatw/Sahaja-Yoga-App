@@ -1,9 +1,10 @@
 [
-  { "key": "love1", "label": "示範引導", "file": "meditation-guide/love-meditation1.mp3" },
-  { "key": "love2", "label": "壓力與焦慮", "file": "" },
-  { "key": "love3", "label": "過度思考與失眠", "file": "" },
-  { "key": "love5", "label": "注意力無法集中", "file": "" },
-  { "key": "love6", "label": "情緒不穩", "file": "" },
-  { "key": "love7", "label": "沮喪低落", "file": "" },
-  { "key": "love12", "label": "向內探索", "file": "" }
+  { "key": "love1", "label": "示範", "file": "meditation-guide/love-meditation1.mp3" },
+  { "key": "love2", "label": "減少壓力與焦慮", "file": "" },
+  { "key": "love3", "label": "緩解過度思考與失眠", "file": "" },
+  { "key": "love5", "label": "改善注意力無法集中", "file": "" },
+  { "key": "love6", "label": "平衡情緒不穩", "file": "" },
+  { "key": "love7", "label": "改善沮喪低落", "file": "" },
+  { "key": "love12", "label": "向內探索", "file": "" },
+  { "key": "love12", "label": "無需引導", "file": "" }
 ]
