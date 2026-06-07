@@ -1,0 +1,8 @@
+[
+  { "key": "forest",     "label": "霧中森林",    "file": "forest.png" },
+  { "key": "lake",       "label": "湖面夜景",    "file": "lake.png" },
+  { "key": "stars",      "label": "星空銀河",    "file": "stars.png" },
+  { "key": "sun",        "label": "山間日出",    "file": "sun.png" },
+  { "key": "shrimataji", "label": "Shri Mataji", "file": "ShriMataji.png" },
+  { "key": "flower",     "label": "夕陽野花",    "file": "flower.png" }
+]
