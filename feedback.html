@@ -30,13 +30,23 @@
   }
   .page.show { opacity:1; pointer-events:auto; }
 
+  /* step1 需要可捲動，避免 response box 被底部按鈕蓋住 */
+  #step1 {
+    justify-content:flex-start;
+    overflow-y:auto;
+    padding-top:max(5vh, 24px);
+    padding-bottom:80px; /* 為固定按鈕留空間 */
+    -webkit-overflow-scrolling:touch;
+  }
+
   .page-title {
     font-family:"Noto Serif TC",serif;
     font-size:20px;
     color:rgba(240,232,210,0.9);
     letter-spacing:0.2em; text-align:center;
-    margin-bottom:10px; margin-top:10px;
+    margin-bottom:16px; margin-top:10px;
     text-shadow:0 1px 8px rgba(0,0,0,0.4);
+    flex-shrink:0;
   }
 
   /* 感受選項 */
@@ -71,7 +81,7 @@
     font-family:"Noto Serif TC",serif;
     font-size:clamp(13px,3.5vw,15px);
     color:rgba(240,232,210,0.8); line-height:1.9; letter-spacing:0.08em;
-    text-align:center; margin-bottom:4vh;
+    text-align:center; margin-top:12px; margin-bottom:4px;
     display:none;
   }
   .response-box.show { display:block; }
