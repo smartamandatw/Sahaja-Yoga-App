@@ -1,6 +1,17 @@
 [
-  { "key": "love1", "label": "冥想引導一", "file": "meditation-guide/love-meditation1.mp3" },
-  { "key": "love2", "label": "冥想引導二", "file": "meditation-guide/love-meditation2.mp3" },
-  { "key": "love3", "label": "冥想引導三", "file": "meditation-guide/love-meditation3.mp3" },
-  { "key": "love3", "label": "無引導", "file": "" }
+  { "key": "love1", "label": "示範引導", "file": "meditation-guide/love-meditation1.mp3" },
+  { "key": "love2", "label": "壓力與焦慮", "file": "" },
+  { "key": "love3", "label": "過度思考", "file": "" },
+  { "key": "love4", "label": "失眠", "file": "" },
+  { "key": "love5", "label": "注意力無法集中", "file": "" },
+  { "key": "love6", "label": "情緒不穩", "file": "" },
+  { "key": "love7", "label": "沮喪低落", "file": "" },
+  { "key": "love8", "label": "缺乏人生方向感, "file": "" },
+
+  { "key": "love9", "": "", "file": "" }
+
+  { "key": "love10", "label": "認識自己", "file": "" },
+  { "key": "love11", "label": "內在平靜", "file": "" },
+  { "key": "love12", "label": "探索生命意義", "file": "" }
+
 ]
