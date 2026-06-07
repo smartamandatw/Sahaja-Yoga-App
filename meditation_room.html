@@ -62,7 +62,7 @@
 
   .col-title {
     font-family:"Noto Serif TC",serif;
-    font-size:clamp(11px,3vw,13px);
+    font-size:12 px;
     color:rgba(240,232,210,0.55);
     letter-spacing:0.18em; text-align:center;
     margin-bottom:8px; flex-shrink:0;
@@ -138,15 +138,22 @@
     padding:clamp(10px,2.5vh,16px) 0 clamp(12px,3vh,20px);
   }
   .start-btn {
-    padding:14px 44px; border-radius:999px;
-    background:rgba(210,200,178,0.52); backdrop-filter:blur(10px);
-    border:0.5px solid rgba(255,255,255,0.45);
-    color:#1C1609; font-family:"Noto Sans TC",sans-serif;
-    font-size:clamp(15px,4vw,17px); letter-spacing:0.1em;
-    cursor:pointer; transition:background 0.2s, transform 0.1s;
-  }
+    width:180px;
+    padding:10px 30px;
+    border-radius:999px;
+    background:rgba(210,200,178,0.65);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,0.5);
+    color:#1C1609;
+    font-family:"Noto Serif TC",serif; font-size:14px;
+    font-weight:400;
+    letter-spacing:0.1em;
+    cursor:pointer;
+    transition:transform 0.1s;
+}
+
   .start-btn:active { transform:scale(0.97); }
-  .start-btn:disabled { opacity:0.35; pointer-events:none; }
+
 
   /* ── 靜坐畫面 ── */
   #meditationPage {
@@ -279,24 +286,24 @@
 <!-- 選擇畫面：三欄 -->
 <div id="selectPage">
   <button id="backHomeBtn" onclick="goHome()">← 主畫面</button>
-  <div class="page-title">選擇你的靜坐體驗</div>
+  <div class="page-title">✼專屬於你的私人冥想菜單✼ ① + ② + ③ </div>
 
   <div class="three-col">
     <!-- 左欄：背景場景 -->
     <div class="col">
-      <div class="col-title">場　景</div>
+      <div class="col-title">① 選空間👇🏻</div>
       <div class="bg-list" id="bgList"></div>
     </div>
 
     <!-- 中欄：背景音樂 -->
     <div class="col">
-      <div class="col-title">音　樂</div>
+      <div class="col-title">② 選音樂👇🏻</div>
       <div class="item-list" id="musicList"></div>
     </div>
 
     <!-- 右欄：靜坐引導 -->
     <div class="col">
-      <div class="col-title">引　導</div>
+      <div class="col-title">③ 選引導👇🏻</div>
       <div class="item-list" id="guideList"></div>
     </div>
   </div>
