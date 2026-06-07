@@ -255,19 +255,13 @@
   #backToSelect:active { color:rgba(240,232,210,1); }
 
 #backHomeBtn{
-  position:fixed;
-  top:20px;
-  left:18px;
-  z-index:10;
-  background:none;
-  border:none;
-  color:rgba(240,232,210,0.75);
-  font-family:"Noto Serif TC",serif;
-  font-size:14px;
-  letter-spacing:0.08em;
-  cursor:pointer;
-  padding:6px 10px;
-  transition:all .2s;
+    position:fixed; top:20px; left:18px; z-index:25;
+    background:none; border:none;
+    font-family:"Noto Serif TC",serif; font-size:14px;
+    color:rgba(240,232,210,0.65); cursor:pointer;
+    letter-spacing:0.08em;
+    padding:6px 10px;
+    transition:color 0.2s;
 }
 
 #backHomeBtn:hover{
@@ -287,7 +281,7 @@
 
 <!-- 選擇畫面：三欄 -->
 <div id="selectPage">
-  <button id="backHomeBtn" onclick="goHome()">← 主畫面</button>
+  <button id="backHomeBtn" onclick="goHome()">←返回</button>
   <div class="page-title">
         ✼你的冥想菜單✼<br>
   	① + ② + ③
@@ -320,7 +314,7 @@
 
 <!-- 靜坐畫面 -->
 <div id="meditationPage">
-  <button id="backToSelect" onclick="backToSelect()">← 返回</button>
+  <button id="backToSelect" onclick="backToSelect()">←返回</button>
   <div id="tipWrap">
     <div id="tipText"></div>
     <div id="timer">00:00</div>
