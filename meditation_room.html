@@ -419,6 +419,9 @@
     document.getElementById('startBtn').disabled = !(selBg && selMusic !== null && selGuide !== null);
   }
 
+  // 初始確保按鈕是 disabled
+  selMusic = null; selGuide = null;
+
   // ── 載入背景場景清單 ──
   fetch(BASE + 'backgrounds.json?t=' + Date.now())
     .then(function(r) { return r.json(); })
@@ -476,10 +479,7 @@
         });
         el.appendChild(btn);
         if (idx === 0) {
-          btn.classList.add('selected');
-          selMusic = m.key;
-          selMusicUrl = m.file ? BASE + m.file : '';
-          checkReady();
+          // 不預設選取
         }
       });
     });
@@ -511,10 +511,7 @@
         });
         el.appendChild(btn);
         if (idx === 0) {
-          btn.classList.add('selected');
-          selGuide = g.key;
-          selGuideUrl = g.file ? BASE + g.file : '';
-          checkReady();
+          // 不預設選取
         }
       });
     });
