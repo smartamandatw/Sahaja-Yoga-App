@@ -242,6 +242,11 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC"
   line-height: 1.6;
 }
 
+/* 逐句換行 */
+.sentence {
+  display: block;
+}
+
 /* 載入動畫 */
 @keyframes fadeUp {
   from { opacity:0; transform:translateY(14px); }
@@ -313,17 +318,17 @@ function renderContent(tabs) {
     if (tab.sections) {
       tab.sections.forEach(s => {
         if (s.type === 'intro') {
-          html += `<p class="section-intro">${s.text}</p>`;
+          html += `<p class="section-intro">${splitSentences(s.text)}</p>`;
         } else if (s.type === 'image') {
           html += `<figure class="section-image"><img src="${s.src}" alt="${s.caption||''}"><figcaption>${s.caption||''}</figcaption></figure>`;
         } else if (s.type === 'paragraph') {
-          html += `<div class="section-paragraph"><h3>${s.title}</h3><p>${s.text}</p></div>`;
+          html += `<div class="section-paragraph"><h3>${s.title}</h3><p>${splitSentences(s.text)}</p></div>`;
         } else if (s.type === 'quote') {
-          html += `<blockquote class="section-quote"><p>${s.text}</p><div class="author">${s.author}</div></blockquote>`;
+          html += `<blockquote class="section-quote"><p>${splitSentences(s.text)}</p><div class="author">${s.author}</div></blockquote>`;
         } else if (s.type === 'steps') {
           html += `<div class="section-steps">`;
           s.items.forEach(item => {
-            html += `<div class="step-item"><div class="step-num">${item.step}</div><div class="step-text"><h4>${item.title}</h4><p>${item.text}</p></div></div>`;
+            html += `<div class="step-item"><div class="step-num">${item.step}</div><div class="step-text"><h4>${item.title}</h4><p>${splitSentences(item.text)}</p></div></div>`;
           });
           html += `</div>`;
         }
@@ -358,6 +363,16 @@ function switchTab(idx) {
     el.classList.toggle('active', i === idx);
   });
   document.getElementById('contentWrap').scrollTop = 0;
+}
+
+// 依句點拆句，每句獨立一行
+function splitSentences(text) {
+  return text
+    .split(/(?<=。)/)
+    .map(s => s.trim())
+    .filter(s => s.length > 0)
+    .map(s => `<span class="sentence">${s}</span>`)
+    .join('\n');
 }
 
 // 返回
