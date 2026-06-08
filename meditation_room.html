@@ -450,14 +450,6 @@
           checkReady();
         });
         bgListEl.appendChild(card);
-        // 預設第一張
-        if (idx === 0) {
-          card.classList.add('selected');
-          selBg = bg.key;
-          selBgUrl = url;
-          document.getElementById('bg').style.backgroundImage = "url('" + url + "')";
-          checkReady();
-        }
       });
     })
     .catch(function() {
@@ -486,12 +478,6 @@
           checkReady();
         });
         el.appendChild(btn);
-        if (idx === 0) {
-          btn.classList.add('selected');
-          selMusic = m.key;
-          selMusicUrl = m.file ? BASE + m.file : '';
-          checkReady();
-        }
       });
     });
   bindScrollHint('musicList', 'musicFade', 'musicArrow');
@@ -521,12 +507,6 @@
           checkReady();
         });
         el.appendChild(btn);
-        if (idx === 0) {
-          btn.classList.add('selected');
-          selGuide = g.key;
-          selGuideUrl = g.file ? BASE + g.file : '';
-          checkReady();
-        }
       });
     });
   bindScrollHint('guideList', 'guideFade', 'guideArrow');
