@@ -93,6 +93,7 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC"
 }
 .content-pane {
   display: none;
+  padding-top: 120px;
   padding-bottom: max(env(safe-area-inset-bottom), 32px);
 }
 .content-pane.active { display: block; }
@@ -312,8 +313,6 @@ function renderContent(tabs) {
   const wrap = document.getElementById('contentWrap');
   wrap.innerHTML = tabs.map((tab, i) => {
     let html = `<div class="content-pane ${i===0?'active':''}" id="pane-${i}">`;
-    // 頂部留空（header 高度）
-    html += `<div style="height:calc(${document.querySelector('.header').offsetHeight}px + 8px)"></div>`;
 
     if (tab.sections) {
       tab.sections.forEach(s => {
