@@ -193,6 +193,13 @@
   .start-wrap {
     flex-shrink:0;
     padding:clamp(10px,2.5vh,16px) 0 clamp(12px,3vh,20px);
+    opacity:0; pointer-events:none;
+    transform:translateY(8px);
+    transition:opacity 0.4s ease, transform 0.4s ease;
+  }
+  .start-wrap.visible {
+    opacity:1; pointer-events:auto;
+    transform:translateY(0);
   }
   .start-btn {
     width:180px;
@@ -369,7 +376,7 @@
   </div>
 
   <div class="start-wrap">
-    <button class="start-btn" id="startBtn" disabled onclick="startMeditation()">開始靜坐 »</button>
+    <button class="start-btn" id="startBtn" onclick="startMeditation()">開始靜坐 »</button>
   </div>
 </div>
 
@@ -416,11 +423,12 @@
   }
 
   function checkReady() {
-    document.getElementById('startBtn').disabled = !(selBg && selMusic !== null && selGuide !== null);
+    const ready = !!(selBg && selMusic !== null && selGuide !== null);
+    const wrap = document.querySelector('.start-wrap');
+    if (ready) {
+      wrap.classList.add('visible');
+    }
   }
-
-  // 初始確保按鈕是 disabled
-  selMusic = null; selGuide = null;
 
   // ── 載入背景場景清單 ──
   fetch(BASE + 'backgrounds.json?t=' + Date.now())
@@ -479,7 +487,10 @@
         });
         el.appendChild(btn);
         if (idx === 0) {
-          // 不預設選取
+          btn.classList.add('selected');
+          selMusic = m.key;
+          selMusicUrl = m.file ? BASE + m.file : '';
+          checkReady();
         }
       });
     });
@@ -511,7 +522,10 @@
         });
         el.appendChild(btn);
         if (idx === 0) {
-          // 不預設選取
+          btn.classList.add('selected');
+          selGuide = g.key;
+          selGuideUrl = g.file ? BASE + g.file : '';
+          checkReady();
         }
       });
     });
