@@ -7,7 +7,12 @@
       "sections": [
         {
           "type": "intro",
-          "text": "Sahaja Yoga 是由 Shri Mataji Nirmala Devi 於 1970 年創立的一種冥想方法。「Sahaja」在梵文中意為「與生俱來」，「Yoga」意為「與神聖的力量的聯合」。"
+          "text": "Sahaja Yoga 是由 Shri Mataji Nirmala Devi 於 1970 年創立的一種冥想方法。"
+        },
+        {
+          "type": "paragraph",
+          "title": "如同萬物的生長",
+          "text": "強調：「Sahaja」在梵文中意為「與生俱來」，「Yoga」意為「與神聖的力量的聯合」。"
         },
         {
           "type": "paragraph",
