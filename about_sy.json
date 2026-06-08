@@ -28,12 +28,17 @@
     },
     {
       "key": "founder",
-      "label": "創始人",
+      "label": "創辦人",
       "icon": "✨",
       "sections": [
         {
           "type": "intro",
-          "text": "Shri Mataji Nirmala Devi（1923–2011）被譽為二十世紀最偉大的靈性導師之一。她畢生致力於將自我實現帶給每一個尋求者。"
+          "text": "錫呂‧瑪塔吉被譽為二十世紀最偉大的靈性導師之一"
+        },
+        {
+          "type": "paragraph",
+          "title": "人生使命",
+          "text": "她畢生致力於將自我覺醒帶給每一個真理的追尋者"
         },
         {
           "type": "paragraph",
