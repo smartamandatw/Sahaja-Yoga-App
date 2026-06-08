@@ -20,23 +20,29 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC"
   background: linear-gradient(to bottom, rgba(10,12,8,0.60) 0%, rgba(10,12,8,0.78) 100%);
 }
 
-/* Header */
-.header {
-  position: fixed; top:0; left:0; right:0; z-index:20;
-  padding-top: max(env(safe-area-inset-top), 16px);
-  padding-bottom: 0;
-  background: linear-gradient(to bottom, rgba(10,12,8,0.85) 0%, transparent 100%);
+/* ── 頂部固定區（header + tab bar 合為一個 fixed 塊） ── */
+#top-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 20;
+  /* iOS safe-area */
+  padding-top: env(safe-area-inset-top, 0px);
+  background: rgba(10,12,8,0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 0.5px solid rgba(240,232,210,0.1);
 }
+
 .header-inner {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 16px 12px;
+  padding: 14px 16px 10px;
 }
 .back-btn {
   font-family:"Noto Serif TC",serif;
   font-size: clamp(13px,3.5vw,15px);
   color: rgba(240,232,210,0.55);
   background: none; border: none; cursor: pointer;
-  padding: 8px 4px;
+  padding: 4px;
   transition: color 0.2s;
 }
 .back-btn:active { color: rgba(240,232,210,0.9); }
@@ -49,15 +55,10 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC"
 }
 .header-spacer { width: 52px; }
 
-/* Tab Bar */
+/* Tab Bar — 跟著 top-bar 一起，不再單獨 fixed */
 .tab-bar {
-  position: fixed; z-index:20;
-  left:0; right:0;
-  background: rgba(10,12,8,0.82);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 0.5px solid rgba(240,232,210,0.1);
-  display: flex; overflow-x: auto;
+  display: flex;
+  overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
 }
@@ -65,11 +66,11 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC"
 .tab-item {
   flex: 1; min-width: 70px;
   display: flex; flex-direction: column; align-items: center;
-  padding: 10px 8px;
+  padding: 8px 8px 10px;
   cursor: pointer;
   border-bottom: 2px solid transparent;
   transition: border-color 0.25s, opacity 0.25s;
-  opacity: 0.5;
+  opacity: 0.45;
 }
 .tab-item.active {
   border-bottom-color: rgba(240,232,210,0.7);
@@ -85,34 +86,37 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC"
   white-space: nowrap;
 }
 
-/* 主內容區 */
-.content-wrap {
-  position: fixed; inset:0; z-index:5;
+/* ── 主內容捲動區 ── */
+#contentWrap {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 5;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  /* paddingTop 由 JS 動態設定（= #top-bar 高度） */
+  padding-bottom: max(env(safe-area-inset-bottom, 0px), 32px);
 }
-.content-pane {
-  display: none;
-  padding-top: 130px; /* JS 會即時覆蓋此值 */
-  padding-bottom: max(env(safe-area-inset-bottom), 32px);
-}
+
+.content-pane { display: none; }
 .content-pane.active { display: block; }
 
-/* 各元素樣式 */
+/* ── 區塊樣式 ── */
+
+/* intro：完整呈現，不截斷 */
 .section-intro {
-  padding: 20px 20px 0;
+  padding: 24px 20px 0;
   font-family:"Noto Serif TC",serif;
   font-size: clamp(16px,4.2vw,18px);
-  color: rgba(240,232,210,0.9);
-  line-height: 1.9;
-  letter-spacing: 0.06em;
-  text-shadow: 0 1px 6px rgba(0,0,0,0.3);
-  /* 確保完整顯示，不截斷 */
-  display: block;
+  color: rgba(240,232,210,0.92);
+  line-height: 2;
+  letter-spacing: 0.08em;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.35);
+  /* 明確防止截斷 */
   overflow: visible;
   white-space: normal;
+  display: block;
+  max-height: none;
   -webkit-line-clamp: unset;
-  -webkit-box-orient: unset;
 }
 
 .section-image {
@@ -136,7 +140,7 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC"
 }
 
 .section-paragraph {
-  margin: 20px 20px 0;
+  margin: 16px 20px 0;
   padding: 16px 18px;
   border-radius: 12px;
   background: rgba(240,232,210,0.06);
@@ -152,12 +156,12 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC"
 .section-paragraph p {
   font-size: clamp(14px,3.6vw,15px);
   color: rgba(240,232,210,0.7);
-  line-height: 1.8;
+  line-height: 1.85;
   letter-spacing: 0.04em;
 }
 
 .section-quote {
-  margin: 20px 20px 0;
+  margin: 16px 20px 0;
   padding: 18px 20px;
   border-radius: 12px;
   background: rgba(240,232,210,0.04);
@@ -166,7 +170,7 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC"
 .section-quote p {
   font-family:"Noto Serif TC",serif;
   font-size: clamp(14px,3.8vw,16px);
-  color: rgba(240,232,210,0.80);
+  color: rgba(240,232,210,0.82);
   line-height: 1.9;
   letter-spacing: 0.06em;
   font-style: italic;
@@ -179,9 +183,8 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC"
   font-style: normal;
 }
 
-/* Steps */
 .section-steps {
-  margin: 20px 20px 0;
+  margin: 16px 20px 0;
   display: flex; flex-direction: column; gap: 10px;
 }
 .step-item {
@@ -210,14 +213,13 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC"
 }
 .step-text p {
   font-size: clamp(13px,3.4vw,14px);
-  color: rgba(240,232,210,0.60);
-  line-height: 1.7;
+  color: rgba(240,232,210,0.62);
+  line-height: 1.75;
   letter-spacing: 0.03em;
 }
 
-/* 影片 */
 .section-videos {
-  margin: 20px 20px 0;
+  margin: 16px 20px 0;
   display: flex; flex-direction: column; gap: 14px;
 }
 .video-card {
@@ -226,22 +228,17 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC"
   border: 0.5px solid rgba(240,232,210,0.12);
 }
 .video-embed {
-  position: relative; padding-bottom: 56.25%; height: 0;
-  overflow: hidden;
+  position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
 }
 .video-embed iframe {
-  position: absolute; top:0; left:0; width:100%; height:100%;
-  border: none;
+  position: absolute; top:0; left:0; width:100%; height:100%; border: none;
 }
-.video-info {
-  padding: 12px 16px;
-}
+.video-info { padding: 12px 16px; }
 .video-info h4 {
   font-family:"Noto Serif TC",serif;
   font-size: clamp(14px,3.8vw,15px);
   color: rgba(240,232,210,0.85);
-  letter-spacing: 0.08em;
-  margin-bottom: 4px;
+  letter-spacing: 0.08em; margin-bottom: 4px;
 }
 .video-info p {
   font-size: clamp(12px,3.2vw,13px);
@@ -249,58 +246,55 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC"
   line-height: 1.6;
 }
 
-/* 逐句換行 */
-.sentence {
-  display: block;
-}
+/* 最後一個區塊的底部間距 */
+.content-pane > *:last-child { margin-bottom: 28px; }
 
-/* 向下滾動提示箭頭 */
-.scroll-hint {
+/* 逐句換行 */
+.sentence { display: block; }
+
+/* ── 向下滑提示 ── */
+#scrollHint {
   position: fixed;
-  bottom: max(env(safe-area-inset-bottom), 20px);
+  bottom: max(env(safe-area-inset-bottom, 0px), 16px);
   left: 50%;
   transform: translateX(-50%);
-  z-index: 30;
+  z-index: 50;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
   pointer-events: none;
-  transition: opacity 0.4s ease;
   opacity: 0;
+  transition: opacity 0.45s ease;
 }
-.scroll-hint.visible { opacity: 1; }
-.scroll-hint-label {
-  font-family: "Noto Serif TC", serif;
+#scrollHint.visible { opacity: 1; }
+.hint-label {
+  font-family:"Noto Serif TC",serif;
   font-size: 10px;
-  color: rgba(240,232,210,0.45);
-  letter-spacing: 0.12em;
-  white-space: nowrap;
+  color: rgba(240,232,210,0.5);
+  letter-spacing: 0.14em;
 }
-.scroll-hint-arrow {
-  width: 32px; height: 32px;
-  border-radius: 50%;
+.hint-circle {
+  width: 34px; height: 34px; border-radius: 50%;
   background: rgba(240,232,210,0.10);
-  border: 0.5px solid rgba(240,232,210,0.25);
+  border: 0.5px solid rgba(240,232,210,0.28);
   display: flex; align-items: center; justify-content: center;
-  animation: arrowBounce 1.6s ease-in-out infinite;
+  animation: bounce 1.8s ease-in-out infinite;
 }
-.scroll-hint-arrow svg {
+.hint-circle svg {
   width: 16px; height: 16px;
-  stroke: rgba(240,232,210,0.6);
-  fill: none;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  stroke: rgba(240,232,210,0.65);
+  fill: none; stroke-width: 2.2;
+  stroke-linecap: round; stroke-linejoin: round;
 }
-@keyframes arrowBounce {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(4px); }
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(5px); }
 }
 
-/* 載入動畫 */
+/* ── 進場動畫 ── */
 @keyframes fadeUp {
-  from { opacity:0; transform:translateY(14px); }
+  from { opacity:0; transform:translateY(16px); }
   to   { opacity:1; transform:translateY(0); }
 }
 .content-pane.active .section-intro,
@@ -310,13 +304,13 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC"
 .content-pane.active .section-steps,
 .content-pane.active .section-videos {
   opacity: 0;
-  animation: fadeUp 0.4s ease forwards;
+  animation: fadeUp 0.42s ease forwards;
 }
 .content-pane.active > *:nth-child(1) { animation-delay: 0.05s; }
-.content-pane.active > *:nth-child(2) { animation-delay: 0.12s; }
-.content-pane.active > *:nth-child(3) { animation-delay: 0.19s; }
-.content-pane.active > *:nth-child(4) { animation-delay: 0.26s; }
-.content-pane.active > *:nth-child(5) { animation-delay: 0.33s; }
+.content-pane.active > *:nth-child(2) { animation-delay: 0.13s; }
+.content-pane.active > *:nth-child(3) { animation-delay: 0.21s; }
+.content-pane.active > *:nth-child(4) { animation-delay: 0.29s; }
+.content-pane.active > *:nth-child(5) { animation-delay: 0.37s; }
 </style>
 </head>
 <body>
@@ -324,7 +318,8 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC"
 <div id="bg"></div>
 <div id="overlay"></div>
 
-<div class="header">
+<!-- 頂部固定區（header title + tab bar 同一個 fixed 容器） -->
+<div id="top-bar">
   <div class="header-inner">
     <button class="back-btn" onclick="goBack()">← 返回</button>
     <div class="header-title">認識 Sahaja Yoga</div>
@@ -333,43 +328,56 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC"
   <div class="tab-bar" id="tabBar"></div>
 </div>
 
-<div class="content-wrap" id="contentWrap">
-  <!-- 動態產生 -->
-</div>
+<!-- 主捲動區 -->
+<div id="contentWrap"></div>
 
-<!-- 向下滾動提示 -->
-<div class="scroll-hint" id="scrollHint">
-  <div class="scroll-hint-label">往下滑</div>
-  <div class="scroll-hint-arrow">
+<!-- 向下滑提示 -->
+<div id="scrollHint">
+  <div class="hint-label">往下滑</div>
+  <div class="hint-circle">
     <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
   </div>
 </div>
 
 <script>
 const BASE = 'https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/';
-let currentTab = 0;
 
-// 計算頂部高度（header + tab bar）
-function getTopOffset() {
-  const header = document.querySelector('.header');
-  return header ? header.offsetHeight : 100;
+/* ── 頂部高度 → 設定 contentWrap paddingTop ── */
+function applyTopPadding() {
+  const topBar = document.getElementById('top-bar');
+  const wrap   = document.getElementById('contentWrap');
+  if (!topBar || !wrap) return;
+  wrap.style.paddingTop = topBar.offsetHeight + 12 + 'px';
 }
 
-// 渲染 Tab Bar
+/* ── 向下滑提示 ── */
+function updateHint() {
+  const wrap = document.getElementById('contentWrap');
+  const hint = document.getElementById('scrollHint');
+  if (!wrap || !hint) return;
+  const scrollable = wrap.scrollHeight > wrap.clientHeight + 30;
+  const atBottom   = wrap.scrollTop + wrap.clientHeight >= wrap.scrollHeight - 56;
+  hint.classList.toggle('visible', scrollable && !atBottom);
+}
+
+document.getElementById('contentWrap').addEventListener('scroll', updateHint, { passive: true });
+window.addEventListener('resize', () => { applyTopPadding(); updateHint(); });
+
+/* ── 渲染 Tab Bar ── */
 function renderTabs(tabs) {
-  const bar = document.getElementById('tabBar');
-  bar.innerHTML = tabs.map((t, i) =>
+  document.getElementById('tabBar').innerHTML = tabs.map((t, i) =>
     `<div class="tab-item ${i===0?'active':''}" onclick="switchTab(${i})">
       <span class="tab-icon">${t.icon}</span>
       <span class="tab-label">${t.label}</span>
     </div>`
   ).join('');
+  // tab bar 渲染後高度才穩定，重新算 padding
+  requestAnimationFrame(() => { applyTopPadding(); updateHint(); });
 }
 
-// 渲染內容
+/* ── 渲染所有分頁內容 ── */
 function renderContent(tabs) {
-  const wrap = document.getElementById('contentWrap');
-  wrap.innerHTML = tabs.map((tab, i) => {
+  document.getElementById('contentWrap').innerHTML = tabs.map((tab, i) => {
     let html = `<div class="content-pane ${i===0?'active':''}" id="pane-${i}">`;
 
     if (tab.sections) {
@@ -385,7 +393,10 @@ function renderContent(tabs) {
         } else if (s.type === 'steps') {
           html += `<div class="section-steps">`;
           s.items.forEach(item => {
-            html += `<div class="step-item"><div class="step-num">${item.step}</div><div class="step-text"><h4>${item.title}</h4><p>${splitSentences(item.text)}</p></div></div>`;
+            html += `<div class="step-item">
+              <div class="step-num">${item.step}</div>
+              <div class="step-text"><h4>${item.title}</h4><p>${splitSentences(item.text)}</p></div>
+            </div>`;
           });
           html += `</div>`;
         }
@@ -408,77 +419,50 @@ function renderContent(tabs) {
     html += `</div>`;
     return html;
   }).join('');
+
+  // 內容渲染完，重新計算
+  requestAnimationFrame(() => {
+    applyTopPadding();
+    setTimeout(updateHint, 120); // 等動畫穩定再量
+  });
 }
 
-// 切換 Tab
+/* ── 切換分頁 ── */
 function switchTab(idx) {
-  currentTab = idx;
-  document.querySelectorAll('.tab-item').forEach((el, i) => {
-    el.classList.toggle('active', i === idx);
-  });
-  document.querySelectorAll('.content-pane').forEach((el, i) => {
-    el.classList.toggle('active', i === idx);
-  });
-  const wrap = document.getElementById('contentWrap');
-  wrap.scrollTop = 0;
-  setTimeout(updateScrollHint, 150);
+  document.querySelectorAll('.tab-item').forEach((el, i) =>
+    el.classList.toggle('active', i === idx));
+  document.querySelectorAll('.content-pane').forEach((el, i) =>
+    el.classList.toggle('active', i === idx));
+  document.getElementById('contentWrap').scrollTop = 0;
+  setTimeout(updateHint, 150);
 }
 
-// 依句點拆句，每句獨立一行
+/* ── 依句號拆句、每句獨立一行 ── */
 function splitSentences(text) {
   return text
     .split(/(?<=。)/)
-    .map(s => s.trim())
-    .filter(s => s.length > 0)
+    .map(s => s.trim()).filter(Boolean)
     .map(s => `<span class="sentence">${s}</span>`)
-    .join('\n');
+    .join('');
 }
 
-// 返回
+/* ── 返回 ── */
 function goBack() {
   if (document.referrer) history.back();
   else window.location.href = 'menu.html';
 }
 
-// 更新內容區頂部留白
-function updateContentPadding() {
-  const header = document.querySelector('.header');
-  if (!header) return;
-  const h = header.getBoundingClientRect().bottom;
-  document.querySelectorAll('.content-pane').forEach(el => {
-    el.style.paddingTop = (h + 12) + 'px';
-  });
-}
-
-// 滾動提示邏輯
-function updateScrollHint() {
-  const wrap = document.getElementById('contentWrap');
-  const hint = document.getElementById('scrollHint');
-  if (!wrap || !hint) return;
-  const canScroll = wrap.scrollHeight > wrap.clientHeight + 40;
-  const nearBottom = wrap.scrollTop + wrap.clientHeight >= wrap.scrollHeight - 60;
-  hint.classList.toggle('visible', canScroll && !nearBottom);
-}
-
-document.getElementById('contentWrap').addEventListener('scroll', updateScrollHint, { passive: true });
-window.addEventListener('resize', updateScrollHint);
-
-// 載入 JSON
+/* ── 載入 JSON ── */
 fetch(BASE + 'about_sy.json?t=' + Date.now())
   .then(r => r.json())
   .then(data => {
     renderTabs(data.tabs);
-    setTimeout(() => {
-      renderContent(data.tabs);
-      updateContentPadding();
-      setTimeout(updateScrollHint, 200);
-    }, 80);
+    renderContent(data.tabs);
   })
   .catch(() => {
     document.getElementById('contentWrap').innerHTML =
-      '<p style="color:rgba(240,232,210,0.5);padding:120px 24px;text-align:center;font-family:Noto Serif TC,serif;">內容載入失敗，請稍後再試。</p>';
+      '<p style="color:rgba(240,232,210,0.5);padding:160px 24px 0;text-align:center;font-family:\'Noto Serif TC\',serif;font-size:15px;">內容載入失敗，請稍後再試。</p>';
   });
 </script>
-
 </body>
 </html>
