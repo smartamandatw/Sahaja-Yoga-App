@@ -7,8 +7,15 @@
     "coming_soon": false
   },
   {
+    "icon": "常見 Q&A（問與答）",
+    "label": "Sahaja Yoga 練習者常見的問題與回覆",
+    "desc": "",
+    "url": "faq.html",
+    "coming_soon": false
+  },
+  {
     "icon": "",
-    "label": "學習技巧",
+    "label": "Sahaja Yoga 靜坐技巧",
     "desc": "呼吸法、大自然元素清潔法...",
     "url": null,
     "coming_soon": true
@@ -27,13 +34,7 @@
     "url": null,
     "coming_soon": true
   },
-  {
-    "icon": "常見 Q&A（問與答）",
-    "label": "Sahaja Yoga 練習者常見的問題與回覆",
-    "desc": "",
-    "url": "faq.html",
-    "coming_soon": false
-  },
+
   {
     "icon": "",
     "label": "了解更多...",
