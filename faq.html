@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>常見問題 FAQ</title>
+
+<style>
+
+body{
+    margin:0;
+    background:#F7F4EE;
+    font-family:"Noto Sans TC",sans-serif;
+}
+
+.header{
+    text-align:center;
+    padding:30px 20px;
+}
+
+.header h1{
+    margin:0;
+    font-size:28px;
+}
+
+.header p{
+    color:#666;
+}
+
+.container{
+    max-width:800px;
+    margin:auto;
+    padding:20px;
+}
+
+.category{
+    margin-top:35px;
+}
+
+.category-title{
+    font-size:22px;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.faq-item{
+    background:white;
+    border-radius:16px;
+    margin-bottom:12px;
+    overflow:hidden;
+    box-shadow:0 3px 10px rgba(0,0,0,.08);
+}
+
+.question{
+    padding:18px;
+    cursor:pointer;
+    font-weight:600;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.answer{
+    display:none;
+    padding:0 18px 18px;
+    color:#555;
+    line-height:1.8;
+    white-space:pre-line;
+}
+
+.question span{
+    font-size:20px;
+}
+
+.footer{
+    text-align:center;
+    padding:40px;
+}
+
+.footer button{
+    padding:12px 24px;
+    border:none;
+    border-radius:30px;
+    background:#D9C6A5;
+    font-size:16px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>❓ 常見問題</h1>
+    <p>關於 Sahaja Yoga 與靜坐練習</p>
+</div>
+
+<div id="faqContainer" class="container"></div>
+
+<div class="footer">
+    <button onclick="location.href='index.html'">
+        返回首頁
+    </button>
+</div>
+
+<script>
+
+const BASE = 'https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/';
+
+fetch(BASE + 'faq.json')
+
+.then(res => res.json())
+.then(data => {
+
+    const container =
+        document.getElementById('faqContainer');
+
+    data.forEach(section=>{
+
+        const category =
+            document.createElement('div');
+
+        category.className='category';
+
+        category.innerHTML=
+        `
+        <div class="category-title">
+            ${section.category}
+        </div>
+        `;
+
+        section.items.forEach(item=>{
+
+            const faq =
+                document.createElement('div');
+
+            faq.className='faq-item';
+
+            faq.innerHTML=
+            `
+            <div class="question">
+                ${item.q}
+                <span>＋</span>
+            </div>
+
+            <div class="answer">
+                ${item.a}
+            </div>
+            `;
+
+            const q=
+                faq.querySelector('.question');
+
+            const a=
+                faq.querySelector('.answer');
+
+            const icon=
+                faq.querySelector('span');
+
+            q.addEventListener('click',()=>{
+
+                const opened=
+                    a.style.display==='block';
+
+                a.style.display=
+                    opened ? 'none' : 'block';
+
+                icon.textContent=
+                    opened ? '＋' : '－';
+
+            });
+
+            category.appendChild(faq);
+
+        });
+
+        container.appendChild(category);
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
