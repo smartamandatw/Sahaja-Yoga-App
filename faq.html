@@ -1,187 +1,279 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>常見問題 FAQ</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>常見問與答 — Sahaja Yoga</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
+* { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC",sans-serif; background:#1C1A17; }
 
-body{
-    margin:0;
-    background:#F7F4EE;
-    font-family:"Noto Sans TC",sans-serif;
+#bg {
+  position:fixed; inset:0; z-index:0;
+  background: url('https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/forest.png') center/cover;
+}
+#overlay {
+  position:fixed; inset:0; z-index:1;
+  background: linear-gradient(to bottom, rgba(10,12,8,0.60) 0%, rgba(10,12,8,0.80) 100%);
 }
 
-.header{
-    text-align:center;
-    padding:30px 20px;
+/* ── Top Bar ── */
+#top-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 20;
+  padding-top: env(safe-area-inset-top, 0px);
+  background: rgba(10,12,8,0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 0.5px solid rgba(240,232,210,0.10);
+}
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 16px 14px;
+}
+.back-btn {
+  font-family:"Noto Serif TC",serif;
+  font-size: clamp(13px,3.5vw,15px);
+  color: rgba(240,232,210,0.55);
+  background: none; border: none; cursor: pointer;
+  padding: 4px;
+  transition: color 0.2s;
+}
+.back-btn:active { color: rgba(240,232,210,0.9); }
+.header-title {
+  font-family:"Noto Serif TC",serif;
+  font-size: clamp(15px,4vw,17px);
+  color: rgba(240,232,210,0.85);
+  letter-spacing: 0.15em;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+}
+.header-spacer { width: 52px; }
+
+/* ── Category filter tabs ── */
+#tab-bar {
+  display: flex;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 0 12px 10px;
+  gap: 8px;
+}
+#tab-bar::-webkit-scrollbar { display: none; }
+.tab-chip {
+  flex-shrink: 0;
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-family:"Noto Serif TC",serif;
+  font-size: clamp(11px,3vw,13px);
+  color: rgba(240,232,210,0.55);
+  background: rgba(240,232,210,0.07);
+  border: 0.5px solid rgba(240,232,210,0.12);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s, color 0.2s;
+}
+.tab-chip.active {
+  color: rgba(240,232,210,0.92);
+  background: rgba(201,168,76,0.22);
+  border-color: rgba(201,168,76,0.45);
 }
 
-.header h1{
-    margin:0;
-    font-size:28px;
+/* ── Scroll container ── */
+#contentWrap {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 5;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: max(env(safe-area-inset-bottom, 0px), 40px);
 }
 
-.header p{
-    color:#666;
+.content-inner {
+  padding: 0 16px;
 }
 
-.container{
-    max-width:800px;
-    margin:auto;
-    padding:20px;
+/* ── Category heading ── */
+.cat-heading {
+  font-family:"Noto Serif TC",serif;
+  font-size: clamp(13px,3.5vw,15px);
+  color: rgba(201,168,76,0.80);
+  letter-spacing: 0.15em;
+  padding: 24px 4px 10px;
 }
 
-.category{
-    margin-top:35px;
+/* ── Accordion item ── */
+.faq-item {
+  border-radius: 14px;
+  background: rgba(240,232,210,0.06);
+  border: 0.5px solid rgba(240,232,210,0.10);
+  margin-bottom: 8px;
+  overflow: hidden;
+  transition: background 0.2s;
+}
+.faq-item.open {
+  background: rgba(240,232,210,0.10);
+  border-color: rgba(240,232,210,0.18);
 }
 
-.category-title{
-    font-size:22px;
-    font-weight:bold;
-    margin-bottom:15px;
+.faq-q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 18px;
+  cursor: pointer;
+  font-family:"Noto Serif TC",serif;
+  font-size: clamp(13px,3.8vw,15px);
+  color: rgba(240,232,210,0.88);
+  line-height: 1.6;
+  letter-spacing: 0.05em;
+  -webkit-user-select: none; user-select: none;
+}
+.faq-q:active { opacity: 0.75; }
+
+.faq-chevron {
+  flex-shrink: 0;
+  width: 18px; height: 18px;
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(201,168,76,0.70);
+  font-size: 12px;
+  transition: transform 0.28s ease;
+}
+.faq-item.open .faq-chevron { transform: rotate(180deg); }
+
+.faq-a-wrap {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+.faq-item.open .faq-a-wrap {
+  max-height: 800px;
 }
 
-.faq-item{
-    background:white;
-    border-radius:16px;
-    margin-bottom:12px;
-    overflow:hidden;
-    box-shadow:0 3px 10px rgba(0,0,0,.08);
+.faq-a {
+  padding: 0 18px 18px;
+  font-size: clamp(13px,3.6vw,14px);
+  color: rgba(240,232,210,0.72);
+  line-height: 1.9;
+  letter-spacing: 0.05em;
+  white-space: pre-line;
+  border-top: 0.5px solid rgba(240,232,210,0.08);
+  padding-top: 14px;
 }
 
-.question{
-    padding:18px;
-    cursor:pointer;
-    font-weight:600;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+/* ── Loading / Error ── */
+#loading {
+  display: flex; align-items: center; justify-content: center;
+  height: 60vh;
+  font-family:"Noto Serif TC",serif;
+  font-size: 15px;
+  color: rgba(240,232,210,0.45);
+  letter-spacing: 0.15em;
 }
-
-.answer{
-    display:none;
-    padding:0 18px 18px;
-    color:#555;
-    line-height:1.8;
-    white-space:pre-line;
-}
-
-.question span{
-    font-size:20px;
-}
-
-.footer{
-    text-align:center;
-    padding:40px;
-}
-
-.footer button{
-    padding:12px 24px;
-    border:none;
-    border-radius:30px;
-    background:#D9C6A5;
-    font-size:16px;
-}
-
 </style>
 </head>
-
 <body>
 
-<div class="header">
-    <h1>❓ 常見問題</h1>
-    <p>關於 Sahaja Yoga 與靜坐練習</p>
+<div id="bg"></div>
+<div id="overlay"></div>
+
+<div id="top-bar">
+  <div class="header-inner">
+    <button class="back-btn" onclick="window.location.href='menu.html'">← 返回</button>
+    <div class="header-title">常見問與答</div>
+    <div class="header-spacer"></div>
+  </div>
+  <div id="tab-bar"></div>
 </div>
 
-<div id="faqContainer" class="container"></div>
-
-<div class="footer">
-    <button onclick="location.href='index.html'">
-        返回首頁
-    </button>
+<div id="contentWrap">
+  <div class="content-inner" id="faqContent">
+    <div id="loading">載入中⋯⋯</div>
+  </div>
 </div>
 
 <script>
-
 const BASE = 'https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/';
 
-fetch(BASE + 'faq.json')
+let allData = [];
+let activeIdx = 0;
 
-.then(res => res.json())
-.then(data => {
+// Adjust contentWrap top padding after top-bar renders
+function adjustPadding() {
+  const tb = document.getElementById('top-bar');
+  document.getElementById('contentWrap').style.paddingTop = (tb.offsetHeight + 8) + 'px';
+}
 
-    const container =
-        document.getElementById('faqContainer');
+function renderTabs(data) {
+  const bar = document.getElementById('tab-bar');
+  bar.innerHTML = '';
+  data.forEach((cat, i) => {
+    const chip = document.createElement('button');
+    chip.className = 'tab-chip' + (i === activeIdx ? ' active' : '');
+    // strip emoji for compact label
+    chip.textContent = cat.category;
+    chip.addEventListener('click', () => {
+      activeIdx = i;
+      renderTabs(data);
+      renderFAQ(data);
+      // scroll content to top
+      document.getElementById('contentWrap').scrollTop = 0;
+    });
+    bar.appendChild(chip);
+  });
+  adjustPadding();
+}
 
-    data.forEach(section=>{
+function renderFAQ(data) {
+  const wrap = document.getElementById('faqContent');
+  wrap.innerHTML = '';
 
-        const category =
-            document.createElement('div');
+  const cat = data[activeIdx];
+  const heading = document.createElement('div');
+  heading.className = 'cat-heading';
+  heading.textContent = cat.category;
+  wrap.appendChild(heading);
 
-        category.className='category';
+  cat.items.forEach((item, idx) => {
+    const el = document.createElement('div');
+    el.className = 'faq-item';
 
-        category.innerHTML=
-        `
-        <div class="category-title">
-            ${section.category}
-        </div>
-        `;
+    el.innerHTML =
+      '<div class="faq-q">' +
+        '<span>' + item.q + '</span>' +
+        '<span class="faq-chevron">▼</span>' +
+      '</div>' +
+      '<div class="faq-a-wrap">' +
+        '<div class="faq-a">' + item.a + '</div>' +
+      '</div>';
 
-        section.items.forEach(item=>{
-
-            const faq =
-                document.createElement('div');
-
-            faq.className='faq-item';
-
-            faq.innerHTML=
-            `
-            <div class="question">
-                ${item.q}
-                <span>＋</span>
-            </div>
-
-            <div class="answer">
-                ${item.a}
-            </div>
-            `;
-
-            const q=
-                faq.querySelector('.question');
-
-            const a=
-                faq.querySelector('.answer');
-
-            const icon=
-                faq.querySelector('span');
-
-            q.addEventListener('click',()=>{
-
-                const opened=
-                    a.style.display==='block';
-
-                a.style.display=
-                    opened ? 'none' : 'block';
-
-                icon.textContent=
-                    opened ? '＋' : '－';
-
-            });
-
-            category.appendChild(faq);
-
-        });
-
-        container.appendChild(category);
-
+    el.querySelector('.faq-q').addEventListener('click', () => {
+      const isOpen = el.classList.contains('open');
+      // close all in this category
+      wrap.querySelectorAll('.faq-item').forEach(e => e.classList.remove('open'));
+      if (!isOpen) el.classList.add('open');
     });
 
-});
+    wrap.appendChild(el);
+  });
+}
 
+fetch(BASE + 'faq.json?t=' + Date.now())
+  .then(r => r.json())
+  .then(data => {
+    allData = data;
+    document.getElementById('loading').remove();
+    renderTabs(data);
+    renderFAQ(data);
+  })
+  .catch(() => {
+    document.getElementById('loading').textContent = '載入失敗，請稍後再試。';
+  });
+
+window.addEventListener('resize', adjustPadding);
 </script>
-
 </body>
 </html>
