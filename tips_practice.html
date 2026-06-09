@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>靜坐技巧</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC",sans-serif; background:#1C1A17; }
+
+#bg {
+  position:fixed; inset:0; z-index:0;
+  background: url('https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/forest.png') center/cover;
+}
+#overlay {
+  position:fixed; inset:0; z-index:1;
+  background: linear-gradient(to bottom, rgba(10,12,8,0.62) 0%, rgba(10,12,8,0.80) 100%);
+}
+
+/* ── 頂部 ── */
+#top-bar {
+  position:fixed; top:0; left:0; right:0; z-index:20;
+  padding-top: env(safe-area-inset-top, 0px);
+  background: rgba(10,12,8,0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 0.5px solid rgba(240,232,210,0.1);
+}
+.header-inner {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 16px 12px;
+}
+.back-btn {
+  font-family:"Noto Serif TC",serif;
+  font-size:clamp(13px,3.5vw,15px);
+  color:rgba(240,232,210,0.55);
+  background:none; border:none; cursor:pointer; padding:4px;
+  transition:color 0.2s;
+}
+.back-btn:active { color:rgba(240,232,210,0.9); }
+.header-title {
+  font-family:"Noto Serif TC",serif;
+  font-size:clamp(15px,4vw,17px);
+  color:rgba(240,232,210,0.85);
+  letter-spacing:0.15em;
+  text-shadow:0 1px 8px rgba(0,0,0,0.4);
+}
+.header-spacer { width:52px; }
+
+/* ── 技巧列表 Tab Bar ── */
+.tab-bar {
+  display:flex;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+  padding:0 4px 2px;
+}
+.tab-bar::-webkit-scrollbar { display:none; }
+.tab-item {
+  flex-shrink:0;
+  display:flex; flex-direction:column; align-items:center;
+  padding:8px 12px 10px;
+  cursor:pointer;
+  border-bottom:2px solid transparent;
+  transition:border-color 0.25s, opacity 0.25s;
+  opacity:0.42;
+  min-width:72px;
+}
+.tab-item.active {
+  border-bottom-color:rgba(240,232,210,0.7);
+  opacity:1;
+}
+.tab-icon { font-size:18px; line-height:1; }
+.tab-label {
+  font-family:"Noto Serif TC",serif;
+  font-size:clamp(10px,2.6vw,12px);
+  color:rgba(240,232,210,0.85);
+  letter-spacing:0.06em;
+  margin-top:4px;
+  white-space:nowrap;
+}
+
+/* ── 主捲動區 ── */
+#contentWrap {
+  position:fixed; top:0; left:0; right:0; bottom:0; z-index:5;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  padding-bottom:max(env(safe-area-inset-bottom,0px),32px);
+}
+.content-pane { display:none; }
+.content-pane.active { display:block; }
+
+/* ── 技巧描述小標 ── */
+.item-desc {
+  padding:20px 20px 0;
+  font-family:"Noto Serif TC",serif;
+  font-size:clamp(13px,3.4vw,14px);
+  color:rgba(240,232,210,0.45);
+  letter-spacing:0.1em;
+  line-height:1.7;
+}
+
+/* ── 內容區塊（沿用 about_sy 風格） ── */
+.section-intro {
+  padding:16px 20px 0;
+  font-family:"Noto Serif TC",serif;
+  font-size:clamp(15px,4vw,17px);
+  color:rgba(240,232,210,0.92);
+  line-height:2; letter-spacing:0.08em;
+  text-shadow:0 1px 6px rgba(0,0,0,0.35);
+  overflow:visible; white-space:normal; display:block;
+}
+.section-paragraph {
+  margin:14px 20px 0; padding:16px 18px;
+  border-radius:12px;
+  background:rgba(240,232,210,0.06);
+  border:0.5px solid rgba(240,232,210,0.12);
+}
+.section-paragraph h3 {
+  font-family:"Noto Serif TC",serif;
+  font-size:clamp(14px,3.8vw,15px);
+  color:rgba(240,232,210,0.75);
+  letter-spacing:0.12em; margin-bottom:8px;
+}
+.section-paragraph p {
+  font-size:clamp(13px,3.5vw,14px);
+  color:rgba(240,232,210,0.68);
+  line-height:1.85; letter-spacing:0.04em;
+}
+.section-quote {
+  margin:14px 20px 0; padding:16px 20px;
+  border-radius:12px;
+  background:rgba(240,232,210,0.04);
+  border-left:3px solid rgba(240,232,210,0.35);
+}
+.section-quote p {
+  font-family:"Noto Serif TC",serif;
+  font-size:clamp(14px,3.8vw,15px);
+  color:rgba(240,232,210,0.80);
+  line-height:1.9; letter-spacing:0.06em; font-style:italic;
+}
+.section-quote .author {
+  margin-top:8px;
+  font-size:clamp(12px,3vw,13px);
+  color:rgba(240,232,210,0.42);
+  letter-spacing:0.12em; font-style:normal;
+}
+.section-steps {
+  margin:14px 20px 0;
+  display:flex; flex-direction:column; gap:10px;
+}
+.step-item {
+  display:flex; gap:14px; align-items:flex-start;
+  padding:14px 16px; border-radius:12px;
+  background:rgba(240,232,210,0.06);
+  border:0.5px solid rgba(240,232,210,0.12);
+}
+.step-num {
+  width:28px; height:28px; border-radius:50%;
+  background:rgba(240,232,210,0.15);
+  border:0.5px solid rgba(240,232,210,0.25);
+  display:flex; align-items:center; justify-content:center;
+  font-family:"Noto Serif TC",serif; font-size:13px;
+  color:rgba(240,232,210,0.75); flex-shrink:0;
+}
+.step-text h4 {
+  font-family:"Noto Serif TC",serif;
+  font-size:clamp(14px,3.8vw,15px);
+  color:rgba(240,232,210,0.85);
+  letter-spacing:0.08em; margin-bottom:4px;
+}
+.step-text p {
+  font-size:clamp(13px,3.4vw,14px);
+  color:rgba(240,232,210,0.62);
+  line-height:1.75; letter-spacing:0.03em;
+}
+
+/* ── 影片連結按鈕 ── */
+.section-videos {
+  margin:14px 20px 0;
+  display:flex; flex-direction:column; gap:10px;
+}
+.video-link-btn {
+  display:flex; align-items:center; gap:14px;
+  padding:14px 18px; border-radius:12px;
+  background:rgba(240,232,210,0.07);
+  border:0.5px solid rgba(240,232,210,0.18);
+  cursor:pointer; text-decoration:none;
+  transition:background 0.2s, transform 0.1s;
+  -webkit-tap-highlight-color:transparent;
+}
+.video-link-btn:active {
+  background:rgba(240,232,210,0.14);
+  transform:scale(0.98);
+}
+.video-play-icon {
+  width:36px; height:36px; border-radius:50%;
+  background:rgba(240,232,210,0.15);
+  border:0.5px solid rgba(240,232,210,0.30);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+}
+.video-play-icon svg {
+  width:14px; height:14px;
+  fill:rgba(240,232,210,0.80);
+  margin-left:2px;
+}
+.video-link-info { flex:1; }
+.video-link-info h4 {
+  font-family:"Noto Serif TC",serif;
+  font-size:clamp(13px,3.6vw,15px);
+  color:rgba(240,232,210,0.85);
+  letter-spacing:0.08em; margin-bottom:3px;
+}
+.video-link-info p {
+  font-size:clamp(11px,3vw,13px);
+  color:rgba(240,232,210,0.45);
+  line-height:1.5; letter-spacing:0.04em;
+}
+.video-arrow {
+  font-size:16px;
+  color:rgba(240,232,210,0.35);
+  flex-shrink:0;
+}
+
+/* 最後區塊底部間距 */
+.content-pane > *:last-child { margin-bottom:28px; }
+
+.sentence { display:block; }
+
+/* ── 向下滑提示 ── */
+#scrollHint {
+  position:fixed;
+  bottom:max(env(safe-area-inset-bottom,0px),16px);
+  left:50%; transform:translateX(-50%);
+  z-index:50;
+  display:flex; flex-direction:column; align-items:center; gap:5px;
+  pointer-events:none; opacity:0; transition:opacity 0.45s ease;
+}
+#scrollHint.visible { opacity:1; }
+.hint-label {
+  font-family:"Noto Serif TC",serif;
+  font-size:10px; color:rgba(240,232,210,0.5); letter-spacing:0.14em;
+}
+.hint-circle {
+  width:34px; height:34px; border-radius:50%;
+  background:rgba(240,232,210,0.10);
+  border:0.5px solid rgba(240,232,210,0.28);
+  display:flex; align-items:center; justify-content:center;
+  animation:bounce 1.8s ease-in-out infinite;
+}
+.hint-circle svg {
+  width:16px; height:16px;
+  stroke:rgba(240,232,210,0.65); fill:none;
+  stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round;
+}
+@keyframes bounce {
+  0%,100% { transform:translateY(0); }
+  50%      { transform:translateY(5px); }
+}
+
+/* ── 進場動畫 ── */
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(16px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.content-pane.active .item-desc,
+.content-pane.active .section-intro,
+.content-pane.active .section-paragraph,
+.content-pane.active .section-quote,
+.content-pane.active .section-steps,
+.content-pane.active .section-videos {
+  opacity:0;
+  animation:fadeUp 0.42s ease forwards;
+}
+.content-pane.active > *:nth-child(1) { animation-delay:0.05s; }
+.content-pane.active > *:nth-child(2) { animation-delay:0.13s; }
+.content-pane.active > *:nth-child(3) { animation-delay:0.21s; }
+.content-pane.active > *:nth-child(4) { animation-delay:0.29s; }
+.content-pane.active > *:nth-child(5) { animation-delay:0.37s; }
+.content-pane.active > *:nth-child(6) { animation-delay:0.45s; }
+</style>
+</head>
+<body>
+
+<div id="bg"></div>
+<div id="overlay"></div>
+
+<div id="top-bar">
+  <div class="header-inner">
+    <button class="back-btn" onclick="goBack()">← 返回</button>
+    <div class="header-title">靜坐技巧</div>
+    <div class="header-spacer"></div>
+  </div>
+  <div class="tab-bar" id="tabBar"></div>
+</div>
+
+<div id="contentWrap"></div>
+
+<div id="scrollHint">
+  <div class="hint-label">往下滑</div>
+  <div class="hint-circle">
+    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+</div>
+
+<script>
+const BASE = 'https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/';
+
+function applyTopPadding() {
+  const topBar = document.getElementById('top-bar');
+  const wrap   = document.getElementById('contentWrap');
+  if (!topBar || !wrap) return;
+  wrap.style.paddingTop = topBar.offsetHeight + 12 + 'px';
+}
+
+function updateHint() {
+  const wrap = document.getElementById('contentWrap');
+  const hint = document.getElementById('scrollHint');
+  if (!wrap || !hint) return;
+  const scrollable = wrap.scrollHeight > wrap.clientHeight + 30;
+  const atBottom   = wrap.scrollTop + wrap.clientHeight >= wrap.scrollHeight - 56;
+  hint.classList.toggle('visible', scrollable && !atBottom);
+}
+
+document.getElementById('contentWrap').addEventListener('scroll', updateHint, { passive:true });
+window.addEventListener('resize', () => { applyTopPadding(); updateHint(); });
+
+function renderTabs(items) {
+  document.getElementById('tabBar').innerHTML = items.map((item, i) =>
+    `<div class="tab-item ${i===0?'active':''}" onclick="switchTab(${i})">
+      <span class="tab-icon">${item.icon}</span>
+      <span class="tab-label">${item.label}</span>
+    </div>`
+  ).join('');
+  requestAnimationFrame(() => { applyTopPadding(); updateHint(); });
+}
+
+function renderContent(items) {
+  document.getElementById('contentWrap').innerHTML = items.map((item, i) => {
+    let html = `<div class="content-pane ${i===0?'active':''}" id="pane-${i}">`;
+
+    // 技巧描述
+    html += `<p class="item-desc">${item.desc}</p>`;
+
+    if (item.sections) {
+      item.sections.forEach(s => {
+        if (s.type === 'intro') {
+          html += `<p class="section-intro">${splitSentences(s.text)}</p>`;
+        } else if (s.type === 'paragraph') {
+          html += `<div class="section-paragraph"><h3>${s.title}</h3><p>${splitSentences(s.text)}</p></div>`;
+        } else if (s.type === 'quote') {
+          html += `<blockquote class="section-quote"><p>${splitSentences(s.text)}</p><div class="author">${s.author}</div></blockquote>`;
+        } else if (s.type === 'steps') {
+          html += `<div class="section-steps">`;
+          s.items.forEach(step => {
+            html += `<div class="step-item">
+              <div class="step-num">${step.step}</div>
+              <div class="step-text"><h4>${step.title}</h4><p>${splitSentences(step.text)}</p></div>
+            </div>`;
+          });
+          html += `</div>`;
+        }
+      });
+    }
+
+    // 影片連結按鈕
+    if (item.videos && item.videos.length > 0) {
+      html += `<div class="section-videos">`;
+      item.videos.forEach(v => {
+        html += `<a class="video-link-btn" href="https://www.youtube.com/watch?v=${v.youtube_id}" target="_blank" rel="noopener">
+          <div class="video-play-icon">
+            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+          <div class="video-link-info">
+            <h4>${v.title}</h4>
+            <p>${v.desc}</p>
+          </div>
+          <span class="video-arrow">›</span>
+        </a>`;
+      });
+      html += `</div>`;
+    }
+
+    html += `</div>`;
+    return html;
+  }).join('');
+
+  requestAnimationFrame(() => {
+    applyTopPadding();
+    setTimeout(updateHint, 120);
+  });
+}
+
+function switchTab(idx) {
+  document.querySelectorAll('.tab-item').forEach((el, i) =>
+    el.classList.toggle('active', i === idx));
+  document.querySelectorAll('.content-pane').forEach((el, i) =>
+    el.classList.toggle('active', i === idx));
+  document.getElementById('contentWrap').scrollTop = 0;
+  setTimeout(updateHint, 150);
+}
+
+function splitSentences(text) {
+  return text
+    .split(/(?<=。)/)
+    .map(s => s.trim()).filter(Boolean)
+    .map(s => `<span class="sentence">${s}</span>`)
+    .join('');
+}
+
+function goBack() {
+  if (document.referrer) history.back();
+  else window.location.href = 'menu.html';
+}
+
+fetch(BASE + 'tips_practice.json?t=' + Date.now())
+  .then(r => r.json())
+  .then(data => {
+    renderTabs(data.items);
+    renderContent(data.items);
+  })
+  .catch(() => {
+    document.getElementById('contentWrap').innerHTML =
+      '<p style="color:rgba(240,232,210,0.5);padding:160px 24px 0;text-align:center;font-family:\'Noto Serif TC\',serif;font-size:15px;">內容載入失敗，請稍後再試。</p>';
+  });
+</script>
+</body>
+</html>

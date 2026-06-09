@@ -7,6 +7,13 @@
     "file": "meditation-guide/love-meditation1.mp3"
   },
   {
+    "key": "morning",
+    "label": "早晨啟動・迎接新的一天",
+    "description": "用幾分鐘的靜默開啟清晨，讓一天從內在的平靜出發。",
+    "duration": "10–15 分鐘",
+    "file": ""
+  },
+  {
     "key": "love2",
     "label": "釋放壓力與焦慮",
     "description": "適合感到緊繃、焦慮或情緒壓抑時使用。",
@@ -18,6 +25,13 @@
     "label": "平息思緒・改善失眠",
     "description": "適合思緒停不下來、夜晚難以入睡的你。",
     "duration": "15–20 分鐘",
+    "file": ""
+  },
+  {
+    "key": "midday",
+    "label": "午間回歸・五分鐘充電",
+    "description": "忙碌中場暫停一下，讓注意力回到自己，重新找回清醒與輕盈。",
+    "duration": "5–10 分鐘",
     "file": ""
   },
   {

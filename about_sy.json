@@ -1,8 +1,39 @@
 {
   "tabs": [
     {
+      "key": "benefits",
+      "label": "能帶給我什麼？",
+      "icon": "🌱",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "不需要任何宗教背景或冥想經驗，任何人都可以從 Sahaja Yoga 中獲得真實的改變。"
+        },
+        {
+          "type": "paragraph",
+          "title": "內在的平靜",
+          "text": "在忙碌與壓力中，找到一個屬於自己的靜默空間。每天幾分鐘，讓思緒自然沉澱。"
+        },
+        {
+          "type": "paragraph",
+          "title": "情緒的平衡",
+          "text": "透過昆達里尼的自然覺醒，逐漸釋放累積的壓力與情緒，恢復內在的彈性與輕盈。"
+        },
+        {
+          "type": "paragraph",
+          "title": "更清晰的自我覺知",
+          "text": "你會開始更了解自己的狀態——身體、情緒、思緒——並且能夠更自然地回到中心。"
+        },
+        {
+          "type": "paragraph",
+          "title": "完全免費",
+          "text": "全球超過 100 個國家都有 Sahaja Yoga 的靜坐課程，所有人都可以自由參加，不收取任何費用。"
+        }
+      ]
+    },
+    {
       "key": "what",
-      "label": "什麼是 SY",
+      "label": "Sahaja Yoga 是什麼？",
       "icon": "🌸",
       "sections": [
         {
@@ -11,34 +42,24 @@
         },
         {
           "type": "paragraph",
-          "title": "如同萬物的生長",
-          "text": "強調：「Sahaja」在梵文中意為「與生俱來」，「Yoga」意為「與神聖的力量的聯合」。"
+          "title": "自然而然，與生俱來",
+          "text": "「Sahaja」在梵文中意為「與生俱來」，「Yoga」意為「與神聖力量的聯合」。這份覺醒不需強迫或刻意修習，而是透過內在昆達里尼的自然升起而發生。"
         },
         {
           "type": "paragraph",
-          "title": "內在覺醒",
-          "text": "強調：個人內在都已具備靈性提升的潛能，無法強迫或刻意修習，而是透過昆達里尼的自然覺醒，達到與自身真我及宇宙能量的合一。"
-        },
-        {
-          "type": "paragraph",
-          "title": "完全免費",
-          "text": "強調：上天的恩典是無價的。無法以金錢物質所衡量販售的。全球超過 100 個國家有 Sahaja Yoga 的靜坐課程，所有人都可以自由參加。"
+          "title": "每個人內在都已具備",
+          "text": "靈性提升的潛能早已存在你的內在，不需要向外尋找。Sahaja Yoga 只是幫助你喚醒這份與生俱來的能力。"
         }
       ]
     },
     {
       "key": "founder",
-      "label": "創辦人",
+      "label": "Shri Mataji 是誰？",
       "icon": "✨",
       "sections": [
         {
           "type": "intro",
-          "text": "錫呂‧瑪塔吉被譽為二十世紀最偉大的靈性導師之一"
-        },
-        {
-          "type": "paragraph",
-          "title": "人生使命",
-          "text": "她畢生致力於將自我覺醒帶給每一個真理的追尋者"
+          "text": "Shri Mataji Nirmala Devi 被譽為二十世紀最偉大的靈性導師之一，她畢生致力於將自我覺醒帶給每一個真理的追尋者。"
         },
         {
           "type": "paragraph",
@@ -52,19 +73,19 @@
         },
         {
           "type": "quote",
-          "text": "「你必須成長，像樹一樣生長，因為你是生命之樹。」",
+          "text": "「你必須成長，像樹般地生長，因為你的生命就像一棵樹」",
           "author": "— Shri Mataji"
         }
       ]
     },
     {
       "key": "practice",
-      "label": "如何實踐",
+      "label": "現在就試試看",
       "icon": "🕊️",
       "sections": [
         {
           "type": "intro",
-          "text": "Sahaja Yoga 的修習非常簡單，任何人都可以在家中練習，每天只需 10–20 分鐘。"
+          "text": "Sahaja Yoga 的練習非常簡單，任何人都可以在家中進行，每天只需 10–20 分鐘。"
         },
         {
           "type": "steps",
@@ -90,11 +111,6 @@
               "text": "保持在這種無思慮的靜默狀態中，享受內在的寧靜與喜悅。"
             }
           ]
-        },
-        {
-          "type": "paragraph",
-          "title": "腳部浴（Foot Soaking）",
-          "text": "將雙腳浸泡在加了少許鹽的溫水中靜坐，是 Sahaja Yoga 中常用的淨化方法，有助於去除負面能量，深化靜坐體驗。"
         }
       ]
     },

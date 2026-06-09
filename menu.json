@@ -24,8 +24,8 @@
     "icon": "",
     "label": "靜坐技巧",
     "desc": "呼吸・元素・脈輪平衡法",
-    "url": null,
-    "coming_soon": true
+    "url": tips_practice.html,
+    "coming_soon": false
   },
   {
     "icon": "💬",
