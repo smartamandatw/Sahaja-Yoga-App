@@ -1,44 +1,43 @@
 [
   {
     "icon": "",
-    "label": "認識 Sahaja Yoga",
-    "desc": "了解這門古老的冥想智慧",
+    "label": "探索 Sahaja Yoga",
+    "desc": "靜心・自覺・生命的轉化",
     "url": "about_sy.html",
     "coming_soon": false
   },
   {
     "icon": "💬",
-    "label": "常見問與答",
-    "desc": "練習中最常遇到的問題",
+    "label": "常見問答",
+    "desc": "有疑問？這裡找答案",
     "url": "faq.html",
     "coming_soon": false
   },
   {
     "icon": "",
-    "label": "Sahaja Yoga 靜坐技巧",
-    "desc": "呼吸法、大自然元素清潔法...",
+    "label": "靜坐技巧",
+    "desc": "呼吸・元素・脈輪平衡法",
     "url": null,
     "coming_soon": true
   },
   {
     "icon": "",
-    "label": "靜坐引導系列",
-    "desc": "因應每個人日常狀況的引導",
+    "label": "靜坐引導",
+    "desc": "為你的今天，找到適合的引導",
     "url": null,
     "coming_soon": true
   },
   {
     "icon": "",
-    "label": "知識庫",
-    "desc": "更深入的 Sahaja Yoga 知識",
+    "label": "深入探索",
+    "desc": "精微能量・昆達里尼・脈輪體系",
     "url": null,
     "coming_soon": true
   },
-
   {
     "icon": "",
-    "label": "了解更多...",
-    "desc": "官方資源與社群連結",
+    "label": "加入我們",
+    "desc": "官網・社群・活動資訊",
     "url": null,
     "coming_soon": true
   }
