@@ -1,0 +1,54 @@
+{
+  "tabs": [
+    {
+      "key": "local",
+      "label": "各地活動",
+      "icon": "📍",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "全台各地定期舉辦免費的 Sahaja Yoga 靜坐課程與體驗活動，歡迎隨時參加。"
+        },
+        {
+          "type": "paragraph",
+          "title": "如何參加",
+          "text": "所有活動均免費開放，無需事先報名。你可以直接前往活動地點，或透過以下連結查看最新活動時間與地點。"
+        },
+        {
+          "type": "link",
+          "title": "查看 2026 台灣活動行程",
+          "desc": "最新各地靜坐課程、體驗活動一覽",
+          "url": "https://sahajayoga-tw.com/p_program2026_taiwan/"
+        }
+      ],
+      "events": []
+    },
+    {
+      "key": "online",
+      "label": "線上課程",
+      "icon": "💻",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "無論你在哪裡，都可以透過線上課程開始你的 Sahaja Yoga 之旅。"
+        },
+        {
+          "type": "paragraph",
+          "title": "線上靜坐課程",
+          "text": "我們定期舉辦線上靜坐課程，由資深老師帶領，適合初學者與有經驗的練習者。課程完全免費，歡迎邀請朋友一起參加。"
+        },
+        {
+          "type": "paragraph",
+          "title": "課程內容",
+          "text": "每堂課包含自覺引導、脈輪說明、靜坐練習與問答時間，約 60–90 分鐘。"
+        },
+        {
+          "type": "link",
+          "title": "查看線上課程資訊",
+          "desc": "最新線上課程時間與報名連結",
+          "url": "https://sahajayoga-tw.com/p_program2026_taiwan/"
+        }
+      ]
+    }
+  ]
+}

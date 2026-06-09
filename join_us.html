@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>加入我們</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC",sans-serif; background:#1C1A17; }
+#bg { position:fixed; inset:0; z-index:0; background:url('https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/sun.png') center/cover; }
+#overlay { position:fixed; inset:0; z-index:1; background:linear-gradient(to bottom,rgba(10,12,8,0.62) 0%,rgba(10,12,8,0.80) 100%); }
+#top-bar { position:fixed; top:0; left:0; right:0; z-index:20; padding-top:env(safe-area-inset-top,0px); background:rgba(10,12,8,0.88); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-bottom:0.5px solid rgba(240,232,210,0.1); }
+.header-inner { display:flex; align-items:center; justify-content:space-between; padding:14px 16px 10px; }
+.back-btn { font-family:"Noto Serif TC",serif; font-size:clamp(13px,3.5vw,15px); color:rgba(240,232,210,0.55); background:none; border:none; cursor:pointer; padding:4px; transition:color 0.2s; }
+.back-btn:active { color:rgba(240,232,210,0.9); }
+.header-title { font-family:"Noto Serif TC",serif; font-size:clamp(15px,4vw,17px); color:rgba(240,232,210,0.85); letter-spacing:0.15em; text-shadow:0 1px 8px rgba(0,0,0,0.4); }
+.header-spacer { width:52px; }
+.tab-bar { display:flex; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+.tab-bar::-webkit-scrollbar { display:none; }
+.tab-item { flex:1; min-width:70px; display:flex; flex-direction:column; align-items:center; padding:8px 8px 10px; cursor:pointer; border-bottom:2px solid transparent; transition:border-color 0.25s,opacity 0.25s; opacity:0.45; }
+.tab-item.active { border-bottom-color:rgba(240,232,210,0.7); opacity:1; }
+.tab-icon { font-size:18px; line-height:1; }
+.tab-label { font-family:"Noto Serif TC",serif; font-size:clamp(10px,2.8vw,12px); color:rgba(240,232,210,0.85); letter-spacing:0.08em; margin-top:4px; white-space:nowrap; }
+#contentWrap { position:fixed; top:0; left:0; right:0; bottom:0; z-index:5; overflow-y:auto; -webkit-overflow-scrolling:touch; padding-bottom:max(env(safe-area-inset-bottom,0px),32px); }
+.content-pane { display:none; }
+.content-pane.active { display:block; }
+.section-intro { padding:24px 20px 0; font-family:"Noto Serif TC",serif; font-size:clamp(15px,4vw,17px); color:rgba(240,232,210,0.92); line-height:2; letter-spacing:0.08em; text-shadow:0 1px 6px rgba(0,0,0,0.35); display:block; }
+.section-paragraph { margin:16px 20px 0; padding:16px 18px; border-radius:12px; background:rgba(240,232,210,0.06); border:0.5px solid rgba(240,232,210,0.12); }
+.section-paragraph h3 { font-family:"Noto Serif TC",serif; font-size:clamp(14px,3.8vw,15px); color:rgba(240,232,210,0.75); letter-spacing:0.12em; margin-bottom:8px; }
+.section-paragraph p { font-size:clamp(13px,3.5vw,14px); color:rgba(240,232,210,0.68); line-height:1.85; letter-spacing:0.04em; }
+.section-link { margin:12px 20px 0; }
+.link-btn { display:flex; align-items:center; gap:14px; padding:14px 18px; border-radius:12px; background:rgba(240,232,210,0.07); border:0.5px solid rgba(240,232,210,0.18); text-decoration:none; cursor:pointer; transition:background 0.2s,transform 0.1s; -webkit-tap-highlight-color:transparent; }
+.link-btn:active { background:rgba(240,232,210,0.14); transform:scale(0.98); }
+.link-icon { width:36px; height:36px; border-radius:50%; background:rgba(240,232,210,0.12); border:0.5px solid rgba(240,232,210,0.25); display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:16px; }
+.link-info { flex:1; }
+.link-info h4 { font-family:"Noto Serif TC",serif; font-size:clamp(13px,3.6vw,15px); color:rgba(240,232,210,0.85); letter-spacing:0.08em; margin-bottom:3px; }
+.link-info p { font-size:clamp(11px,3vw,13px); color:rgba(240,232,210,0.45); line-height:1.5; }
+.link-arrow { font-size:16px; color:rgba(240,232,210,0.35); flex-shrink:0; }
+.content-pane > *:last-child { margin-bottom:28px; }
+.sentence { display:block; }
+#scrollHint { position:fixed; bottom:max(env(safe-area-inset-bottom,0px),16px); left:50%; transform:translateX(-50%); z-index:50; display:flex; flex-direction:column; align-items:center; gap:5px; pointer-events:none; opacity:0; transition:opacity 0.45s ease; }
+#scrollHint.visible { opacity:1; }
+.hint-label { font-family:"Noto Serif TC",serif; font-size:10px; color:rgba(240,232,210,0.5); letter-spacing:0.14em; }
+.hint-circle { width:34px; height:34px; border-radius:50%; background:rgba(240,232,210,0.10); border:0.5px solid rgba(240,232,210,0.28); display:flex; align-items:center; justify-content:center; animation:bounce 1.8s ease-in-out infinite; }
+.hint-circle svg { width:16px; height:16px; stroke:rgba(240,232,210,0.65); fill:none; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; }
+@keyframes bounce { 0%,100%{transform:translateY(0);}50%{transform:translateY(5px);} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);} }
+.content-pane.active .section-intro,
+.content-pane.active .section-paragraph,
+.content-pane.active .section-link { opacity:0; animation:fadeUp 0.42s ease forwards; }
+.content-pane.active > *:nth-child(1) { animation-delay:0.05s; }
+.content-pane.active > *:nth-child(2) { animation-delay:0.13s; }
+.content-pane.active > *:nth-child(3) { animation-delay:0.21s; }
+.content-pane.active > *:nth-child(4) { animation-delay:0.29s; }
+.content-pane.active > *:nth-child(5) { animation-delay:0.37s; }
+</style>
+</head>
+<body>
+<div id="bg"></div>
+<div id="overlay"></div>
+<div id="top-bar">
+  <div class="header-inner">
+    <button class="back-btn" onclick="goBack()">← 返回</button>
+    <div class="header-title">加入我們</div>
+    <div class="header-spacer"></div>
+  </div>
+  <div class="tab-bar" id="tabBar"></div>
+</div>
+<div id="contentWrap"></div>
+<div id="scrollHint">
+  <div class="hint-label">往下滑</div>
+  <div class="hint-circle"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+</div>
+<script>
+const BASE = 'https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/';
+const LINK_ICONS = { 'sahajayoga-tw.com':'🌐', 'facebook.com':'📘', 'youtube.com':'▶️', 'line.me':'💬', 'threads.com':'🧵', 'mailto':'✉️' };
+function getLinkIcon(url) {
+  for (const [key, icon] of Object.entries(LINK_ICONS)) { if (url.includes(key)) return icon; }
+  return '🔗';
+}
+function applyTopPadding() {
+  const topBar = document.getElementById('top-bar');
+  const wrap = document.getElementById('contentWrap');
+  if (!topBar || !wrap) return;
+  wrap.style.paddingTop = topBar.offsetHeight + 12 + 'px';
+}
+function updateHint() {
+  const wrap = document.getElementById('contentWrap');
+  const hint = document.getElementById('scrollHint');
+  if (!wrap || !hint) return;
+  const scrollable = wrap.scrollHeight > wrap.clientHeight + 30;
+  const atBottom = wrap.scrollTop + wrap.clientHeight >= wrap.scrollHeight - 56;
+  hint.classList.toggle('visible', scrollable && !atBottom);
+}
+document.getElementById('contentWrap').addEventListener('scroll', updateHint, { passive:true });
+window.addEventListener('resize', () => { applyTopPadding(); updateHint(); });
+function renderTabs(tabs) {
+  document.getElementById('tabBar').innerHTML = tabs.map((t, i) =>
+    `<div class="tab-item ${i===0?'active':''}" onclick="switchTab(${i})">
+      <span class="tab-icon">${t.icon}</span>
+      <span class="tab-label">${t.label}</span>
+    </div>`).join('');
+  requestAnimationFrame(() => { applyTopPadding(); updateHint(); });
+}
+function renderContent(tabs) {
+  document.getElementById('contentWrap').innerHTML = tabs.map((tab, i) => {
+    let html = `<div class="content-pane ${i===0?'active':''}" id="pane-${i}">`;
+    if (tab.sections) {
+      tab.sections.forEach(s => {
+        if (s.type === 'intro') {
+          html += `<p class="section-intro">${splitSentences(s.text)}</p>`;
+        } else if (s.type === 'paragraph') {
+          html += `<div class="section-paragraph"><h3>${s.title}</h3><p>${splitSentences(s.text)}</p></div>`;
+        } else if (s.type === 'link') {
+          html += `<div class="section-link">
+            <a class="link-btn" href="${s.url}" target="_blank" rel="noopener">
+              <div class="link-icon">${getLinkIcon(s.url)}</div>
+              <div class="link-info"><h4>${s.title}</h4><p>${s.desc}</p></div>
+              <span class="link-arrow">›</span>
+            </a>
+          </div>`;
+        }
+      });
+    }
+    html += `</div>`;
+    return html;
+  }).join('');
+  requestAnimationFrame(() => { applyTopPadding(); setTimeout(updateHint, 120); });
+}
+function switchTab(idx) {
+  document.querySelectorAll('.tab-item').forEach((el, i) => el.classList.toggle('active', i === idx));
+  document.querySelectorAll('.content-pane').forEach((el, i) => el.classList.toggle('active', i === idx));
+  document.getElementById('contentWrap').scrollTop = 0;
+  setTimeout(updateHint, 150);
+}
+function splitSentences(text) {
+  return text.split(/(?<=。)/).map(s => s.trim()).filter(Boolean).map(s => `<span class="sentence">${s}</span>`).join('');
+}
+function goBack() {
+  if (document.referrer) history.back();
+  else window.location.href = 'menu.html';
+}
+fetch(BASE + 'join_us.json?t=' + Date.now())
+  .then(r => r.json())
+  .then(data => { renderTabs(data.tabs); renderContent(data.tabs); })
+  .catch(() => {
+    document.getElementById('contentWrap').innerHTML =
+      '<p style="color:rgba(240,232,210,0.5);padding:160px 24px 0;text-align:center;font-family:\'Noto Serif TC\',serif;font-size:15px;">內容載入失敗，請稍後再試。</p>';
+  });
+</script>
+</body>
+</html>

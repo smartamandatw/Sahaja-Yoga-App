@@ -1,0 +1,84 @@
+{
+  "tabs": [
+    {
+      "key": "website",
+      "label": "官網",
+      "icon": "🌐",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "台灣 Sahaja Yoga 官方網站提供豐富的學習資源、活動資訊與教學影片，歡迎探索。"
+        },
+        {
+          "type": "link",
+          "title": "台灣 Sahaja Yoga 官網",
+          "desc": "活動資訊・教學資源・靜坐課程",
+          "url": "https://sahajayoga-tw.com/"
+        }
+      ]
+    },
+    {
+      "key": "community",
+      "label": "社群",
+      "icon": "💬",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "加入我們的社群，與更多靜坐同好一起學習成長，分享彼此的體驗與心得。"
+        },
+        {
+          "type": "link",
+          "title": "LINE 官方帳號",
+          "desc": "加入後可收到最新活動通知與靜坐提醒",
+          "url": "https://line.me/R/ti/p/@647aurlx"
+        },
+        {
+          "type": "link",
+          "title": "Facebook 粉絲頁",
+          "desc": "分享靜坐心得・活動照片・每日語錄",
+          "url": "https://www.facebook.com/goinnertravel"
+        },
+        {
+          "type": "link",
+          "title": "YouTube 頻道",
+          "desc": "靜坐引導影片・Shri Mataji 演講・活動記錄",
+          "url": "https://www.youtube.com/@sahajayoga635"
+        },
+        {
+          "type": "link",
+          "title": "Threads",
+          "desc": "日常靜坐分享・靈性小語",
+          "url": "https://www.threads.com/@sahaja_yoga_taiwan"
+        }
+      ]
+    },
+    {
+      "key": "contact",
+      "label": "聯絡我們",
+      "icon": "✉️",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "有任何關於 Sahaja Yoga 的問題，或想了解更多課程資訊，歡迎隨時與我們聯繫。"
+        },
+        {
+          "type": "paragraph",
+          "title": "我們很樂意回覆你",
+          "text": "無論你是對靜坐好奇的初學者，還是想深入了解 Sahaja Yoga 的練習者，都歡迎來信。我們通常會在 2–3 個工作天內回覆。"
+        },
+        {
+          "type": "link",
+          "title": "發送 Email",
+          "desc": "sahajayogaintaiwan@gmail.com",
+          "url": "mailto:sahajayogaintaiwan@gmail.com"
+        },
+        {
+          "type": "link",
+          "title": "LINE 官方帳號",
+          "desc": "即時訊息，回覆更快速",
+          "url": "https://line.me/R/ti/p/@647aurlx"
+        }
+      ]
+    }
+  ]
+}
