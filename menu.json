@@ -7,9 +7,9 @@
     "coming_soon": false
   },
   {
-    "icon": "常見問與答",
-    "label": "Sahaja Yoga 練習者常見的問題與回覆",
-    "desc": "",
+    "icon": "💬",
+    "label": "常見問與答",
+    "desc": "練習中最常遇到的問題",
     "url": "faq.html",
     "coming_soon": false
   },
