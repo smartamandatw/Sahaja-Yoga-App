@@ -113,6 +113,13 @@
     padding:20px 10px;
   }
 
+  .response-box a {
+    color: rgba(240, 232, 210, 0.95);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+  }
+
   /* 日誌輸入 */
   .journal-wrap {
     width:100%; max-width:340px;
@@ -262,7 +269,7 @@
           // 隱藏佔位提示，顯示說明
           document.getElementById('responsePlaceholder').style.display = 'none';
           const box = document.getElementById('responseBox');
-          box.textContent = f.response;
+          box.innerHTML = f.response;
           box.classList.add('show');
           document.getElementById('nextBtn').style.display = 'block';
         });
