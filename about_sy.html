@@ -10,7 +10,6 @@
 * { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
 html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC",sans-serif; background:#1C1A17; }
 
-/* 背景 */
 #bg {
   position:fixed; inset:0; z-index:0;
   background: url('https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/flower.png') center/cover;
@@ -20,291 +19,179 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC"
   background: linear-gradient(to bottom, rgba(10,12,8,0.60) 0%, rgba(10,12,8,0.78) 100%);
 }
 
-/* ── 頂部固定區（header + tab bar 合為一個 fixed 塊） ── */
 #top-bar {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 20;
-  /* iOS safe-area */
+  position: fixed; top: 0; left: 0; right: 0; z-index: 20;
   padding-top: env(safe-area-inset-top, 0px);
   background: rgba(10,12,8,0.88);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
   border-bottom: 0.5px solid rgba(240,232,210,0.1);
 }
-
 .header-inner {
   display: flex; align-items: center; justify-content: space-between;
   padding: 14px 16px 10px;
 }
 .back-btn {
-  font-family:"Noto Serif TC",serif;
-  font-size: clamp(13px,3.5vw,15px);
-  color: rgba(240,232,210,0.55);
-  background: none; border: none; cursor: pointer;
-  padding: 4px;
-  transition: color 0.2s;
+  font-family:"Noto Serif TC",serif; font-size: clamp(13px,3.5vw,15px);
+  color: rgba(240,232,210,0.55); background: none; border: none; cursor: pointer;
+  padding: 4px; transition: color 0.2s;
 }
 .back-btn:active { color: rgba(240,232,210,0.9); }
 .header-title {
-  font-family:"Noto Serif TC",serif;
-  font-size: clamp(15px,4vw,17px);
-  color: rgba(240,232,210,0.85);
-  letter-spacing: 0.15em;
+  font-family:"Noto Serif TC",serif; font-size: clamp(15px,4vw,17px);
+  color: rgba(240,232,210,0.85); letter-spacing: 0.15em;
   text-shadow: 0 1px 8px rgba(0,0,0,0.4);
 }
 .header-spacer { width: 52px; }
 
-/* Tab Bar — 跟著 top-bar 一起，不再單獨 fixed */
 .tab-bar {
-  display: flex;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
+  display: flex; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
 }
 .tab-bar::-webkit-scrollbar { display: none; }
 .tab-item {
   flex: 1; min-width: 70px;
   display: flex; flex-direction: column; align-items: center;
-  padding: 8px 8px 10px;
-  cursor: pointer;
+  padding: 8px 8px 10px; cursor: pointer;
   border-bottom: 2px solid transparent;
-  transition: border-color 0.25s, opacity 0.25s;
-  opacity: 0.45;
+  transition: border-color 0.25s, opacity 0.25s; opacity: 0.45;
 }
-.tab-item.active {
-  border-bottom-color: rgba(240,232,210,0.7);
-  opacity: 1;
-}
+.tab-item.active { border-bottom-color: rgba(240,232,210,0.7); opacity: 1; }
 .tab-icon { font-size: 18px; line-height: 1; }
 .tab-label {
-  font-family:"Noto Serif TC",serif;
-  font-size: clamp(10px,2.8vw,12px);
-  color: rgba(240,232,210,0.85);
-  letter-spacing: 0.08em;
-  margin-top: 4px;
-  white-space: nowrap;
+  font-family:"Noto Serif TC",serif; font-size: clamp(10px,2.8vw,12px);
+  color: rgba(240,232,210,0.85); letter-spacing: 0.08em;
+  margin-top: 4px; white-space: nowrap;
 }
 
-/* ── 主內容捲動區 ── */
 #contentWrap {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  z-index: 5;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  /* paddingTop 由 JS 動態設定（= #top-bar 高度） */
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 5;
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
   padding-bottom: max(env(safe-area-inset-bottom, 0px), 32px);
 }
-
 .content-pane { display: none; }
 .content-pane.active { display: block; }
 
-/* ── 區塊樣式 ── */
-
-/* intro：完整呈現，不截斷 */
 .section-intro {
-  padding: 24px 20px 0;
-  font-family:"Noto Serif TC",serif;
-  font-size: clamp(16px,4.2vw,18px);
-  color: rgba(240,232,210,0.92);
-  line-height: 2;
-  letter-spacing: 0.08em;
+  padding: 24px 20px 0; font-family:"Noto Serif TC",serif;
+  font-size: clamp(16px,4.2vw,18px); color: rgba(240,232,210,0.92);
+  line-height: 2; letter-spacing: 0.08em;
   text-shadow: 0 1px 6px rgba(0,0,0,0.35);
-  /* 明確防止截斷 */
-  overflow: visible;
-  white-space: normal;
-  display: block;
-  max-height: none;
-  -webkit-line-clamp: unset;
+  overflow: visible; white-space: normal; display: block;
+  max-height: none; -webkit-line-clamp: unset;
 }
-
 .section-image {
-  margin: 20px 20px 0;
-  border-radius: 14px;
-  overflow: hidden;
+  margin: 20px 20px 0; border-radius: 14px; overflow: hidden;
   border: 0.5px solid rgba(240,232,210,0.15);
 }
-.section-image img {
-  width: 100%; display: block;
-  object-fit: cover; max-height: 220px;
-}
+.section-image img { width: 100%; display: block; object-fit: cover; max-height: 220px; }
 .section-image figcaption {
-  padding: 8px 14px;
-  font-size: clamp(11px,3vw,12px);
-  color: rgba(240,232,210,0.45);
-  letter-spacing: 0.1em;
-  font-family:"Noto Serif TC",serif;
-  background: rgba(0,0,0,0.2);
-  text-align: center;
+  padding: 8px 14px; font-size: clamp(11px,3vw,12px);
+  color: rgba(240,232,210,0.45); letter-spacing: 0.1em;
+  font-family:"Noto Serif TC",serif; background: rgba(0,0,0,0.2); text-align: center;
 }
-
 .section-paragraph {
-  margin: 16px 20px 0;
-  padding: 16px 18px;
-  border-radius: 12px;
-  background: rgba(240,232,210,0.06);
-  border: 0.5px solid rgba(240,232,210,0.12);
+  margin: 16px 20px 0; padding: 16px 18px; border-radius: 12px;
+  background: rgba(240,232,210,0.06); border: 0.5px solid rgba(240,232,210,0.12);
 }
 .section-paragraph h3 {
-  font-family:"Noto Serif TC",serif;
-  font-size: clamp(14px,3.8vw,16px);
-  color: rgba(240,232,210,0.75);
-  letter-spacing: 0.12em;
-  margin-bottom: 8px;
+  font-family:"Noto Serif TC",serif; font-size: clamp(14px,3.8vw,16px);
+  color: rgba(240,232,210,0.75); letter-spacing: 0.12em; margin-bottom: 8px;
 }
 .section-paragraph p {
-  font-size: clamp(14px,3.6vw,15px);
-  color: rgba(240,232,210,0.7);
-  line-height: 1.85;
-  letter-spacing: 0.04em;
+  font-size: clamp(14px,3.6vw,15px); color: rgba(240,232,210,0.7);
+  line-height: 1.85; letter-spacing: 0.04em;
 }
-
 .section-quote {
-  margin: 16px 20px 0;
-  padding: 18px 20px;
-  border-radius: 12px;
-  background: rgba(240,232,210,0.04);
-  border-left: 3px solid rgba(240,232,210,0.35);
+  margin: 16px 20px 0; padding: 18px 20px; border-radius: 12px;
+  background: rgba(240,232,210,0.04); border-left: 3px solid rgba(240,232,210,0.35);
 }
 .section-quote p {
-  font-family:"Noto Serif TC",serif;
-  font-size: clamp(14px,3.8vw,16px);
-  color: rgba(240,232,210,0.82);
-  line-height: 1.9;
-  letter-spacing: 0.06em;
-  font-style: italic;
+  font-family:"Noto Serif TC",serif; font-size: clamp(14px,3.8vw,16px);
+  color: rgba(240,232,210,0.82); line-height: 1.9; letter-spacing: 0.06em; font-style: italic;
 }
 .section-quote .author {
-  margin-top: 8px;
-  font-size: clamp(12px,3vw,13px);
-  color: rgba(240,232,210,0.45);
-  letter-spacing: 0.12em;
-  font-style: normal;
+  margin-top: 8px; font-size: clamp(12px,3vw,13px);
+  color: rgba(240,232,210,0.45); letter-spacing: 0.12em; font-style: normal;
 }
-
-.section-steps {
-  margin: 16px 20px 0;
-  display: flex; flex-direction: column; gap: 10px;
-}
+.section-steps { margin: 16px 20px 0; display: flex; flex-direction: column; gap: 10px; }
 .step-item {
   display: flex; gap: 14px; align-items: flex-start;
-  padding: 14px 16px;
-  border-radius: 12px;
-  background: rgba(240,232,210,0.06);
-  border: 0.5px solid rgba(240,232,210,0.12);
+  padding: 14px 16px; border-radius: 12px;
+  background: rgba(240,232,210,0.06); border: 0.5px solid rgba(240,232,210,0.12);
 }
 .step-num {
   width: 28px; height: 28px; border-radius: 50%;
-  background: rgba(240,232,210,0.15);
-  border: 0.5px solid rgba(240,232,210,0.25);
+  background: rgba(240,232,210,0.15); border: 0.5px solid rgba(240,232,210,0.25);
   display: flex; align-items: center; justify-content: center;
-  font-family:"Noto Serif TC",serif;
-  font-size: 13px;
-  color: rgba(240,232,210,0.75);
-  flex-shrink: 0;
+  font-family:"Noto Serif TC",serif; font-size: 13px;
+  color: rgba(240,232,210,0.75); flex-shrink: 0;
 }
 .step-text h4 {
-  font-family:"Noto Serif TC",serif;
-  font-size: clamp(14px,3.8vw,15px);
-  color: rgba(240,232,210,0.85);
-  letter-spacing: 0.08em;
-  margin-bottom: 4px;
+  font-family:"Noto Serif TC",serif; font-size: clamp(14px,3.8vw,15px);
+  color: rgba(240,232,210,0.85); letter-spacing: 0.08em; margin-bottom: 4px;
 }
 .step-text p {
-  font-size: clamp(13px,3.4vw,14px);
-  color: rgba(240,232,210,0.62);
-  line-height: 1.75;
-  letter-spacing: 0.03em;
+  font-size: clamp(13px,3.4vw,14px); color: rgba(240,232,210,0.62);
+  line-height: 1.75; letter-spacing: 0.03em;
 }
 
+/* ── 影片連結按鈕（取代 iframe）── */
 .section-videos {
-  margin: 16px 20px 0;
-  display: flex; flex-direction: column; gap: 14px;
+  margin: 16px 20px 0; display: flex; flex-direction: column; gap: 10px;
 }
-.video-card {
-  border-radius: 14px; overflow: hidden;
-  background: rgba(240,232,210,0.06);
-  border: 0.5px solid rgba(240,232,210,0.12);
+.video-link-btn {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 18px; border-radius: 12px;
+  background: rgba(240,232,210,0.07);
+  border: 0.5px solid rgba(240,232,210,0.18);
+  cursor: pointer; text-decoration: none;
+  transition: background 0.2s, transform 0.1s;
+  -webkit-tap-highlight-color: transparent;
 }
-.video-embed {
-  position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+.video-link-btn:active { background: rgba(240,232,210,0.14); transform: scale(0.98); }
+.video-play-icon {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(240,232,210,0.15); border: 0.5px solid rgba(240,232,210,0.30);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
-.video-embed iframe {
-  position: absolute; top:0; left:0; width:100%; height:100%; border: none;
+.video-play-icon svg { width: 14px; height: 14px; fill: rgba(240,232,210,0.80); margin-left: 2px; }
+.video-link-info { flex: 1; }
+.video-link-info h4 {
+  font-family:"Noto Serif TC",serif; font-size: clamp(13px,3.6vw,15px);
+  color: rgba(240,232,210,0.85); letter-spacing: 0.08em; margin-bottom: 3px;
 }
-.video-info { padding: 12px 16px; }
-.video-info h4 {
-  font-family:"Noto Serif TC",serif;
-  font-size: clamp(14px,3.8vw,15px);
-  color: rgba(240,232,210,0.85);
-  letter-spacing: 0.08em; margin-bottom: 4px;
+.video-link-info p {
+  font-size: clamp(11px,3vw,13px); color: rgba(240,232,210,0.45); line-height: 1.5;
 }
-.video-info p {
-  font-size: clamp(12px,3.2vw,13px);
-  color: rgba(240,232,210,0.50);
-  line-height: 1.6;
-}
+.video-arrow { font-size: 16px; color: rgba(240,232,210,0.35); flex-shrink: 0; }
 
-/* 最後一個區塊的底部間距 */
 .content-pane > *:last-child { margin-bottom: 28px; }
-
-/* 逐句換行 */
 .sentence { display: block; }
 
-/* ── 向下滑提示 ── */
 #scrollHint {
-  position: fixed;
-  bottom: max(env(safe-area-inset-bottom, 0px), 16px);
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 50;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.45s ease;
+  position: fixed; bottom: max(env(safe-area-inset-bottom, 0px), 16px);
+  left: 50%; transform: translateX(-50%); z-index: 50;
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
+  pointer-events: none; opacity: 0; transition: opacity 0.45s ease;
 }
 #scrollHint.visible { opacity: 1; }
-.hint-label {
-  font-family:"Noto Serif TC",serif;
-  font-size: 10px;
-  color: rgba(240,232,210,0.5);
-  letter-spacing: 0.14em;
-}
+.hint-label { font-family:"Noto Serif TC",serif; font-size: 10px; color: rgba(240,232,210,0.5); letter-spacing: 0.14em; }
 .hint-circle {
   width: 34px; height: 34px; border-radius: 50%;
-  background: rgba(240,232,210,0.10);
-  border: 0.5px solid rgba(240,232,210,0.28);
+  background: rgba(240,232,210,0.10); border: 0.5px solid rgba(240,232,210,0.28);
   display: flex; align-items: center; justify-content: center;
   animation: bounce 1.8s ease-in-out infinite;
 }
-.hint-circle svg {
-  width: 16px; height: 16px;
-  stroke: rgba(240,232,210,0.65);
-  fill: none; stroke-width: 2.2;
-  stroke-linecap: round; stroke-linejoin: round;
-}
-@keyframes bounce {
-  0%,100% { transform: translateY(0); }
-  50%      { transform: translateY(5px); }
-}
+.hint-circle svg { width: 16px; height: 16px; stroke: rgba(240,232,210,0.65); fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+@keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
 
-/* ── 進場動畫 ── */
-@keyframes fadeUp {
-  from { opacity:0; transform:translateY(16px); }
-  to   { opacity:1; transform:translateY(0); }
-}
+@keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
 .content-pane.active .section-intro,
 .content-pane.active .section-image,
 .content-pane.active .section-paragraph,
 .content-pane.active .section-quote,
 .content-pane.active .section-steps,
 .content-pane.active .section-videos {
-  opacity: 0;
-  animation: fadeUp 0.42s ease forwards;
+  opacity: 0; animation: fadeUp 0.42s ease forwards;
 }
 .content-pane.active > *:nth-child(1) { animation-delay: 0.05s; }
 .content-pane.active > *:nth-child(2) { animation-delay: 0.13s; }
@@ -318,7 +205,6 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC"
 <div id="bg"></div>
 <div id="overlay"></div>
 
-<!-- 頂部固定區（header title + tab bar 同一個 fixed 容器） -->
 <div id="top-bar">
   <div class="header-inner">
     <button class="back-btn" onclick="goBack()">← 返回</button>
@@ -328,10 +214,8 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC"
   <div class="tab-bar" id="tabBar"></div>
 </div>
 
-<!-- 主捲動區 -->
 <div id="contentWrap"></div>
 
-<!-- 向下滑提示 -->
 <div id="scrollHint">
   <div class="hint-label">往下滑</div>
   <div class="hint-circle">
@@ -342,7 +226,6 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC"
 <script>
 const BASE = 'https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/';
 
-/* ── 頂部高度 → 設定 contentWrap paddingTop ── */
 function applyTopPadding() {
   const topBar = document.getElementById('top-bar');
   const wrap   = document.getElementById('contentWrap');
@@ -350,7 +233,6 @@ function applyTopPadding() {
   wrap.style.paddingTop = topBar.offsetHeight + 12 + 'px';
 }
 
-/* ── 向下滑提示 ── */
 function updateHint() {
   const wrap = document.getElementById('contentWrap');
   const hint = document.getElementById('scrollHint');
@@ -363,7 +245,6 @@ function updateHint() {
 document.getElementById('contentWrap').addEventListener('scroll', updateHint, { passive: true });
 window.addEventListener('resize', () => { applyTopPadding(); updateHint(); });
 
-/* ── 渲染 Tab Bar ── */
 function renderTabs(tabs) {
   document.getElementById('tabBar').innerHTML = tabs.map((t, i) =>
     `<div class="tab-item ${i===0?'active':''}" onclick="switchTab(${i})">
@@ -371,11 +252,9 @@ function renderTabs(tabs) {
       <span class="tab-label">${t.label}</span>
     </div>`
   ).join('');
-  // tab bar 渲染後高度才穩定，重新算 padding
   requestAnimationFrame(() => { applyTopPadding(); updateHint(); });
 }
 
-/* ── 渲染所有分頁內容 ── */
 function renderContent(tabs) {
   document.getElementById('contentWrap').innerHTML = tabs.map((tab, i) => {
     let html = `<div class="content-pane ${i===0?'active':''}" id="pane-${i}">`;
@@ -403,15 +282,20 @@ function renderContent(tabs) {
       });
     }
 
+    // 影片連結按鈕（取代 iframe）
     if (tab.videos) {
       html += `<div class="section-videos">`;
       tab.videos.forEach(v => {
-        html += `<div class="video-card">
-          <div class="video-embed">
-            <iframe src="https://www.youtube.com/embed/${v.youtube_id}" allowfullscreen loading="lazy"></iframe>
+        html += `<a class="video-link-btn" href="https://www.youtube.com/watch?v=${v.youtube_id}" target="_blank" rel="noopener">
+          <div class="video-play-icon">
+            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
           </div>
-          <div class="video-info"><h4>${v.title}</h4><p>${v.desc}</p></div>
-        </div>`;
+          <div class="video-link-info">
+            <h4>${v.title}</h4>
+            <p>${v.desc}</p>
+          </div>
+          <span class="video-arrow">›</span>
+        </a>`;
       });
       html += `</div>`;
     }
@@ -420,14 +304,12 @@ function renderContent(tabs) {
     return html;
   }).join('');
 
-  // 內容渲染完，重新計算
   requestAnimationFrame(() => {
     applyTopPadding();
-    setTimeout(updateHint, 120); // 等動畫穩定再量
+    setTimeout(updateHint, 120);
   });
 }
 
-/* ── 切換分頁 ── */
 function switchTab(idx) {
   document.querySelectorAll('.tab-item').forEach((el, i) =>
     el.classList.toggle('active', i === idx));
@@ -437,7 +319,6 @@ function switchTab(idx) {
   setTimeout(updateHint, 150);
 }
 
-/* ── 依句號拆句、每句獨立一行 ── */
 function splitSentences(text) {
   return text
     .split(/(?<=。)/)
@@ -446,13 +327,11 @@ function splitSentences(text) {
     .join('');
 }
 
-/* ── 返回 ── */
 function goBack() {
   if (document.referrer) history.back();
   else window.location.href = 'menu.html';
 }
 
-/* ── 載入 JSON ── */
 fetch(BASE + 'about_sy.json?t=' + Date.now())
   .then(r => r.json())
   .then(data => {
