@@ -7,16 +7,9 @@
     "coming_soon": false
   },
   {
-    "icon": "💬",
-    "label": "常見問答",
-    "desc": "有疑問？這裡找答案",
-    "url": "faq.html",
-    "coming_soon": false
-  },
-  {
     "icon": "",
-    "label": "靜坐技巧",
-    "desc": "呼吸・元素・脈輪平衡法",
+    "label": "七天靜心之旅",
+    "desc": "從零開始，建立每天靜坐的習慣",
     "url": null,
     "coming_soon": true
   },
@@ -29,8 +22,36 @@
   },
   {
     "icon": "",
+    "label": "靜坐技巧",
+    "desc": "呼吸・元素・脈輪平衡法",
+    "url": null,
+    "coming_soon": true
+  },
+  {
+    "icon": "💬",
+    "label": "常見問答",
+    "desc": "有疑問？這裡找答案",
+    "url": "faq.html",
+    "coming_soon": false
+  },
+  {
+    "icon": "",
     "label": "深入探索",
     "desc": "精微能量・昆達里尼・脈輪體系",
+    "url": null,
+    "coming_soon": true
+  },
+  {
+    "icon": "",
+    "label": "冥想音樂",
+    "desc": "Bhajan・Mantra・靜心輕音樂",
+    "url": null,
+    "coming_soon": true
+  },
+  {
+    "icon": "",
+    "label": "活動資訊",
+    "desc": "各地活動・線上課程・報名連結",
     "url": null,
     "coming_soon": true
   },
