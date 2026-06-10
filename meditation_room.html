@@ -59,9 +59,9 @@
     overflow:hidden; position:relative;
   }
   /* 左欄縮小，中右欄放大 */
-   .col:nth-child(1) { flex:0 0 42%; }  /* 音樂欄，固定42% */
-   .col:nth-child(2) { flex:1; }         /* 引導欄，佔剩下的58% */
-   .col + .col {
+  .col:nth-child(1) { flex:1; }
+  .col:nth-child(2) { flex:1; }
+  .col + .col {
     border-left:1px solid rgba(240,232,210,0.15);
   }
 
@@ -407,7 +407,8 @@
   </div>
 </div>
 
-<audio id="previewAudio" loop></audio>
+<audio id="previewMusic" loop></audio>
+<audio id="previewGuide" loop></audio>
 <audio id="guideAudio"></audio>
 <audio id="bgAudio" loop></audio>
 
@@ -492,7 +493,7 @@
           selMusic = m.key;
           selMusicUrl = m.file ? BASE + m.file : '';
           // 試聽
-          const pa = document.getElementById('previewAudio');
+          const pa = document.getElementById('previewMusic');
           pa.pause();
           if (selMusicUrl) { pa.src = selMusicUrl; pa.volume = 0.4; pa.play().catch(function(){}); }
           checkReady();
@@ -520,7 +521,7 @@
           selGuide = g.key;
           selGuideUrl = g.file ? BASE + g.file : '';
           // 試聽
-          const pa = document.getElementById('previewAudio');
+          const pa = document.getElementById('previewGuide');
           pa.pause();
           if (selGuideUrl) { pa.src = selGuideUrl; pa.volume = 0.4; pa.play().catch(function(){}); }
 
@@ -541,7 +542,8 @@
   function backToSelect() {
     document.getElementById('guideAudio').pause();
     document.getElementById('bgAudio').pause();
-    document.getElementById('previewAudio').pause();
+    document.getElementById('previewMusic').pause();
+    document.getElementById('previewGuide').pause();
     clearInterval(timerInterval);
     seconds = 0; paused = false;
     const pb=document.getElementById('pauseBtn'); if(pb) pb.innerHTML='⏸ 暫停';
@@ -557,7 +559,8 @@
   function startMeditation() {
     paused = false;
     const pb=document.getElementById('pauseBtn'); if(pb) pb.innerHTML='⏸ 暫停';
-    document.getElementById('previewAudio').pause();
+    document.getElementById('previewMusic').pause();
+    document.getElementById('previewGuide').pause();
     document.getElementById('selectPage').classList.add('hide');
     document.getElementById('overlay').style.background = 'rgba(10,12,8,0.5)';
 
