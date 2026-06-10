@@ -59,9 +59,9 @@
     overflow:hidden; position:relative;
   }
   /* 左欄縮小，中右欄放大 */
-  .col:nth-child(1) { flex:1; }
-  .col:nth-child(2) { flex:1; }
-  .col + .col {
+   .col:nth-child(1) { flex:0 0 42%; }  /* 音樂欄，固定42% */
+   .col:nth-child(2) { flex:1; }         /* 引導欄，佔剩下的58% */
+   .col + .col {
     border-left:1px solid rgba(240,232,210,0.15);
   }
 
