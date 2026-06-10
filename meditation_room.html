@@ -59,16 +59,15 @@
     overflow:hidden; position:relative;
   }
   /* 左欄縮小，中右欄放大 */
-  .col:nth-child(1) { flex:0 0 22%; }
-  .col:nth-child(2) { flex:0 0 32%; }
-  .col:nth-child(3) { flex:1; }
+  .col:nth-child(1) { flex:1; }
+  .col:nth-child(2) { flex:1; }
   .col + .col {
     border-left:1px solid rgba(240,232,210,0.15);
   }
 
   .col-title {
     font-family:"Noto Serif TC",serif;
-    font-size:12 px;
+    font-size:15px;
     color:rgba(240,232,210,0.55);
     letter-spacing:0.18em; text-align:center;
     margin-bottom:8px; flex-shrink:0;
@@ -150,21 +149,21 @@
     background:rgba(230,220,200,0.08); backdrop-filter:blur(8px);
     color:rgba(240,232,210,0.75);
     font-family:"Noto Serif TC",serif;
-    font-size:clamp(12px,3.2vw,15px); letter-spacing:0.06em;
+    font-size:clamp(15px,4vw,19px); letter-spacing:0.06em;
     cursor:pointer; text-align:left; line-height:1.4;
     transition:background 0.2s, border-color 0.2s, transform 0.1s;
     flex-shrink:0;
   }
   .item-btn .btn-label {
     display:block;
-    font-size:clamp(12px,3.2vw,15px);
+    font-size:clamp(15px,4vw,19px);
     color:rgba(240,232,210,0.9);
     letter-spacing:0.08em;
     margin-bottom:4px;
   }
   .item-btn .btn-desc {
     display:block;
-    font-size:clamp(10px,2.5vw,11px);
+    font-size:clamp(12px,3vw,14px);
     color:rgba(240,232,210,0.5);
     letter-spacing:0.04em;
     line-height:1.5;
@@ -172,7 +171,7 @@
   }
   .item-btn .btn-duration {
     display:inline-block;
-    font-size:clamp(9px,2.2vw,10px);
+    font-size:clamp(11px,2.8vw,13px);
     color:rgba(240,232,210,0.4);
     letter-spacing:0.06em;
     border:0.5px solid rgba(240,232,210,0.2);
@@ -334,6 +333,27 @@
   transform:scale(.95);
 }
 
+
+  /* ── 靜坐中背景切換列 ── */
+  #bgSwitcher {
+    position:fixed; bottom:90px; left:0; right:0; z-index:10;
+    display:flex; justify-content:center; align-items:center;
+    gap:8px; padding:0 16px;
+    opacity:0; pointer-events:none;
+    transition:opacity 0.4s ease;
+  }
+  #bgSwitcher.show { opacity:1; pointer-events:auto; }
+  .bg-thumb {
+    width:44px; height:33px; border-radius:6px;
+    background-size:cover; background-position:center;
+    border:2px solid transparent;
+    cursor:pointer;
+    transition:border-color 0.2s, transform 0.15s;
+    flex-shrink:0;
+  }
+  .bg-thumb:active { transform:scale(0.9); }
+  .bg-thumb.selected { border-color:rgba(240,232,210,0.9); }
+
 </style>
 </head>
 <body>
@@ -346,21 +366,13 @@
   <button id="backHomeBtn" onclick="goHome()">←返回</button>
   <div class="page-title">
         ✼專屬於你的冥想菜單✼<br>
-  	① + ② + ③
+  	① 音樂 ＋ ② 引導
   </div>
 
   <div class="three-col">
-    <!-- 左欄：背景場景 -->
+    <!-- 左欄：背景音樂 -->
     <div class="col">
-      <div class="col-title">① ▾</div>
-      <div class="bg-list" id="bgList"></div>
-      <div class="scroll-fade" id="bgFade"></div>
-      <div class="scroll-arrow" id="bgArrow">▾</div>
-    </div>
-
-    <!-- 中欄：背景音樂 -->
-    <div class="col">
-      <div class="col-title">② 音樂▾</div>
+      <div class="col-title">① 音樂▾</div>
       <div class="item-list" id="musicList"></div>
       <div class="scroll-fade" id="musicFade"></div>
       <div class="scroll-arrow" id="musicArrow">▾</div>
@@ -368,7 +380,7 @@
 
     <!-- 右欄：靜坐引導 -->
     <div class="col">
-      <div class="col-title">③ 引導▾</div>
+      <div class="col-title">② 引導▾</div>
       <div class="item-list" id="guideList"></div>
       <div class="scroll-fade" id="guideFade"></div>
       <div class="scroll-arrow" id="guideArrow">▾</div>
@@ -383,6 +395,8 @@
 <!-- 靜坐畫面 -->
 <div id="meditationPage">
   <button id="backToSelect" onclick="backToSelect()">←返回</button>
+  <!-- 背景切換縮圖列 -->
+  <div id="bgSwitcher"></div>
   <div id="tipWrap">
     <div id="tipText"></div>
     <div id="timer">00:00</div>
@@ -423,39 +437,45 @@
   }
 
   function checkReady() {
-    const ready = !!(selBg && selMusic !== null && selGuide !== null);
+    const ready = !!(selMusic !== null && selGuide !== null);
     const wrap = document.querySelector('.start-wrap');
     if (ready) {
       wrap.classList.add('visible');
     }
   }
 
-  // ── 載入背景場景清單 ──
+  // ── 載入背景場景清單（自動選第一張 + 建立靜坐中切換縮圖）──
   fetch(BASE + 'backgrounds.json?t=' + Date.now())
     .then(function(r) { return r.json(); })
     .then(function(list) {
-      const bgListEl = document.getElementById('bgList');
+      const switcher = document.getElementById('bgSwitcher');
       list.forEach(function(bg, idx) {
         const url = BASE + bg.file;
-        const card = document.createElement('div');
-        card.className = 'bg-card';
-        card.innerHTML =
-          '<div class="bg-img" style="background-image:url(\'' + url + '\')"></div>' +
-          '<div class="bg-label">' + bg.label + '</div>';
-        card.addEventListener('click', function() {
-          bgListEl.querySelectorAll('.bg-card').forEach(function(c) { c.classList.remove('selected'); });
-          card.classList.add('selected');
+        // 自動選第一張
+        if (idx === 0) {
           selBg = bg.key; selBgUrl = url;
           document.getElementById('bg').style.backgroundImage = "url('" + url + "')";
-          checkReady();
+        }
+        // 建立靜坐中縮圖
+        const thumb = document.createElement('div');
+        thumb.className = 'bg-thumb' + (idx === 0 ? ' selected' : '');
+        thumb.style.backgroundImage = "url('" + url + "')";
+        thumb.title = bg.label;
+        thumb.addEventListener('click', function() {
+          switcher.querySelectorAll('.bg-thumb').forEach(function(t) { t.classList.remove('selected'); });
+          thumb.classList.add('selected');
+          selBg = bg.key; selBgUrl = url;
+          document.getElementById('bg').style.backgroundImage = "url('" + url + "')";
         });
-        bgListEl.appendChild(card);
+        switcher.appendChild(thumb);
       });
     })
     .catch(function() {
-      console.warn('backgrounds.json 載入失敗');
+      // 備援：用預設背景
+      selBg = 'forest'; selBgUrl = BASE + 'forest.png';
+      document.getElementById('bg').style.backgroundImage = "url('" + selBgUrl + "')";
+      console.warn('backgrounds.json 載入失敗，使用預設背景');
     });
-  bindScrollHint('bgList', 'bgFade', 'bgArrow');
 
   // ── 載入音樂清單 ──
   fetch(BASE + 'music.json?t=' + Date.now())
@@ -527,6 +547,7 @@
     const pb=document.getElementById('pauseBtn'); if(pb) pb.innerHTML='⏸ 暫停';
     document.getElementById('timer').textContent = '00:00';
     document.getElementById('tipText').innerHTML = '';
+    document.getElementById('bgSwitcher').classList.remove('show');
     document.getElementById('meditationPage').classList.remove('show');
     document.getElementById('selectPage').classList.remove('hide');
     document.getElementById('overlay').style.background = 'rgba(10,12,8,0.5)';
@@ -555,6 +576,7 @@
     }
 
     document.getElementById('meditationPage').classList.add('show');
+    document.getElementById('bgSwitcher').classList.add('show');
 
     startTimer();
     loadTips();
