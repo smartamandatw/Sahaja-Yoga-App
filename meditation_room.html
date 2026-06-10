@@ -354,6 +354,21 @@
   .bg-thumb:active { transform:scale(0.9); }
   .bg-thumb.selected { border-color:rgba(240,232,210,0.9); }
 
+
+  /* ── 引導「即將推出」狀態 ── */
+  .item-btn.locked {
+    opacity: 0.45;
+    cursor: default;
+    pointer-events: none;
+  }
+  .item-btn.locked .btn-label::after {
+    content: "　即將推出";
+    font-size: clamp(10px,2.5vw,12px);
+    color: rgba(240,232,210,0.45);
+    letter-spacing: 0.06em;
+    font-family: "Noto Sans TC", sans-serif;
+  }
+
 </style>
 </head>
 <body>
@@ -511,22 +526,26 @@
       list.forEach(function(g, idx) {
         const btn = document.createElement('div');
         btn.className = 'item-btn';
+        const hasFile = !!(g.file && g.file.trim());
         btn.innerHTML =
           '<span class="btn-label">' + g.label + '</span>' +
           (g.description ? '<span class="btn-desc">' + g.description + '</span>' : '') +
           (g.duration ? '<span class="btn-duration">⏱ ' + g.duration + '</span>' : '');
-        btn.addEventListener('click', function() {
-          el.querySelectorAll('.item-btn').forEach(function(b) { b.classList.remove('selected'); });
-          btn.classList.add('selected');
-          selGuide = g.key;
-          selGuideUrl = g.file ? BASE + g.file : '';
-          // 試聽
-          const pa = document.getElementById('previewGuide');
-          pa.pause();
-          if (selGuideUrl) { pa.src = selGuideUrl; pa.volume = 0.4; pa.play().catch(function(){}); }
-
-          checkReady();
-        });
+        if (!hasFile) {
+          btn.classList.add('locked');
+        } else {
+          btn.addEventListener('click', function() {
+            el.querySelectorAll('.item-btn').forEach(function(b) { b.classList.remove('selected'); });
+            btn.classList.add('selected');
+            selGuide = g.key;
+            selGuideUrl = BASE + g.file;
+            // 試聽
+            const pa = document.getElementById('previewGuide');
+            pa.pause();
+            pa.src = selGuideUrl; pa.volume = 0.4; pa.play().catch(function(){});
+            checkReady();
+          });
+        }
         el.appendChild(btn);
       });
     });
