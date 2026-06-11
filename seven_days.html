@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>七天靜心之旅｜Sahaja Yoga</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@300;400;500&display=swap');
+
+:root {
+  --bg: #F0E8D0;
+  --card: rgba(255,255,255,0.72);
+  --card-border: rgba(201,168,76,0.18);
+  --text: #1C1A17;
+  --muted: #7a6e5f;
+  --soft: rgba(201,168,76,0.12);
+  --gold: #C9A84C;
+  --gold-dim: rgba(201,168,76,0.25);
+}
+
+* { box-sizing:border-box; margin:0; padding:0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Sans TC', sans-serif;
+  font-weight: 300;
+  line-height: 1.8;
+  max-width: 480px;
+  margin: 0 auto;
+  padding-bottom: 100px;
+  overflow-x: hidden;
+}
+
+body::before {
+  content:'';
+  position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(201,168,76,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 90%, rgba(201,168,76,0.06) 0%, transparent 60%);
+}
+
+@keyframes fadeUp   { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeIn   { from{opacity:0} to{opacity:1} }
+@keyframes floatDot { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+@keyframes ripple   { 0%{transform:scale(1);opacity:.5} 100%{transform:scale(2.8);opacity:0} }
+@keyframes breatheIn  { 0%{transform:scale(.85);opacity:.7} 100%{transform:scale(1.15);opacity:1} }
+@keyframes breatheOut { 0%{transform:scale(1.15);opacity:1} 100%{transform:scale(.85);opacity:.7} }
+@keyframes particleFloat {
+  0%{transform:translateY(0) translateX(0) scale(1);opacity:.7}
+  50%{transform:translateY(-38px) translateX(var(--dx,8px)) scale(1.2);opacity:.4}
+  100%{transform:translateY(-76px) translateX(calc(var(--dx,8px)*2)) scale(.4);opacity:0}
+}
+@keyframes starPulse { 0%,100%{opacity:.15} 50%{opacity:.5} }
+
+/* ── TOP NAV ── */
+.top-nav {
+  position:relative; z-index:1;
+  display:flex; align-items:center; gap:12px;
+  padding:20px 20px 0;
+  animation:fadeIn .5s ease both;
+}
+.back-btn {
+  background:var(--card); border:1px solid var(--card-border);
+  border-radius:12px; padding:8px 14px;
+  font-family:'Noto Sans TC',sans-serif; font-size:13px;
+  color:var(--muted); cursor:pointer;
+  backdrop-filter:blur(8px);
+  transition:background .2s,color .2s;
+  text-decoration:none; display:inline-flex; align-items:center; gap:6px;
+}
+.back-btn:hover { background:var(--gold-dim); color:var(--text); }
+.nav-title {
+  font-family:'Noto Serif TC',serif;
+  font-size:13px; color:var(--muted); letter-spacing:1px;
+}
+
+/* ── HERO ── */
+.hero {
+  position:relative; z-index:1;
+  padding:32px 24px 20px; text-align:center;
+  animation:fadeUp .7s .05s ease both; opacity:0; animation-fill-mode:forwards;
+}
+.hero-tag {
+  display:inline-block; background:var(--soft); color:var(--gold);
+  font-size:11px; letter-spacing:3px; padding:4px 14px; border-radius:20px;
+  margin-bottom:14px; border:1px solid var(--gold-dim);
+}
+.hero h1 {
+  font-family:'Noto Serif TC',serif; font-size:1.8rem; font-weight:700;
+  color:var(--text); line-height:1.35; margin-bottom:10px;
+}
+.hero h1 em { font-style:normal; color:var(--gold); }
+.hero-desc {
+  font-size:13.5px; color:var(--muted); line-height:1.9;
+  max-width:300px; margin:0 auto;
+}
+
+/* ── STREAK / PROGRESS ── */
+.progress-wrap {
+  position:relative; z-index:1;
+  margin:0 20px 20px;
+  background:var(--card); border:1px solid var(--card-border);
+  border-radius:18px; padding:14px 18px;
+  backdrop-filter:blur(8px);
+  animation:fadeUp .6s .25s ease both; opacity:0; animation-fill-mode:forwards;
+}
+.progress-label { display:flex; justify-content:space-between; font-size:11px; color:var(--muted); margin-bottom:8px; letter-spacing:1px; }
+.progress-track { background:rgba(201,168,76,.15); border-radius:10px; height:5px; overflow:hidden; margin-bottom:12px; }
+.progress-fill {
+  height:100%; border-radius:10px;
+  background:linear-gradient(90deg,#d95f4b,#e8834e,#d4a843,#5a9e72,#4a85c0,#7b62b8,#c9a84c);
+  transition:width .6s cubic-bezier(.4,0,.2,1); width:0%;
+}
+.day-dots { display:flex; justify-content:space-between; }
+.day-dot {
+  width:30px; height:30px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:14px; border:1.5px solid rgba(201,168,76,0.2);
+  background:var(--bg); cursor:pointer;
+  transition:transform .2s, border-color .2s;
+  animation:floatDot 3s ease-in-out infinite;
+  position:relative;
+}
+.day-dot:nth-child(1){animation-delay:0s}
+.day-dot:nth-child(2){animation-delay:.2s}
+.day-dot:nth-child(3){animation-delay:.4s}
+.day-dot:nth-child(4){animation-delay:.6s}
+.day-dot:nth-child(5){animation-delay:.8s}
+.day-dot:nth-child(6){animation-delay:1s}
+.day-dot:nth-child(7){animation-delay:1.2s}
+.day-dot:hover { transform:scale(1.15)!important; animation-play-state:paused; }
+.day-dot.done { border-color:var(--dot-color,var(--gold)); box-shadow:0 0 0 2px var(--bg), 0 0 0 3.5px var(--dot-color,var(--gold)); }
+.day-dot-tip {
+  display:none; position:absolute; bottom:36px; left:50%; transform:translateX(-50%);
+  background:var(--text); color:#F0E8D0; font-size:10px; white-space:nowrap;
+  padding:3px 8px; border-radius:6px; pointer-events:none; z-index:10;
+}
+.day-dot:hover .day-dot-tip { display:block; }
+
+/* ── CARDS ── */
+.section-label {
+  position:relative; z-index:1;
+  font-size:11px; letter-spacing:3px; color:var(--muted);
+  padding:0 22px; margin-bottom:12px;
+}
+.cards { position:relative; z-index:1; display:flex; flex-direction:column; gap:10px; padding:0 16px; }
+
+.card {
+  background:var(--card); border-radius:20px;
+  border:1px solid var(--card-border);
+  overflow:hidden; backdrop-filter:blur(8px);
+  transition:box-shadow .25s, transform .2s;
+  opacity:0; animation:fadeUp .5s ease both;
+}
+.card:nth-child(1){animation-delay:.35s}
+.card:nth-child(2){animation-delay:.42s}
+.card:nth-child(3){animation-delay:.49s}
+.card:nth-child(4){animation-delay:.56s}
+.card:nth-child(5){animation-delay:.63s}
+.card:nth-child(6){animation-delay:.70s}
+.card:nth-child(7){animation-delay:.77s}
+.card.active-card {
+  box-shadow:0 6px 32px rgba(201,168,76,.15);
+  border-color:var(--accent,var(--gold-dim));
+}
+
+.card-header {
+  display:flex; align-items:center; gap:14px; padding:18px;
+  cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent;
+}
+.day-icon {
+  width:44px; height:44px; border-radius:14px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:20px; flex-shrink:0; position:relative; overflow:visible;
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+}
+.card.active-card .day-icon { transform:scale(1.12) rotate(-5deg); }
+.ripple-ring {
+  position:absolute; inset:-2px; border-radius:50%;
+  border:2px solid; opacity:0; display:none;
+  animation:ripple 1.8s ease-out infinite;
+  pointer-events:none;
+}
+.card.active-card .ripple-ring { display:block; }
+
+.card-titles { flex:1; }
+.card-day-label { font-size:10px; color:var(--muted); letter-spacing:2px; margin-bottom:1px; }
+.card-title { font-family:'Noto Serif TC',serif; font-size:1rem; font-weight:700; color:var(--text); line-height:1.3; }
+.card-dur { font-size:11px; color:var(--muted); margin-top:2px; }
+.card-arrow { font-size:13px; color:var(--muted); transition:transform .3s, color .2s; flex-shrink:0; }
+.card.active-card .card-arrow { transform:rotate(90deg); color:var(--accent,var(--gold)); }
+
+/* card body */
+.card-body-wrap { max-height:0; overflow:hidden; transition:max-height .5s cubic-bezier(.4,0,.2,1), opacity .35s; opacity:0; }
+.card.active-card .card-body-wrap { max-height:900px; opacity:1; }
+.card-body-inner { padding:0 18px 18px; }
+
+.hook-block {
+  border-radius:12px; padding:12px 14px; margin-bottom:12px;
+  font-size:13px; color:var(--muted); line-height:1.9;
+  background:var(--soft); border:1px solid var(--gold-dim);
+  font-style:italic;
+}
+.card-intro { font-size:13.5px; color:#5a4f44; line-height:1.9; margin-bottom:14px; }
+
+/* steps */
+.steps-label { font-size:11px; letter-spacing:2px; color:var(--muted); margin-bottom:8px; }
+.steps-list { display:flex; flex-direction:column; gap:7px; margin-bottom:14px; }
+.step-item {
+  display:flex; gap:10px; align-items:flex-start;
+  font-size:13px; color:#5a4f44; line-height:1.7;
+}
+.step-num {
+  width:20px; height:20px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-size:10px; font-weight:500; margin-top:2px;
+}
+
+/* feeling */
+.feeling-block {
+  border-radius:12px; padding:12px 14px; font-size:12.5px; line-height:1.8; margin-bottom:12px; border:1px solid;
+}
+.feeling-label { font-size:11px; font-weight:500; letter-spacing:1px; display:block; margin-bottom:3px; }
+
+/* actions */
+.card-actions { display:flex; flex-direction:column; gap:8px; }
+.med-card-btn {
+  width:100%; padding:10px 0; border-radius:12px;
+  border:1.5px solid; background:transparent;
+  font-family:'Noto Sans TC',sans-serif; font-size:13px; font-weight:500;
+  cursor:pointer; letter-spacing:.5px;
+  transition:background .2s, opacity .2s, transform .15s;
+}
+.med-card-btn:active { transform:scale(.97); }
+.done-btn {
+  width:100%; padding:10px; border-radius:12px; border:none;
+  font-family:'Noto Sans TC',sans-serif; font-size:13px; font-weight:500;
+  cursor:pointer; letter-spacing:.5px; transition:opacity .2s, transform .15s;
+}
+.done-btn:active { transform:scale(.97); }
+.done-btn.completed { opacity:.45; cursor:default; }
+
+/* ── MEDITATION MODAL ── */
+.med-overlay {
+  position:fixed; inset:0;
+  background:rgba(28,26,23,.78); backdrop-filter:blur(8px);
+  z-index:100; display:flex; align-items:flex-end; justify-content:center;
+  opacity:0; pointer-events:none; transition:opacity .35s;
+}
+.med-overlay.open { opacity:1; pointer-events:all; }
+.med-modal {
+  background:var(--bg); border-radius:28px 28px 0 0;
+  padding:32px 26px 40px; width:min(480px,100vw);
+  text-align:center; position:relative;
+  transform:translateY(100%);
+  transition:transform .4s cubic-bezier(.34,1.1,.64,1);
+  max-height:90vh; overflow-y:auto;
+}
+.med-overlay.open .med-modal { transform:translateY(0); }
+.med-drag { width:36px; height:4px; background:var(--gold-dim); border-radius:4px; margin:0 auto 20px; }
+.med-close {
+  position:absolute; top:16px; right:18px;
+  background:var(--soft); border:none; border-radius:50%;
+  width:32px; height:32px; font-size:15px; cursor:pointer;
+  color:var(--muted); display:flex; align-items:center; justify-content:center;
+  transition:background .2s;
+}
+.med-close:hover { background:var(--gold-dim); }
+
+.med-orb-wrap { position:relative; width:96px; height:96px; margin:0 auto 14px; }
+.med-orb {
+  width:96px; height:96px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:34px; position:relative; z-index:1;
+}
+.med-orb.breathing-in  { animation:breatheIn  var(--inhale,4s) ease-in-out forwards; }
+.med-orb.breathing-out { animation:breatheOut var(--exhale,6s) ease-in-out forwards; }
+.med-orb-ring1,.med-orb-ring2 {
+  position:absolute; inset:-8px; border-radius:50%;
+  border:1.5px solid; opacity:0; z-index:0;
+}
+.med-orb-ring1 { animation:ripple 2.5s 0s ease-out infinite; }
+.med-orb-ring2 { animation:ripple 2.5s .9s ease-out infinite; }
+.med-particles { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+.particle {
+  position:absolute; border-radius:50%; width:5px; height:5px;
+  animation:particleFloat 2.5s ease-in infinite; opacity:0;
+}
+
+.med-day-label { font-size:11px; color:var(--muted); letter-spacing:2px; margin-bottom:3px; }
+.med-name { font-family:'Noto Serif TC',serif; font-size:1.15rem; font-weight:700; margin-bottom:3px; color:var(--text); }
+.med-mantra { font-size:11px; color:var(--gold); letter-spacing:2px; margin-bottom:16px; }
+
+.timer-ring-wrap { margin:0 auto 14px; position:relative; width:78px; height:78px; }
+.timer-ring-bg { fill:none; stroke:var(--gold-dim); stroke-width:4; }
+.timer-ring-fg { fill:none; stroke-width:4; stroke-linecap:round; transform:rotate(-90deg); transform-origin:50% 50%; transition:stroke-dashoffset .9s linear; }
+.timer-text {
+  position:absolute; inset:0; display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  font-family:'Noto Serif TC',serif; font-size:1.3rem; font-weight:700;
+  color:var(--text); line-height:1;
+}
+.timer-label { font-size:9px; color:var(--muted); letter-spacing:2px; margin-top:2px; }
+
+.breath-guide { font-size:12.5px; color:var(--muted); letter-spacing:2px; min-height:20px; margin-bottom:16px; transition:opacity .4s; }
+
+.dur-picker { display:flex; justify-content:center; gap:7px; margin-bottom:16px; }
+.dur-btn {
+  padding:6px 13px; border-radius:20px; border:1px solid var(--gold-dim);
+  font-size:12px; background:transparent; cursor:pointer; color:var(--muted);
+  font-family:'Noto Sans TC',sans-serif; transition:all .2s;
+}
+.dur-btn.active { border-color:var(--ring-c,var(--gold)); color:var(--ring-c,var(--gold)); background:var(--soft); }
+
+.med-controls { display:flex; justify-content:center; gap:10px; margin-bottom:16px; }
+.med-btn {
+  padding:11px 26px; border-radius:14px; border:none;
+  font-family:'Noto Sans TC',sans-serif; font-size:14px; font-weight:500;
+  cursor:pointer; transition:opacity .2s, transform .15s;
+}
+.med-btn:active { transform:scale(.97); }
+.med-btn.primary { background:var(--text); color:var(--bg); }
+.med-btn.secondary { background:var(--soft); color:var(--text); border:1px solid var(--gold-dim); }
+.med-btn:disabled { opacity:.35; cursor:default; }
+
+.med-affirmation {
+  font-size:13px; color:var(--muted); line-height:1.9;
+  background:var(--soft); border-radius:14px; padding:14px;
+  border:1px solid var(--gold-dim); font-style:italic; margin-bottom:12px;
+}
+.med-goto-full {
+  display:block; width:100%; padding:11px 0; border-radius:14px;
+  border:1px solid var(--gold-dim); background:transparent;
+  font-family:'Noto Sans TC',sans-serif; font-size:13px; color:var(--gold);
+  text-decoration:none; cursor:pointer; text-align:center;
+  transition:background .2s;
+}
+.med-goto-full:hover { background:var(--soft); }
+.med-complete-msg { display:none; text-align:center; padding:8px 0 12px; }
+.med-complete-msg .big { font-size:2rem; }
+.med-complete-msg p { font-size:14px; color:var(--muted); margin-top:8px; line-height:1.8; }
+
+/* ── FOOTER ── */
+.footer {
+  position:relative; z-index:1;
+  margin:24px 16px 0;
+  background:var(--card); border-radius:20px;
+  padding:26px 24px; border:1px solid var(--card-border);
+  text-align:center; backdrop-filter:blur(8px);
+  animation:fadeUp .6s .85s ease both; opacity:0; animation-fill-mode:forwards;
+}
+.footer-quote { font-family:'Noto Serif TC',serif; font-size:14px; color:var(--text); line-height:2.1; margin-bottom:10px; }
+.footer-attr { font-size:12px; color:var(--gold); }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-btn" href="menu.html">← 返回選單</a>
+  <span class="nav-title">七天靜心之旅</span>
+</nav>
+
+<div class="hero">
+  <span class="hero-tag">SAHAJA YOGA · 七天體驗課</span>
+  <h1>每天 10 分鐘<br><em>從內在重新出發</em></h1>
+  <p class="hero-desc">七天、七個輪穴、七種真實的感受<br>不需要任何基礎，只需要願意坐下來</p>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-label">
+    <span>課程進度</span>
+    <span id="prog-text">0 / 7 已完成</span>
+  </div>
+  <div class="progress-track"><div class="progress-fill" id="prog-fill"></div></div>
+  <div class="day-dots" id="day-dots"></div>
+</div>
+
+<p class="section-label">七天課程 · 點開展開今日靜心</p>
+<div class="cards" id="cards-wrap"></div>
+
+<div class="footer">
+  <p class="footer-quote" id="footer-quote"></p>
+  <p class="footer-attr" id="footer-attr"></p>
+</div>
+
+<!-- MEDITATION MODAL -->
+<div class="med-overlay" id="med-overlay" onclick="overlayClick(event)">
+  <div class="med-modal" id="med-modal">
+    <div class="med-drag"></div>
+    <button class="med-close" onclick="closeMed()">✕</button>
+
+    <div class="med-orb-wrap">
+      <div class="med-orb" id="med-orb"><span id="med-emoji"></span></div>
+      <div class="med-orb-ring1" id="med-ring1"></div>
+      <div class="med-orb-ring2" id="med-ring2"></div>
+      <div class="med-particles" id="med-particles"></div>
+    </div>
+
+    <div class="med-day-label" id="med-day-label"></div>
+    <div class="med-name" id="med-name"></div>
+    <div class="med-mantra" id="med-mantra"></div>
+
+    <div class="timer-ring-wrap">
+      <svg width="78" height="78" viewBox="0 0 78 78">
+        <circle class="timer-ring-bg" cx="39" cy="39" r="33"/>
+        <circle class="timer-ring-fg" id="timer-ring-fg" cx="39" cy="39" r="33"
+          stroke-dasharray="207.3" stroke-dashoffset="0"/>
+      </svg>
+      <div class="timer-text"><span id="timer-display">7:00</span><span class="timer-label">分鐘</span></div>
+    </div>
+
+    <div class="breath-guide" id="breath-guide">選擇時間，開始靜坐</div>
+
+    <div class="dur-picker" id="dur-picker">
+      <button class="dur-btn" onclick="setDur(5,this)">5分</button>
+      <button class="dur-btn active" onclick="setDur(7,this)">7分</button>
+      <button class="dur-btn" onclick="setDur(10,this)">10分</button>
+      <button class="dur-btn" onclick="setDur(15,this)">15分</button>
+    </div>
+
+    <div class="med-controls">
+      <button class="med-btn primary" id="med-start-btn" onclick="toggleMed()">開始靜坐</button>
+      <button class="med-btn secondary" id="med-reset-btn" onclick="resetMed()" disabled>重置</button>
+    </div>
+
+    <div class="med-affirmation" id="med-affirmation"></div>
+    <a class="med-goto-full" href="meditation_room.html">✦ 進入完整靜坐室，選擇背景與引導音樂 →</a>
+
+    <div class="med-complete-msg" id="med-complete-msg">
+      <div class="big">🙏</div>
+      <p id="med-complete-text"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+const BASE = 'https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/';
+const STORAGE_KEY = 'sahaja_7days';
+
+let DAYS = [];
+let openCard = -1;
+let doneSet = new Set();
+
+// 讀取完成紀錄
+try {
+  const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  doneSet = new Set(saved);
+} catch(e) {}
+
+fetch(BASE + 'seven_days.json?t=' + Date.now())
+  .then(r => r.json())
+  .then(data => {
+    DAYS = data.days;
+    renderDots();
+    renderCards();
+    renderFooter(data.footer_quote);
+    updateProgress();
+  })
+  .catch(() => {
+    document.getElementById('cards-wrap').innerHTML =
+      '<p style="color:var(--muted);padding:40px 24px;text-align:center;font-family:\'Noto Serif TC\',serif;">內容載入失敗，請稍後再試。</p>';
+  });
+
+function renderDots() {
+  const wrap = document.getElementById('day-dots');
+  wrap.innerHTML = DAYS.map((d, i) => `
+    <div class="day-dot ${doneSet.has(i) ? 'done' : ''}"
+      style="--dot-color:${d.color}"
+      onclick="jumpCard(${i})">
+      ${doneSet.has(i) ? '✓' : d.emoji}
+      <span class="day-dot-tip">Day ${d.day}・${d.title}</span>
+    </div>`).join('');
+}
+
+function renderCards() {
+  const wrap = document.getElementById('cards-wrap');
+  wrap.innerHTML = DAYS.map((d, i) => {
+    const isDone = doneSet.has(i);
+    const stepsHtml = d.steps.map((s, si) => `
+      <div class="step-item">
+        <div class="step-num" style="background:${d.tag_color};color:${d.color}">${si+1}</div>
+        <span>${s}</span>
+      </div>`).join('');
+
+    return `
+    <div class="card" data-i="${i}" style="--accent:${d.color}">
+      <div class="card-header" onclick="toggleCard(${i})">
+        <div class="day-icon" style="background:${d.tag_color}">
+          <span>${d.emoji}</span>
+          <div class="ripple-ring" style="border-color:${d.color}"></div>
+        </div>
+        <div class="card-titles">
+          <div class="card-day-label">DAY ${d.day} · ${d.chakra_zh}</div>
+          <div class="card-title">${d.title}</div>
+          <div class="card-dur">⏱ ${d.duration_min} 分鐘</div>
+        </div>
+        <span class="card-arrow">▶</span>
+      </div>
+      <div class="card-body-wrap"><div class="card-body-inner">
+        <div class="hook-block">${d.hook}</div>
+        <p class="card-intro">${d.intro}</p>
+
+        <p class="steps-label">今日靜心步驟</p>
+        <div class="steps-list">${stepsHtml}</div>
+
+        <div class="feeling-block"
+          style="background:${d.tag_color};color:${d.color};border-color:${d.color}22">
+          <span class="feeling-label" style="color:${d.color}">✦ 靜後感受</span>
+          ${d.feeling_after}
+        </div>
+
+        <div class="card-actions">
+          <button class="med-card-btn"
+            style="border-color:${d.color};color:${d.color}"
+            onclick="openMed(${i})">🧘 開始今日靜心（${d.duration_min} 分鐘）</button>
+          <button class="done-btn ${isDone ? 'completed' : ''}" data-i="${i}"
+            style="background:${d.tag_color};color:${d.color}"
+            onclick="markDone(${i})">${isDone ? '✓ 今日已完成' : '✓ 標記今日完成'}</button>
+        </div>
+      </div></div>
+    </div>`;
+  }).join('');
+}
+
+function renderFooter(fq) {
+  if (!fq) return;
+  document.getElementById('footer-quote').innerHTML = fq.text.replace(/\n/g,'<br>');
+  document.getElementById('footer-attr').textContent = '— ' + fq.author;
+}
+
+function toggleCard(i) {
+  const cards = document.querySelectorAll('.card');
+  if (openCard === i) {
+    cards[i].classList.remove('active-card'); openCard = -1;
+  } else {
+    if (openCard >= 0) cards[openCard].classList.remove('active-card');
+    cards[i].classList.add('active-card'); openCard = i;
+    setTimeout(() => cards[i].scrollIntoView({ behavior:'smooth', block:'nearest' }), 60);
+  }
+}
+
+function jumpCard(i) {
+  document.querySelectorAll('.card')[i].scrollIntoView({ behavior:'smooth', block:'center' });
+  setTimeout(() => { if (openCard !== i) toggleCard(i); }, 300);
+}
+
+function markDone(i) {
+  if (doneSet.has(i)) return;
+  doneSet.add(i);
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify([...doneSet])); } catch(e) {}
+  const btn = document.querySelector(`.done-btn[data-i="${i}"]`);
+  btn.textContent = '✓ 今日已完成'; btn.classList.add('completed');
+  const dot = document.querySelectorAll('.day-dot')[i];
+  dot.classList.add('done'); dot.textContent = '✓';
+  const tip = document.createElement('span'); tip.className='day-dot-tip';
+  tip.textContent = `Day ${DAYS[i].day}・${DAYS[i].title}`; dot.appendChild(tip);
+  updateProgress();
+}
+
+function updateProgress() {
+  const n = doneSet.size, total = DAYS.length;
+  document.getElementById('prog-text').textContent = `${n} / ${total} 已完成`;
+  document.getElementById('prog-fill').style.width = `${(n / total) * 100}%`;
+}
+
+// ── MEDITATION ──
+let medIdx=0, durSec=420, elapsed=0, running=false, breathTimer=null, countTimer=null;
+const CIRC=207.3;
+
+function openMed(i) {
+  medIdx = i;
+  const d = DAYS[i];
+  const defaultDur = d.duration_min * 60;
+  durSec = defaultDur; elapsed = 0;
+
+  document.getElementById('med-orb').style.background = d.tag_color;
+  ['med-ring1','med-ring2'].forEach(id => document.getElementById(id).style.borderColor = d.color);
+  document.getElementById('timer-ring-fg').style.stroke = d.color;
+  document.getElementById('med-emoji').textContent = d.emoji;
+  document.getElementById('med-day-label').textContent = `DAY ${d.day} · ${d.chakra_zh}`;
+  document.getElementById('med-name').textContent = d.title;
+  document.getElementById('med-mantra').textContent = d.mantra;
+  document.getElementById('med-affirmation').textContent = d.affirmation;
+  document.getElementById('med-affirmation').style.display = '';
+  document.getElementById('med-goto-full').style.display = '';
+  document.getElementById('med-complete-msg').style.display = 'none';
+  document.getElementById('dur-picker').style.display = '';
+  document.getElementById('med-controls').style.display = '';
+  document.querySelector('.timer-ring-wrap').style.display = '';
+
+  // 預設選中建議時長
+  document.querySelectorAll('.dur-btn').forEach(b => b.classList.remove('active'));
+  const durBtns = document.querySelectorAll('.dur-btn');
+  const mins = [5, 7, 10, 15];
+  const idx = mins.indexOf(d.duration_min);
+  if (idx >= 0) durBtns[idx].classList.add('active');
+  else durBtns[1].classList.add('active');
+
+  document.querySelector('.med-modal').style.setProperty('--ring-c', d.color);
+  spawnParticles(d.color);
+  resetMed(true);
+  document.getElementById('med-overlay').classList.add('open');
+}
+
+function closeMed() { stopMed(); document.getElementById('med-overlay').classList.remove('open'); }
+function overlayClick(e) { if (e.target === document.getElementById('med-overlay')) closeMed(); }
+
+function spawnParticles(color) {
+  const wrap = document.getElementById('med-particles'); wrap.innerHTML = '';
+  for (let i = 0; i < 10; i++) {
+    const p = document.createElement('div'); p.className = 'particle';
+    p.style.cssText = `background:${color};left:${25+Math.random()*50}%;top:${25+Math.random()*50}%;--dx:${(Math.random()-.5)*36}px;animation-delay:${Math.random()*2.5}s;animation-duration:${2+Math.random()*1.5}s;`;
+    wrap.appendChild(p);
+  }
+}
+
+function setDur(min, btn) {
+  durSec = min*60; elapsed = 0;
+  document.querySelectorAll('.dur-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active'); updateTimerDisplay(); updateTimerRing();
+}
+
+function toggleMed() { running ? pauseMed() : startMed(); }
+
+function startMed() {
+  running = true;
+  document.getElementById('med-start-btn').textContent = '暫停';
+  document.getElementById('med-reset-btn').disabled = false;
+  document.getElementById('dur-picker').style.opacity = '.4';
+  document.getElementById('dur-picker').style.pointerEvents = 'none';
+  const d = DAYS[medIdx];
+  doBreathe('in', d.breath.inhale);
+  countTimer = setInterval(() => {
+    elapsed++; updateTimerDisplay(); updateTimerRing();
+    if (elapsed >= durSec) completeMed();
+  }, 1000);
+}
+
+function pauseMed() {
+  running = false;
+  document.getElementById('med-start-btn').textContent = '繼續';
+  clearInterval(countTimer); clearTimeout(breathTimer);
+  document.getElementById('breath-guide').textContent = '已暫停';
+}
+
+function stopMed() { running = false; clearInterval(countTimer); clearTimeout(breathTimer); }
+
+function resetMed(silent) {
+  stopMed(); elapsed = 0;
+  document.getElementById('med-start-btn').textContent = '開始靜坐';
+  document.getElementById('med-reset-btn').disabled = true;
+  document.getElementById('dur-picker').style.opacity = '';
+  document.getElementById('dur-picker').style.pointerEvents = '';
+  document.getElementById('breath-guide').textContent = '選擇時間，開始靜坐';
+  document.getElementById('med-orb').className = 'med-orb';
+  updateTimerDisplay(); updateTimerRing();
+}
+
+function completeMed() {
+  stopMed();
+  document.getElementById('med-complete-msg').style.display = 'block';
+  document.getElementById('med-complete-text').textContent = DAYS[medIdx].complete;
+  document.getElementById('med-affirmation').style.display = 'none';
+  document.getElementById('med-controls').style.display = 'none';
+  document.getElementById('dur-picker').style.display = 'none';
+  document.querySelector('.timer-ring-wrap').style.display = 'none';
+  document.getElementById('breath-guide').textContent = '';
+}
+
+function doBreathe(phase, sec) {
+  if (!running) return;
+  const orb = document.getElementById('med-orb');
+  const guide = document.getElementById('breath-guide');
+  const d = DAYS[medIdx];
+  orb.className = 'med-orb'; void orb.offsetWidth;
+  if (phase === 'in') {
+    guide.textContent = '吸氣 ···'; orb.style.animationDuration = sec+'s';
+    orb.classList.add('breathing-in');
+    breathTimer = setTimeout(() => doBreathe('out', d.breath.exhale), sec*1000);
+  } else {
+    guide.textContent = '呼氣 ···'; orb.style.animationDuration = sec+'s';
+    orb.classList.add('breathing-out');
+    breathTimer = setTimeout(() => doBreathe('in', d.breath.inhale), sec*1000);
+  }
+}
+
+function updateTimerDisplay() {
+  const rem = durSec - elapsed, m = Math.floor(rem/60), s = rem%60;
+  document.getElementById('timer-display').textContent = `${m}:${s.toString().padStart(2,'0')}`;
+}
+function updateTimerRing() {
+  document.getElementById('timer-ring-fg').style.strokeDashoffset = (CIRC*(elapsed/durSec)).toFixed(1);
+}
+</script>
+</body>
+</html>
