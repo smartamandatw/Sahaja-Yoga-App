@@ -357,16 +357,49 @@
 
   /* ── 引導「即將推出」狀態 ── */
   .item-btn.locked {
-    opacity: 0.45;
-    cursor: default;
-    pointer-events: none;
+    opacity: 0.4;
+    border-color: rgba(255,255,255,0.1);
+    filter: grayscale(30%);
+    cursor: pointer;
+    pointer-events: auto;
+    position: relative;
   }
-  .item-btn.locked .btn-label::after {
-    content: "　即將推出";
-    font-size: clamp(10px,2.5vw,12px);
-    color: rgba(240,232,210,0.45);
-    letter-spacing: 0.06em;
+  .badge-soon {
+    display: inline-block;
     font-family: "Noto Sans TC", sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.05em;
+    color: rgba(60,60,60,0.9);
+    background: rgba(255,255,255,0.85);
+    border: 0.75px solid rgba(255,255,255,0.9);
+    border-radius: 999px;
+    padding: 2px 7px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  /* Toast 提示 */
+  #meditationToast {
+    position: fixed;
+    bottom: 40px;
+    left: 50%; transform: translateX(-50%) translateY(20px);
+    z-index: 100;
+    background: rgba(30,26,23,0.90);
+    backdrop-filter: blur(12px);
+    border: 0.5px solid rgba(240,232,210,0.2);
+    border-radius: 999px;
+    padding: 12px 28px;
+    font-family: "Noto Serif TC", serif;
+    font-size: clamp(13px,3.5vw,15px);
+    color: rgba(240,232,210,0.75);
+    letter-spacing: 0.12em;
+    white-space: nowrap;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  #meditationToast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
   }
 
 </style>
@@ -426,6 +459,8 @@
 <audio id="previewGuide" loop></audio>
 <audio id="guideAudio"></audio>
 <audio id="bgAudio" loop></audio>
+
+<div id="meditationToast">✦ 即將開放，敬請期待</div>
 
 <script>
   const BASE = 'https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/';
@@ -526,6 +561,15 @@
     });
   bindScrollHint('musicList', 'musicFade', 'musicArrow');
 
+  // ── Toast 提示 ──
+  let toastTimer = null;
+  function showToast() {
+    const t = document.getElementById('meditationToast');
+    t.classList.add('show');
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(function() { t.classList.remove('show'); }, 2000);
+  }
+
   // ── 載入引導清單 ──
   fetch(BASE + 'guide.json?t=' + Date.now())
     .then(function(r) { return r.json(); })
@@ -536,18 +580,20 @@
         btn.className = 'item-btn';
         const hasFile = !!(g.file && g.file.trim());
         btn.innerHTML =
-          '<span class="btn-label">' + g.label + '</span>' +
+          '<span class="btn-label">' + g.label +
+          (!hasFile ? '<span class="badge-soon">即將開放</span>' : '') +
+          '</span>' +
           (g.description ? '<span class="btn-desc">' + g.description + '</span>' : '') +
-          (g.duration ? '<span class="btn-duration">⏱ ' + g.duration + '</span>' : '');
+          (g.duration    ? '<span class="btn-duration">⏱ ' + g.duration + '</span>' : '');
         if (!hasFile) {
           btn.classList.add('locked');
+          btn.addEventListener('click', function() { showToast(); });
         } else {
           btn.addEventListener('click', function() {
             el.querySelectorAll('.item-btn').forEach(function(b) { b.classList.remove('selected'); });
             btn.classList.add('selected');
             selGuide = g.key;
             selGuideUrl = BASE + g.file;
-            // 試聽
             const pa = document.getElementById('previewGuide');
             pa.pause();
             pa.src = selGuideUrl; pa.volume = 0.4; pa.play().catch(function(){});
