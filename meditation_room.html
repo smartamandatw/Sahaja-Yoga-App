@@ -304,34 +304,18 @@
   align-items:center;
 }
 
-  #backToSelect {
+  /* 兩個返回按鈕共用同一組樣式 */
+  #backToSelect, #backHomeBtn {
     position:fixed; top:20px; left:18px; z-index:25;
     background:none; border:none;
     font-family:"Noto Serif TC",serif; font-size:14px;
     color:rgba(240,232,210,0.65); cursor:pointer;
-    letter-spacing:0.08em;
-    padding:6px 10px;
-    transition:color 0.2s;
+    letter-spacing:0.08em; padding:6px 10px;
+    transition:color 0.2s, transform 0.1s;
   }
-  #backToSelect:active { color:rgba(240,232,210,1); }
-
-#backHomeBtn{
-    position:fixed; top:20px; left:18px; z-index:25;
-    background:none; border:none;
-    font-family:"Noto Serif TC",serif; font-size:14px;
-    color:rgba(240,232,210,0.65); cursor:pointer;
-    letter-spacing:0.08em;
-    padding:6px 10px;
-    transition:color 0.2s;
-}
-
-#backHomeBtn:hover{
-  color:rgba(240,232,210,1);
-}
-
-#backHomeBtn:active{
-  transform:scale(.95);
-}
+  #backToSelect:active, #backHomeBtn:active {
+    color:rgba(240,232,210,1); transform:scale(0.95);
+  }
 
 
   /* ── 靜坐中背景切換列 ── */
@@ -425,10 +409,7 @@
 <!-- 選擇畫面：三欄 -->
 <div id="selectPage">
   <button id="backHomeBtn" onclick="goHome()">←返回</button>
-  <div class="page-title">
-        ✼專屬於你的冥想菜單✼<br>
-  	① 音樂 ＋ ② 引導
-  </div>
+  <div class="page-title">選擇你的靜坐組合</div>
 
   <div class="three-col">
     <!-- 左欄：背景音樂 -->
