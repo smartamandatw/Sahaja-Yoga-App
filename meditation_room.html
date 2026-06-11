@@ -465,7 +465,7 @@
 
   // ── 載入背景場景清單（自動選第一張 + 建立靜坐中切換縮圖）──
 
-  selBg = 'background'; selBgUrl = BASE + '/png/app_back_ground.png';
+  selBg = 'background'; selBgUrl = BASE + 'png/app_back_ground.png';
   fetch(BASE + 'backgrounds.json?t=' + Date.now())
     .then(function(r) { return r.json(); })
     .then(function(list) {
