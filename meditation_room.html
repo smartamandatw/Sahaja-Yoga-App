@@ -460,11 +460,18 @@
     }
   }
 
+
+
+
   // ── 載入背景場景清單（自動選第一張 + 建立靜坐中切換縮圖）──
+
+  selBg = 'background'; selBgUrl = BASE + '/png/app_back_ground.png';
   fetch(BASE + 'backgrounds.json?t=' + Date.now())
     .then(function(r) { return r.json(); })
     .then(function(list) {
       const switcher = document.getElementById('bgSwitcher');
+
+
       list.forEach(function(bg, idx) {
         const url = BASE + bg.file;
         // 自動選第一張
@@ -474,7 +481,7 @@
         }
         // 建立靜坐中縮圖
         const thumb = document.createElement('div');
-        thumb.className = 'bg-thumb' + (idx === 0 ? ' selected' : '');
+        thumb.className = 'bg-thumb';
         thumb.style.backgroundImage = "url('" + url + "')";
         thumb.title = bg.label;
         thumb.addEventListener('click', function() {
@@ -486,12 +493,6 @@
         switcher.appendChild(thumb);
       });
     })
-    .catch(function() {
-      // 備援：用預設背景
-      selBg = 'forest'; selBgUrl = BASE + '/png/app_back_ground.png';
-      document.getElementById('bg').style.backgroundImage = "url('" + selBgUrl + "')";
-      console.warn('backgrounds.json 載入失敗，使用預設背景');
-    });
 
   // ── 載入音樂清單 ──
   fetch(BASE + 'music.json?t=' + Date.now())
