@@ -629,8 +629,7 @@ function renderCards(chakras) {
 // ── RENDER FOOTER ──
 function renderFooter(fq) {
   if (!fq) return;
-  document.getElementById('footer-quote').innerHTML = fq.text.replace(/
-/g,'<br>');
+  document.getElementById('footer-quote').innerHTML = fq.text.replace(/\n/g,'<br>');
   document.getElementById('footer-attr').textContent = '— ' + fq.author;
 }
 
