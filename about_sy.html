@@ -12,7 +12,7 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC"
 
 #bg {
   position:fixed; inset:0; z-index:0;
-  background: url('https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/flower.png') center/cover;
+  background: url('https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/app_background.png') center/cover;
 }
 #overlay {
   position:fixed; inset:0; z-index:1;
@@ -199,6 +199,26 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC"
 .content-pane.active > *:nth-child(3) { animation-delay: 0.21s; }
 .content-pane.active > *:nth-child(4) { animation-delay: 0.29s; }
 .content-pane.active > *:nth-child(5) { animation-delay: 0.37s; }
+
+  /* ── tab 右側滑動提示 ── */
+  #tabHint {
+    position: absolute; right: 0; top: 0; bottom: 0;
+    width: 48px; z-index: 10; pointer-events: none;
+    display: flex; align-items: center; justify-content: flex-end;
+    padding-right: 6px;
+    background: linear-gradient(to right, transparent, rgba(10,12,8,0.85));
+    opacity: 1; transition: opacity 0.4s ease;
+  }
+  #tabHint.hidden { opacity: 0; }
+  #tabHint span {
+    font-size: 18px; color: rgba(240,232,210,0.6);
+    animation: tabArrowBob 1.4s ease-in-out infinite;
+  }
+  @keyframes tabArrowBob {
+    0%,100% { transform: translateX(0); }
+    50%      { transform: translateX(3px); }
+  }
+
 </style>
 </head>
 <body>
@@ -212,7 +232,10 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC"
     <div class="header-title">認識 Sahaja Yoga</div>
     <div class="header-spacer"></div>
   </div>
-  <div class="tab-bar" id="tabBar"></div>
+  <div style="position:relative;">
+    <div class="tab-bar" id="tabBar"></div>
+    <div id="tabHint"><span>›</span></div>
+  </div>
 </div>
 
 <div id="contentWrap"></div>
@@ -244,6 +267,16 @@ function updateHint() {
 }
 
 document.getElementById('contentWrap').addEventListener('scroll', updateHint, { passive: true });
+
+function updateTabHint() {
+  const bar  = document.getElementById('tabBar');
+  const hint = document.getElementById('tabHint');
+  if (!bar || !hint) return;
+  const atEnd = bar.scrollLeft + bar.clientWidth >= bar.scrollWidth - 8;
+  hint.classList.toggle('hidden', atEnd);
+}
+document.getElementById('tabBar').addEventListener('scroll', updateTabHint, { passive: true });
+setTimeout(updateTabHint, 600);
 window.addEventListener('resize', () => { applyTopPadding(); updateHint(); });
 
 function renderTabs(tabs) {
