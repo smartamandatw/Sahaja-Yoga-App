@@ -463,26 +463,18 @@
 
 
 
-  // ── 載入背景場景清單（自動選第一張 + 建立靜坐中切換縮圖）──
-
   // ── 預設背景（與 feedback.html 一致）──
   selBg = 'default';
   selBgUrl = BASE + 'png/app_back_ground.png';
   document.getElementById('bg').style.backgroundImage = "url('" + BASE + "png/app_back_ground.png')";
 
+  // ── 載入背景場景清單（只建立靜坐中切換縮圖，不覆蓋預設背景）──
   fetch(BASE + 'backgrounds.json?t=' + Date.now())
     .then(function(r) { return r.json(); })
     .then(function(list) {
       const switcher = document.getElementById('bgSwitcher');
-
-
-      list.forEach(function(bg, idx) {
+      list.forEach(function(bg) {
         const url = BASE + bg.file;
-        // 自動選第一張
-        if (idx === 0) {
-          selBg = bg.key; selBgUrl = url;
-          document.getElementById('bg').style.backgroundImage = "url('" + url + "')";
-        }
         // 建立靜坐中縮圖
         const thumb = document.createElement('div');
         thumb.className = 'bg-thumb';
@@ -497,6 +489,9 @@
         switcher.appendChild(thumb);
       });
     })
+    .catch(function() {
+      console.warn('backgrounds.json 載入失敗，使用預設背景');
+    });
 
   // ── 載入音樂清單 ──
   fetch(BASE + 'music.json?t=' + Date.now())
