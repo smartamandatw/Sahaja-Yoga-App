@@ -565,7 +565,7 @@ fetch(BASE + 'about_chakras.json?t=' + Date.now())
   })
   .catch(err => {
     document.getElementById('cards-wrap').innerHTML =
-      '<p style="color:var(--muted);padding:40px 24px;text-align:center;font-family:'Noto Serif TC',serif;">內容載入失敗，請稍後再試。</p>';
+      `<p style="color:var(--muted);padding:40px 24px;text-align:center;font-family:'Noto Serif TC',serif;">內容載入失敗，請稍後再試。</p>`;
     console.error(err);
   });
 
