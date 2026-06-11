@@ -1,0 +1,221 @@
+{
+  "footer_quote": {
+    "text": "「昆達里尼上升時，\n你會感受到清涼的微風——\n那是聖靈真實的存在。」",
+    "author": "Shri Mataji Nirmala Devi"
+  },
+  "chakras": [
+    {
+      "name_zh": "根輪（海底輪）",
+      "name_en": "Mooladhara · 尾骨下方",
+      "emoji": "🌱",
+      "color": "#d95f4b",
+      "tag_color": "#fdecea",
+      "tag_label": "紅色",
+      "element": "土元素",
+      "highlight_bg": "#fdf3f2",
+      "highlight_color": "#c0503e",
+      "highlight_border": "#f5d0cc",
+      "highlight_label_color": "#d95f4b",
+      "desc": "根輪是整個系統的根基，掌管我們純真的本性。你有沒有注意到小孩子對任何事都充滿好奇、沒有防備？那種狀態就是根輪健康的展現。",
+      "feeling": "內心踏實安穩，對生命有一種孩子般的純真與信任",
+      "med": {
+        "bg": "#fdecea",
+        "ring": "#d95f4b",
+        "inhale": 4,
+        "exhale": 6,
+        "mantra": "Om Shri Ganesha Namaha",
+        "affirmation": "我是純真的，我是安全的。大地支撐著我，宇宙守護著我。",
+        "complete": "根輪得到滋養，你感受到安全與踏實。🌱"
+      }
+    },
+    {
+      "name_zh": "臍輪",
+      "name_en": "Swadisthana · 下腹部",
+      "emoji": "🎨",
+      "color": "#e8834e",
+      "tag_color": "#fef0e7",
+      "tag_label": "橙色",
+      "element": "火元素",
+      "highlight_bg": "#fef6f0",
+      "highlight_color": "#c06a30",
+      "highlight_border": "#f5dcc8",
+      "highlight_label_color": "#e8834e",
+      "desc": "臍輪和你的創造力、審美感有關。當你壓力大、不停思考或刷很多短片時，這個輪穴其實消耗很大。靜坐幫助它恢復能量，讓靈感自然流現。",
+      "feeling": "思緒清晰，創意不再是努力擠出來的，而是自然湧現",
+      "med": {
+        "bg": "#fef0e7",
+        "ring": "#e8834e",
+        "inhale": 4,
+        "exhale": 6,
+        "mantra": "Om Shri Brahmadeva Namaha",
+        "affirmation": "我的創造力是自然流露的。靜止之中，靈感自然而來。",
+        "complete": "臍輪得到休息，靈感正在悄悄回來。🎨"
+      }
+    },
+    {
+      "name_zh": "臍心輪",
+      "name_en": "Nabhi · 肚臍位置",
+      "emoji": "☀️",
+      "color": "#d4a843",
+      "tag_color": "#fdf8e7",
+      "tag_label": "黃色",
+      "element": "水元素",
+      "highlight_bg": "#fdfaf0",
+      "highlight_color": "#9e7820",
+      "highlight_border": "#e8d99a",
+      "highlight_label_color": "#d4a843",
+      "desc": "「夠了嗎？」這個問題困擾很多人。臍心輪掌管我們的知足感——不是那種消極的認命，而是真正從內心感到滿足、不再焦慮地跟別人比較。",
+      "feeling": "對自己的生活感到真心滿足，少了很多無謂的比較心",
+      "med": {
+        "bg": "#fdf8e7",
+        "ring": "#d4a843",
+        "inhale": 4,
+        "exhale": 6,
+        "mantra": "Om Shri Lakshmi Namaha",
+        "affirmation": "我已經足夠了。此刻的我，就是完整的我。",
+        "complete": "臍心輪充滿光，知足感從內心升起。☀️"
+      }
+    },
+    {
+      "name_zh": "心輪",
+      "name_en": "Anahata · 胸口中央",
+      "emoji": "💚",
+      "color": "#5a9e72",
+      "tag_color": "#edf7f1",
+      "tag_label": "綠色",
+      "element": "風元素",
+      "highlight_bg": "#f0f9f4",
+      "highlight_color": "#3d7a56",
+      "highlight_border": "#b8ddc8",
+      "highlight_label_color": "#5a9e72",
+      "desc": "心輪是靈魂住的地方。有些人很努力去愛，但總覺得累、怕受傷——那是因為心輪還沒完全打開。當它覺醒，愛不再是一種付出，而是你自然散發的狀態。",
+      "feeling": "感受到胸口溫暖，對人有一種不求回報的真誠關懷",
+      "med": {
+        "bg": "#edf7f1",
+        "ring": "#5a9e72",
+        "inhale": 5,
+        "exhale": 7,
+        "mantra": "Om Shri Shiva Shakti Namaha",
+        "affirmation": "愛是我的本質。我無條件地愛自己，也愛一切眾生。",
+        "complete": "心輪敞開，無條件的愛流動其中。💚"
+      }
+    },
+    {
+      "name_zh": "喉輪",
+      "name_en": "Vishuddhi · 喉嚨頸部",
+      "emoji": "🌊",
+      "color": "#4a85c0",
+      "tag_color": "#eaf2fb",
+      "tag_label": "藍色",
+      "element": "空間元素",
+      "highlight_bg": "#f0f6fd",
+      "highlight_color": "#2e6699",
+      "highlight_border": "#b8d0ed",
+      "highlight_label_color": "#4a85c0",
+      "desc": "你是不是常常自責、覺得自己不夠好？這會卡住喉輪。它掌管你如何看待自己和世界的關係——健康的喉輪讓你像旁觀者一樣，平靜地看事情，而不是被情緒捲走。",
+      "feeling": "說話更有分寸，情緒來了也能保持觀察者的清醒",
+      "med": {
+        "bg": "#eaf2fb",
+        "ring": "#4a85c0",
+        "inhale": 4,
+        "exhale": 6,
+        "mantra": "Om Shri Vishnumaya Namaha",
+        "affirmation": "我是清醒的見證者。我平靜地觀察，不被情緒帶走。",
+        "complete": "喉輪清澈，你是自己內心世界的平靜觀察者。🌊"
+      }
+    },
+    {
+      "name_zh": "眉心輪（第三眼）",
+      "name_en": "Agnya · 眉心之間",
+      "emoji": "🔮",
+      "color": "#7b62b8",
+      "tag_color": "#f3eff9",
+      "tag_label": "靛紫色",
+      "element": "光元素",
+      "highlight_bg": "#f7f4fc",
+      "highlight_color": "#5a3e99",
+      "highlight_border": "#ccc0e8",
+      "highlight_label_color": "#7b62b8",
+      "desc": "放不下過去、對某人一直有怨氣……眉心輪就是負責這件事的。它的關鍵詞只有兩個字：「寬恕」。不是為了對方，而是真正放下，讓自己輕鬆。",
+      "feeling": "腦袋不再反覆想同一件事，心裡有一種真正的輕盈",
+      "med": {
+        "bg": "#f3eff9",
+        "ring": "#7b62b8",
+        "inhale": 4,
+        "exhale": 8,
+        "mantra": "Om Shri Jesus Christ Namaha",
+        "affirmation": "我選擇寬恕。放下過去，我讓自己自由。",
+        "complete": "眉心輪打開，寬恕的輕盈讓你的心更自由。🔮"
+      }
+    },
+    {
+      "name_zh": "頂輪（千瓣蓮花）",
+      "name_en": "Sahasrara · 頭頂",
+      "emoji": "🌸",
+      "color": "#c9a84c",
+      "tag_color": "var(--soft)",
+      "tag_label": "金白光",
+      "element": "靈性元素",
+      "highlight_bg": "rgba(201,168,76,.08)",
+      "highlight_color": "#8a6e1a",
+      "highlight_border": "var(--gold-dim)",
+      "highlight_label_color": "var(--gold)",
+      "card_border": "var(--gold-dim)",
+      "desc": "這是整個旅程的終點，也是起點。當昆達里尼能量突破頂輪，你就完成了 Sahaja Yoga 所說的「自我覺悟」——個人意識與宇宙能量連結在一起。很多人第一次靜坐就能感受到頭頂有清涼微風，那就是真實的體驗。",
+      "feeling": "頭頂有清涼感，整個人平靜而喜悅，感覺與某種更大的存在連結",
+      "med": {
+        "bg": "linear-gradient(135deg,#fdecea,#edf7f1,#f3eff9)",
+        "ring": "#c9a84c",
+        "inhale": 5,
+        "exhale": 8,
+        "mantra": "Om Shri Paramchaitanya Namaha",
+        "affirmation": "我與宇宙的能量連結。清涼的覺知從頭頂流入，充滿全身。",
+        "complete": "頂輪覺醒，你與宇宙意識合而為一。🌸"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "q": "哪個輪穴掌管「純真」，被象頭神守護？",
+      "opts": ["心輪", "根輪", "眉心輪", "頂輪"],
+      "ans": 1,
+      "tip": "根輪（Mooladhara）是整個系統的根基，守護純真的本性。"
+    },
+    {
+      "q": "當你不停刷短片、思緒很亂，最耗損的是哪個輪穴？",
+      "opts": ["喉輪", "臍心輪", "臍輪", "根輪"],
+      "ans": 2,
+      "tip": "臍輪（Swadisthana）與創造力有關，過度消耗思緒會影響它。"
+    },
+    {
+      "q": "「知足」是哪個輪穴覺醒後帶來的核心感受？",
+      "opts": ["臍心輪", "心輪", "頂輪", "喉輪"],
+      "ans": 0,
+      "tip": "臍心輪（Nabhi）掌管真正的知足感，讓你不再焦慮比較。"
+    },
+    {
+      "q": "靈魂（Atma）居住在哪個輪穴？",
+      "opts": ["根輪", "眉心輪", "頂輪", "心輪"],
+      "ans": 3,
+      "tip": "心輪（Anahata）是靈魂的居所，覺醒後帶來無條件的愛。"
+    },
+    {
+      "q": "常常自責、對自己不滿，哪個輪穴最容易被卡住？",
+      "opts": ["眉心輪", "喉輪", "臍輪", "心輪"],
+      "ans": 1,
+      "tip": "喉輪（Vishuddhi）與自我觀察和見證力有關，自責會阻塞它。"
+    },
+    {
+      "q": "「寬恕」是哪個輪穴最重要的關鍵詞？",
+      "opts": ["心輪", "頂輪", "眉心輪", "喉輪"],
+      "ans": 2,
+      "tip": "眉心輪（Agnya）需要寬恕才能打開——不是為對方，而是放下自己。"
+    },
+    {
+      "q": "昆達里尼突破哪個輪穴，自我覺悟就發生了？",
+      "opts": ["心輪", "眉心輪", "喉輪", "頂輪"],
+      "ans": 3,
+      "tip": "頂輪（Sahasrara）是千瓣蓮花，覺悟後感受到頭頂清涼微風。"
+    }
+  ]
+}

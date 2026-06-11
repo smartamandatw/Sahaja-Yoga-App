@@ -455,148 +455,12 @@ body::before {
 </div>
 
 <!-- SPINE NAV -->
-<div class="spine-nav">
-  <div class="spine-btn" data-i="0" style="background:#d95f4b;color:#d95f4b" onclick="jumpCard(0)"><span class="spine-tip">根輪</span></div>
-  <div class="spine-btn" data-i="1" style="background:#e8834e;color:#e8834e" onclick="jumpCard(1)"><span class="spine-tip">臍輪</span></div>
-  <div class="spine-btn" data-i="2" style="background:#d4a843;color:#d4a843" onclick="jumpCard(2)"><span class="spine-tip">臍心輪</span></div>
-  <div class="spine-btn" data-i="3" style="background:#5a9e72;color:#5a9e72" onclick="jumpCard(3)"><span class="spine-tip">心輪</span></div>
-  <div class="spine-btn" data-i="4" style="background:#4a85c0;color:#4a85c0" onclick="jumpCard(4)"><span class="spine-tip">喉輪</span></div>
-  <div class="spine-btn" data-i="5" style="background:#7b62b8;color:#7b62b8" onclick="jumpCard(5)"><span class="spine-tip">眉心輪</span></div>
-  <div class="spine-btn" data-i="6" style="background:#c9a84c;color:#c9a84c" onclick="jumpCard(6)"><span class="spine-tip">頂輪</span></div>
-</div>
+<div class="spine-nav" id="spine-nav"></div>
 
 <p class="section-label">七個輪穴 · 點開展開詳情</p>
 
 <!-- CARDS -->
-<div class="cards">
-
-<div class="card" data-i="0" style="--accent:#d95f4b">
-  <div class="card-header" onclick="toggleCard(0)">
-    <div class="chakra-icon" style="background:#fdecea"><span>🌱</span><div class="ripple-ring" style="border-color:#d95f4b"></div></div>
-    <div class="card-titles"><div class="card-zh">根輪（海底輪）</div><div class="card-en">Mooladhara · 尾骨下方</div></div>
-    <span class="card-arrow">▶</span>
-  </div>
-  <div class="card-body-wrap"><div class="card-body-inner">
-    <div class="card-tags"><span class="ctag" style="background:#fdecea;color:#d95f4b">紅色</span><span class="ctag" style="background:var(--soft);color:var(--muted)">土元素</span></div>
-    <p class="card-desc">根輪是整個系統的根基，掌管我們純真的本性。你有沒有注意到小孩子對任何事都充滿好奇、沒有防備？那種狀態就是根輪健康的展現。</p>
-    <div class="card-highlight" style="background:#fdf3f2;color:#c0503e;border-color:#f5d0cc"><span class="hl-label" style="color:#d95f4b">✦ 覺醒後的感受</span>內心踏實安穩，對生命有一種孩子般的純真與信任</div>
-    <div class="card-actions">
-      <button class="med-card-btn" style="border-color:#d95f4b;color:#d95f4b" onclick="openMed(0)">🧘 根輪簡易冥想（5–20分鐘）</button>
-      <a class="med-full-btn" href="meditation_room.html">✦ 進入完整靜坐室 →</a>
-      <button class="read-btn" data-i="0" style="background:#fdecea;color:#d95f4b" onclick="markRead(0)">✓ 標記為已讀</button>
-    </div>
-  </div></div>
-</div>
-
-<div class="card" data-i="1" style="--accent:#e8834e">
-  <div class="card-header" onclick="toggleCard(1)">
-    <div class="chakra-icon" style="background:#fef0e7"><span>🎨</span><div class="ripple-ring" style="border-color:#e8834e"></div></div>
-    <div class="card-titles"><div class="card-zh">臍輪</div><div class="card-en">Swadisthana · 下腹部</div></div>
-    <span class="card-arrow">▶</span>
-  </div>
-  <div class="card-body-wrap"><div class="card-body-inner">
-    <div class="card-tags"><span class="ctag" style="background:#fef0e7;color:#e8834e">橙色</span><span class="ctag" style="background:var(--soft);color:var(--muted)">火元素</span></div>
-    <p class="card-desc">臍輪和你的創造力、審美感有關。當你壓力大、不停思考或刷很多短片時，這個輪穴其實消耗很大。靜坐幫助它恢復能量，讓靈感自然流現。</p>
-    <div class="card-highlight" style="background:#fef6f0;color:#c06a30;border-color:#f5dcc8"><span class="hl-label" style="color:#e8834e">✦ 覺醒後的感受</span>思緒清晰，創意不再是努力擠出來的，而是自然湧現</div>
-    <div class="card-actions">
-      <button class="med-card-btn" style="border-color:#e8834e;color:#e8834e" onclick="openMed(1)">🧘 臍輪簡易冥想（5–20分鐘）</button>
-      <a class="med-full-btn" href="meditation_room.html">✦ 進入完整靜坐室 →</a>
-      <button class="read-btn" data-i="1" style="background:#fef0e7;color:#e8834e" onclick="markRead(1)">✓ 標記為已讀</button>
-    </div>
-  </div></div>
-</div>
-
-<div class="card" data-i="2" style="--accent:#d4a843">
-  <div class="card-header" onclick="toggleCard(2)">
-    <div class="chakra-icon" style="background:#fdf8e7"><span>☀️</span><div class="ripple-ring" style="border-color:#d4a843"></div></div>
-    <div class="card-titles"><div class="card-zh">臍心輪</div><div class="card-en">Nabhi · 肚臍位置</div></div>
-    <span class="card-arrow">▶</span>
-  </div>
-  <div class="card-body-wrap"><div class="card-body-inner">
-    <div class="card-tags"><span class="ctag" style="background:#fdf8e7;color:#c49a30">黃色</span><span class="ctag" style="background:var(--soft);color:var(--muted)">水元素</span></div>
-    <p class="card-desc">「夠了嗎？」這個問題困擾很多人。臍心輪掌管我們的知足感——不是那種消極的認命，而是真正從內心感到滿足、不再焦慮地跟別人比較。</p>
-    <div class="card-highlight" style="background:#fdfaf0;color:#9e7820;border-color:#e8d99a"><span class="hl-label" style="color:#d4a843">✦ 覺醒後的感受</span>對自己的生活感到真心滿足，少了很多無謂的比較心</div>
-    <div class="card-actions">
-      <button class="med-card-btn" style="border-color:#d4a843;color:#d4a843" onclick="openMed(2)">🧘 臍心輪簡易冥想（5–20分鐘）</button>
-      <a class="med-full-btn" href="meditation_room.html">✦ 進入完整靜坐室 →</a>
-      <button class="read-btn" data-i="2" style="background:#fdf8e7;color:#d4a843" onclick="markRead(2)">✓ 標記為已讀</button>
-    </div>
-  </div></div>
-</div>
-
-<div class="card" data-i="3" style="--accent:#5a9e72">
-  <div class="card-header" onclick="toggleCard(3)">
-    <div class="chakra-icon" style="background:#edf7f1"><span>💚</span><div class="ripple-ring" style="border-color:#5a9e72"></div></div>
-    <div class="card-titles"><div class="card-zh">心輪</div><div class="card-en">Anahata · 胸口中央</div></div>
-    <span class="card-arrow">▶</span>
-  </div>
-  <div class="card-body-wrap"><div class="card-body-inner">
-    <div class="card-tags"><span class="ctag" style="background:#edf7f1;color:#5a9e72">綠色</span><span class="ctag" style="background:var(--soft);color:var(--muted)">風元素</span></div>
-    <p class="card-desc">心輪是靈魂住的地方。有些人很努力去愛，但總覺得累、怕受傷——那是因為心輪還沒完全打開。當它覺醒，愛不再是一種付出，而是你自然散發的狀態。</p>
-    <div class="card-highlight" style="background:#f0f9f4;color:#3d7a56;border-color:#b8ddc8"><span class="hl-label" style="color:#5a9e72">✦ 覺醒後的感受</span>感受到胸口溫暖，對人有一種不求回報的真誠關懷</div>
-    <div class="card-actions">
-      <button class="med-card-btn" style="border-color:#5a9e72;color:#5a9e72" onclick="openMed(3)">🧘 心輪簡易冥想（5–20分鐘）</button>
-      <a class="med-full-btn" href="meditation_room.html">✦ 進入完整靜坐室 →</a>
-      <button class="read-btn" data-i="3" style="background:#edf7f1;color:#5a9e72" onclick="markRead(3)">✓ 標記為已讀</button>
-    </div>
-  </div></div>
-</div>
-
-<div class="card" data-i="4" style="--accent:#4a85c0">
-  <div class="card-header" onclick="toggleCard(4)">
-    <div class="chakra-icon" style="background:#eaf2fb"><span>🌊</span><div class="ripple-ring" style="border-color:#4a85c0"></div></div>
-    <div class="card-titles"><div class="card-zh">喉輪</div><div class="card-en">Vishuddhi · 喉嚨頸部</div></div>
-    <span class="card-arrow">▶</span>
-  </div>
-  <div class="card-body-wrap"><div class="card-body-inner">
-    <div class="card-tags"><span class="ctag" style="background:#eaf2fb;color:#4a85c0">藍色</span><span class="ctag" style="background:var(--soft);color:var(--muted)">空間元素</span></div>
-    <p class="card-desc">你是不是常常自責、覺得自己不夠好？這會卡住喉輪。它掌管你如何看待自己和世界的關係——健康的喉輪讓你像旁觀者一樣，平靜地看事情，而不是被情緒捲走。</p>
-    <div class="card-highlight" style="background:#f0f6fd;color:#2e6699;border-color:#b8d0ed"><span class="hl-label" style="color:#4a85c0">✦ 覺醒後的感受</span>說話更有分寸，情緒來了也能保持觀察者的清醒</div>
-    <div class="card-actions">
-      <button class="med-card-btn" style="border-color:#4a85c0;color:#4a85c0" onclick="openMed(4)">🧘 喉輪簡易冥想（5–20分鐘）</button>
-      <a class="med-full-btn" href="meditation_room.html">✦ 進入完整靜坐室 →</a>
-      <button class="read-btn" data-i="4" style="background:#eaf2fb;color:#4a85c0" onclick="markRead(4)">✓ 標記為已讀</button>
-    </div>
-  </div></div>
-</div>
-
-<div class="card" data-i="5" style="--accent:#7b62b8">
-  <div class="card-header" onclick="toggleCard(5)">
-    <div class="chakra-icon" style="background:#f3eff9"><span>🔮</span><div class="ripple-ring" style="border-color:#7b62b8"></div></div>
-    <div class="card-titles"><div class="card-zh">眉心輪（第三眼）</div><div class="card-en">Agnya · 眉心之間</div></div>
-    <span class="card-arrow">▶</span>
-  </div>
-  <div class="card-body-wrap"><div class="card-body-inner">
-    <div class="card-tags"><span class="ctag" style="background:#f3eff9;color:#7b62b8">靛紫色</span><span class="ctag" style="background:var(--soft);color:var(--muted)">光元素</span></div>
-    <p class="card-desc">放不下過去、對某人一直有怨氣……眉心輪就是負責這件事的。它的關鍵詞只有兩個字：「寬恕」。不是為了對方，而是真正放下，讓自己輕鬆。</p>
-    <div class="card-highlight" style="background:#f7f4fc;color:#5a3e99;border-color:#ccc0e8"><span class="hl-label" style="color:#7b62b8">✦ 覺醒後的感受</span>腦袋不再反覆想同一件事，心裡有一種真正的輕盈</div>
-    <div class="card-actions">
-      <button class="med-card-btn" style="border-color:#7b62b8;color:#7b62b8" onclick="openMed(5)">🧘 眉心輪簡易冥想（5–20分鐘）</button>
-      <a class="med-full-btn" href="meditation_room.html">✦ 進入完整靜坐室 →</a>
-      <button class="read-btn" data-i="5" style="background:#f3eff9;color:#7b62b8" onclick="markRead(5)">✓ 標記為已讀</button>
-    </div>
-  </div></div>
-</div>
-
-<div class="card" data-i="6" style="--accent:#c9a84c;border-color:var(--gold-dim)">
-  <div class="card-header" onclick="toggleCard(6)">
-    <div class="chakra-icon" style="background:linear-gradient(135deg,#fdecea,#edf7f1,#eaf2fb,#f3eff9)"><span>🌸</span><div class="ripple-ring" style="border-color:#c9a84c"></div></div>
-    <div class="card-titles"><div class="card-zh">頂輪（千瓣蓮花）</div><div class="card-en">Sahasrara · 頭頂</div></div>
-    <span class="card-arrow">▶</span>
-  </div>
-  <div class="card-body-wrap"><div class="card-body-inner">
-    <div class="card-tags"><span class="ctag" style="background:var(--soft);color:var(--gold)">金白光</span><span class="ctag" style="background:var(--soft);color:var(--muted)">靈性元素</span></div>
-    <p class="card-desc">這是整個旅程的終點，也是起點。當昆達里尼能量突破頂輪，你就完成了 Sahaja Yoga 所說的「自我覺悟」——個人意識與宇宙能量連結在一起。很多人第一次靜坐就能感受到頭頂有清涼微風，那就是真實的體驗。</p>
-    <div class="card-highlight" style="background:rgba(201,168,76,.08);color:#8a6e1a;border-color:var(--gold-dim)"><span class="hl-label" style="color:var(--gold)">✦ 覺醒後的感受</span>頭頂有清涼感，整個人平靜而喜悅，感覺與某種更大的存在連結</div>
-    <div class="card-actions">
-      <button class="med-card-btn" style="border-color:var(--gold);color:var(--gold)" onclick="openMed(6)">🧘 頂輪簡易冥想（5–20分鐘）</button>
-      <a class="med-full-btn" href="meditation_room.html">✦ 進入完整靜坐室 →</a>
-      <button class="read-btn" data-i="6" style="background:var(--soft);color:var(--gold)" onclick="markRead(6)">✓ 標記為已讀</button>
-    </div>
-  </div></div>
-</div>
-
-</div><!-- /cards -->
+<div class="cards" id="cards-wrap"></div>
 
 <!-- QUIZ -->
 <div class="quiz-wrap">
@@ -620,8 +484,8 @@ body::before {
 </div>
 
 <div class="footer">
-  <p class="footer-quote">「昆達里尼上升時，<br>你會感受到清涼的微風——<br>那是聖靈真實的存在。」</p>
-  <p class="footer-attr">— Shri Mataji Nirmala Devi</p>
+  <p class="footer-quote" id="footer-quote"></p>
+  <p class="footer-attr" id="footer-attr"></p>
 </div>
 
 <!-- MEDITATION MODAL (bottom sheet) -->
@@ -674,186 +538,248 @@ body::before {
 </div>
 
 <script>
-const CHAKRAS=[
-  {name:'根輪',emoji:'🌱',color:'#d95f4b',bg:'#fdecea',ringC:'#d95f4b',inhale:4,exhale:6,
-   mantra:'Om Shri Ganesha Namaha',
-   affirmation:'我是純真的，我是安全的。大地支撐著我，宇宙守護著我。',
-   complete:'根輪得到滋養，你感受到安全與踏實。🌱'},
-  {name:'臍輪',emoji:'🎨',color:'#e8834e',bg:'#fef0e7',ringC:'#e8834e',inhale:4,exhale:6,
-   mantra:'Om Shri Brahmadeva Namaha',
-   affirmation:'我的創造力是自然流露的。靜止之中，靈感自然而來。',
-   complete:'臍輪得到休息，靈感正在悄悄回來。🎨'},
-  {name:'臍心輪',emoji:'☀️',color:'#d4a843',bg:'#fdf8e7',ringC:'#d4a843',inhale:4,exhale:6,
-   mantra:'Om Shri Lakshmi Namaha',
-   affirmation:'我已經足夠了。此刻的我，就是完整的我。',
-   complete:'臍心輪充滿光，知足感從內心升起。☀️'},
-  {name:'心輪',emoji:'💚',color:'#5a9e72',bg:'#edf7f1',ringC:'#5a9e72',inhale:5,exhale:7,
-   mantra:'Om Shri Shiva Shakti Namaha',
-   affirmation:'愛是我的本質。我無條件地愛自己，也愛一切眾生。',
-   complete:'心輪敞開，無條件的愛流動其中。💚'},
-  {name:'喉輪',emoji:'🌊',color:'#4a85c0',bg:'#eaf2fb',ringC:'#4a85c0',inhale:4,exhale:6,
-   mantra:'Om Shri Vishnumaya Namaha',
-   affirmation:'我是清醒的見證者。我平靜地觀察，不被情緒帶走。',
-   complete:'喉輪清澈，你是自己內心世界的平靜觀察者。🌊'},
-  {name:'眉心輪',emoji:'🔮',color:'#7b62b8',bg:'#f3eff9',ringC:'#7b62b8',inhale:4,exhale:8,
-   mantra:'Om Shri Jesus Christ Namaha',
-   affirmation:'我選擇寬恕。放下過去，我讓自己自由。',
-   complete:'眉心輪打開，寬恕的輕盈讓你的心更自由。🔮'},
-  {name:'頂輪',emoji:'🌸',color:'#c9a84c',bg:'linear-gradient(135deg,#fdecea,#edf7f1,#f3eff9)',ringC:'#c9a84c',inhale:5,exhale:8,
-   mantra:'Om Shri Paramchaitanya Namaha',
-   affirmation:'我與宇宙的能量連結。清涼的覺知從頭頂流入，充滿全身。',
-   complete:'頂輪覺醒，你與宇宙意識合而為一。🌸'},
-];
+const BASE = 'https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/';
 
-// ── CARDS ──
-const readSet=new Set(); let openCard=-1;
-function toggleCard(i){
-  const cards=document.querySelectorAll('.card');
-  if(openCard===i){cards[i].classList.remove('active-card');openCard=-1;}
-  else{
-    if(openCard>=0)cards[openCard].classList.remove('active-card');
-    cards[i].classList.add('active-card');openCard=i;
-    setTimeout(()=>cards[i].scrollIntoView({behavior:'smooth',block:'nearest'}),60);
+// ── STATE ──
+const readSet = new Set();
+let openCard = -1;
+let CHAKRAS = [];
+let QS = [];
+
+// ── LOAD JSON ──
+fetch(BASE + 'about_chakras.json?t=' + Date.now())
+  .then(r => r.json())
+  .then(data => {
+    CHAKRAS = data.chakras.map(c => ({
+      name: c.name_zh, emoji: c.emoji,
+      color: c.color, bg: c.med.bg, ringC: c.med.ring,
+      inhale: c.med.inhale, exhale: c.med.exhale,
+      mantra: c.med.mantra, affirmation: c.med.affirmation,
+      complete: c.med.complete
+    }));
+    QS = data.quiz;
+    renderSpineNav(data.chakras);
+    renderCards(data.chakras);
+    renderFooter(data.footer_quote);
+    startQuiz();
+  })
+  .catch(err => {
+    document.getElementById('cards-wrap').innerHTML =
+      '<p style="color:var(--muted);padding:40px 24px;text-align:center;font-family:'Noto Serif TC',serif;">內容載入失敗，請稍後再試。</p>';
+    console.error(err);
+  });
+
+// ── RENDER SPINE NAV ──
+function renderSpineNav(chakras) {
+  const nav = document.getElementById('spine-nav');
+  nav.innerHTML = chakras.map((c, i) => `
+    <div class="spine-btn" data-i="${i}"
+      style="background:${c.color};color:${c.color}"
+      onclick="jumpCard(${i})">
+      <span class="spine-tip">${c.name_zh.replace(/（.*?）/,'')}</span>
+    </div>`).join('');
+}
+
+// ── RENDER CARDS ──
+function renderCards(chakras) {
+  const wrap = document.getElementById('cards-wrap');
+  wrap.innerHTML = chakras.map((c, i) => {
+    const isLast = i === chakras.length - 1;
+    const cardStyle = isLast && c.card_border
+      ? `--accent:${c.color};border-color:${c.card_border};`
+      : `--accent:${c.color};`;
+    return `
+    <div class="card" data-i="${i}" style="${cardStyle}">
+      <div class="card-header" onclick="toggleCard(${i})">
+        <div class="chakra-icon" style="background:${c.tag_color}">
+          <span>${c.emoji}</span>
+          <div class="ripple-ring" style="border-color:${c.color}"></div>
+        </div>
+        <div class="card-titles">
+          <div class="card-zh">${c.name_zh}</div>
+          <div class="card-en">${c.name_en}</div>
+        </div>
+        <span class="card-arrow">▶</span>
+      </div>
+      <div class="card-body-wrap"><div class="card-body-inner">
+        <div class="card-tags">
+          <span class="ctag" style="background:${c.tag_color};color:${c.color}">${c.tag_label}</span>
+          <span class="ctag" style="background:var(--soft);color:var(--muted)">${c.element}</span>
+        </div>
+        <p class="card-desc">${c.desc}</p>
+        <div class="card-highlight"
+          style="background:${c.highlight_bg};color:${c.highlight_color};border-color:${c.highlight_border}">
+          <span class="hl-label" style="color:${c.highlight_label_color}">✦ 覺醒後的感受</span>
+          ${c.feeling}
+        </div>
+        <div class="card-actions">
+          <button class="med-card-btn"
+            style="border-color:${c.color};color:${c.color}"
+            onclick="openMed(${i})">🧘 ${c.name_zh.replace(/（.*?）/,'')}簡易冥想（5–20分鐘）</button>
+          <a class="med-full-btn" href="meditation_room.html">✦ 進入完整靜坐室 →</a>
+          <button class="read-btn" data-i="${i}"
+            style="background:${c.tag_color};color:${c.color}"
+            onclick="markRead(${i})">✓ 標記為已讀</button>
+        </div>
+      </div></div>
+    </div>`;
+  }).join('');
+}
+
+// ── RENDER FOOTER ──
+function renderFooter(fq) {
+  if (!fq) return;
+  document.getElementById('footer-quote').innerHTML = fq.text.replace(/
+/g,'<br>');
+  document.getElementById('footer-attr').textContent = '— ' + fq.author;
+}
+
+// ── CARD / SPINE LOGIC ──
+function toggleCard(i) {
+  const cards = document.querySelectorAll('.card');
+  if (openCard === i) {
+    cards[i].classList.remove('active-card'); openCard = -1;
+  } else {
+    if (openCard >= 0) cards[openCard].classList.remove('active-card');
+    cards[i].classList.add('active-card'); openCard = i;
+    setTimeout(() => cards[i].scrollIntoView({ behavior:'smooth', block:'nearest' }), 60);
   }
 }
-function jumpCard(i){
-  document.querySelectorAll('.card')[i].scrollIntoView({behavior:'smooth',block:'center'});
-  setTimeout(()=>{if(openCard!==i)toggleCard(i);},300);
+function jumpCard(i) {
+  document.querySelectorAll('.card')[i].scrollIntoView({ behavior:'smooth', block:'center' });
+  setTimeout(() => { if (openCard !== i) toggleCard(i); }, 300);
 }
-function markRead(i){
-  if(readSet.has(i))return;
+function markRead(i) {
+  if (readSet.has(i)) return;
   readSet.add(i);
-  const btn=document.querySelector(`.read-btn[data-i="${i}"]`);
-  btn.textContent='✓ 已讀完';btn.classList.add('done');
+  const btn = document.querySelector(`.read-btn[data-i="${i}"]`);
+  btn.textContent = '✓ 已讀完'; btn.classList.add('done');
   document.querySelector(`.spine-btn[data-i="${i}"]`).classList.add('read');
   updateProgress();
 }
-function updateProgress(){
-  const n=readSet.size;
-  document.getElementById('prog-text').textContent=`${n} / 7 已讀`;
-  document.getElementById('prog-fill').style.width=`${(n/7)*100}%`;
-  // animate kundalini
-  const yStart=145,yEnd=6;
-  document.getElementById('k-line').setAttribute('y2', yStart-(yStart-yEnd)*(n/7));
+function updateProgress() {
+  const n = readSet.size;
+  const total = CHAKRAS.length;
+  document.getElementById('prog-text').textContent = `${n} / ${total} 已讀`;
+  document.getElementById('prog-fill').style.width = `${(n / total) * 100}%`;
+  const yStart = 145, yEnd = 6;
+  document.getElementById('k-line').setAttribute('y2', yStart - (yStart - yEnd) * (n / total));
 }
 
 // ── MEDITATION ──
-let medIdx=0,durSec=300,elapsed=0,running=false,breathTimer=null,countTimer=null;
+let medIdx=0, durSec=300, elapsed=0, running=false, breathTimer=null, countTimer=null;
 const CIRC=207.3;
 
-function openMed(i){
-  medIdx=i; const c=CHAKRAS[i];
-  document.getElementById('med-orb').style.background=c.bg;
-  ['med-ring1','med-ring2'].forEach(id=>document.getElementById(id).style.borderColor=c.ringC);
-  document.getElementById('timer-ring-fg').style.stroke=c.ringC;
-  document.getElementById('med-emoji').textContent=c.emoji;
-  document.getElementById('med-name').textContent=c.name+'冥想';
-  document.getElementById('med-mantra').textContent=c.mantra;
-  document.getElementById('med-affirmation').textContent=c.affirmation;
-  document.getElementById('med-affirmation').style.display='';
-  document.getElementById('med-goto-full').style.display='';
-  document.getElementById('med-complete-msg').style.display='none';
-  document.getElementById('dur-picker').style.display='';
-  document.getElementById('med-controls').style.display='';
-  document.querySelector('.timer-ring-wrap').style.display='';
+function openMed(i) {
+  medIdx = i;
+  const c = CHAKRAS[i];
+  document.getElementById('med-orb').style.background = c.bg;
+  ['med-ring1','med-ring2'].forEach(id => document.getElementById(id).style.borderColor = c.ringC);
+  document.getElementById('timer-ring-fg').style.stroke = c.ringC;
+  document.getElementById('med-emoji').textContent = c.emoji;
+  document.getElementById('med-name').textContent = c.name + '冥想';
+  document.getElementById('med-mantra').textContent = c.mantra;
+  document.getElementById('med-affirmation').textContent = c.affirmation;
+  document.getElementById('med-affirmation').style.display = '';
+  document.getElementById('med-goto-full').style.display = '';
+  document.getElementById('med-complete-msg').style.display = 'none';
+  document.getElementById('dur-picker').style.display = '';
+  document.getElementById('med-controls').style.display = '';
+  document.querySelector('.timer-ring-wrap').style.display = '';
   spawnParticles(c.color);
   resetMed(true);
   document.getElementById('med-overlay').classList.add('open');
 }
-function closeMed(){stopMed();document.getElementById('med-overlay').classList.remove('open');}
-function overlayClick(e){if(e.target===document.getElementById('med-overlay'))closeMed();}
-
-function spawnParticles(color){
-  const wrap=document.getElementById('med-particles'); wrap.innerHTML='';
-  for(let i=0;i<10;i++){
-    const p=document.createElement('div'); p.className='particle';
-    p.style.cssText=`background:${color};left:${25+Math.random()*50}%;top:${25+Math.random()*50}%;--dx:${(Math.random()-.5)*36}px;animation-delay:${Math.random()*2.5}s;animation-duration:${2+Math.random()*1.5}s;`;
+function closeMed() { stopMed(); document.getElementById('med-overlay').classList.remove('open'); }
+function overlayClick(e) { if (e.target === document.getElementById('med-overlay')) closeMed(); }
+function spawnParticles(color) {
+  const wrap = document.getElementById('med-particles'); wrap.innerHTML = '';
+  for (let i = 0; i < 10; i++) {
+    const p = document.createElement('div'); p.className = 'particle';
+    p.style.cssText = `background:${color};left:${25+Math.random()*50}%;top:${25+Math.random()*50}%;--dx:${(Math.random()-.5)*36}px;animation-delay:${Math.random()*2.5}s;animation-duration:${2+Math.random()*1.5}s;`;
     wrap.appendChild(p);
   }
 }
-function setDur(min,btn){
-  durSec=min*60;elapsed=0;
-  document.querySelectorAll('.dur-btn').forEach(b=>b.classList.remove('active'));
+function setDur(min, btn) {
+  durSec = min*60; elapsed = 0;
+  document.querySelectorAll('.dur-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active'); updateTimerDisplay(); updateTimerRing();
 }
-function toggleMed(){running?pauseMed():startMed();}
-function startMed(){
-  running=true;
-  document.getElementById('med-start-btn').textContent='暫停';
-  document.getElementById('med-reset-btn').disabled=false;
-  document.getElementById('dur-picker').style.opacity='.4';
-  document.getElementById('dur-picker').style.pointerEvents='none';
-  doBreathe('in',CHAKRAS[medIdx].inhale);
-  countTimer=setInterval(()=>{
+function toggleMed() { running ? pauseMed() : startMed(); }
+function startMed() {
+  running = true;
+  document.getElementById('med-start-btn').textContent = '暫停';
+  document.getElementById('med-reset-btn').disabled = false;
+  document.getElementById('dur-picker').style.opacity = '.4';
+  document.getElementById('dur-picker').style.pointerEvents = 'none';
+  doBreathe('in', CHAKRAS[medIdx].inhale);
+  countTimer = setInterval(() => {
     elapsed++; updateTimerDisplay(); updateTimerRing();
-    if(elapsed>=durSec)completeMed();
-  },1000);
+    if (elapsed >= durSec) completeMed();
+  }, 1000);
 }
-function pauseMed(){
-  running=false;
-  document.getElementById('med-start-btn').textContent='繼續';
+function pauseMed() {
+  running = false;
+  document.getElementById('med-start-btn').textContent = '繼續';
   clearInterval(countTimer); clearTimeout(breathTimer);
-  document.getElementById('breath-guide').textContent='已暫停';
+  document.getElementById('breath-guide').textContent = '已暫停';
 }
-function stopMed(){running=false;clearInterval(countTimer);clearTimeout(breathTimer);}
-function resetMed(silent){
-  stopMed(); elapsed=0;
-  document.getElementById('med-start-btn').textContent='開始靜坐';
-  document.getElementById('med-reset-btn').disabled=true;
-  document.getElementById('dur-picker').style.opacity='';
-  document.getElementById('dur-picker').style.pointerEvents='';
-  document.getElementById('breath-guide').textContent='選擇時間，開始靜坐';
-  document.getElementById('med-orb').className='med-orb';
+function stopMed() { running = false; clearInterval(countTimer); clearTimeout(breathTimer); }
+function resetMed(silent) {
+  stopMed(); elapsed = 0;
+  document.getElementById('med-start-btn').textContent = '開始靜坐';
+  document.getElementById('med-reset-btn').disabled = true;
+  document.getElementById('dur-picker').style.opacity = '';
+  document.getElementById('dur-picker').style.pointerEvents = '';
+  document.getElementById('breath-guide').textContent = '選擇時間，開始靜坐';
+  document.getElementById('med-orb').className = 'med-orb';
   updateTimerDisplay(); updateTimerRing();
 }
-function completeMed(){
+function completeMed() {
   stopMed();
-  const c=CHAKRAS[medIdx];
-  document.getElementById('med-complete-msg').style.display='block';
-  document.getElementById('med-complete-text').textContent=c.complete;
-  document.getElementById('med-affirmation').style.display='none';
-  document.getElementById('med-controls').style.display='none';
-  document.getElementById('dur-picker').style.display='none';
-  document.querySelector('.timer-ring-wrap').style.display='none';
-  document.getElementById('breath-guide').textContent='';
-  document.getElementById('med-goto-full').style.display='block';
+  const c = CHAKRAS[medIdx];
+  document.getElementById('med-complete-msg').style.display = 'block';
+  document.getElementById('med-complete-text').textContent = c.complete;
+  document.getElementById('med-affirmation').style.display = 'none';
+  document.getElementById('med-controls').style.display = 'none';
+  document.getElementById('dur-picker').style.display = 'none';
+  document.querySelector('.timer-ring-wrap').style.display = 'none';
+  document.getElementById('breath-guide').textContent = '';
+  document.getElementById('med-goto-full').style.display = 'block';
 }
-function doBreathe(phase,sec){
-  if(!running)return;
-  const orb=document.getElementById('med-orb');
-  const guide=document.getElementById('breath-guide');
-  orb.className='med-orb'; void orb.offsetWidth;
-  if(phase==='in'){
-    guide.textContent='吸氣 ···'; orb.style.animationDuration=sec+'s';
+function doBreathe(phase, sec) {
+  if (!running) return;
+  const orb = document.getElementById('med-orb');
+  const guide = document.getElementById('breath-guide');
+  orb.className = 'med-orb'; void orb.offsetWidth;
+  if (phase === 'in') {
+    guide.textContent = '吸氣 ···'; orb.style.animationDuration = sec+'s';
     orb.classList.add('breathing-in');
-    breathTimer=setTimeout(()=>doBreathe('out',CHAKRAS[medIdx].exhale),sec*1000);
+    breathTimer = setTimeout(() => doBreathe('out', CHAKRAS[medIdx].exhale), sec*1000);
   } else {
-    guide.textContent='呼氣 ···'; orb.style.animationDuration=sec+'s';
+    guide.textContent = '呼氣 ···'; orb.style.animationDuration = sec+'s';
     orb.classList.add('breathing-out');
-    breathTimer=setTimeout(()=>doBreathe('in',CHAKRAS[medIdx].inhale),sec*1000);
+    breathTimer = setTimeout(() => doBreathe('in', CHAKRAS[medIdx].inhale), sec*1000);
   }
 }
-function updateTimerDisplay(){
-  const rem=durSec-elapsed,m=Math.floor(rem/60),s=rem%60;
-  document.getElementById('timer-display').textContent=`${m}:${s.toString().padStart(2,'0')}`;
+function updateTimerDisplay() {
+  const rem = durSec - elapsed, m = Math.floor(rem/60), s = rem%60;
+  document.getElementById('timer-display').textContent = `${m}:${s.toString().padStart(2,'0')}`;
 }
-function updateTimerRing(){
-  document.getElementById('timer-ring-fg').style.strokeDashoffset=(CIRC*(elapsed/durSec)).toFixed(1);
+function updateTimerRing() {
+  document.getElementById('timer-ring-fg').style.strokeDashoffset = (CIRC*(elapsed/durSec)).toFixed(1);
 }
 
 // ── QUIZ ──
-const QS=[
-  {q:'哪個輪穴掌管「純真」，被象頭神守護？',opts:['心輪','根輪','眉心輪','頂輪'],ans:1,tip:'根輪（Mooladhara）是整個系統的根基，守護純真的本性。'},
-  {q:'當你不停刷短片、思緒很亂，最耗損的是哪個輪穴？',opts:['喉輪','臍心輪','臍輪','根輪'],ans:2,tip:'臍輪（Swadisthana）與創造力有關，過度消耗思緒會影響它。'},
-  {q:'「知足」是哪個輪穴覺醒後帶來的核心感受？',opts:['臍心輪','心輪','頂輪','喉輪'],ans:0,tip:'臍心輪（Nabhi）掌管真正的知足感，讓你不再焦慮比較。'},
-  {q:'靈魂（Atma）居住在哪個輪穴？',opts:['根輪','眉心輪','頂輪','心輪'],ans:3,tip:'心輪（Anahata）是靈魂的居所，覺醒後帶來無條件的愛。'},
-  {q:'常常自責、對自己不滿，哪個輪穴最容易被卡住？',opts:['眉心輪','喉輪','臍輪','心輪'],ans:1,tip:'喉輪（Vishuddhi）與自我觀察和見證力有關，自責會阻塞它。'},
-  {q:'「寬恕」是哪個輪穴最重要的關鍵詞？',opts:['心輪','頂輪','眉心輪','喉輪'],ans:2,tip:'眉心輪（Agnya）需要寬恕才能打開——不是為對方，而是放下自己。'},
-  {q:'昆達里尼突破哪個輪穴，自我覺悟就發生了？',opts:['心輪','眉心輪','喉輪','頂輪'],ans:3,tip:'頂輪（Sahasrara）是千瓣蓮花，覺悟後感受到頭頂清涼微風。'},
-];
-let qOrder=[],qIdx=0,score=0,answered=false;
+let qOrder=[], qIdx=0, score=0, answered=false;
 function shuffle(a){const r=[...a];for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]];}return r;}
-function startQuiz(){qOrder=shuffle([0,1,2,3,4,5,6]);qIdx=0;score=0;answered=false;document.getElementById('quiz-body').style.display='';document.getElementById('quiz-result').style.display='none';renderQ();}
+function startQuiz(){
+  if (!QS.length) return;
+  qOrder=shuffle(QS.map((_,i)=>i));qIdx=0;score=0;answered=false;
+  document.getElementById('quiz-body').style.display='';
+  document.getElementById('quiz-result').style.display='none';
+  renderQ();
+}
 function renderQ(){
   const q=QS[qOrder[qIdx]];
   document.getElementById('quiz-q').textContent=`Q${qIdx+1}．${q.q}`;
@@ -880,7 +806,6 @@ function showResult(){
   const msgs=[[7,'完美！你已經把七個輪穴都記住了 🌸'],[5,'答得很好！再複習一下幾個輪穴就完美了 ✨'],[3,'不錯的開始！多讀幾次，你一定記得住 🌿'],[0,'沒關係，回去看看每個輪穴的介紹，再來試試！']];
   document.getElementById('result-msg').textContent=msgs.find(([m])=>score>=m)[1];
 }
-startQuiz();
 </script>
 </body>
 </html>
