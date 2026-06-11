@@ -1,4 +1,5 @@
 [
+  { "key": "mountain",   "label": "山景",        "file": "mountain.png" },
   { "key": "forest",     "label": "霧中森林",    "file": "forest.png" },
   { "key": "lake",       "label": "湖面夜景",    "file": "lake.png" },
   { "key": "stars",      "label": "星空銀河",    "file": "stars.png" },
