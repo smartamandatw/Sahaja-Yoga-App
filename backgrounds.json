@@ -1,10 +1,12 @@
 [
-  { "key": "mountain",   "label": "山景",        "file": "/png/mountain.png" },
+  { "key": "carbella",   "label": "carbella","file": "/png/carbella.png" },
+  { "key": "mountain",   "label": "山景",    "file": "/png/mountain.png" },
   { "key": "forest",     "label": "森林",    "file": "/png/forest.png" },
   { "key": "lake",       "label": "湖面",    "file": "/png/lake.png" },
   { "key": "stars",      "label": "星空",    "file": "/png/stars.png" },
   { "key": "sun",        "label": "日出",    "file": "/png/sun.png" },
   { "key": "shrimataji", "label": "Shri Mataji", "file": "/png/ShriMataji.png" },
   { "key": "flower",     "label": "野花",    "file": "/png/flower.png" },
-  { "key": "sea",        "label": "大海",    "file": "/png/sea.png" }  
+  { "key": "sea",        "label": "大海",    "file": "/png/sea.png" },
+  { "key": "grassland",  "label": "草原",    "file": "/png/grassland.png" }
 ]
