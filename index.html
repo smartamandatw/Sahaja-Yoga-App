@@ -9,23 +9,24 @@
 <style>
   * { box-sizing:border-box; margin:0; padding:0; }
   html,body { width:100%; height:100%; overflow:hidden; }
-  @keyframes pulse { 0%,100%{opacity:0.5} 50%{opacity:1} }
+
+  @keyframes pulse    { 0%,100%{opacity:0.5} 50%{opacity:1} }
   @keyframes fadeChar { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeIn   { from{opacity:0} to{opacity:1} }
 
   #bg {
     position:fixed; inset:0; z-index:0;
-    background: url("https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/png/app_first_page.png") center/cover;
+    background:url("https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/png/app_first_page.png") center/cover;
   }
   #overlay { position:fixed; inset:0; z-index:1; background:rgba(10,12,8,0.35); }
 
-  /* 整個第一頁是一個大按鈕 */
+  /* ── PAGE 1 ── */
   #page1 {
     position:fixed; inset:0; z-index:10;
     display:flex; flex-direction:column;
     align-items:center; justify-content:center;
     background:rgba(10,12,8,0.45);
-    cursor:pointer;
-    transition:opacity 0.8s;
+    cursor:pointer; transition:opacity 0.8s;
   }
   #page1.hide { opacity:0; pointer-events:none; }
 
@@ -33,20 +34,15 @@
     font-family:"Noto Serif TC",serif;
     font-size:clamp(22px,6vw,30px);
     color:#F0E8D0; line-height:1.9;
-    letter-spacing:0.12em;
-    text-align:center;
-    margin-top:-8vh;
-    pointer-events:none;
+    letter-spacing:0.12em; text-align:center;
+    margin-top:-8vh; pointer-events:none;
   }
-
   #page1 .tap {
-    position:fixed;
-    bottom:calc(5% + 175px);
+    position:fixed; bottom:calc(5% + 175px);
     left:0; right:0;
     font-family:"Noto Serif TC",serif;
     font-size:clamp(14px,3.8vw,17px);
-    color:rgba(240,232,210,0.9);
-    letter-spacing:0.05em;
+    color:rgba(240,232,210,0.9); letter-spacing:0.05em;
     text-align:right; padding-right:4px;
     white-space:nowrap;
     text-shadow:0 1px 8px rgba(0,0,0,0.4);
@@ -54,7 +50,7 @@
     pointer-events:none;
   }
 
-  /* 第二頁元素 */
+  /* ── PAGE 2 — quote ── */
   #quoteWrap {
     position:fixed; top:47%; left:0; right:0;
     transform:translateY(-50%);
@@ -83,6 +79,8 @@
     text-shadow:0 1px 6px rgba(0,0,0,0.4);
   }
 
+  /* ── PAGE 2 — CTA area ── */
+  /* 主要按鈕：進入冥想室 */
   #tapEnter {
     position:fixed; bottom:calc(5% + 175px);
     left:0; right:0; z-index:6;
@@ -96,35 +94,43 @@
     display:none;
   }
 
+  /* 次要按鈕區：功能選單（比主按鈕小、低調） */
   #menuBtn {
     position:fixed; bottom:5%;
     left:50%; transform:translateX(-50%);
     z-index:6; display:none;
+    opacity:0; animation:fadeIn .6s ease .4s forwards;
   }
   .btn-sub {
-    width:180px;
-    padding:10px 30px;
+    padding:9px 28px;
     border-radius:999px;
-    background:rgba(150,140,120,0.55);
+    background:rgba(240,232,210,0.10);
     backdrop-filter:blur(12px);
-    border:1px solid rgba(255,255,255,0.4);
-    color:rgba(240,232,210,0.95);
-    font-family:"Noto Serif TC",serif; font-size:14px;
+    border:0.5px solid rgba(240,232,210,0.28);
+    color:rgba(240,232,210,0.60);           /* 明顯比主按鈕淡 */
+    font-family:"Noto Serif TC",serif;
+    font-size:clamp(12px,3.2vw,14px);      /* 比主按鈕小一號 */
     font-weight:400;
     letter-spacing:0.1em;
     cursor:pointer;
-    transition:transform 0.1s;
+    transition:background .2s, color .2s, transform .1s;
+  }
+  .btn-sub:active {
+    transform:scale(0.96);
+    background:rgba(240,232,210,0.18);
+    color:rgba(240,232,210,0.85);
   }
 
+  /* ── 音效按鈕 ── */
   #soundBtn {
     position:fixed; bottom:8%; right:18px; z-index:20;
     width:34px; height:34px; border-radius:50%;
     background:rgba(230,220,200,0.55); backdrop-filter:blur(6px);
     border:0.5px solid rgba(255,255,255,0.4);
-    display:none; align-items:center; justify-content:center;
+    display:none; align-items:center; justify-content:center; /* flex，不用 block */
     cursor:pointer; font-size:17px;
   }
-  #soundBtn.show { display:flex; }
+  #soundBtn.show { display:flex; }   /* ← bug 修正：一律用 flex */
 </style>
 </head>
 <body>
@@ -135,7 +141,7 @@
   <source src="https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/audio/backgroup_music.mp3" type="audio/mp3">
 </audio>
 
-<!-- 第一頁：整個是一個按鈕 -->
+<!-- 第一頁 -->
 <div id="page1" onclick="startApp()">
   <div class="title">歡迎你的到來<br>這是一趟向內的旅程</div>
   <div class="tap">輕觸開始旅程 »</div>
@@ -147,45 +153,46 @@
   <div id="quoteAuthor">— Shri Mataji</div>
 </div>
 
+<!-- 主要 CTA：進入冥想室 -->
 <div id="tapEnter" onclick="enterMeditation()">輕觸進入冥想室 »</div>
+
+<!-- 次要 CTA：功能選單（視覺上比主按鈕退後一步） -->
 <div id="menuBtn"><button class="btn-sub" onclick="openMenu()">功能選單</button></div>
+
+<!-- 音效切換 -->
 <div id="soundBtn" onclick="toggleSound()">🔊</div>
 
 <script>
-const audio = document.getElementById("bgMusic");
+const audio    = document.getElementById("bgMusic");
 const soundBtn = document.getElementById("soundBtn");
-let muted = false;
+let muted  = false;
 let started = false;
+
+function showPage2() {
+  document.getElementById("quoteWrap").classList.add("show");
+  document.getElementById("tapEnter").style.display  = "block";
+  document.getElementById("menuBtn").style.display   = "flex";   // ← 修正：flex
+  soundBtn.classList.add("show");
+  startQuotes();
+}
 
 // 從靜坐結束回來，直接跳過進入畫面
 if (sessionStorage.getItem('fromMeditation') === '1') {
   sessionStorage.removeItem('fromMeditation');
   started = true;
   audio.volume = 0.5;
-  audio.play().catch(e => console.log(e));
+  audio.play().catch(() => {});
   document.getElementById("page1").classList.add("hide");
-  setTimeout(() => {
-    document.getElementById("quoteWrap").classList.add("show");
-    document.getElementById("tapEnter").style.display = "block";
-    document.getElementById("menuBtn").style.display = "flex";
-    soundBtn.classList.add("show");
-    startQuotes();
-  }, 300);
+  setTimeout(showPage2, 300);
 }
 
 function startApp() {
   if (started) return;
   started = true;
   audio.volume = 0.5;
-  audio.play().catch(e => console.log(e));
+  audio.play().catch(() => {});
   document.getElementById("page1").classList.add("hide");
-  setTimeout(() => {
-    document.getElementById("quoteWrap").classList.add("show");
-    document.getElementById("tapEnter").style.display = "block";
-    document.getElementById("menuBtn").style.display = "block";
-    soundBtn.classList.add("show");
-    startQuotes();
-  }, 600);
+  setTimeout(showPage2, 600);
 }
 
 function toggleSound() {
@@ -194,17 +201,18 @@ function toggleSound() {
   soundBtn.textContent = muted ? "🔇" : "🔊";
 }
 
+/* ── quotes ── */
 let quotes = [], current = 0;
-const textEl = document.getElementById("quoteText");
+const textEl   = document.getElementById("quoteText");
 const authorEl = document.getElementById("quoteAuthor");
 
 fetch("https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/quotes.json?t=" + Date.now())
   .then(r => r.json())
-  .then(data => { quotes = data; quotes.sort(() => Math.random()-0.5); })
+  .then(data => { quotes = data; quotes.sort(() => Math.random() - 0.5); })
   .catch(() => {
     quotes = [
-      {zh:"真正的靜默，",zh2:"是思想的靜止。",author:"Shri Mataji"},
-      {zh:"靜坐不是努力，",zh2:"而是放下努力。",author:"Shri Mataji"}
+      { zh:"真正的靜默，",  zh2:"是思想的靜止。", author:"Shri Mataji" },
+      { zh:"靜坐不是努力，", zh2:"而是放下努力。", author:"Shri Mataji" }
     ];
   });
 
@@ -213,7 +221,7 @@ function renderChars(el, line1, line2, delay) {
   line1.split("").forEach((ch, i) => {
     const s = document.createElement("span");
     s.className = "char"; s.textContent = ch;
-    s.style.animationDelay = (delay + i*0.12) + "s";
+    s.style.animationDelay = (delay + i * 0.12) + "s";
     el.appendChild(s);
   });
   if (line2) {
@@ -221,7 +229,7 @@ function renderChars(el, line1, line2, delay) {
     line2.split("").forEach((ch, i) => {
       const s = document.createElement("span");
       s.className = "char"; s.textContent = ch;
-      s.style.animationDelay = (delay + (line1.length+i)*0.12) + "s";
+      s.style.animationDelay = (delay + (line1.length + i) * 0.12) + "s";
       el.appendChild(s);
     });
   }
@@ -229,14 +237,15 @@ function renderChars(el, line1, line2, delay) {
 
 function showQuote(idx) {
   if (!quotes.length) return;
-  textEl.style.opacity = "0";
+  textEl.style.opacity   = "0";
   authorEl.style.opacity = "0";
   setTimeout(() => {
     const q = quotes[idx];
     textEl.style.opacity = "1";
-    renderChars(textEl, q.zh, q.zh2||"", 0);
+    renderChars(textEl, q.zh, q.zh2 || "", 0);
     authorEl.textContent = "— " + q.author;
-    setTimeout(() => { authorEl.style.opacity="1"; }, (q.zh.length+(q.zh2?q.zh2.length:0))*120+400);
+    const totalChars = q.zh.length + (q.zh2 ? q.zh2.length : 0);
+    setTimeout(() => { authorEl.style.opacity = "1"; }, totalChars * 120 + 400);
   }, 900);
 }
 
@@ -244,16 +253,17 @@ function startQuotes() {
   const go = () => {
     if (!quotes.length) { setTimeout(go, 300); return; }
     const q = quotes[0];
-    renderChars(textEl, q.zh, q.zh2||"", 0.3);
+    renderChars(textEl, q.zh, q.zh2 || "", 0.3);
     authorEl.textContent = "— " + q.author;
-    setTimeout(() => { authorEl.style.opacity="1"; }, (q.zh.length+(q.zh2?q.zh2.length:0))*120+700);
-    setInterval(() => { current=(current+1)%quotes.length; showQuote(current); }, 8000);
+    const totalChars = q.zh.length + (q.zh2 ? q.zh2.length : 0);
+    setTimeout(() => { authorEl.style.opacity = "1"; }, totalChars * 120 + 700);
+    setInterval(() => { current = (current + 1) % quotes.length; showQuote(current); }, 8000);
   };
   go();
 }
 
 function enterMeditation() { window.location.href = 'meditation_room.html'; }
-function openMenu() { window.location.href = 'menu.html'; }
+function openMenu()        { window.location.href = 'menu.html'; }
 </script>
 </body>
 </html>
