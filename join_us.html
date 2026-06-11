@@ -5,149 +5,339 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>加入我們</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
+:root {
+  --bg:       #F0E8D0;
+  --text:     #1C1A17;
+  --gold:     #C9A84C;
+  --gold-dim: rgba(201,168,76,0.22);
+  --muted:    #7a6e5f;
+  --card:     rgba(255,255,255,0.72);
+  --card-b:   rgba(201,168,76,0.20);
+  --soft:     rgba(201,168,76,0.10);
+}
 * { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
-html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC",sans-serif; background:#1C1A17; }
-#bg { position:fixed; inset:0; z-index:0; background:url('https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/png/app_back_ground.png') center/cover; }
-#overlay { position:fixed; inset:0; z-index:1; background:linear-gradient(to bottom,rgba(10,12,8,0.62) 0%,rgba(10,12,8,0.80) 100%); }
-#top-bar { position:fixed; top:0; left:0; right:0; z-index:20; padding-top:env(safe-area-inset-top,0px); background:rgba(10,12,8,0.88); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-bottom:0.5px solid rgba(240,232,210,0.1); }
-.header-inner { display:flex; align-items:center; justify-content:space-between; padding:14px 16px 10px; }
-.back-btn { font-family:"Noto Serif TC",serif; font-size:clamp(13px,3.5vw,15px); color:rgba(240,232,210,0.55); background:none; border:none; cursor:pointer; padding:4px; transition:color 0.2s; }
-.back-btn:active { color:rgba(240,232,210,0.9); }
-.header-title { font-family:"Noto Serif TC",serif; font-size:clamp(15px,4vw,17px); color:rgba(240,232,210,0.85); letter-spacing:0.15em; text-shadow:0 1px 8px rgba(0,0,0,0.4); }
-.header-spacer { width:52px; }
-.tab-bar { display:flex; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
-.tab-bar::-webkit-scrollbar { display:none; }
-.tab-item { flex:1; min-width:70px; display:flex; flex-direction:column; align-items:center; padding:8px 8px 10px; cursor:pointer; border-bottom:2px solid transparent; transition:border-color 0.25s,opacity 0.25s; opacity:0.45; }
-.tab-item.active { border-bottom-color:rgba(240,232,210,0.7); opacity:1; }
-.tab-icon { font-size:18px; line-height:1; }
-.tab-label { font-family:"Noto Serif TC",serif; font-size:clamp(10px,2.8vw,12px); color:rgba(240,232,210,0.85); letter-spacing:0.08em; margin-top:4px; white-space:nowrap; }
-#contentWrap { position:fixed; top:0; left:0; right:0; bottom:0; z-index:5; overflow-y:auto; -webkit-overflow-scrolling:touch; padding-bottom:max(env(safe-area-inset-bottom,0px),32px); }
-.content-pane { display:none; }
-.content-pane.active { display:block; }
-.section-intro { padding:24px 20px 0; font-family:"Noto Serif TC",serif; font-size:clamp(15px,4vw,17px); color:rgba(240,232,210,0.92); line-height:2; letter-spacing:0.08em; text-shadow:0 1px 6px rgba(0,0,0,0.35); display:block; }
-.section-paragraph { margin:16px 20px 0; padding:16px 18px; border-radius:12px; background:rgba(240,232,210,0.06); border:0.5px solid rgba(240,232,210,0.12); }
-.section-paragraph h3 { font-family:"Noto Serif TC",serif; font-size:clamp(14px,3.8vw,15px); color:rgba(240,232,210,0.75); letter-spacing:0.12em; margin-bottom:8px; }
-.section-paragraph p { font-size:clamp(13px,3.5vw,14px); color:rgba(240,232,210,0.68); line-height:1.85; letter-spacing:0.04em; }
-.section-link { margin:12px 20px 0; }
-.link-btn { display:flex; align-items:center; gap:14px; padding:14px 18px; border-radius:12px; background:rgba(240,232,210,0.07); border:0.5px solid rgba(240,232,210,0.18); text-decoration:none; cursor:pointer; transition:background 0.2s,transform 0.1s; -webkit-tap-highlight-color:transparent; }
-.link-btn:active { background:rgba(240,232,210,0.14); transform:scale(0.98); }
-.link-icon { width:36px; height:36px; border-radius:50%; background:rgba(240,232,210,0.12); border:0.5px solid rgba(240,232,210,0.25); display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:16px; }
-.link-info { flex:1; }
-.link-info h4 { font-family:"Noto Serif TC",serif; font-size:clamp(13px,3.6vw,15px); color:rgba(240,232,210,0.85); letter-spacing:0.08em; margin-bottom:3px; }
-.link-info p { font-size:clamp(11px,3vw,13px); color:rgba(240,232,210,0.45); line-height:1.5; }
-.link-arrow { font-size:16px; color:rgba(240,232,210,0.35); flex-shrink:0; }
-.content-pane > *:last-child { margin-bottom:28px; }
-.sentence { display:block; }
-#scrollHint { position:fixed; bottom:max(env(safe-area-inset-bottom,0px),16px); left:50%; transform:translateX(-50%); z-index:50; display:flex; flex-direction:column; align-items:center; gap:5px; pointer-events:none; opacity:0; transition:opacity 0.45s ease; }
-#scrollHint.visible { opacity:1; }
-.hint-label { font-family:"Noto Serif TC",serif; font-size:10px; color:rgba(240,232,210,0.5); letter-spacing:0.14em; }
-.hint-circle { width:34px; height:34px; border-radius:50%; background:rgba(240,232,210,0.10); border:0.5px solid rgba(240,232,210,0.28); display:flex; align-items:center; justify-content:center; animation:bounce 1.8s ease-in-out infinite; }
-.hint-circle svg { width:16px; height:16px; stroke:rgba(240,232,210,0.65); fill:none; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; }
-@keyframes bounce { 0%,100%{transform:translateY(0);}50%{transform:translateY(5px);} }
-@keyframes fadeUp { from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);} }
-.content-pane.active .section-intro,
-.content-pane.active .section-paragraph,
-.content-pane.active .section-link { opacity:0; animation:fadeUp 0.42s ease forwards; }
-.content-pane.active > *:nth-child(1) { animation-delay:0.05s; }
-.content-pane.active > *:nth-child(2) { animation-delay:0.13s; }
-.content-pane.active > *:nth-child(3) { animation-delay:0.21s; }
-.content-pane.active > *:nth-child(4) { animation-delay:0.29s; }
-.content-pane.active > *:nth-child(5) { animation-delay:0.37s; }
+html,body {
+  width:100%; min-height:100%;
+  font-family:"Noto Sans TC",sans-serif;
+  background:var(--bg); color:var(--text);
+  overflow-x:hidden;
+}
+body::before {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(ellipse at 15% 0%,   rgba(201,168,76,.12) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(201,168,76,.09) 0%, transparent 55%);
+}
+
+/* ── TOP NAV ── */
+.top-nav {
+  position:sticky; top:0; z-index:20;
+  background:rgba(240,232,208,.94);
+  backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--gold-dim);
+  padding:14px 16px 12px;
+  display:flex; align-items:center; gap:12px;
+}
+.back-btn {
+  font-size:13px; color:var(--muted);
+  background:var(--soft); border:1px solid var(--gold-dim);
+  border-radius:10px; padding:6px 12px; cursor:pointer;
+  font-family:"Noto Sans TC",sans-serif;
+  transition:background .2s; white-space:nowrap;
+}
+.back-btn:active { background:var(--gold-dim); }
+.nav-title {
+  font-family:"Noto Serif TC",serif;
+  font-size:clamp(14px,3.8vw,16px);
+  color:var(--text); letter-spacing:.1em;
+}
+
+/* ── HERO ── */
+.hero {
+  padding:32px 22px 22px; text-align:center;
+  position:relative; z-index:1;
+  animation:fadeUp .6s ease both;
+}
+.hero-tag {
+  display:inline-block; background:var(--soft); color:var(--gold);
+  font-size:11px; letter-spacing:3px; padding:4px 14px;
+  border-radius:20px; margin-bottom:14px; border:1px solid var(--gold-dim);
+}
+.hero h1 {
+  font-family:"Noto Serif TC",serif;
+  font-size:clamp(1.5rem,5vw,1.9rem);
+  font-weight:700; color:var(--text); line-height:1.4; margin-bottom:10px;
+}
+.hero h1 em { font-style:normal; color:var(--gold); }
+.hero-desc {
+  font-size:13.5px; color:var(--muted); line-height:1.9;
+  max-width:300px; margin:0 auto;
+}
+
+/* ── CARDS ── */
+.cards {
+  position:relative; z-index:1;
+  display:flex; flex-direction:column; gap:10px;
+  padding:0 16px; margin-bottom:48px;
+}
+
+.acc-card {
+  background:var(--card); border-radius:20px;
+  border:1px solid var(--card-b); overflow:hidden;
+  backdrop-filter:blur(8px);
+  transition:box-shadow .25s;
+  opacity:0; animation:fadeUp .5s ease both;
+}
+.acc-card:nth-child(1){animation-delay:.08s}
+.acc-card:nth-child(2){animation-delay:.16s}
+.acc-card:nth-child(3){animation-delay:.24s}
+.acc-card.open {
+  box-shadow:0 6px 28px rgba(201,168,76,.14);
+  border-color:var(--gold-dim);
+}
+
+.acc-header {
+  display:flex; align-items:center; gap:14px; padding:18px;
+  cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent;
+}
+.acc-icon {
+  width:44px; height:44px; border-radius:14px; flex-shrink:0;
+  background:var(--soft); border:1px solid var(--gold-dim);
+  display:flex; align-items:center; justify-content:center; font-size:20px;
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+}
+.acc-card.open .acc-icon { transform:scale(1.1) rotate(-5deg); }
+.acc-titles { flex:1; min-width:0; }
+.acc-zh {
+  font-family:"Noto Serif TC",serif; font-size:1rem; font-weight:700;
+  color:var(--text); line-height:1.2;
+}
+.acc-sub { font-size:11.5px; color:var(--muted); margin-top:3px; line-height:1.4; }
+.acc-arrow {
+  font-size:13px; color:var(--muted); flex-shrink:0;
+  transition:transform .3s, color .2s;
+}
+.acc-card.open .acc-arrow { transform:rotate(90deg); color:var(--gold); }
+
+.acc-body {
+  max-height:0; overflow:hidden;
+  transition:max-height .48s cubic-bezier(.4,0,.2,1), opacity .32s;
+  opacity:0;
+}
+.acc-card.open .acc-body { max-height:900px; opacity:1; }
+.acc-body-inner { padding:0 18px 20px; }
+
+/* ── CONTENT TYPES ── */
+.c-intro {
+  font-family:"Noto Serif TC",serif;
+  font-size:clamp(14px,3.8vw,15.5px); color:var(--text);
+  line-height:2; letter-spacing:.04em; margin-bottom:14px;
+}
+
+.c-paragraph {
+  margin-bottom:10px; padding:14px 16px; border-radius:14px;
+  background:rgba(255,255,255,.6); border:1px solid var(--gold-dim);
+}
+.c-paragraph h3 {
+  font-family:"Noto Serif TC",serif; font-size:13.5px;
+  color:var(--text); margin-bottom:6px;
+  display:flex; align-items:flex-start; gap:7px;
+}
+.c-paragraph h3::before {
+  content:''; display:inline-block; width:3px; min-height:14px;
+  background:var(--gold); border-radius:2px; flex-shrink:0; margin-top:3px;
+}
+.c-paragraph p { font-size:13px; color:var(--muted); line-height:1.9; }
+
+/* ── LINK BUTTONS ── */
+.c-links { display:flex; flex-direction:column; gap:8px; }
+
+.c-link-btn {
+  display:flex; align-items:center; gap:13px;
+  padding:13px 15px; border-radius:14px;
+  background:rgba(255,255,255,.6); border:1px solid var(--gold-dim);
+  text-decoration:none; cursor:pointer;
+  transition:background .2s, transform .15s;
+  -webkit-tap-highlight-color:transparent;
+}
+.c-link-btn:active { background:var(--gold-dim); transform:scale(.98); }
+
+.c-link-icon {
+  width:38px; height:38px; border-radius:12px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center; font-size:18px;
+  border:1px solid var(--gold-dim);
+}
+.c-link-info { flex:1; min-width:0; }
+.c-link-info h4 {
+  font-family:"Noto Serif TC",serif; font-size:13.5px;
+  color:var(--text); margin-bottom:2px; line-height:1.3;
+}
+.c-link-info p {
+  font-size:11.5px; color:var(--muted); line-height:1.4;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.c-link-arrow { font-size:15px; color:var(--gold); flex-shrink:0; }
+
+/* link icon bg colours */
+.c-link-btn[data-platform="line"]     .c-link-icon { background:#06C755; color:#fff; border-color:#06C755; }
+.c-link-btn[data-platform="facebook"] .c-link-icon { background:#1877F2; color:#fff; border-color:#1877F2; }
+.c-link-btn[data-platform="youtube"]  .c-link-icon { background:#FF0000; color:#fff; border-color:#FF0000; }
+.c-link-btn[data-platform="threads"]  .c-link-icon { background:#000;    color:#fff; border-color:#333; }
+.c-link-btn[data-platform="web"]      .c-link-icon { background:var(--soft); color:var(--gold); }
+.c-link-btn[data-platform="email"]    .c-link-icon { background:var(--soft); color:var(--gold); }
+
+/* ── FOOTER ── */
+.footer-note {
+  position:relative; z-index:1;
+  margin:0 16px 48px;
+  background:var(--card); border-radius:20px;
+  border:1px solid var(--card-b); padding:22px 22px;
+  backdrop-filter:blur(8px); text-align:center;
+  animation:fadeUp .5s .3s ease both; opacity:0; animation-fill-mode:forwards;
+}
+.footer-note p {
+  font-family:"Noto Serif TC",serif; font-size:13px;
+  color:var(--muted); line-height:2;
+}
+.footer-note em { font-style:normal; color:var(--gold); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from{opacity:0;transform:translateY(18px);}
+  to{opacity:1;transform:translateY(0);}
+}
 </style>
 </head>
 <body>
-<div id="bg"></div>
-<div id="overlay"></div>
-<div id="top-bar">
-  <div class="header-inner">
-    <button class="back-btn" onclick="goBack()">← 返回</button>
-    <div class="header-title">加入我們</div>
-    <div class="header-spacer"></div>
-  </div>
-  <div class="tab-bar" id="tabBar"></div>
+
+<nav class="top-nav">
+  <button class="back-btn" onclick="goBack()">← 返回</button>
+  <span class="nav-title">加入我們</span>
+</nav>
+
+<div class="hero">
+  <span class="hero-tag">SAHAJA YOGA · 找到我們</span>
+  <h1>一個人靜坐很好，<br><em>有人陪更好</em></h1>
+  <p class="hero-desc">不管你想深入了解，還是只是想找個地方問問題，都歡迎 🌸</p>
 </div>
-<div id="contentWrap"></div>
-<div id="scrollHint">
-  <div class="hint-label">往下滑</div>
-  <div class="hint-circle"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+
+<div class="cards" id="cards"></div>
+
+<div class="footer-note">
+  <p>Sahaja Yoga 在全球超過 100 個國家都有練習者。<br><em>台灣的你，不孤單。</em></p>
 </div>
+
 <script>
 const BASE = 'https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/';
-const LINK_ICONS = { 'sahajayoga-tw.com':'🌐', 'facebook.com':'📘', 'youtube.com':'▶️', 'line.me':'💬', 'threads.com':'🧵', 'mailto':'✉️' };
-function getLinkIcon(url) {
-  for (const [key, icon] of Object.entries(LINK_ICONS)) { if (url.includes(key)) return icon; }
-  return '🔗';
+
+function getPlatform(url) {
+  if (url.includes('line.me'))       return 'line';
+  if (url.includes('facebook.com'))  return 'facebook';
+  if (url.includes('youtube.com'))   return 'youtube';
+  if (url.includes('threads.com'))   return 'threads';
+  if (url.startsWith('mailto'))      return 'email';
+  return 'web';
 }
-function applyTopPadding() {
-  const topBar = document.getElementById('top-bar');
-  const wrap = document.getElementById('contentWrap');
-  if (!topBar || !wrap) return;
-  wrap.style.paddingTop = topBar.offsetHeight + 12 + 'px';
+
+function getPlatformIcon(platform) {
+  const map = {
+    line:     '💬',
+    facebook: '📘',
+    youtube:  '▶️',
+    threads:  '🧵',
+    email:    '✉️',
+    web:      '🌐',
+  };
+  return map[platform] || '🔗';
 }
-function updateHint() {
-  const wrap = document.getElementById('contentWrap');
-  const hint = document.getElementById('scrollHint');
-  if (!wrap || !hint) return;
-  const scrollable = wrap.scrollHeight > wrap.clientHeight + 30;
-  const atBottom = wrap.scrollTop + wrap.clientHeight >= wrap.scrollHeight - 56;
-  hint.classList.toggle('visible', scrollable && !atBottom);
+
+let openIdx = -1;
+
+function toggleCard(i) {
+  const cards = document.querySelectorAll('.acc-card');
+  if (openIdx === i) {
+    cards[i].classList.remove('open');
+    openIdx = -1;
+  } else {
+    if (openIdx >= 0) cards[openIdx].classList.remove('open');
+    cards[i].classList.add('open');
+    openIdx = i;
+    setTimeout(() => cards[i].scrollIntoView({ behavior:'smooth', block:'nearest' }), 60);
+  }
 }
-document.getElementById('contentWrap').addEventListener('scroll', updateHint, { passive:true });
-window.addEventListener('resize', () => { applyTopPadding(); updateHint(); });
-function renderTabs(tabs) {
-  document.getElementById('tabBar').innerHTML = tabs.map((t, i) =>
-    `<div class="tab-item ${i===0?'active':''}" onclick="switchTab(${i})">
-      <span class="tab-icon">${t.icon}</span>
-      <span class="tab-label">${t.label}</span>
-    </div>`).join('');
-  requestAnimationFrame(() => { applyTopPadding(); updateHint(); });
-}
-function renderContent(tabs) {
-  document.getElementById('contentWrap').innerHTML = tabs.map((tab, i) => {
-    let html = `<div class="content-pane ${i===0?'active':''}" id="pane-${i}">`;
-    if (tab.sections) {
-      tab.sections.forEach(s => {
-        if (s.type === 'intro') {
-          html += `<p class="section-intro">${splitSentences(s.text)}</p>`;
-        } else if (s.type === 'paragraph') {
-          html += `<div class="section-paragraph"><h3>${s.title}</h3><p>${splitSentences(s.text)}</p></div>`;
-        } else if (s.type === 'link') {
-          html += `<div class="section-link">
-            <a class="link-btn" href="${s.url}" target="_blank" rel="noopener">
-              <div class="link-icon">${getLinkIcon(s.url)}</div>
-              <div class="link-info"><h4>${s.title}</h4><p>${s.desc}</p></div>
-              <span class="link-arrow">›</span>
-            </a>
-          </div>`;
-        }
-      });
-    }
+
+function renderSections(tab) {
+  let html = '';
+  let linkBuffer = [];
+
+  function flushLinks() {
+    if (!linkBuffer.length) return;
+    html += `<div class="c-links">`;
+    linkBuffer.forEach(s => {
+      const platform = getPlatform(s.url);
+      const icon = getPlatformIcon(platform);
+      html += `<a class="c-link-btn" data-platform="${platform}" href="${s.url}" target="_blank" rel="noopener">
+        <div class="c-link-icon">${icon}</div>
+        <div class="c-link-info">
+          <h4>${s.title}</h4>
+          <p>${s.desc}</p>
+        </div>
+        <span class="c-link-arrow">›</span>
+      </a>`;
+    });
     html += `</div>`;
-    return html;
-  }).join('');
-  requestAnimationFrame(() => { applyTopPadding(); setTimeout(updateHint, 120); });
+    linkBuffer = [];
+  }
+
+  if (tab.sections) {
+    tab.sections.forEach(s => {
+      if (s.type === 'link') {
+        linkBuffer.push(s);
+      } else {
+        flushLinks();
+        if (s.type === 'intro') {
+          html += `<p class="c-intro">${s.text}</p>`;
+        } else if (s.type === 'paragraph') {
+          html += `<div class="c-paragraph"><h3>${s.title}</h3><p>${s.text}</p></div>`;
+        }
+      }
+    });
+    flushLinks();
+  }
+  return html;
 }
-function switchTab(idx) {
-  document.querySelectorAll('.tab-item').forEach((el, i) => el.classList.toggle('active', i === idx));
-  document.querySelectorAll('.content-pane').forEach((el, i) => el.classList.toggle('active', i === idx));
-  document.getElementById('contentWrap').scrollTop = 0;
-  setTimeout(updateHint, 150);
+
+function renderCards(tabs) {
+  document.getElementById('cards').innerHTML = tabs.map((tab, i) => `
+    <div class="acc-card" id="card-${i}">
+      <div class="acc-header" onclick="toggleCard(${i})">
+        <div class="acc-icon">${tab.icon}</div>
+        <div class="acc-titles">
+          <div class="acc-zh">${tab.label}</div>
+          <div class="acc-sub">${tab.sub || ''}</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-body-inner">${renderSections(tab)}</div>
+      </div>
+    </div>
+  `).join('');
 }
-function splitSentences(text) {
-  return text.split(/(?<=。)/).map(s => s.trim()).filter(Boolean).map(s => `<span class="sentence">${s}</span>`).join('');
-}
+
 function goBack() {
   if (document.referrer) history.back();
   else window.location.href = 'menu.html';
 }
+
 fetch(BASE + 'join_us.json?t=' + Date.now())
   .then(r => r.json())
-  .then(data => { renderTabs(data.tabs); renderContent(data.tabs); })
+  .then(data => renderCards(data.tabs))
   .catch(() => {
-    document.getElementById('contentWrap').innerHTML =
-      '<p style="color:rgba(240,232,210,0.5);padding:160px 24px 0;text-align:center;font-family:\'Noto Serif TC\',serif;font-size:15px;">內容載入失敗，請稍後再試。</p>';
+    document.getElementById('cards').innerHTML =
+      '<p style="color:var(--muted);padding:40px 24px;text-align:center;font-family:\'Noto Serif TC\',serif;">內容載入失敗，請稍後再試。</p>';
   });
 </script>
 </body>
