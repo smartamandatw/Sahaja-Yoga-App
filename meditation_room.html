@@ -335,14 +335,27 @@
 
 
   /* ── 靜坐中背景切換列 ── */
-  #bgSwitcher {
+  #bgSwitcherWrap {
     position:fixed; bottom:90px; left:0; right:0; z-index:10;
-    display:flex; justify-content:center; align-items:center;
-    gap:8px; padding:0 16px;
     opacity:0; pointer-events:none;
     transition:opacity 0.4s ease;
   }
-  #bgSwitcher.show { opacity:1; pointer-events:auto; }
+  #bgSwitcherWrap.show { opacity:1; pointer-events:auto; }
+  /* 右側漸層提示可繼續滑動 */
+  #bgSwitcherWrap::after {
+    content:'';
+    position:absolute; top:0; right:0; bottom:0;
+    width:40px; pointer-events:none;
+    background:linear-gradient(to right, transparent, rgba(10,12,8,0.65));
+  }
+  #bgSwitcher {
+    display:flex; align-items:center;
+    gap:8px; padding:0 16px;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  #bgSwitcher::-webkit-scrollbar { display:none; }
   .bg-thumb {
     width:44px; height:33px; border-radius:6px;
     background-size:cover; background-position:center;
@@ -444,7 +457,9 @@
 <div id="meditationPage">
   <button id="backToSelect" onclick="backToSelect()">←返回</button>
   <!-- 背景切換縮圖列 -->
-  <div id="bgSwitcher"></div>
+  <div id="bgSwitcherWrap">
+    <div id="bgSwitcher"></div>
+  </div>
   <div id="tipWrap">
     <div id="tipText"></div>
     <div id="timer">00:00</div>
@@ -622,7 +637,7 @@
     const pb=document.getElementById('pauseBtn'); if(pb) pb.innerHTML='⏸ 暫停';
     document.getElementById('timer').textContent = '00:00';
     document.getElementById('tipText').innerHTML = '';
-    document.getElementById('bgSwitcher').classList.remove('show');
+    document.getElementById('bgSwitcherWrap').classList.remove('show');
     document.getElementById('meditationPage').classList.remove('show');
     document.getElementById('selectPage').classList.remove('hide');
     document.getElementById('overlay').style.background = 'rgba(10,12,8,0.5)';
@@ -666,7 +681,7 @@
     }
 
     document.getElementById('meditationPage').classList.add('show');
-    document.getElementById('bgSwitcher').classList.add('show');
+    document.getElementById('bgSwitcherWrap').classList.add('show');
 
     startTimer();
     loadTips();
