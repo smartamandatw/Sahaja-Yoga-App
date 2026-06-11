@@ -145,9 +145,9 @@
 
   .item-btn {
     padding:11px 8px; border-radius:10px;
-    border:0.5px solid rgba(255,255,255,0.2);
-    background:rgba(230,220,200,0.1); backdrop-filter:blur(8px);
-    color:rgba(240,232,210,0.85);
+    border:0.5px solid rgba(255,255,255,0.18);
+    background:rgba(230,220,200,0.75); backdrop-filter:blur(8px);
+    color:rgba(240,232,210,0.75);
     font-family:"Noto Serif TC",serif;
     font-size:clamp(15px,4vw,19px); letter-spacing:0.06em;
     cursor:pointer; text-align:left; line-height:1.4;
@@ -463,28 +463,36 @@
 
 
 
-  // ── 預設背景（與 feedback.html 一致）──
+  // ── 菜單頁預設背景 ──
+  const menuBgUrl = BASE + 'png/app_back_ground.png';
   selBg = 'default';
-  selBgUrl = BASE + 'png/app_back_ground.png';
-  document.getElementById('bg').style.backgroundImage = "url('" + BASE + "png/app_back_ground.png')";
+  selBgUrl = menuBgUrl;
+  document.getElementById('bg').style.backgroundImage = "url('" + menuBgUrl + "')";
+
+  // 記錄第一個靜坐背景（進入靜坐時使用）
+  let firstBgKey = null, firstBgUrl = null;
 
   // ── 載入背景場景清單（只建立靜坐中切換縮圖，不覆蓋預設背景）──
   fetch(BASE + 'backgrounds.json?t=' + Date.now())
     .then(function(r) { return r.json(); })
     .then(function(list) {
       const switcher = document.getElementById('bgSwitcher');
-      list.forEach(function(bg) {
+      list.forEach(function(bg, idx) {
         const url = BASE + bg.file;
-        // 建立靜坐中縮圖
+        // 記住第一個背景
+        if (idx === 0) { firstBgKey = bg.key; firstBgUrl = url; }
+        // 建立靜坐中縮圖（第一個預設 selected）
         const thumb = document.createElement('div');
-        thumb.className = 'bg-thumb';
+        thumb.className = 'bg-thumb' + (idx === 0 ? ' selected' : '');
         thumb.style.backgroundImage = "url('" + url + "')";
         thumb.title = bg.label;
         thumb.addEventListener('click', function() {
           switcher.querySelectorAll('.bg-thumb').forEach(function(t) { t.classList.remove('selected'); });
           thumb.classList.add('selected');
           selBg = bg.key; selBgUrl = url;
-          document.getElementById('bg').style.backgroundImage = "url('" + url + "')";
+          const bgEl = document.getElementById('bg');
+          bgEl.classList.add('switching');
+          bgEl.style.backgroundImage = "url('" + url + "')";
         });
         switcher.appendChild(thumb);
       });
@@ -572,6 +580,9 @@
     document.getElementById('meditationPage').classList.remove('show');
     document.getElementById('selectPage').classList.remove('hide');
     document.getElementById('overlay').style.background = 'rgba(10,12,8,0.5)';
+    // 還原菜單預設背景
+    selBg = 'default'; selBgUrl = menuBgUrl;
+    document.getElementById('bg').style.backgroundImage = "url('" + menuBgUrl + "')";
   }
 
   // ── 開始靜坐 ──
@@ -582,6 +593,17 @@
     document.getElementById('previewGuide').pause();
     document.getElementById('selectPage').classList.add('hide');
     document.getElementById('overlay').style.background = 'rgba(10,12,8,0.5)';
+
+    // 切換到第一個靜坐背景
+    if (firstBgUrl) {
+      selBg = firstBgKey; selBgUrl = firstBgUrl;
+      document.getElementById('bg').style.backgroundImage = "url('" + firstBgUrl + "')";
+      // 重置縮圖 selected 狀態回第一個
+      const switcher = document.getElementById('bgSwitcher');
+      switcher.querySelectorAll('.bg-thumb').forEach(function(t, i) {
+        t.classList.toggle('selected', i === 0);
+      });
+    }
 
     const guideAudio = document.getElementById('guideAudio');
     const bgAudio = document.getElementById('bgAudio');
