@@ -14,6 +14,8 @@
   #bg {
     position:fixed; inset:0; z-index:0;
     background-size:cover; background-position:center;
+  }
+  #bg.switching {
     transition:background-image 0.6s ease;
   }
   #overlay {
@@ -484,7 +486,9 @@
           switcher.querySelectorAll('.bg-thumb').forEach(function(t) { t.classList.remove('selected'); });
           thumb.classList.add('selected');
           selBg = bg.key; selBgUrl = url;
-          document.getElementById('bg').style.backgroundImage = "url('" + url + "')";
+          const bgEl = document.getElementById('bg');
+          bgEl.classList.add('switching');
+          bgEl.style.backgroundImage = "url('" + url + "')";
         });
         switcher.appendChild(thumb);
       });
