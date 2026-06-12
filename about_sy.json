@@ -3,7 +3,7 @@
     {
       "key": "benefits",
       "label": "能帶給我什麼？",
-      "icon": "🌱",
+      "icon": "",
       "sections": [
         {
           "type": "intro",
@@ -34,7 +34,7 @@
     {
       "key": "what",
       "label": "這是什麼？",
-      "icon": "🌸",
+      "icon": "",
       "sections": [
         {
           "type": "intro",
@@ -60,7 +60,7 @@
     {
       "key": "founder",
       "label": "創辦人",
-      "icon": "✨",
+      "icon": "",
       "sections": [
         {
           "type": "intro",
@@ -86,7 +86,7 @@
     {
       "key": "practice",
       "label": "試試看",
-      "icon": "🕊️",
+      "icon": "",
       "sections": [
         {
           "type": "intro",
@@ -129,7 +129,7 @@
     {
       "key": "video",
       "label": "影片",
-      "icon": "▶️",
+      "icon": "",
       "videos": [
         {
           "title": "什麼是 Sahaja Yoga？",

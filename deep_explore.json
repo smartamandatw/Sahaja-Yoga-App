@@ -3,7 +3,7 @@
     {
       "key": "kundalini",
       "label": "昆達里尼是什麼？",
-      "icon": "🌿",
+      "icon": "",
       "sub": "你身體裡一直都有的那股能量",
       "sections": [
         {
@@ -35,7 +35,7 @@
     {
       "key": "subtle_system",
       "label": "精微能量系統",
-      "icon": "✨",
+      "icon": "",
       "sub": "三條脈、七個輪穴——你內在的地圖",
       "sections": [
         {
@@ -69,7 +69,7 @@
     {
       "key": "chakras",
       "label": "七個輪穴詳解",
-      "icon": "🌈",
+      "icon": "",
       "sub": "從根輪到頂輪，每個都跟你的狀態有關",
       "sections": [
         {
@@ -151,7 +151,7 @@
     {
       "key": "ida",
       "label": "左脈（伊達）",
-      "icon": "🌙",
+      "icon": "",
       "sub": "情緒低落、活在過去——可能是左脈的問題",
       "sections": [
         {
@@ -178,7 +178,7 @@
     {
       "key": "sushumna",
       "label": "中脈（蘇蘇姆納）",
-      "icon": "⬆️",
+      "icon": "",
       "sub": "昆達里尼升起的路，活在當下的通道",
       "sections": [
         {
@@ -205,7 +205,7 @@
     {
       "key": "pingala",
       "label": "右脈（平迦拉）",
-      "icon": "☀️",
+      "icon": "",
       "sub": "停不下來、容易煩躁——可能是右脈的問題",
       "sections": [
         {
@@ -232,7 +232,7 @@
     {
       "key": "shri_mataji_teachings",
       "label": "Shri Mataji 的教導",
-      "icon": "📖",
+      "icon": "",
       "sub": "她說過的話，讓很多人的生命改變了",
       "sections": [
         {
@@ -269,7 +269,7 @@
     {
       "key": "glossary",
       "label": "常用詞彙快速查",
-      "icon": "📝",
+      "icon": "",
       "sub": "看到這些詞不知道是什麼意思？查這裡",
       "sections": [
         {

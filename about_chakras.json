@@ -7,7 +7,7 @@
     {
       "name_zh": "根輪（海底輪）",
       "name_en": "Mooladhara · 尾骨下方",
-      "emoji": "🌱",
+      "emoji": "",
       "color": "#d95f4b",
       "tag_color": "#fdecea",
       "tag_label": "紅色",
@@ -31,7 +31,7 @@
     {
       "name_zh": "臍輪",
       "name_en": "Swadisthana · 下腹部",
-      "emoji": "🎨",
+      "emoji": "",
       "color": "#e8834e",
       "tag_color": "#fef0e7",
       "tag_label": "橙色",
@@ -55,7 +55,7 @@
     {
       "name_zh": "臍心輪",
       "name_en": "Nabhi · 肚臍位置",
-      "emoji": "☀️",
+      "emoji": "",
       "color": "#d4a843",
       "tag_color": "#fdf8e7",
       "tag_label": "黃色",
@@ -79,7 +79,7 @@
     {
       "name_zh": "心輪",
       "name_en": "Anahata · 胸口中央",
-      "emoji": "💚",
+      "emoji": "",
       "color": "#5a9e72",
       "tag_color": "#edf7f1",
       "tag_label": "綠色",
@@ -103,7 +103,7 @@
     {
       "name_zh": "喉輪",
       "name_en": "Vishuddhi · 喉嚨頸部",
-      "emoji": "🌊",
+      "emoji": "",
       "color": "#4a85c0",
       "tag_color": "#eaf2fb",
       "tag_label": "藍色",
@@ -127,7 +127,7 @@
     {
       "name_zh": "眉心輪（第三眼）",
       "name_en": "Agnya · 眉心之間",
-      "emoji": "🔮",
+      "emoji": "",
       "color": "#7b62b8",
       "tag_color": "#f3eff9",
       "tag_label": "靛紫色",
@@ -151,7 +151,7 @@
     {
       "name_zh": "頂輪（千瓣蓮花）",
       "name_en": "Sahasrara · 頭頂",
-      "emoji": "🌸",
+      "emoji": "",
       "color": "#c9a84c",
       "tag_color": "var(--soft)",
       "tag_label": "金白光",

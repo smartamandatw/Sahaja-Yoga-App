@@ -3,7 +3,7 @@
     {
       "key": "local",
       "label": "各地活動",
-      "icon": "📍",
+      "icon": "",
       "sub": "全台都有，找一個離你最近的",
       "sections": [
         {
@@ -31,7 +31,7 @@
     {
       "key": "online",
       "label": "線上課程",
-      "icon": "💻",
+      "icon": "",
       "sub": "在家也可以跟老師一起靜坐",
       "sections": [
         {

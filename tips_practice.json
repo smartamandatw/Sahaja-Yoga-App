@@ -3,7 +3,7 @@
     {
       "key": "home_setup",
       "label": "在家怎麼靜坐？",
-      "icon": "🏠",
+      "icon": "",
       "sub": "環境、坐姿、時間，三件事搞定",
       "sections": [
         {
@@ -45,7 +45,7 @@
     {
       "key": "footsoak",
       "label": "腳部浸泡法",
-      "icon": "🌊",
+      "icon": "",
       "sub": "Sahaja Yoga 最推薦的日常淨化，做了你就懂",
       "sections": [
         {
@@ -99,7 +99,7 @@
     {
       "key": "lr_balance",
       "label": "左右脈平衡法",
-      "icon": "⚖️",
+      "icon": "",
       "sub": "太緊繃或太低落？這個動作幫你調回來",
       "sections": [
         {
@@ -126,7 +126,7 @@
     {
       "key": "water_cleanse",
       "label": "水元素清潔法",
-      "icon": "💧",
+      "icon": "",
       "sub": "情緒很重的時候，讓水帶走它",
       "sections": [
         {
@@ -163,7 +163,7 @@
     {
       "key": "fire_cleanse",
       "label": "火元素清潔法",
-      "icon": "🕯️",
+      "icon": "",
       "sub": "悲傷、情緒低落時，讓燭火幫你",
       "sections": [
         {
@@ -205,7 +205,7 @@
     {
       "key": "earth_cleanse",
       "label": "土元素清潔法",
-      "icon": "🌍",
+      "icon": "",
       "sub": "浮躁、失去重心時，踩回大地",
       "sections": [
         {
@@ -242,7 +242,7 @@
     {
       "key": "bedtime",
       "label": "睡前靜坐",
-      "icon": "🌙",
+      "icon": "",
       "sub": "讓今天真正結束，睡得更好",
       "sections": [
         {
@@ -269,7 +269,7 @@
     {
       "key": "emergency",
       "label": "情緒急救包",
-      "icon": "⚡",
+      "icon": "",
       "sub": "當下快速回到自己，不超過 3 分鐘",
       "sections": [
         {
