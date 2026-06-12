@@ -318,15 +318,15 @@
 }
 
   #backToSelect {
-    position:fixed; top:20px; left:18px; z-index:25;
-    background:none; border:none;
-    font-family:"Noto Serif TC",serif; font-size:14px;
-    color:rgba(240,232,210,0.65); cursor:pointer;
-    letter-spacing:0.08em;
-    padding:6px 10px;
-    transition:color 0.2s;
+    position:fixed; top:16px; left:16px; z-index:25;
+    font-family:"Noto Sans TC",sans-serif; font-size:13px;
+    color:var(--muted); background:var(--soft);
+    border:1px solid var(--gold-dim); border-radius:10px;
+    padding:6px 12px; cursor:pointer;
+    transition:background .2s, color .2s;
+    letter-spacing:0.05em;
   }
-  #backToSelect:active { color:rgba(240,232,210,1); }
+  #backToSelect:active { background:var(--gold-dim); color:var(--text); }
 
 
 
@@ -420,10 +420,7 @@
 <!-- 選擇畫面：accordion -->
 <div id="selectPage">
 
-  <nav class="top-nav">
-    <button class="back-btn" onclick="goHome()">← 返回</button>
-    <span class="nav-title">專屬冥想菜單</span>
-  </nav>
+  <button class="back-btn" style="position:sticky;top:16px;margin:16px 0 0 16px;z-index:20;align-self:flex-start;" onclick="goHome()">← 返回</button>
 
   <div class="hero">
     <span class="hero-tag">MEDITATION · 開始之前</span>
