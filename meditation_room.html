@@ -17,153 +17,224 @@
   --card-b:   rgba(201,168,76,0.20);
   --soft:     rgba(201,168,76,0.10);
 }
+
   * { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
-  html,body { width:100%; min-height:100%; overflow-x:hidden; font-family:"Noto Sans TC",sans-serif;
-    background:var(--bg);
-    background-image:url("https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/png/app_back_ground.png");
-    background-size:cover; background-position:center;
-  }
+  html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC",sans-serif; }
   @keyframes fadeChar { from{opacity:0;transform:translateY(3px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(18px);} to{opacity:1;transform:translateY(0);} }
 
-  #bg { display:none; }
-  #overlay { display:none; }
+  #bg {
+    position:fixed; inset:0; z-index:0;
+    background-size:cover; background-position:center;
+    transition:background-image 0.6s ease;
+  }
+  #overlay {
+    position:fixed; inset:0; z-index:1;
+    background:rgba(10,12,8,0.5);
+    transition:background 0.5s;
+  }
 
-  /* ── 選擇頁（三欄） ── */
+  /* ── 選擇頁 ── */
   #selectPage {
     position:fixed; inset:0; z-index:5;
     display:flex; flex-direction:column;
     align-items:center; justify-content:flex-start;
-    padding:0; overflow:hidden;
+    padding:0; overflow-y:auto; overflow-x:hidden;
     opacity:1; pointer-events:auto;
     transition:opacity 0.5s ease;
-  }
-  #selectPage.hide { opacity:0; pointer-events:none; }
-
-/* ── TOP NAV ── */
-.top-nav{position:sticky;top:0;z-index:20;background:rgba(240,232,208,.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--gold-dim);padding:14px 16px 12px;display:flex;align-items:center;gap:12px;}
-.back-btn{font-size:13px;color:var(--muted);background:var(--soft);border:1px solid var(--gold-dim);border-radius:10px;padding:6px 12px;cursor:pointer;font-family:"Noto Sans TC",sans-serif;transition:background .2s;white-space:nowrap;}
-.back-btn:active{background:var(--gold-dim);}
-.nav-title{font-family:"Noto Serif TC",serif;font-size:clamp(14px,3.8vw,16px);color:var(--text);letter-spacing:.1em;}
-
-/* ── HERO ── */
-.hero{padding:24px 22px 16px;text-align:center;}
-.hero-tag{display:inline-block;background:var(--soft);color:var(--gold);font-size:11px;letter-spacing:3px;padding:4px 14px;border-radius:20px;margin-bottom:12px;border:1px solid var(--gold-dim);}
-.hero h1{font-family:"Noto Serif TC",serif;font-size:clamp(1.4rem,4.5vw,1.75rem);font-weight:700;color:var(--text);line-height:1.4;margin-bottom:6px;}
-.hero h1 em{font-style:normal;color:var(--gold);}
-.hero-desc{font-size:13px;color:var(--muted);line-height:1.9;max-width:280px;margin:0 auto;}
-
-  /* ── 選擇頁：捲動直排 ── */
-  #selectPage {
-    overflow-y:auto !important;
-    justify-content:flex-start !important;
     -webkit-overflow-scrolling:touch;
     scrollbar-width:none;
   }
   #selectPage::-webkit-scrollbar { display:none; }
+  #selectPage.hide { opacity:0; pointer-events:none; }
 
-  .select-inner {
-    width:100%; max-width:540px;
-    margin:0 auto;
-    padding:0 16px max(env(safe-area-inset-bottom,0px),80px);
+  /* ── TOP NAV ── */
+  .top-nav {
+    position:sticky; top:0; z-index:20;
+    width:100%;
+    background:rgba(240,232,208,.94);
+    backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--gold-dim);
+    padding:14px 16px 12px;
+    display:flex; align-items:center; gap:12px;
+    flex-shrink:0;
+  }
+  .back-btn {
+    font-family:"Noto Sans TC",sans-serif; font-size:13px;
+    color:var(--muted); background:var(--soft);
+    border:1px solid var(--gold-dim); border-radius:10px;
+    padding:6px 12px; cursor:pointer;
+    transition:background .2s,color .2s; white-space:nowrap;
+  }
+  .back-btn:active { background:var(--gold-dim); color:var(--text); }
+  .nav-title {
+    font-family:"Noto Serif TC",serif; font-size:clamp(14px,3.8vw,16px);
+    color:var(--text); letter-spacing:.1em;
   }
 
-  /* 區塊標題 */
-  .section-heading {
-    font-family:"Noto Serif TC",serif;
-    font-size:11px; letter-spacing:3px;
-    color:var(--muted);
-    padding:20px 2px 8px;
+  /* ── HERO ── */
+  .hero {
+    padding:28px 22px 16px; text-align:center;
+    position:relative; z-index:1; width:100%;
+    animation:fadeUp .6s ease both;
+    flex-shrink:0;
+  }
+  .hero-tag {
+    display:inline-block; background:var(--soft); color:var(--gold);
+    font-size:11px; letter-spacing:3px; padding:4px 14px;
+    border-radius:20px; margin-bottom:12px; border:1px solid var(--gold-dim);
+  }
+  .hero h1 {
+    font-family:"Noto Serif TC",serif; font-size:clamp(1.3rem,4.5vw,1.7rem);
+    font-weight:700; color:var(--text); line-height:1.4; margin-bottom:8px;
+  }
+  .hero h1 em { font-style:normal; color:var(--gold); }
+  .hero-desc {
+    font-size:13px; color:var(--muted); line-height:1.8;
+    max-width:300px; margin:0 auto;
   }
 
-  /* 折疊卡片（同 FAQ/feedback 風格） */
-  .item-list { display:flex; flex-direction:column; gap:8px; }
+  /* ── ACCORDION CARDS ── */
+  .acc-cards {
+    position:relative; z-index:1;
+    display:flex; flex-direction:column; gap:10px;
+    padding:0 16px; width:100%;
+    flex-shrink:0;
+  }
 
-  .item-btn {
-    border-radius:14px;
-    background:var(--card);
-    border:1px solid var(--card-b);
+  .acc-card {
+    background:var(--card); border-radius:20px;
+    border:1px solid var(--card-b); overflow:hidden;
     backdrop-filter:blur(8px);
-    overflow:hidden;
-    transition:box-shadow .25s, border-color .2s;
+    transition:box-shadow .25s;
+    opacity:0; animation:fadeUp .5s ease both;
   }
-  .item-btn.open {
+  .acc-card:nth-child(1){animation-delay:.1s;}
+  .acc-card:nth-child(2){animation-delay:.18s;}
+  .acc-card.open {
     box-shadow:0 6px 28px rgba(201,168,76,.14);
     border-color:var(--gold-dim);
   }
-  .item-btn.locked { opacity:0.45; }
 
-  /* 標題列 */
-  .item-header {
-    display:flex; align-items:center; justify-content:space-between; gap:10px;
-    padding:14px 16px;
-    cursor:pointer; user-select:none;
+  /* card header */
+  .acc-header {
+    display:flex; align-items:center; gap:14px;
+    padding:18px 18px; cursor:pointer;
+    user-select:none; -webkit-tap-highlight-color:transparent;
   }
-  .item-header:active { opacity:.75; }
-  .item-header-left { display:flex; align-items:center; gap:10px; flex:1; min-width:0; }
-  .item-title {
-    font-family:"Noto Serif TC",serif;
-    font-size:clamp(13px,3.6vw,15px);
-    color:var(--text);
-    letter-spacing:.06em; line-height:1.4;
-  }
-  .item-chevron {
-    flex-shrink:0; width:20px; height:20px;
+  .acc-icon {
+    width:44px; height:44px; border-radius:14px;
+    background:var(--soft); border:1px solid var(--gold-dim);
     display:flex; align-items:center; justify-content:center;
-    color:var(--gold); font-size:11px;
-    transition:transform .28s ease;
+    font-size:20px; flex-shrink:0;
+    transition:transform .35s cubic-bezier(.34,1.56,.64,1);
   }
-  .item-btn.open .item-chevron { transform:rotate(180deg); }
+  .acc-card.open .acc-icon { transform:scale(1.1) rotate(-5deg); }
+  .acc-titles { flex:1; }
+  .acc-zh {
+    font-family:"Noto Serif TC",serif; font-size:1rem; font-weight:700;
+    color:var(--text); line-height:1.2;
+  }
+  .acc-sub { font-size:11px; color:var(--muted); margin-top:2px; letter-spacing:.5px; }
+  .acc-arrow {
+    font-size:13px; color:var(--muted);
+    transition:transform .3s, color .2s; flex-shrink:0;
+  }
+  .acc-card.open .acc-arrow { transform:rotate(90deg); color:var(--gold); }
 
-  /* 展開內容 */
-  .item-body {
+  /* card body */
+  .acc-body {
     max-height:0; overflow:hidden;
-    transition:max-height .38s ease, opacity .28s;
+    transition:max-height .48s cubic-bezier(.4,0,.2,1), opacity .32s;
     opacity:0;
   }
-  .item-btn.open .item-body { max-height:300px; opacity:1; }
-  .item-body-inner {
-    padding:0 16px 14px; padding-top:2px;
-    border-top:1px solid var(--gold-dim);
+  .acc-card.open .acc-body { max-height:1200px; opacity:1; }
+  .acc-body-inner { padding:0 14px 16px; display:flex; flex-direction:column; gap:7px; }
+
+  /* ── item buttons inside accordion ── */
+  .item-btn {
+    padding:12px 14px; border-radius:14px;
+    border:1px solid var(--gold-dim);
+    background:rgba(255,255,255,0.6);
+    color:var(--text);
+    font-family:"Noto Serif TC",serif;
+    font-size:clamp(13px,3.5vw,15px); letter-spacing:0.06em;
+    cursor:pointer; text-align:left; line-height:1.4;
+    transition:background 0.2s, border-color 0.2s, transform 0.1s;
+    flex-shrink:0;
   }
-  .item-body-inner .btn-desc {
-    font-size:clamp(12px,3vw,13px);
+  .item-btn .btn-label {
+    display:block;
+    font-size:clamp(13px,3.5vw,15px);
+    color:var(--text);
+    letter-spacing:0.08em;
+    margin-bottom:4px;
+  }
+  .item-btn .btn-desc {
+    display:block;
+    font-size:12px;
     color:var(--muted);
-    line-height:1.9; letter-spacing:.04em;
-    margin-bottom:6px; display:block;
+    letter-spacing:0.04em;
+    line-height:1.6;
+    margin-bottom:4px;
   }
-  .item-body-inner .btn-duration {
+  .item-btn .btn-duration {
     display:inline-block;
-    font-size:11px; color:var(--muted);
+    font-size:11px;
+    color:var(--muted);
+    letter-spacing:0.06em;
     border:0.5px solid var(--gold-dim);
-    border-radius:20px; padding:1px 8px; letter-spacing:.06em;
+    border-radius:20px;
+    padding:1px 8px;
   }
-  /* 選取後加金邊 */
+  .item-btn:active { transform:scale(0.97); }
   .item-btn.selected {
-    border-color:rgba(201,168,76,0.65);
-    background:rgba(201,168,76,0.12);
+    background:var(--gold-dim);
+    border-color:var(--gold);
+    color:var(--text);
   }
-  .item-btn.selected .item-title { color:var(--text); }
+  .item-btn.selected .btn-label { color:var(--text); font-weight:700; }
+  .item-btn.selected .btn-desc  { color:var(--muted); }
+  .item-btn.selected .btn-duration { border-color:var(--gold); }
+
+  /* selected indicator */
+  .acc-selected-tag {
+    display:inline-block; font-size:10px; color:var(--gold);
+    background:var(--soft); border:1px solid var(--gold-dim);
+    border-radius:999px; padding:1px 8px; margin-left:6px;
+    vertical-align:middle; letter-spacing:.04em;
+  }
 
   /* 開始按鈕 */
   .start-wrap {
-    padding:20px 0 8px;
-    text-align:center;
+    width:100%;
+    padding:clamp(10px,2.5vh,16px) 16px clamp(12px,3vh,80px);
+    display:flex; justify-content:center;
     opacity:0; pointer-events:none;
     transform:translateY(8px);
     transition:opacity 0.4s ease, transform 0.4s ease;
+    flex-shrink:0;
   }
-  .start-wrap.visible { opacity:1; pointer-events:auto; transform:translateY(0); }
+  .start-wrap.visible {
+    opacity:1; pointer-events:auto;
+    transform:translateY(0);
+  }
   .start-btn {
-    padding:12px 36px;
+    width:180px;
+    padding:10px 30px;
     border-radius:999px;
-    background:var(--soft);
-    border:1px solid var(--gold-dim);
-    color:var(--text);
+    background:rgba(210,200,178,0.65);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,0.5);
+    color:#1C1609;
     font-family:"Noto Serif TC",serif; font-size:14px;
-    letter-spacing:0.1em; cursor:pointer;
-    transition:background .2s, transform 0.1s;
-  }
-  .start-btn:active { background:var(--gold-dim); transform:scale(0.97); }
+    font-weight:400;
+    letter-spacing:0.1em;
+    cursor:pointer;
+    transition:transform 0.1s;
+}
+
+  .start-btn:active { transform:scale(0.97); }
 
 
   /* ── 靜坐畫面 ── */
@@ -209,28 +280,37 @@
   #pauseOverlay.show { opacity:1; pointer-events:auto; }
 
 .pause-btn {
-    padding:10px 28px;
+    width:180px;
+    padding:10px 30px;
     border-radius:999px;
-    background:var(--soft);
-    border:1px solid var(--gold-dim);
-    color:var(--text);
+    background:rgba(210,200,178,0.65);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,0.5);
+    color:#1C1609;
     font-family:"Noto Serif TC",serif; font-size:14px;
-    letter-spacing:0.1em; cursor:pointer;
-    transition:background .2s, transform 0.1s;
+    font-weight:400;
+    letter-spacing:0.1em;
+    cursor:pointer;
+    transition:transform 0.1s;
 }
-  .pause-btn:active { background:var(--gold-dim); transform:scale(0.97); }
+
+  .pause-btn:active { transform:scale(0.97); }
 
 .end-btn {
-    padding:10px 28px;
+    width:180px;
+    padding:10px 30px;
     border-radius:999px;
-    background:rgba(201,168,76,0.15);
-    border:1px solid var(--gold-dim);
-    color:var(--text);
+    background:rgba(150,140,120,0.55);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,0.4);
+    color:rgba(240,232,210,0.95);
     font-family:"Noto Serif TC",serif; font-size:14px;
-    letter-spacing:0.1em; cursor:pointer;
-    transition:background .2s, transform 0.1s;
+    font-weight:400;
+    letter-spacing:0.1em;
+    cursor:pointer;
+    transition:transform 0.1s;
 }
-  .end-btn:active { background:var(--gold-dim); transform:scale(0.97); }
+  .end-btn:active { transform:scale(0.97); }
 
 #controlBar{
   position:fixed;
@@ -243,16 +323,17 @@
   align-items:center;
 }
 
-  /* 靜坐中返回按鈕 */
   #backToSelect {
-    position:fixed; top:max(env(safe-area-inset-top,0px),16px); left:18px; z-index:25;
-    background:var(--soft); border:1px solid var(--gold-dim);
-    font-family:"Noto Sans TC",sans-serif; font-size:13px;
-    color:var(--muted); cursor:pointer;
-    border-radius:10px; padding:6px 12px;
-    transition:background .2s, transform 0.1s;
+    position:fixed; top:20px; left:18px; z-index:25;
+    background:none; border:none;
+    font-family:"Noto Serif TC",serif; font-size:14px;
+    color:rgba(240,232,210,0.65); cursor:pointer;
+    letter-spacing:0.08em;
+    padding:6px 10px;
+    transition:color 0.2s;
   }
-  #backToSelect:active { background:var(--gold-dim); transform:scale(0.95); }
+  #backToSelect:active { color:rgba(240,232,210,1); }
+
 
 
   /* ── 靜坐中背景切換列 ── */
@@ -291,9 +372,8 @@
 
   /* ── 引導「即將推出」狀態 ── */
   .item-btn.locked {
-    opacity: 0.4;
-    border-color: rgba(255,255,255,0.1);
-    filter: grayscale(30%);
+    opacity: 0.5;
+    border-color: var(--gold-dim);
     cursor: pointer;
     pointer-events: auto;
     position: relative;
@@ -302,12 +382,12 @@
     display: inline-block;
     font-family: "Noto Sans TC", sans-serif;
     font-size: 9px;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.05em;
     color: var(--muted);
     background: var(--soft);
-    border: 1px solid var(--gold-dim);
+    border: 0.75px solid var(--gold-dim);
     border-radius: 999px;
-    padding: 2px 8px;
+    padding: 2px 7px;
     margin-left: 6px;
     vertical-align: middle;
   }
@@ -318,14 +398,14 @@
     bottom: 40px;
     left: 50%; transform: translateX(-50%) translateY(20px);
     z-index: 100;
-    background: rgba(30,26,23,0.90);
+    background: rgba(240,232,208,0.95);
     backdrop-filter: blur(12px);
-    border: 0.5px solid rgba(240,232,210,0.2);
+    border: 1px solid var(--gold-dim);
     border-radius: 999px;
     padding: 12px 28px;
     font-family: "Noto Serif TC", serif;
     font-size: clamp(13px,3.5vw,15px);
-    color: rgba(240,232,210,0.75);
+    color: var(--muted);
     letter-spacing: 0.12em;
     white-space: nowrap;
     opacity: 0; pointer-events: none;
@@ -343,29 +423,56 @@
 <div id="bg"></div>
 <div id="overlay"></div>
 
-<!-- 選擇畫面：直排折疊 -->
+<!-- 選擇畫面：accordion -->
 <div id="selectPage">
+
   <nav class="top-nav">
     <button class="back-btn" onclick="goHome()">← 返回</button>
-    <span class="nav-title">靜坐組合</span>
-    <div style="width:72px"></div>
+    <span class="nav-title">專屬冥想菜單</span>
   </nav>
+
   <div class="hero">
-    <span class="hero-tag">SAHAJA YOGA</span>
-    <h1>選擇你的<em>靜坐組合</em></h1>
-    <p class="hero-desc">選好音樂與引導，開始靜心 🌿</p>
+    <span class="hero-tag">MEDITATION · 開始之前</span>
+    <h1>選擇你的<br><em>音樂與引導</em></h1>
+    <p class="hero-desc">展開每個選項，依心情挑選 ✨</p>
   </div>
 
-  <div class="select-inner">
-    <div class="section-heading">① 背景音樂</div>
-    <div class="item-list" id="musicList"></div>
+  <div class="acc-cards">
 
-    <div class="section-heading">② 靜坐引導</div>
-    <div class="item-list" id="guideList"></div>
-
-    <div class="start-wrap">
-      <button class="start-btn" id="startBtn" onclick="startMeditation()">開始靜坐 »</button>
+    <!-- 音樂卡片 -->
+    <div class="acc-card" id="musicCard">
+      <div class="acc-header" onclick="toggleAcc('musicCard')">
+        <div class="acc-icon">🎵</div>
+        <div class="acc-titles">
+          <div class="acc-zh">背景音樂<span class="acc-selected-tag" id="musicTag" style="display:none"></span></div>
+          <div class="acc-sub">選擇冥想時的音樂氛圍</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-body-inner" id="musicList"></div>
+      </div>
     </div>
+
+    <!-- 引導卡片 -->
+    <div class="acc-card" id="guideCard">
+      <div class="acc-header" onclick="toggleAcc('guideCard')">
+        <div class="acc-icon">🕊️</div>
+        <div class="acc-titles">
+          <div class="acc-zh">靜坐引導<span class="acc-selected-tag" id="guideTag" style="display:none"></span></div>
+          <div class="acc-sub">選擇今天的冥想內容</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-body-inner" id="guideList"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="start-wrap">
+    <button class="start-btn" id="startBtn" onclick="startMeditation()">開始靜坐 »</button>
   </div>
 </div>
 
@@ -400,22 +507,15 @@
   let selMusic = null, selMusicUrl = null;
   let selGuide = null, selGuideUrl = null;
 
-  // ── 滾動提示：偵測是否還有內容可滑 ──
-  function bindScrollHint(listId, fadeId, arrowId) {
-    const list  = document.getElementById(listId);
-    const fade  = document.getElementById(fadeId);
-    const arrow = document.getElementById(arrowId);
-    if (!list || !fade || !arrow) return;
-
-    function update() {
-      const atBottom = list.scrollHeight - list.scrollTop - list.clientHeight < 8;
-      fade.classList.toggle('hidden', atBottom);
-      arrow.classList.toggle('hidden', atBottom);
+  // ── Accordion 開關 ──
+  function toggleAcc(id) {
+    const card = document.getElementById(id);
+    const isOpen = card.classList.contains('open');
+    document.querySelectorAll('.acc-card').forEach(function(c) { c.classList.remove('open'); });
+    if (!isOpen) {
+      card.classList.add('open');
+      setTimeout(function() { card.scrollIntoView({ behavior:'smooth', block:'nearest' }); }, 60);
     }
-
-    list.addEventListener('scroll', update, { passive: true });
-    // 等內容渲染完再判斷
-    setTimeout(update, 800);
   }
 
   function checkReady() {
@@ -423,16 +523,19 @@
     const wrap = document.querySelector('.start-wrap');
     if (ready) {
       wrap.classList.add('visible');
+      // 兩項都選好後收起所有 accordion
+      document.querySelectorAll('.acc-card').forEach(function(c) { c.classList.remove('open'); });
     }
   }
 
 
 
 
-  // ── 菜單頁預設背景（由 CSS 設定，此處只記錄 key） ──
+  // ── 菜單頁預設背景 ──
   const menuBgUrl = BASE + 'png/app_back_ground.png';
   selBg = 'default';
   selBgUrl = menuBgUrl;
+  document.getElementById('bg').style.backgroundImage = "url('" + menuBgUrl + "')";
 
   // 記錄第一個靜坐背景（進入靜坐時使用）
   let firstBgKey = null, firstBgUrl = null;
@@ -456,7 +559,8 @@
           thumb.classList.add('selected');
           selBg = bg.key; selBgUrl = url;
           const bgEl = document.getElementById('bg');
-          document.body.style.backgroundImage = "url('" + url + "')";
+          bgEl.classList.add('switching');
+          bgEl.style.backgroundImage = "url('" + url + "')";
         });
         switcher.appendChild(thumb);
       });
@@ -470,46 +574,23 @@
     .then(function(r) { return r.json(); })
     .then(function(list) {
       const el = document.getElementById('musicList');
-      var openMusicBtn = null;
-      list.forEach(function(m) {
+      list.forEach(function(m, idx) {
         const btn = document.createElement('div');
         btn.className = 'item-btn';
-        const desc = m.description || '';
-        const dur  = m.duration    || '';
-        btn.innerHTML =
-          '<div class="item-header">' +
-            '<div class="item-header-left">' +
-              '<span class="item-title">' + m.label + '</span>' +
-            '</div>' +
-            '<span class="item-chevron">▼</span>' +
-          '</div>' +
-          ((desc || dur) ?
-            '<div class="item-body"><div class="item-body-inner">' +
-              (desc ? '<span class="btn-desc">' + desc + '</span>' : '') +
-              (dur  ? '<span class="btn-duration">⏱ ' + dur + '</span>' : '') +
-            '</div></div>' : '');
-        btn.querySelector('.item-header').addEventListener('click', function() {
-          var isOpen = btn.classList.contains('open');
-          // 關閉其他
-          if (openMusicBtn && openMusicBtn !== btn) openMusicBtn.classList.remove('open');
-          btn.classList.toggle('open', !isOpen);
-          openMusicBtn = isOpen ? null : btn;
-          if (!isOpen) {
-            // 選取
-            el.querySelectorAll('.item-btn').forEach(function(b) { b.classList.remove('selected'); });
-            btn.classList.add('selected');
-            selMusic = m.key;
-            selMusicUrl = m.file ? BASE + m.file : '';
-            const pa = document.getElementById('previewMusic');
-            pa.pause();
-            if (selMusicUrl) { pa.src = selMusicUrl; pa.volume = 0.4; pa.play().catch(function(){}); }
-            checkReady();
-          } else {
-            btn.classList.remove('selected');
-            selMusic = null; selMusicUrl = null;
-            document.getElementById('previewMusic').pause();
-            checkReady();
-          }
+        btn.innerHTML = '<span class="btn-label">' + m.label + '</span>';
+        btn.addEventListener('click', function() {
+          el.querySelectorAll('.item-btn').forEach(function(b) { b.classList.remove('selected'); });
+          btn.classList.add('selected');
+          selMusic = m.key;
+          selMusicUrl = m.file ? BASE + m.file : '';
+          // 更新標籤
+          const tag = document.getElementById('musicTag');
+          tag.textContent = m.label; tag.style.display = '';
+          // 試聽
+          const pa = document.getElementById('previewMusic');
+          pa.pause();
+          if (selMusicUrl) { pa.src = selMusicUrl; pa.volume = 0.4; pa.play().catch(function(){}); }
+          checkReady();
         });
         el.appendChild(btn);
       });
@@ -529,46 +610,34 @@
     .then(function(r) { return r.json(); })
     .then(function(list) {
       const el = document.getElementById('guideList');
-      var openGuideBtn = null;
-      list.forEach(function(g) {
+      list.forEach(function(g, idx) {
         const btn = document.createElement('div');
+        btn.className = 'item-btn';
         const hasFile = !!(g.file && g.file.trim());
-        btn.className = 'item-btn' + (!hasFile ? ' locked' : '');
         btn.innerHTML =
-          '<div class="item-header">' +
-            '<div class="item-header-left">' +
-              '<span class="item-title">' + g.label +
-                (!hasFile ? '<span class="badge-soon">即將開放</span>' : '') +
-              '</span>' +
-            '</div>' +
-            '<span class="item-chevron">▼</span>' +
-          '</div>' +
-          '<div class="item-body"><div class="item-body-inner">' +
-            (g.description ? '<span class="btn-desc">' + g.description + '</span>' : '') +
-            (g.duration    ? '<span class="btn-duration">⏱ ' + g.duration + '</span>' : '') +
-          '</div></div>';
-        btn.querySelector('.item-header').addEventListener('click', function() {
-          if (!hasFile) { showToast(); return; }
-          var isOpen = btn.classList.contains('open');
-          if (openGuideBtn && openGuideBtn !== btn) openGuideBtn.classList.remove('open');
-          btn.classList.toggle('open', !isOpen);
-          openGuideBtn = isOpen ? null : btn;
-          if (!isOpen) {
+          '<span class="btn-label">' + g.label +
+          (!hasFile ? '<span class="badge-soon">即將開放</span>' : '') +
+          '</span>' +
+          (g.description ? '<span class="btn-desc">' + g.description + '</span>' : '') +
+          (g.duration    ? '<span class="btn-duration">⏱ ' + g.duration + '</span>' : '');
+        if (!hasFile) {
+          btn.classList.add('locked');
+          btn.addEventListener('click', function() { showToast(); });
+        } else {
+          btn.addEventListener('click', function() {
             el.querySelectorAll('.item-btn').forEach(function(b) { b.classList.remove('selected'); });
             btn.classList.add('selected');
             selGuide = g.key;
             selGuideUrl = BASE + g.file;
+            // 更新標籤
+            const tag = document.getElementById('guideTag');
+            tag.textContent = g.label; tag.style.display = '';
             const pa = document.getElementById('previewGuide');
             pa.pause();
             pa.src = selGuideUrl; pa.volume = 0.4; pa.play().catch(function(){});
             checkReady();
-          } else {
-            btn.classList.remove('selected');
-            selGuide = null; selGuideUrl = null;
-            document.getElementById('previewGuide').pause();
-            checkReady();
-          }
-        });
+          });
+        }
         el.appendChild(btn);
       });
     });
@@ -596,7 +665,7 @@
     document.getElementById('overlay').style.background = 'rgba(10,12,8,0.5)';
     // 還原菜單預設背景
     selBg = 'default'; selBgUrl = menuBgUrl;
-    document.body.style.backgroundImage = "url('" + menuBgUrl + "')";
+    document.getElementById('bg').style.backgroundImage = "url('" + menuBgUrl + "')";
   }
 
   // ── 開始靜坐 ──
@@ -611,7 +680,7 @@
     // 切換到第一個靜坐背景
     if (firstBgUrl) {
       selBg = firstBgKey; selBgUrl = firstBgUrl;
-      document.body.style.backgroundImage = "url('" + firstBgUrl + "')";
+      document.getElementById('bg').style.backgroundImage = "url('" + firstBgUrl + "')";
       // 重置縮圖 selected 狀態回第一個
       const switcher = document.getElementById('bgSwitcher');
       switcher.querySelectorAll('.bg-thumb').forEach(function(t, i) {
