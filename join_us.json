@@ -3,7 +3,7 @@
     {
       "key": "website",
       "label": "官方網站",
-      "icon": "🌐",
+      "icon": "❖",
       "sub": "活動資訊、教學資源都在這裡",
       "sections": [
         {
@@ -21,7 +21,7 @@
     {
       "key": "community",
       "label": "加入社群",
-      "icon": "💬",
+      "icon": "❖",
       "sub": "跟更多靜坐同好一起，不孤單",
       "sections": [
         {
@@ -57,7 +57,7 @@
     {
       "key": "contact",
       "label": "聯絡我們",
-      "icon": "✉️",
+      "icon": "❖",
       "sub": "有問題嗎？我們很樂意回覆你",
       "sections": [
         {
