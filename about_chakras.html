@@ -416,33 +416,8 @@ body::before {
 <button class="back-btn" style="position:sticky;top:16px;margin:16px 0 0 16px;z-index:20;display:inline-block;" onclick="window.location.href='menu.html'">← 返回</button>
 <!-- HERO -->
 <div class="hero">
-  <span class="hero-tag">SAHAJA YOGA · 基礎知識</span>
-  <h1>身體裡住著<br><em>七個能量中心</em></h1>
-  <p class="hero-desc">點開每個輪穴認識它，或直接進入對應的靜坐冥想 ✨</p>
-</div>
-
-<!-- KUNDALINI SVG -->
-<div class="kundalini-wrap">
-  <svg class="kundalini-svg" viewBox="0 0 56 150" fill="none">
-    <line x1="28" y1="145" x2="28" y2="5" stroke="rgba(201,168,76,.2)" stroke-width="2" stroke-linecap="round"/>
-    <line id="k-line" x1="28" y1="145" x2="28" y2="145"
-      stroke="url(#kGrad)" stroke-width="2.5" stroke-linecap="round"
-      style="transition:y2 1s cubic-bezier(.4,0,.2,1)"/>
-    <defs>
-      <linearGradient id="kGrad" x1="0" y1="1" x2="0" y2="0" gradientUnits="objectBoundingBox">
-        <stop offset="0%" stop-color="#d95f4b"/>
-        <stop offset="40%" stop-color="#5a9e72"/>
-        <stop offset="100%" stop-color="#c9a84c"/>
-      </linearGradient>
-    </defs>
-    <circle cx="28" cy="138" r="5.5" fill="#d95f4b" opacity=".85"/>
-    <circle cx="28" cy="114" r="5.5" fill="#e8834e" opacity=".85"/>
-    <circle cx="28" cy="90"  r="5.5" fill="#d4a843" opacity=".85"/>
-    <circle cx="28" cy="66"  r="6.5" fill="#5a9e72" opacity=".85"/>
-    <circle cx="28" cy="44"  r="5.5" fill="#4a85c0" opacity=".85"/>
-    <circle cx="28" cy="22"  r="5.5" fill="#7b62b8" opacity=".85"/>
-    <circle cx="28" cy="6"   r="6.5" fill="#c9a84c" opacity=".95"/>
-  </svg>
+  <h1>身體裡住著<em>七個能量中心</em></h1>
+  <span class="hero-tag">點開每個輪穴認識它，或直接進入對應的靜坐冥想</span>
 </div>
 
 <!-- PROGRESS -->
@@ -451,9 +426,6 @@ body::before {
   <div class="progress-track"><div class="progress-fill" id="prog-fill"></div></div>
 </div>
 
-<!-- SPINE NAV -->
-<div class="spine-nav" id="spine-nav"></div>
-
 <p class="section-label">七個輪穴 · 點開展開詳情</p>
 
 <!-- CARDS -->
@@ -461,7 +433,7 @@ body::before {
 
 <!-- QUIZ -->
 <div class="quiz-wrap">
-  <div class="quiz-title">🌿 小測驗</div>
+  <div class="quiz-title">小測驗</div>
   <div class="quiz-sub">讀完之後來試試看，鞏固一下記憶～答對答錯都沒關係！</div>
   <div id="quiz-body">
     <p class="quiz-q" id="quiz-q"></p>
@@ -473,7 +445,7 @@ body::before {
     </div>
   </div>
   <div class="quiz-result" id="quiz-result">
-    <div style="font-size:2rem">🎉</div>
+    <div style="font-size:2rem"></div>
     <div class="quiz-result-score" id="result-score"></div>
     <div class="quiz-result-msg" id="result-msg"></div>
     <button class="quiz-retry" onclick="startQuiz()">再試一次</button>
@@ -525,8 +497,6 @@ body::before {
     </div>
 
     <div class="med-affirmation" id="med-affirmation"></div>
-    <a class="med-goto-full" href="meditation_room.html" id="med-goto-full">✦ 進入完整靜坐室，選擇背景與引導音樂 →</a>
-
     <div class="med-complete-msg" id="med-complete-msg">
       <div class="big">🙏</div>
       <p id="med-complete-text"></p>
@@ -612,8 +582,7 @@ function renderCards(chakras) {
         <div class="card-actions">
           <button class="med-card-btn"
             style="border-color:${c.color};color:${c.color}"
-            onclick="openMed(${i})">🧘 ${c.name_zh.replace(/（.*?）/,'')}簡易冥想（5–20分鐘）</button>
-          <a class="med-full-btn" href="meditation_room.html">✦ 進入完整靜坐室 →</a>
+            onclick="openMed(${i})"> ${c.name_zh.replace(/（.*?）/,'')}簡易冥想（5–20分鐘）</button>
           <button class="read-btn" data-i="${i}"
             style="background:${c.tag_color};color:${c.color}"
             onclick="markRead(${i})">✓ 標記為已讀</button>
@@ -790,7 +759,7 @@ function answerQ(idx,btn){
   const q=QS[qOrder[qIdx]];
   document.querySelectorAll('.quiz-opt')[q.ans].classList.add('correct');
   const fb=document.getElementById('quiz-feedback');
-  if(idx===q.ans){score++;fb.textContent='🎉 答對了！'+q.tip;fb.className='quiz-feedback show good';}
+  if(idx===q.ans){score++;fb.textContent='答對了！'+q.tip;fb.className='quiz-feedback show good';}
   else{btn.classList.add('wrong');fb.textContent='💡 '+q.tip;fb.className='quiz-feedback show bad';}
   document.getElementById('quiz-next').style.display='block';
 }
@@ -799,7 +768,7 @@ function showResult(){
   document.getElementById('quiz-body').style.display='none';
   document.getElementById('quiz-result').style.display='block';
   document.getElementById('result-score').textContent=`${score} / ${QS.length}`;
-  const msgs=[[7,'完美！你已經把七個輪穴都記住了 🌸'],[5,'答得很好！再複習一下幾個輪穴就完美了 ✨'],[3,'不錯的開始！多讀幾次，你一定記得住 🌿'],[0,'沒關係，回去看看每個輪穴的介紹，再來試試！']];
+  const msgs=[[7,'完美！你已經把七個輪穴都記住了 '],[5,'答得很好！再複習一下幾個輪穴就完美了 '],[3,'不錯的開始！多讀幾次，你一定記得住 '],[0,'沒關係，回去看看每個輪穴的介紹，再來試試！']];
   document.getElementById('result-msg').textContent=msgs.find(([m])=>score>=m)[1];
 }
 </script>
