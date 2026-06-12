@@ -7,26 +7,20 @@
 <title>Sahaja Yoga</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:       #F0E8D0;
-  --text:     #1C1A17;
-  --gold:     #C9A84C;
-  --gold-dim: rgba(201,168,76,0.22);
-  --muted:    #7a6e5f;
-  --card:     rgba(255,255,255,0.72);
-  --card-b:   rgba(201,168,76,0.20);
-  --soft:     rgba(201,168,76,0.10);
-}
   * { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
-  html,body { width:100%; min-height:100%; overflow-x:hidden; font-family:"Noto Sans TC",sans-serif;
-    background:var(--bg);
-    background-image:url("https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/png/app_back_ground.png");
-    background-size:cover; background-position:center;
-  }
+  html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC",sans-serif; }
   @keyframes fadeChar { from{opacity:0;transform:translateY(3px)} to{opacity:1;transform:translateY(0)} }
 
-  #bg { display:none; }
-  #overlay { display:none; }
+  #bg {
+    position:fixed; inset:0; z-index:0;
+    background-size:cover; background-position:center;
+    transition:background-image 0.6s ease;
+  }
+  #overlay {
+    position:fixed; inset:0; z-index:1;
+    background:rgba(10,12,8,0.5);
+    transition:background 0.5s;
+  }
 
   /* ── 選擇頁（三欄） ── */
   #selectPage {
@@ -39,131 +33,189 @@
   }
   #selectPage.hide { opacity:0; pointer-events:none; }
 
-/* ── TOP NAV ── */
-.top-nav{position:sticky;top:0;z-index:20;background:rgba(240,232,208,.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--gold-dim);padding:14px 16px 12px;display:flex;align-items:center;gap:12px;}
-.back-btn{font-size:13px;color:var(--muted);background:var(--soft);border:1px solid var(--gold-dim);border-radius:10px;padding:6px 12px;cursor:pointer;font-family:"Noto Sans TC",sans-serif;transition:background .2s;white-space:nowrap;}
-.back-btn:active{background:var(--gold-dim);}
-.nav-title{font-family:"Noto Serif TC",serif;font-size:clamp(14px,3.8vw,16px);color:var(--text);letter-spacing:.1em;}
+.page-title {
+    font-family:"Noto Serif TC",serif;
+    font-size:16px;
+    color:rgba(240,232,210,0.85);
+    letter-spacing:0.2em;
+    text-align:center;
+    text-shadow:0 1px 8px rgba(0,0,0,0.4);
+    flex-shrink:0;
+    line-height:1.4;
+    padding:12px 0 8px;
+}
 
-/* ── HERO ── */
-.hero{padding:24px 22px 16px;text-align:center;}
-.hero-tag{display:inline-block;background:var(--soft);color:var(--gold);font-size:11px;letter-spacing:3px;padding:4px 14px;border-radius:20px;margin-bottom:12px;border:1px solid var(--gold-dim);}
-.hero h1{font-family:"Noto Serif TC",serif;font-size:clamp(1.4rem,4.5vw,1.75rem);font-weight:700;color:var(--text);line-height:1.4;margin-bottom:6px;}
-.hero h1 em{font-style:normal;color:var(--gold);}
-.hero-desc{font-size:13px;color:var(--muted);line-height:1.9;max-width:280px;margin:0 auto;}
+  /* 三欄主體 */
+  .three-col {
+    display:flex; flex-direction:row;
+    width:100%; flex:1; min-height:0;
+    gap:0; overflow:hidden;
+  }
 
-  /* ── 選擇頁：捲動直排 ── */
-  #selectPage {
-    overflow-y:auto !important;
-    justify-content:flex-start !important;
+  /* 每欄 */
+  .col {
+    display:flex; flex-direction:column;
+    align-items:center; padding:0 6px;
+    overflow:hidden; position:relative;
+  }
+  /* 左欄縮小，中右欄放大 */
+  .col:nth-child(1) { flex:1; }
+  .col:nth-child(2) { flex:1; }
+  .col + .col {
+    border-left:1px solid rgba(240,232,210,0.15);
+  }
+
+  .col-title {
+    font-family:"Noto Serif TC",serif;
+    font-size:15px;
+    color:rgba(240,232,210,0.55);
+    letter-spacing:0.18em; text-align:center;
+    margin-bottom:8px; flex-shrink:0;
+  }
+
+  /* 可滑動提示：底部漸層遮罩 */
+  .scroll-fade {
+    position:absolute; bottom:0; left:0; right:0;
+    height:40px; pointer-events:none; z-index:2;
+    background:linear-gradient(transparent, rgba(10,12,8,0.75));
+    opacity:1; transition:opacity 0.3s;
+  }
+  .scroll-fade.hidden { opacity:0; }
+
+  /* 箭頭小指示器 */
+  .scroll-arrow {
+    position:absolute; bottom:4px; left:50%; transform:translateX(-50%);
+    pointer-events:none; z-index:3;
+    font-size:25px; color:rgba(240,232,210,0.6);
+    letter-spacing:0.05em;
+    animation:arrowBob 1.6s ease-in-out infinite;
+    opacity:1; transition:opacity 0.3s;
+  }
+  .scroll-arrow.hidden { opacity:0; }
+  @keyframes arrowBob {
+    0%,100% { transform:translateX(-50%) translateY(0); }
+    50%      { transform:translateX(-50%) translateY(3px); }
+  }
+
+  /* 背景場景：直排 */
+  .bg-list {
+    display:flex; flex-direction:column;
+    gap:6px; width:100%;
+    overflow-y:auto; flex:1;
     -webkit-overflow-scrolling:touch;
     scrollbar-width:none;
+    padding-bottom:4px;
   }
-  #selectPage::-webkit-scrollbar { display:none; }
+  .bg-list::-webkit-scrollbar { display:none; }
 
-  .select-inner {
-    width:100%; max-width:540px;
-    margin:0 auto;
-    padding:0 16px max(env(safe-area-inset-bottom,0px),80px);
+  .bg-card {
+    position:relative; border-radius:8px;
+    overflow:hidden; cursor:pointer;
+    flex-shrink:0; aspect-ratio:4/3;
+    border:2px solid transparent;
+    transition:border-color 0.2s, transform 0.15s;
+    background:#111;
+  }
+  .bg-card:active { transform:scale(0.96); }
+  .bg-card.selected { border-color:rgba(240,232,210,0.9); }
+  .bg-card.selected::after {
+    content:"✓"; position:absolute; top:5px; right:7px;
+    font-size:12px; color:#F0E8D0;
+    text-shadow:0 1px 4px rgba(0,0,0,0.7);
+  }
+  .bg-img { width:100%; height:100%; background-size:cover; background-position:center; }
+  .bg-label {
+    position:absolute; bottom:0; left:0; right:0;
+    padding:5px 4px;
+    background:linear-gradient(transparent,rgba(0,0,0,0.7));
+    font-size:clamp(9px,2.4vw,11px);
+    color:#F0E8D0; text-align:center; letter-spacing:0.05em;
   }
 
-  /* 區塊標題 */
-  .section-heading {
-    font-family:"Noto Serif TC",serif;
-    font-size:11px; letter-spacing:3px;
-    color:var(--muted);
-    padding:20px 2px 8px;
+  /* 音樂／引導：直排列表 */
+  .item-list {
+    display:flex; flex-direction:column;
+    gap:7px; width:100%;
+    overflow-y:auto; flex:1;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    padding-bottom:4px;
   }
-
-  /* 折疊卡片（同 FAQ/feedback 風格） */
-  .item-list { display:flex; flex-direction:column; gap:8px; }
+  .item-list::-webkit-scrollbar { display:none; }
 
   .item-btn {
-    border-radius:14px;
-    background:var(--card);
-    border:1px solid var(--card-b);
-    backdrop-filter:blur(8px);
-    overflow:hidden;
-    transition:box-shadow .25s, border-color .2s;
-  }
-  .item-btn.open {
-    box-shadow:0 6px 28px rgba(201,168,76,.14);
-    border-color:var(--gold-dim);
-  }
-  .item-btn.locked { opacity:0.45; }
-
-  /* 標題列 */
-  .item-header {
-    display:flex; align-items:center; justify-content:space-between; gap:10px;
-    padding:14px 16px;
-    cursor:pointer; user-select:none;
-  }
-  .item-header:active { opacity:.75; }
-  .item-header-left { display:flex; align-items:center; gap:10px; flex:1; min-width:0; }
-  .item-title {
+    padding:11px 8px; border-radius:10px;
+    border:0.5px solid rgba(255,255,255,0.2);
+    background:rgba(230,220,200,0.1); backdrop-filter:blur(8px);
+    color:rgba(240,232,210,0.85);
     font-family:"Noto Serif TC",serif;
-    font-size:clamp(13px,3.6vw,15px);
-    color:var(--text);
-    letter-spacing:.06em; line-height:1.4;
+    font-size:clamp(15px,4vw,19px); letter-spacing:0.06em;
+    cursor:pointer; text-align:left; line-height:1.4;
+    transition:background 0.2s, border-color 0.2s, transform 0.1s;
+    flex-shrink:0;
   }
-  .item-chevron {
-    flex-shrink:0; width:20px; height:20px;
-    display:flex; align-items:center; justify-content:center;
-    color:var(--gold); font-size:11px;
-    transition:transform .28s ease;
+  .item-btn .btn-label {
+    display:block;
+    font-size:clamp(15px,4vw,19px);
+    color:rgba(240,232,210,0.9);
+    letter-spacing:0.08em;
+    margin-bottom:4px;
   }
-  .item-btn.open .item-chevron { transform:rotate(180deg); }
-
-  /* 展開內容 */
-  .item-body {
-    max-height:0; overflow:hidden;
-    transition:max-height .38s ease, opacity .28s;
-    opacity:0;
+  .item-btn .btn-desc {
+    display:block;
+    font-size:clamp(12px,3vw,14px);
+    color:rgba(240,232,210,0.5);
+    letter-spacing:0.04em;
+    line-height:1.5;
+    margin-bottom:4px;
   }
-  .item-btn.open .item-body { max-height:300px; opacity:1; }
-  .item-body-inner {
-    padding:0 16px 14px; padding-top:2px;
-    border-top:1px solid var(--gold-dim);
-  }
-  .item-body-inner .btn-desc {
-    font-size:clamp(12px,3vw,13px);
-    color:var(--muted);
-    line-height:1.9; letter-spacing:.04em;
-    margin-bottom:6px; display:block;
-  }
-  .item-body-inner .btn-duration {
+  .item-btn .btn-duration {
     display:inline-block;
-    font-size:11px; color:var(--muted);
-    border:0.5px solid var(--gold-dim);
-    border-radius:20px; padding:1px 8px; letter-spacing:.06em;
+    font-size:clamp(11px,2.8vw,13px);
+    color:rgba(240,232,210,0.4);
+    letter-spacing:0.06em;
+    border:0.5px solid rgba(240,232,210,0.2);
+    border-radius:20px;
+    padding:1px 6px;
   }
-  /* 選取後加金邊 */
+  .item-btn.selected .btn-label { color:#F0E8D0; }
+  .item-btn.selected .btn-desc  { color:rgba(240,232,210,0.65); }
+  .item-btn.selected .btn-duration { color:rgba(240,232,210,0.55); border-color:rgba(240,232,210,0.35); }
+  .item-btn:active { transform:scale(0.97); }
   .item-btn.selected {
-    border-color:rgba(201,168,76,0.65);
-    background:rgba(201,168,76,0.12);
+    background:rgba(230,220,200,0.25);
+    border-color:rgba(240,232,210,0.65);
+    color:#F0E8D0;
   }
-  .item-btn.selected .item-title { color:var(--text); }
 
   /* 開始按鈕 */
   .start-wrap {
-    padding:20px 0 8px;
-    text-align:center;
+    flex-shrink:0;
+    padding:clamp(10px,2.5vh,16px) 0 clamp(12px,3vh,20px);
     opacity:0; pointer-events:none;
     transform:translateY(8px);
     transition:opacity 0.4s ease, transform 0.4s ease;
   }
-  .start-wrap.visible { opacity:1; pointer-events:auto; transform:translateY(0); }
-  .start-btn {
-    padding:12px 36px;
-    border-radius:999px;
-    background:var(--soft);
-    border:1px solid var(--gold-dim);
-    color:var(--text);
-    font-family:"Noto Serif TC",serif; font-size:14px;
-    letter-spacing:0.1em; cursor:pointer;
-    transition:background .2s, transform 0.1s;
+  .start-wrap.visible {
+    opacity:1; pointer-events:auto;
+    transform:translateY(0);
   }
-  .start-btn:active { background:var(--gold-dim); transform:scale(0.97); }
+  .start-btn {
+    width:180px;
+    padding:10px 30px;
+    border-radius:999px;
+    background:rgba(210,200,178,0.65);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,0.5);
+    color:#1C1609;
+    font-family:"Noto Serif TC",serif; font-size:14px;
+    font-weight:400;
+    letter-spacing:0.1em;
+    cursor:pointer;
+    transition:transform 0.1s;
+}
+
+  .start-btn:active { transform:scale(0.97); }
 
 
   /* ── 靜坐畫面 ── */
@@ -209,28 +261,37 @@
   #pauseOverlay.show { opacity:1; pointer-events:auto; }
 
 .pause-btn {
-    padding:10px 28px;
+    width:180px;
+    padding:10px 30px;
     border-radius:999px;
-    background:var(--soft);
-    border:1px solid var(--gold-dim);
-    color:var(--text);
+    background:rgba(210,200,178,0.65);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,0.5);
+    color:#1C1609;
     font-family:"Noto Serif TC",serif; font-size:14px;
-    letter-spacing:0.1em; cursor:pointer;
-    transition:background .2s, transform 0.1s;
+    font-weight:400;
+    letter-spacing:0.1em;
+    cursor:pointer;
+    transition:transform 0.1s;
 }
-  .pause-btn:active { background:var(--gold-dim); transform:scale(0.97); }
+
+  .pause-btn:active { transform:scale(0.97); }
 
 .end-btn {
-    padding:10px 28px;
+    width:180px;
+    padding:10px 30px;
     border-radius:999px;
-    background:rgba(201,168,76,0.15);
-    border:1px solid var(--gold-dim);
-    color:var(--text);
+    background:rgba(150,140,120,0.55);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,0.4);
+    color:rgba(240,232,210,0.95);
     font-family:"Noto Serif TC",serif; font-size:14px;
-    letter-spacing:0.1em; cursor:pointer;
-    transition:background .2s, transform 0.1s;
+    font-weight:400;
+    letter-spacing:0.1em;
+    cursor:pointer;
+    transition:transform 0.1s;
 }
-  .end-btn:active { background:var(--gold-dim); transform:scale(0.97); }
+  .end-btn:active { transform:scale(0.97); }
 
 #controlBar{
   position:fixed;
@@ -243,16 +304,34 @@
   align-items:center;
 }
 
-  /* 靜坐中返回按鈕 */
   #backToSelect {
-    position:fixed; top:max(env(safe-area-inset-top,0px),16px); left:18px; z-index:25;
-    background:var(--soft); border:1px solid var(--gold-dim);
-    font-family:"Noto Sans TC",sans-serif; font-size:13px;
-    color:var(--muted); cursor:pointer;
-    border-radius:10px; padding:6px 12px;
-    transition:background .2s, transform 0.1s;
+    position:fixed; top:20px; left:18px; z-index:25;
+    background:none; border:none;
+    font-family:"Noto Serif TC",serif; font-size:14px;
+    color:rgba(240,232,210,0.65); cursor:pointer;
+    letter-spacing:0.08em;
+    padding:6px 10px;
+    transition:color 0.2s;
   }
-  #backToSelect:active { background:var(--gold-dim); transform:scale(0.95); }
+  #backToSelect:active { color:rgba(240,232,210,1); }
+
+#backHomeBtn{
+    position:fixed; top:20px; left:18px; z-index:25;
+    background:none; border:none;
+    font-family:"Noto Serif TC",serif; font-size:14px;
+    color:rgba(240,232,210,0.65); cursor:pointer;
+    letter-spacing:0.08em;
+    padding:6px 10px;
+    transition:color 0.2s;
+}
+
+#backHomeBtn:hover{
+  color:rgba(240,232,210,1);
+}
+
+#backHomeBtn:active{
+  transform:scale(.95);
+}
 
 
   /* ── 靜坐中背景切換列 ── */
@@ -302,12 +381,12 @@
     display: inline-block;
     font-family: "Noto Sans TC", sans-serif;
     font-size: 9px;
-    letter-spacing: 0.04em;
-    color: var(--muted);
-    background: var(--soft);
-    border: 1px solid var(--gold-dim);
+    letter-spacing: 0.05em;
+    color: rgba(60,60,60,0.9);
+    background: rgba(255,255,255,0.85);
+    border: 0.75px solid rgba(255,255,255,0.9);
     border-radius: 999px;
-    padding: 2px 8px;
+    padding: 2px 7px;
     margin-left: 6px;
     vertical-align: middle;
   }
@@ -343,29 +422,34 @@
 <div id="bg"></div>
 <div id="overlay"></div>
 
-<!-- 選擇畫面：直排折疊 -->
+<!-- 選擇畫面：三欄 -->
 <div id="selectPage">
-  <nav class="top-nav">
-    <button class="back-btn" onclick="goHome()">← 返回</button>
-    <span class="nav-title">靜坐組合</span>
-    <div style="width:72px"></div>
-  </nav>
-  <div class="hero">
-    <span class="hero-tag">SAHAJA YOGA</span>
-    <h1>選擇你的<em>靜坐組合</em></h1>
-    <p class="hero-desc">選好音樂與引導，開始靜心 🌿</p>
+  <button id="backHomeBtn" onclick="goHome()">←返回</button>
+  <div class="page-title">
+        ✼專屬於你的冥想菜單✼<br>
+  	① 音樂 ＋ ② 引導
   </div>
 
-  <div class="select-inner">
-    <div class="section-heading">① 背景音樂</div>
-    <div class="item-list" id="musicList"></div>
-
-    <div class="section-heading">② 靜坐引導</div>
-    <div class="item-list" id="guideList"></div>
-
-    <div class="start-wrap">
-      <button class="start-btn" id="startBtn" onclick="startMeditation()">開始靜坐 »</button>
+  <div class="three-col">
+    <!-- 左欄：背景音樂 -->
+    <div class="col">
+      <div class="col-title">① 音樂▾</div>
+      <div class="item-list" id="musicList"></div>
+      <div class="scroll-fade" id="musicFade"></div>
+      <div class="scroll-arrow" id="musicArrow">▾</div>
     </div>
+
+    <!-- 右欄：靜坐引導 -->
+    <div class="col">
+      <div class="col-title">② 引導▾</div>
+      <div class="item-list" id="guideList"></div>
+      <div class="scroll-fade" id="guideFade"></div>
+      <div class="scroll-arrow" id="guideArrow">▾</div>
+    </div>
+  </div>
+
+  <div class="start-wrap">
+    <button class="start-btn" id="startBtn" onclick="startMeditation()">開始靜坐 »</button>
   </div>
 </div>
 
@@ -429,10 +513,11 @@
 
 
 
-  // ── 菜單頁預設背景（由 CSS 設定，此處只記錄 key） ──
+  // ── 菜單頁預設背景 ──
   const menuBgUrl = BASE + 'png/app_back_ground.png';
   selBg = 'default';
   selBgUrl = menuBgUrl;
+  document.getElementById('bg').style.backgroundImage = "url('" + menuBgUrl + "')";
 
   // 記錄第一個靜坐背景（進入靜坐時使用）
   let firstBgKey = null, firstBgUrl = null;
@@ -456,7 +541,8 @@
           thumb.classList.add('selected');
           selBg = bg.key; selBgUrl = url;
           const bgEl = document.getElementById('bg');
-          document.body.style.backgroundImage = "url('" + url + "')";
+          bgEl.classList.add('switching');
+          bgEl.style.backgroundImage = "url('" + url + "')";
         });
         switcher.appendChild(thumb);
       });
@@ -470,50 +556,25 @@
     .then(function(r) { return r.json(); })
     .then(function(list) {
       const el = document.getElementById('musicList');
-      var openMusicBtn = null;
-      list.forEach(function(m) {
+      list.forEach(function(m, idx) {
         const btn = document.createElement('div');
         btn.className = 'item-btn';
-        const desc = m.description || '';
-        const dur  = m.duration    || '';
-        btn.innerHTML =
-          '<div class="item-header">' +
-            '<div class="item-header-left">' +
-              '<span class="item-title">' + m.label + '</span>' +
-            '</div>' +
-            '<span class="item-chevron">▼</span>' +
-          '</div>' +
-          ((desc || dur) ?
-            '<div class="item-body"><div class="item-body-inner">' +
-              (desc ? '<span class="btn-desc">' + desc + '</span>' : '') +
-              (dur  ? '<span class="btn-duration">⏱ ' + dur + '</span>' : '') +
-            '</div></div>' : '');
-        btn.querySelector('.item-header').addEventListener('click', function() {
-          var isOpen = btn.classList.contains('open');
-          // 關閉其他
-          if (openMusicBtn && openMusicBtn !== btn) openMusicBtn.classList.remove('open');
-          btn.classList.toggle('open', !isOpen);
-          openMusicBtn = isOpen ? null : btn;
-          if (!isOpen) {
-            // 選取
-            el.querySelectorAll('.item-btn').forEach(function(b) { b.classList.remove('selected'); });
-            btn.classList.add('selected');
-            selMusic = m.key;
-            selMusicUrl = m.file ? BASE + m.file : '';
-            const pa = document.getElementById('previewMusic');
-            pa.pause();
-            if (selMusicUrl) { pa.src = selMusicUrl; pa.volume = 0.4; pa.play().catch(function(){}); }
-            checkReady();
-          } else {
-            btn.classList.remove('selected');
-            selMusic = null; selMusicUrl = null;
-            document.getElementById('previewMusic').pause();
-            checkReady();
-          }
+        btn.textContent = m.label;
+        btn.addEventListener('click', function() {
+          el.querySelectorAll('.item-btn').forEach(function(b) { b.classList.remove('selected'); });
+          btn.classList.add('selected');
+          selMusic = m.key;
+          selMusicUrl = m.file ? BASE + m.file : '';
+          // 試聽
+          const pa = document.getElementById('previewMusic');
+          pa.pause();
+          if (selMusicUrl) { pa.src = selMusicUrl; pa.volume = 0.4; pa.play().catch(function(){}); }
+          checkReady();
         });
         el.appendChild(btn);
       });
     });
+  bindScrollHint('musicList', 'musicFade', 'musicArrow');
 
   // ── Toast 提示 ──
   let toastTimer = null;
@@ -529,31 +590,21 @@
     .then(function(r) { return r.json(); })
     .then(function(list) {
       const el = document.getElementById('guideList');
-      var openGuideBtn = null;
-      list.forEach(function(g) {
+      list.forEach(function(g, idx) {
         const btn = document.createElement('div');
+        btn.className = 'item-btn';
         const hasFile = !!(g.file && g.file.trim());
-        btn.className = 'item-btn' + (!hasFile ? ' locked' : '');
         btn.innerHTML =
-          '<div class="item-header">' +
-            '<div class="item-header-left">' +
-              '<span class="item-title">' + g.label +
-                (!hasFile ? '<span class="badge-soon">即將開放</span>' : '') +
-              '</span>' +
-            '</div>' +
-            '<span class="item-chevron">▼</span>' +
-          '</div>' +
-          '<div class="item-body"><div class="item-body-inner">' +
-            (g.description ? '<span class="btn-desc">' + g.description + '</span>' : '') +
-            (g.duration    ? '<span class="btn-duration">⏱ ' + g.duration + '</span>' : '') +
-          '</div></div>';
-        btn.querySelector('.item-header').addEventListener('click', function() {
-          if (!hasFile) { showToast(); return; }
-          var isOpen = btn.classList.contains('open');
-          if (openGuideBtn && openGuideBtn !== btn) openGuideBtn.classList.remove('open');
-          btn.classList.toggle('open', !isOpen);
-          openGuideBtn = isOpen ? null : btn;
-          if (!isOpen) {
+          '<span class="btn-label">' + g.label +
+          (!hasFile ? '<span class="badge-soon">即將開放</span>' : '') +
+          '</span>' +
+          (g.description ? '<span class="btn-desc">' + g.description + '</span>' : '') +
+          (g.duration    ? '<span class="btn-duration">⏱ ' + g.duration + '</span>' : '');
+        if (!hasFile) {
+          btn.classList.add('locked');
+          btn.addEventListener('click', function() { showToast(); });
+        } else {
+          btn.addEventListener('click', function() {
             el.querySelectorAll('.item-btn').forEach(function(b) { b.classList.remove('selected'); });
             btn.classList.add('selected');
             selGuide = g.key;
@@ -562,16 +613,12 @@
             pa.pause();
             pa.src = selGuideUrl; pa.volume = 0.4; pa.play().catch(function(){});
             checkReady();
-          } else {
-            btn.classList.remove('selected');
-            selGuide = null; selGuideUrl = null;
-            document.getElementById('previewGuide').pause();
-            checkReady();
-          }
-        });
+          });
+        }
         el.appendChild(btn);
       });
     });
+  bindScrollHint('guideList', 'guideFade', 'guideArrow');
 
   // ── 返回選擇畫面 ──
   function goHome(){
@@ -596,7 +643,7 @@
     document.getElementById('overlay').style.background = 'rgba(10,12,8,0.5)';
     // 還原菜單預設背景
     selBg = 'default'; selBgUrl = menuBgUrl;
-    document.body.style.backgroundImage = "url('" + menuBgUrl + "')";
+    document.getElementById('bg').style.backgroundImage = "url('" + menuBgUrl + "')";
   }
 
   // ── 開始靜坐 ──
@@ -611,7 +658,7 @@
     // 切換到第一個靜坐背景
     if (firstBgUrl) {
       selBg = firstBgKey; selBgUrl = firstBgUrl;
-      document.body.style.backgroundImage = "url('" + firstBgUrl + "')";
+      document.getElementById('bg').style.backgroundImage = "url('" + firstBgUrl + "')";
       // 重置縮圖 selected 狀態回第一個
       const switcher = document.getElementById('bgSwitcher');
       switcher.querySelectorAll('.bg-thumb').forEach(function(t, i) {

@@ -5,323 +5,282 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Sahaja Yoga — 覺察回饋</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  * { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
-   html,body {
-      width:100%;
-      height:100%;
-      overflow:hidden;
-   }
+:root {
+  --bg:       #F0E8D0;
+  --text:     #1C1A17;
+  --gold:     #C9A84C;
+  --gold-dim: rgba(201,168,76,0.22);
+  --muted:    #7a6e5f;
+  --card:     rgba(255,255,255,0.72);
+  --card-b:   rgba(201,168,76,0.20);
+  --soft:     rgba(201,168,76,0.10);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 
-  #bg {
-    position:fixed; inset:0; z-index:0;
-    background-size:cover; background-position:center;
-  }
-  #overlay { position:fixed; inset:0; z-index:1; background:rgba(10,12,8,0.55); }
+html,body{width:100%;min-height:100%;font-family:"Noto Sans TC",sans-serif;
+background:var(--bg);color:var(--text);overflow-x:hidden;
+background-image:url("https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/png/app_back_ground.png");
+background-size:cover;
+background-position:center;}
 
-  .page {
-    position:fixed; inset:0; z-index:5;
-    display:flex; flex-direction:column;
-    align-items:center; justify-content:center;
-    padding:0 6vw;
-    opacity:0; pointer-events:none;
-    transition:opacity 0.6s ease;
-  }
-  .page.show { opacity:1; pointer-events:auto; }
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse at 15% 0%,rgba(201,168,76,.12) 0%,transparent 55%),
+             radial-gradient(ellipse at 85% 100%,rgba(201,168,76,.09) 0%,transparent 55%);}
 
-  /* step1 兩欄版面 */
-  #step1 {
-    justify-content:center;
-    align-items:stretch;
-    padding:max(4vh,20px) 5vw 80px;
-    gap:0;
-  }
+/* ── TOP NAV ── */
+.top-nav{position:sticky;top:0;z-index:20;background:rgba(240,232,208,.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--gold-dim);padding:14px 16px 12px;display:flex;align-items:center;gap:12px;}
+.back-btn{font-size:13px;color:var(--muted);background:var(--soft);border:1px solid var(--gold-dim);border-radius:10px;padding:6px 12px;cursor:pointer;font-family:"Noto Sans TC",sans-serif;transition:background .2s;white-space:nowrap;}
+.back-btn:active{background:var(--gold-dim);}
+.nav-title{font-family:"Noto Serif TC",serif;font-size:clamp(14px,3.8vw,16px);color:var(--text);letter-spacing:.1em;}
 
-  .page-title {
-    font-family:"Noto Serif TC",serif;
-    font-size:20px;
-    color:rgba(240,232,210,0.9);
-    letter-spacing:0.2em; text-align:center;
-    margin-bottom:14px; margin-top:0;
-    text-shadow:0 1px 8px rgba(0,0,0,0.4);
-    flex-shrink:0; width:100%;
-  }
+/* ── HERO ── */
+.hero{padding:32px 22px 22px;text-align:center;position:relative;z-index:1;animation:fadeUp .6s ease both;}
+.hero-tag{display:inline-block;background:var(--soft);color:var(--gold);font-size:11px;letter-spacing:3px;padding:4px 14px;border-radius:20px;margin-bottom:14px;border:1px solid var(--gold-dim);}
+.hero h1{font-family:"Noto Serif TC",serif;font-size:clamp(1.5rem,5vw,1.9rem);font-weight:700;color:var(--text);line-height:1.4;margin-bottom:10px;}
+.hero h1 em{font-style:normal;color:var(--gold);}
+.hero-desc{font-size:13.5px;color:var(--muted);line-height:1.9;max-width:300px;margin:0 auto;}
 
-  /* 兩欄容器 */
-  .two-col {
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-    width:100%; max-width:680px;
-    align-items:start;
-  }
+/* ── PAGES ── */
+.page{display:none;position:relative;z-index:1;padding:0 16px;padding-bottom:max(env(safe-area-inset-bottom,0px),80px);}
+.page.show{display:block;animation:fadeUp .5s ease both;}
 
-  /* 感受選項 */
-  .feeling-list {
-    display:flex; flex-direction:column;
-    gap:8px;
-  }
+/* ── FEELING ITEMS（像 FAQ 折疊卡片）── */
+.feeling-list{display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
 
-  .feeling-item {
-    padding:11px 14px; border-radius:12px;
-    border:0.5px solid rgba(255,255,255,0.2);
-    background:rgba(230,220,200,0.1); backdrop-filter:blur(8px);
-    color:rgba(240,232,210,0.85); font-family:"Noto Serif TC",serif;
-    font-size:clamp(12px,3.2vw,14px); letter-spacing:0.06em;
-    cursor:pointer; text-align:left;
-    display:flex; align-items:center; gap:9px;
-    transition:background 0.2s, border-color 0.2s, transform 0.1s;
-  }
-  .feeling-item:active { transform:scale(0.97); }
-  .feeling-item.selected {
-    background:rgba(230,220,200,0.28);
-    border-color:rgba(240,232,210,0.7);
-  }
-  .feeling-emoji { font-size:20px; flex-shrink:0; }
+.feeling-item{
+  border-radius:14px;
+  background:var(--card);
+  border:1px solid var(--card-b);
+  overflow:hidden;
+  backdrop-filter:blur(8px);
+  transition:box-shadow .25s, border-color .2s;
+}
+.feeling-item.open{
+  box-shadow:0 6px 28px rgba(201,168,76,.14);
+  border-color:var(--gold-dim);
+}
 
-  /* 右欄容器 */
-  .response-col {
-    display:flex; flex-direction:column;
-    gap:12px; align-items:stretch;
-  }
+/* 標題列（點擊區） */
+.feeling-header{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:14px 16px;
+  cursor:pointer;user-select:none;
+}
+.feeling-header:active{opacity:.75;}
+.feeling-left{display:flex;align-items:center;gap:10px;}
+.feeling-emoji{font-size:20px;flex-shrink:0;}
+.feeling-label{
+  font-family:"Noto Serif TC",serif;
+  font-size:clamp(13px,3.6vw,14.5px);
+  color:var(--text);letter-spacing:.04em;line-height:1.5;
+}
+.feeling-chevron{
+  flex-shrink:0;width:20px;height:20px;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--gold);font-size:11px;
+  transition:transform .28s ease;
+}
+.feeling-item.open .feeling-chevron{transform:rotate(180deg);}
 
-  /* 感受說明 */
-  .response-box {
-    background:rgba(230,220,200,0.12); backdrop-filter:blur(8px);
-    border:0.5px solid rgba(255,255,255,0.2);
-    border-radius:12px; padding:16px 16px;
-    font-family:"Noto Serif TC",serif;
-    font-size:clamp(12px,3vw,14px);
-    color:rgba(240,232,210,0.8); line-height:1.9; letter-spacing:0.08em;
-    text-align:left;
-    opacity:0; transform:translateY(6px);
-    transition:opacity 0.4s ease, transform 0.4s ease;
-    pointer-events:none;
-  }
-  .response-box.show {
-    opacity:1; transform:translateY(0);
-    pointer-events:auto;
-  }
+/* 展開說明 */
+.feeling-body{
+  max-height:0;overflow:hidden;
+  transition:max-height .38s ease, opacity .28s;
+  opacity:0;
+}
+.feeling-item.open .feeling-body{max-height:600px;opacity:1;}
+.feeling-body-inner{
+  padding:0 16px 14px;padding-top:2px;
+  font-size:clamp(12.5px,3.4vw,13.5px);
+  color:var(--muted);line-height:1.95;
+  border-top:1px solid var(--gold-dim);
+}
+.feeling-body-inner a{color:var(--gold);text-decoration:underline;text-underline-offset:3px;}
 
-  /* 右欄佔位提示（未選時） */
-  .response-placeholder {
-    font-family:"Noto Serif TC",serif;
-    font-size:clamp(12px,3vw,13px);
-    color:rgba(240,232,210,0.25); letter-spacing:0.1em;
-    text-align:center; line-height:1.8;
-    padding:20px 10px;
-  }
+/* ── ACTION BUTTON ── */
+.action-btn{
+  display:block;margin:0 auto;
+  padding:12px 36px;border-radius:999px;
+  background:var(--soft);border:1px solid var(--gold-dim);
+  color:var(--text);font-family:"Noto Serif TC",serif;
+  font-size:14px;letter-spacing:.1em;cursor:pointer;
+  transition:background .2s,transform .1s;
+}
+.action-btn:active{background:var(--gold-dim);transform:scale(0.97);}
 
-  .response-box a {
-    color: rgba(240, 232, 210, 0.95);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    cursor: pointer;
-  }
+/* ── JOURNAL ── */
+.journal-wrap{display:flex;flex-direction:column;gap:12px;margin-bottom:20px;}
+.journal-label{font-family:"Noto Serif TC",serif;font-size:13px;color:var(--muted);letter-spacing:.1em;}
+.journal-input{
+  width:100%;padding:14px 16px;border-radius:14px;
+  background:var(--card);border:1px solid var(--card-b);
+  backdrop-filter:blur(8px);
+  color:var(--text);font-family:"Noto Serif TC",serif;
+  font-size:clamp(13px,3.8vw,15px);line-height:1.8;
+  resize:none;outline:none;-webkit-appearance:none;
+}
+.journal-input::placeholder{color:var(--muted);}
+.journal-input:focus{border-color:var(--gold);}
 
-  /* 日誌輸入 */
-  .journal-wrap {
-    width:100%; max-width:340px;
-    display:flex; flex-direction:column; gap:12px;
-  }
-  .journal-label {
-    font-family:"Noto Serif TC",serif;
-    font-size:clamp(13px,3.5vw,15px);
-    color:rgba(240,232,210,0.6); letter-spacing:0.1em; text-align:center;
-  }
-  .journal-input {
-    width:100%; padding:14px 16px; border-radius:12px;
-    background:rgba(230,220,200,0.1); backdrop-filter:blur(8px);
-    border:0.5px solid rgba(255,255,255,0.2);
-    color:#F0E8D0; font-family:"Noto Serif TC",serif;
-    font-size:clamp(14px,4vw,16px); line-height:1.7;
-    resize:none; outline:none;
-    -webkit-appearance:none;
-  }
-  .journal-input::placeholder { color:rgba(240,232,210,0.35); }
+/* ── STATS ── */
+.stats-wrap{
+  background:var(--card);border:1px solid var(--card-b);
+  border-radius:20px;padding:32px 24px;
+  backdrop-filter:blur(8px);
+  display:flex;flex-direction:column;align-items:center;gap:16px;
+  text-align:center;margin-bottom:20px;
+}
+.stats-streak{font-family:"Noto Serif TC",serif;font-size:clamp(56px,16vw,80px);color:var(--gold);line-height:1;}
+.stats-label{font-family:"Noto Serif TC",serif;font-size:clamp(16px,4.5vw,20px);color:var(--muted);letter-spacing:.15em;margin-top:-6px;}
+.stats-duration{font-family:"Noto Serif TC",serif;font-size:clamp(13px,3.8vw,15px);color:var(--muted);letter-spacing:.08em;}
+.stats-divider{width:60px;height:1px;background:var(--gold-dim);}
+.stats-msg{font-family:"Noto Serif TC",serif;font-size:clamp(13px,3.6vw,15px);color:var(--text);letter-spacing:.08em;line-height:1.9;}
 
-  /* 按鈕 */
-  .action-btn {
-    position:fixed;
-    bottom:max(env(safe-area-inset-bottom, 0px), 20px);
-    left:50%;
-    transform:translateX(-50%);
-
-    width:180px;
-    padding:10px 30px;
-    border-radius:999px;
-    background:rgba(150,140,120,0.55);
-    backdrop-filter:blur(12px);
-    border:1px solid rgba(255,255,255,0.4);
-    color:rgba(240,232,210,0.95);
-    font-family:"Noto Serif TC",serif;
-    font-size:14px;
-    font-weight:400;
-    letter-spacing:0.1em;
-    cursor:pointer;
-    transition:transform 0.1s;
-  }
-
-
-  /* 統計畫面 */
-  .stats-wrap {
-    display:flex; flex-direction:column;
-    align-items:center; gap:20px;
-    width:100%; max-width:340px;
-  }
-  .stats-streak {
-    font-family:"Noto Serif TC",serif;
-    font-size:clamp(48px,14vw,72px);
-    color:#F0E8D0; line-height:1;
-    text-shadow:0 2px 12px rgba(0,0,0,0.4);
-  }
-  .stats-label {
-    font-family:"Noto Serif TC",serif;
-    font-size:clamp(18px,5vw,22px);
-    color:rgba(240,232,210,0.7); letter-spacing:0.15em;
-    margin-top:-8px;
-  }
-  .stats-duration {
-    font-family:"Noto Serif TC",serif;
-    font-size:clamp(16px,4.5vw,20px);
-    color:rgba(240,232,210,0.5); letter-spacing:0.1em;
-  }
-  .stats-divider {
-    width:60px; height:0.5px;
-    background:rgba(240,232,210,0.2);
-  }
-  .stats-msg {
-    font-family:"Noto Serif TC",serif;
-    font-size:clamp(14px,4vw,16px);
-    color:rgba(240,232,210,0.75); letter-spacing:0.1em;
-    text-align:center; line-height:1.8;
-  }
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
 </style>
 </head>
 <body>
 
-<div id="bg"></div>
-<div id="overlay"></div>
+<nav class="top-nav">
+  <button class="back-btn" onclick="goBack()">← 返回</button>
+  <span class="nav-title">覺察回饋</span>
+</nav>
 
 <!-- 步驟一：選感受 -->
 <div class="page show" id="step1">
-  <div class="page-title">感受如何呢?</div>
-  <div class="two-col">
-    <div class="feeling-list" id="feelingList"></div>
-    <div class="response-col">
-      <div class="response-placeholder" id="responsePlaceholder">選擇左側的感受<br>這裡會顯示說明</div>
-      <div class="response-box" id="responseBox"></div>
-    </div>
+  <div class="hero">
+    <span class="hero-tag">SAHAJA YOGA · 回饋</span>
+    <h1>這次靜坐，<br><em>感受如何呢？</em></h1>
+    <p class="hero-desc">點開感受，看看說明 🌿</p>
   </div>
-  <button class="action-btn" id="nextBtn" style="display:none" onclick="goToJournal()">繼續 →</button>
+
+  <div class="feeling-list" id="feelingList"></div>
+
+  <div id="nextBtnWrap" style="display:none">
+    <button class="action-btn" onclick="goToJournal()">繼續 →</button>
+  </div>
 </div>
 
 <!-- 步驟二：寫日誌 -->
 <div class="page" id="step2">
-  <div class="page-title">記錄這次的感受</div>
+  <div class="hero">
+    <span class="hero-tag">SAHAJA YOGA · 日誌</span>
+    <h1>記錄這次的<em>感受</em></h1>
+    <p class="hero-desc">寫下來，或直接略過也可以 🌿</p>
+  </div>
   <div class="journal-wrap">
     <div class="journal-label">（可以不填）</div>
-    <textarea class="journal-input" id="journalInput" rows="5" placeholder="今天的靜坐感覺如何…"></textarea>
+    <textarea class="journal-input" id="journalInput" rows="6" placeholder="今天的靜坐感覺如何…"></textarea>
   </div>
   <button class="action-btn" onclick="saveAndShowStats()">完成</button>
 </div>
 
 <!-- 步驟三：統計 -->
 <div class="page" id="step3">
+  <div class="hero">
+    <span class="hero-tag">SAHAJA YOGA · 記錄</span>
+    <h1><em>完成</em>了！</h1>
+  </div>
   <div class="stats-wrap">
     <div class="stats-streak" id="statsStreak">1</div>
     <div class="stats-label">連續靜坐天數</div>
     <div class="stats-duration" id="statsDuration"></div>
     <div class="stats-divider"></div>
     <div class="stats-msg" id="statsMsg">繼續保持，每天一點點<br>內在的改變正在發生</div>
-    <button class="action-btn" onclick="goHome()" style="margin-top:3vh;">回到主畫面</button>
   </div>
+  <button class="action-btn" onclick="goHome()">回到主畫面</button>
 </div>
 
 <script>
-  const BASE = 'https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/';
+const BASE = 'https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/';
+const streak = parseInt(localStorage.getItem('sahaja_streak') || '1');
+const duration = parseInt(localStorage.getItem('sahaja_last_duration') || '0');
+const m = Math.floor(duration / 60);
+const s = duration % 60;
+let selFeeling = null;
+let openItem = null;
 
-  // 設定背景
-  document.getElementById('bg').style.backgroundImage = "url('" + BASE + "meditation_end.png')";
+fetch(BASE + 'feelings.json?t=' + Date.now())
+  .then(r => r.json())
+  .then(list => {
+    const container = document.getElementById('feelingList');
+    list.forEach(f => {
+      const item = document.createElement('div');
+      item.className = 'feeling-item';
+      item.innerHTML =
+        `<div class="feeling-header">
+           <div class="feeling-left">
+             <span class="feeling-emoji">${f.emoji}</span>
+             <span class="feeling-label">${f.label}</span>
+           </div>
+           <span class="feeling-chevron">▼</span>
+         </div>
+         <div class="feeling-body">
+           <div class="feeling-body-inner">${f.response}</div>
+         </div>`;
 
-  // 讀取統計
-  const streak = parseInt(localStorage.getItem('sahaja_streak') || '1');
-  const duration = parseInt(localStorage.getItem('sahaja_last_duration') || '0');
-  const m = Math.floor(duration/60);
-  const s = duration % 60;
+      item.querySelector('.feeling-header').addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+        // 關閉其他
+        if (openItem && openItem !== item) openItem.classList.remove('open');
+        item.classList.toggle('open', !isOpen);
+        openItem = isOpen ? null : item;
 
-  let selFeeling = null;
-
-  // 載入感受選項
-  fetch(BASE + 'feelings.json?t=' + Date.now())
-    .then(function(r) { return r.json(); })
-    .then(function(list) {
-      const container = document.getElementById('feelingList');
-      list.forEach(function(f) {
-        const item = document.createElement('div');
-        item.className = 'feeling-item';
-        item.innerHTML = '<span class="feeling-emoji">' + f.emoji + '</span><span>' + f.label + '</span>';
-        item.addEventListener('click', function() {
-          document.querySelectorAll('.feeling-item').forEach(function(i) { i.classList.remove('selected'); });
-          item.classList.add('selected');
+        if (!isOpen) {
           selFeeling = f;
-          // 隱藏佔位提示，顯示說明
-          document.getElementById('responsePlaceholder').style.display = 'none';
-          const box = document.getElementById('responseBox');
-          box.innerHTML = f.response;
-          box.classList.add('show');
-          document.getElementById('nextBtn').style.display = 'block';
-        });
-        container.appendChild(item);
+          document.getElementById('nextBtnWrap').style.display = 'block';
+          setTimeout(() => item.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 60);
+        }
       });
-    })
-    .catch(function() {
-      console.log('feelings.json 載入失敗');
+      container.appendChild(item);
     });
+  })
+  .catch(() => console.log('feelings.json 載入失敗'));
 
-  function goToJournal() {
-    document.getElementById('step1').classList.remove('show');
-    document.getElementById('step2').classList.add('show');
+function goToJournal() {
+  document.getElementById('step1').classList.remove('show');
+  document.getElementById('step2').classList.add('show');
+}
+
+function saveAndShowStats() {
+  const text = document.getElementById('journalInput').value.trim();
+  if (text) {
+    const journals = JSON.parse(localStorage.getItem('sahaja_journals') || '[]');
+    journals.push({
+      date: new Date().toLocaleDateString('zh-TW'),
+      duration: m + '分' + s + '秒',
+      feeling: selFeeling ? selFeeling.label : '',
+      text: text
+    });
+    if (journals.length > 50) journals.shift();
+    localStorage.setItem('sahaja_journals', JSON.stringify(journals));
   }
+  showStats();
+}
 
-  function saveAndShowStats() {
-    const text = document.getElementById('journalInput').value.trim();
-    if (text) {
-      // 存日誌
-      const journals = JSON.parse(localStorage.getItem('sahaja_journals') || '[]');
-      journals.push({
-        date: new Date().toLocaleDateString('zh-TW'),
-        duration: m + '分' + s + '秒',
-        feeling: selFeeling ? selFeeling.label : '',
-        text: text
-      });
-      // 只保留最近 50 筆
-      if (journals.length > 50) journals.shift();
-      localStorage.setItem('sahaja_journals', JSON.stringify(journals));
-    }
-    showStats();
-  }
+function showStats() {
+  document.getElementById('step2').classList.remove('show');
+  document.getElementById('step3').classList.add('show');
+  document.getElementById('statsStreak').textContent = streak;
+  document.getElementById('statsDuration').textContent = '本次靜坐 ' + m + ' 分 ' + s + ' 秒';
+  let msg = '繼續保持，每天一點點<br>內在的改變正在發生';
+  if (streak >= 30) msg = '連續 ' + streak + ' 天！<br>你的靜坐習慣已經深深紮根。';
+  else if (streak >= 7) msg = '一週以上了！<br>堅持就是力量，繼續加油。';
+  else if (streak >= 3) msg = '已經連續 ' + streak + ' 天了！<br>好的開始，繼續保持。';
+  document.getElementById('statsMsg').innerHTML = msg;
+}
 
-  function showStats() {
-    document.getElementById('step2').classList.remove('show');
-    document.getElementById('step3').classList.add('show');
+function goBack() {
+  if (document.referrer) history.back();
+  else window.location.href = 'menu.html';
+}
 
-    document.getElementById('statsStreak').textContent = streak;
-    document.getElementById('statsDuration').textContent = '本次靜坐 ' + m + ' 分 ' + s + ' 秒';
-
-    // 連續天數對應鼓勵語
-    let msg = '繼續保持，每天一點點<br>內在的改變正在發生';
-    if (streak >= 30) msg = '連續 ' + streak + ' 天！<br>你的靜坐習慣已經深深紮根。';
-    else if (streak >= 7) msg = '一週以上了！<br>堅持就是力量，繼續加油。';
-    else if (streak >= 3) msg = '已經連續 ' + streak + ' 天了！<br>好的開始，繼續保持。';
-    document.getElementById('statsMsg').innerHTML = msg;
-  }
-
-  function goHome() {
-    sessionStorage.setItem('fromMeditation', '1');
-    window.location.href = 'index.html';
-  }
+function goHome() {
+  sessionStorage.setItem('fromMeditation', '1');
+  window.location.href = 'index.html';
+}
 </script>
 </body>
 </html>

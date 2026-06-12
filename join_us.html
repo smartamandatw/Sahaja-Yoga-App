@@ -22,6 +22,9 @@ html,body {
   width:100%; min-height:100%;
   font-family:"Noto Sans TC",sans-serif;
   background:var(--bg); color:var(--text);
+  background-image: url("https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/png/app_back_ground.png");
+  background-size: cover;
+  background-position: center;
   overflow-x:hidden;
 }
 body::before {
@@ -181,10 +184,10 @@ body::before {
 .c-link-arrow { font-size:15px; color:var(--gold); flex-shrink:0; }
 
 /* link icon bg colours */
-.c-link-btn[data-platform="line"]     .c-link-icon { background:#06C755; color:#fff; border-color:#06C755; }
-.c-link-btn[data-platform="facebook"] .c-link-icon { background:#1877F2; color:#fff; border-color:#1877F2; }
-.c-link-btn[data-platform="youtube"]  .c-link-icon { background:#FF0000; color:#fff; border-color:#FF0000; }
-.c-link-btn[data-platform="threads"]  .c-link-icon { background:#000;    color:#fff; border-color:#333; }
+.c-link-btn[data-platform="line"]     .c-link-icon { background:var(--soft); color:var(--gold); }
+.c-link-btn[data-platform="facebook"] .c-link-icon { background:var(--soft); color:var(--gold); }
+.c-link-btn[data-platform="youtube"]  .c-link-icon { background:var(--soft); color:var(--gold); }
+.c-link-btn[data-platform="threads"]  .c-link-icon { background:var(--soft); color:var(--gold); }
 .c-link-btn[data-platform="web"]      .c-link-icon { background:var(--soft); color:var(--gold); }
 .c-link-btn[data-platform="email"]    .c-link-icon { background:var(--soft); color:var(--gold); }
 
@@ -219,14 +222,14 @@ body::before {
 
 <div class="hero">
   <span class="hero-tag">SAHAJA YOGA · 找到我們</span>
-  <h1>一個人靜坐很好，<br><em>有人陪更好</em></h1>
-  <p class="hero-desc">不管你想深入了解，還是只是想找個地方問問題，都歡迎 🌸</p>
+  <h1>一個人靜靜地很好<br><em>有人相伴也是好的</em></h1>
+  <p class="hero-desc">無論你是想深入了解，還是想解決心裡的問號<br>我們在這裡 </p>
 </div>
 
 <div class="cards" id="cards"></div>
 
 <div class="footer-note">
-  <p>Sahaja Yoga 在全球超過 100 個國家都有練習者。<br><em>台灣的你，不孤單。</em></p>
+  <p>Sahaja Yoga 在全球超過 100 個國家都有練習者</p>
 </div>
 
 <script>
@@ -243,14 +246,14 @@ function getPlatform(url) {
 
 function getPlatformIcon(platform) {
   const map = {
-    line:     '💬',
-    facebook: '📘',
-    youtube:  '▶️',
-    threads:  '🧵',
-    email:    '✉️',
-    web:      '🌐',
+    line:     '✧',
+    facebook: '✧',
+    youtube:  '✧',
+    threads:  '✧',
+    email:    '✧',
+    web:      '✧',
   };
-  return map[platform] || '🔗';
+  return map[platform] || '✧';
 }
 
 let openIdx = -1;

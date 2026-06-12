@@ -18,8 +18,7 @@
   --soft:     rgba(201,168,76,0.10);
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-html,body{width:100%;min-height:100%;font-family:"Noto Sans TC",sans-serif;color:var(--text);overflow-x:hidden;}
-body{background:url("https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/png/app_back_ground.png") center/cover;}
+html,body{width:100%;min-height:100%;font-family:"Noto Sans TC",sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
 
 /* warm gradient bg */
 body::before{
@@ -28,6 +27,9 @@ body::before{
     radial-gradient(ellipse at 10% 0%,  rgba(201,168,76,.13) 0%,transparent 50%),
     radial-gradient(ellipse at 90% 100%,rgba(201,168,76,.10) 0%,transparent 50%),
     radial-gradient(ellipse at 50% 50%,rgba(255,245,220,.4) 0%,transparent 70%);
+    background-image: url("https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/png/app_back_ground.png");
+    background-size: cover;
+    background-position: center;
 }
 
 /* ── TOP NAV ── */
