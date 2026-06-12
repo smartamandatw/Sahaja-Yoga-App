@@ -210,15 +210,9 @@
     width:100%;
     padding:clamp(10px,2.5vh,16px) 16px clamp(12px,3vh,80px);
     display:flex; justify-content:center;
-    opacity:0; pointer-events:none;
-    transform:translateY(8px);
-    transition:opacity 0.4s ease, transform 0.4s ease;
     flex-shrink:0;
   }
-  .start-wrap.visible {
-    opacity:1; pointer-events:auto;
-    transform:translateY(0);
-  }
+  
   .start-btn {
     width:180px;
     padding:10px 30px;
@@ -520,10 +514,8 @@
 
   function checkReady() {
     const ready = !!(selMusic !== null && selGuide !== null);
-    const wrap = document.querySelector('.start-wrap');
+    // 兩項都選好後收起所有 accordion
     if (ready) {
-      wrap.classList.add('visible');
-      // 兩項都選好後收起所有 accordion
       document.querySelectorAll('.acc-card').forEach(function(c) { c.classList.remove('open'); });
     }
   }
