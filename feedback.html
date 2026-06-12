@@ -107,14 +107,17 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 
 /* ── ACTION BUTTON ── */
 .action-btn{
-  display:block;margin:0 auto;
-  padding:12px 36px;border-radius:999px;
-  background:var(--soft);border:1px solid var(--gold-dim);
-  color:var(--text);font-family:"Noto Serif TC",serif;
-  font-size:14px;letter-spacing:.1em;cursor:pointer;
-  transition:background .2s,transform .1s;
+  display:block; margin:0 auto;
+  width:200px; padding:13px 0;
+  border-radius:999px;
+  background:rgba(201,168,76,0.25);
+  border:1px solid var(--gold);
+  color:var(--text); font-family:"Noto Serif TC",serif;
+  font-size:14px; letter-spacing:.12em;
+  cursor:pointer; text-align:center;
+  transition:background .2s, transform .1s;
 }
-.action-btn:active{background:var(--gold-dim);transform:scale(0.97);}
+.action-btn:active{ background:rgba(201,168,76,0.45); transform:scale(0.97); }
 
 /* ── JOURNAL ── */
 .journal-wrap{display:flex;flex-direction:column;gap:12px;margin-bottom:20px;}
@@ -154,14 +157,13 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 <!-- 步驟一：選感受 -->
 <div class="page show" id="step1">
   <div class="hero">
-    <span class="hero-tag">SAHAJA YOGA · 回饋</span>
     <h1>這次靜坐，<br><em>感受如何呢？</em></h1>
-    <p class="hero-desc">點開感受，看看說明 🌿</p>
+    <span class="hero-tag">點開感受，看看說明</span>
   </div>
 
   <div class="feeling-list" id="feelingList"></div>
 
-  <div id="nextBtnWrap" style="display:none">
+  <div id="nextBtnWrap">
     <button class="action-btn" onclick="goToJournal()">繼續 →</button>
   </div>
 </div>
