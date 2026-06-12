@@ -60,14 +60,13 @@ body::before {
   animation:fadeIn .5s ease both;
 }
 .back-btn {
-  background:var(--card); border:1px solid var(--card-border);
-  border-radius:12px; padding:8px 14px;
-  font-family:'Noto Sans TC',sans-serif; font-size:13px;
-  color:var(--muted); cursor:pointer; backdrop-filter:blur(8px);
-  transition:background .2s,color .2s;
-  text-decoration:none; display:inline-flex; align-items:center; gap:6px;
+  font-family:"Noto Sans TC",sans-serif; font-size:13px;
+  color:var(--muted); background:var(--soft);
+  border:1px solid var(--gold); border-radius:10px; text-decoration:none;
+  padding:6px 12px; cursor:pointer;
+  transition:background .2s,color .2s; white-space:nowrap;
 }
-.back-btn:hover { background:var(--gold-dim); color:var(--text); }
+.back-btn:active { background:var(--gold-dim); color:var(--text); }
 .nav-title { font-family:'Noto Serif TC',serif; font-size:13px; color:var(--muted); letter-spacing:1px; }
 
 /* ── HERO ── */
@@ -245,7 +244,7 @@ body::before {
 </head>
 <body>
 
-<a class="back-btn" href="menu.html" style="position:sticky;top:16px;margin:16px 0 0 16px;z-index:20;display:inline-block;">← 返回</a>
+<button class="back-btn" style="position:sticky;top:16px;margin:16px 0 0 16px;z-index:20;display:inline-block;" onclick="window.location.href='menu.html'">← 返回</button>
 
 <div class="hero">
   <span class="hero-tag">SAHAJA YOGA · 靜心音樂</span>

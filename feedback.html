@@ -31,8 +31,14 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 
 /* ── TOP NAV ── */
 .top-nav{position:sticky;top:0;z-index:20;background:rgba(240,232,208,.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--gold-dim);padding:14px 16px 12px;display:flex;align-items:center;gap:12px;}
-.back-btn{font-size:13px;color:var(--muted);background:var(--soft);border:1px solid var(--gold-dim);border-radius:10px;padding:6px 12px;cursor:pointer;font-family:"Noto Sans TC",sans-serif;transition:background .2s;white-space:nowrap;}
-.back-btn:active{background:var(--gold-dim);}
+.back-btn {
+  font-family:"Noto Sans TC",sans-serif; font-size:13px;
+  color:var(--muted); background:var(--soft);
+  border:1px solid var(--gold); border-radius:10px;
+  padding:6px 12px; cursor:pointer;
+  transition:background .2s,color .2s; white-space:nowrap;
+}
+.back-btn:active { background:var(--gold-dim); color:var(--text); }
 .nav-title{font-family:"Noto Serif TC",serif;font-size:clamp(14px,3.8vw,16px);color:var(--text);letter-spacing:.1em;}
 
 /* ── HERO ── */
