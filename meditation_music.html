@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>冥想音樂｜Sahaja Yoga</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@300;400;500&display=swap');
+
+:root {
+  --bg: #F0E8D0;
+  --card: rgba(255,255,255,0.72);
+  --card-border: rgba(201,168,76,0.18);
+  --text: #1C1A17;
+  --muted: #7a6e5f;
+  --soft: rgba(201,168,76,0.12);
+  --gold: #C9A84C;
+  --gold-dim: rgba(201,168,76,0.25);
+}
+
+* { box-sizing:border-box; margin:0; padding:0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Sans TC', sans-serif;
+  font-weight: 300;
+  line-height: 1.8;
+  max-width: 480px;
+  margin: 0 auto;
+  padding-bottom: 120px;
+  overflow-x: hidden;
+}
+
+body::before {
+  content:'';
+  position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(201,168,76,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 90%, rgba(201,168,76,0.06) 0%, transparent 60%);
+}
+
+@keyframes fadeUp   { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeIn   { from{opacity:0} to{opacity:1} }
+@keyframes spin     { to{transform:rotate(360deg)} }
+@keyframes ripple   { 0%{transform:scale(1);opacity:.5} 100%{transform:scale(2.8);opacity:0} }
+@keyframes pulse    { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.7;transform:scale(.96)} }
+@keyframes barDance {
+  0%,100%{height:4px} 25%{height:14px} 50%{height:8px} 75%{height:18px}
+}
+
+/* ── TOP NAV ── */
+.top-nav {
+  position:relative; z-index:1;
+  display:flex; align-items:center; gap:12px;
+  padding:20px 20px 0;
+  animation:fadeIn .5s ease both;
+}
+.back-btn {
+  background:var(--card); border:1px solid var(--card-border);
+  border-radius:12px; padding:8px 14px;
+  font-family:'Noto Sans TC',sans-serif; font-size:13px;
+  color:var(--muted); cursor:pointer; backdrop-filter:blur(8px);
+  transition:background .2s,color .2s;
+  text-decoration:none; display:inline-flex; align-items:center; gap:6px;
+}
+.back-btn:hover { background:var(--gold-dim); color:var(--text); }
+.nav-title { font-family:'Noto Serif TC',serif; font-size:13px; color:var(--muted); letter-spacing:1px; }
+
+/* ── HERO ── */
+.hero {
+  position:relative; z-index:1;
+  padding:32px 24px 20px; text-align:center;
+  animation:fadeUp .7s .05s ease both; opacity:0; animation-fill-mode:forwards;
+}
+.hero-tag {
+  display:inline-block; background:var(--soft); color:var(--gold);
+  font-size:11px; letter-spacing:3px; padding:4px 14px; border-radius:20px;
+  margin-bottom:14px; border:1px solid var(--gold-dim);
+}
+.hero h1 {
+  font-family:'Noto Serif TC',serif; font-size:1.8rem; font-weight:700;
+  color:var(--text); line-height:1.35; margin-bottom:10px;
+}
+.hero h1 em { font-style:normal; color:var(--gold); }
+.hero-desc { font-size:13.5px; color:var(--muted); line-height:1.9; max-width:300px; margin:0 auto; }
+
+/* ── NOW PLAYING BAR ── */
+.now-playing {
+  position:fixed; bottom:0; left:50%; transform:translateX(-50%);
+  width:min(480px,100vw); z-index:50;
+  background:var(--bg); border-top:1px solid var(--card-border);
+  backdrop-filter:blur(16px);
+  padding:14px 20px 24px;
+  display:none;
+  animation:fadeUp .3s ease both;
+}
+.now-playing.visible { display:block; }
+.np-inner {
+  background:var(--card); border:1px solid var(--card-border);
+  border-radius:18px; padding:12px 16px;
+  display:flex; align-items:center; gap:12px;
+}
+.np-icon {
+  width:40px; height:40px; border-radius:12px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center; font-size:18px;
+}
+.np-info { flex:1; min-width:0; }
+.np-title { font-family:'Noto Serif TC',serif; font-size:13px; font-weight:700; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.np-sub { font-size:11px; color:var(--muted); }
+.np-bars {
+  display:flex; align-items:flex-end; gap:2px; height:20px; flex-shrink:0;
+}
+.np-bar {
+  width:3px; background:var(--gold); border-radius:2px;
+  animation:barDance .8s ease-in-out infinite;
+  height:4px;
+}
+.np-bar:nth-child(2){animation-delay:.15s}
+.np-bar:nth-child(3){animation-delay:.3s}
+.np-bar:nth-child(4){animation-delay:.1s}
+.np-bars.paused .np-bar { animation-play-state:paused; height:4px; }
+.np-controls { display:flex; align-items:center; gap:6px; flex-shrink:0; }
+.np-btn {
+  width:34px; height:34px; border-radius:50%; border:none;
+  background:var(--soft); cursor:pointer; font-size:14px;
+  display:flex; align-items:center; justify-content:center;
+  transition:background .2s, transform .15s;
+  color:var(--text);
+}
+.np-btn:active { transform:scale(.92); }
+.np-btn.primary { background:var(--text); color:var(--bg); }
+.np-btn:hover { background:var(--gold-dim); }
+.np-btn.primary:hover { background:#3a3530; }
+
+/* ── CATEGORY TABS ── */
+.cat-tabs {
+  position:relative; z-index:1;
+  display:flex; gap:7px; padding:0 16px 16px;
+  overflow-x:auto; scrollbar-width:none;
+  animation:fadeUp .5s .2s ease both; opacity:0; animation-fill-mode:forwards;
+}
+.cat-tabs::-webkit-scrollbar { display:none; }
+.cat-btn {
+  padding:6px 16px; border-radius:20px; white-space:nowrap;
+  border:1px solid var(--gold-dim); background:transparent;
+  font-family:'Noto Sans TC',sans-serif; font-size:12px; color:var(--muted);
+  cursor:pointer; transition:all .2s; flex-shrink:0;
+}
+.cat-btn.active { background:var(--text); color:var(--bg); border-color:var(--text); }
+
+/* ── SECTION LABEL ── */
+.section-label {
+  position:relative; z-index:1;
+  font-size:11px; letter-spacing:3px; color:var(--muted);
+  padding:0 22px; margin-bottom:12px;
+}
+
+/* ── TRACK LIST ── */
+.tracks { position:relative; z-index:1; display:flex; flex-direction:column; gap:8px; padding:0 16px; }
+
+.track-card {
+  background:var(--card); border-radius:18px;
+  border:1px solid var(--card-border);
+  backdrop-filter:blur(8px);
+  transition:box-shadow .25s, border-color .2s, transform .15s;
+  opacity:0; animation:fadeUp .4s ease both;
+  overflow:hidden;
+}
+.track-card:nth-child(1){animation-delay:.3s}
+.track-card:nth-child(2){animation-delay:.36s}
+.track-card:nth-child(3){animation-delay:.42s}
+.track-card:nth-child(4){animation-delay:.48s}
+.track-card:nth-child(5){animation-delay:.54s}
+.track-card:nth-child(6){animation-delay:.60s}
+.track-card:nth-child(7){animation-delay:.66s}
+.track-card:nth-child(8){animation-delay:.72s}
+.track-card:nth-child(9){animation-delay:.78s}
+.track-card:nth-child(10){animation-delay:.84s}
+.track-card.playing {
+  border-color:var(--tc-color, var(--gold-dim));
+  box-shadow:0 4px 24px rgba(201,168,76,.12);
+}
+.track-card.coming {
+  opacity:.55;
+}
+.track-card.hidden { display:none; }
+
+.track-inner {
+  display:flex; align-items:center; gap:13px; padding:14px 16px;
+  cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent;
+}
+.track-card.coming .track-inner { cursor:default; }
+
+.track-icon {
+  width:44px; height:44px; border-radius:14px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center; font-size:20px;
+  position:relative;
+}
+.track-play-indicator {
+  position:absolute; inset:0; border-radius:14px;
+  display:none; align-items:center; justify-content:center;
+  background:rgba(0,0,0,.15); font-size:14px;
+}
+.track-card.playing .track-play-indicator { display:flex; }
+.track-card.playing .track-play-indicator::after { content:'▶'; font-size:12px; color:#fff; }
+.track-card.playing.paused .track-play-indicator::after { content:'⏸'; }
+
+.track-info { flex:1; min-width:0; }
+.track-title { font-family:'Noto Serif TC',serif; font-size:.95rem; font-weight:700; color:var(--text); margin-bottom:1px; }
+.track-sub { font-size:12px; color:var(--muted); line-height:1.5; }
+.track-meta { display:flex; align-items:center; gap:6px; margin-top:3px; }
+.track-dur { font-size:11px; color:var(--muted); }
+.coming-tag {
+  font-size:10px; padding:2px 8px; border-radius:10px;
+  background:var(--soft); color:var(--gold); border:1px solid var(--gold-dim);
+  letter-spacing:.5px;
+}
+
+.track-fav {
+  width:32px; height:32px; border-radius:50%; border:none;
+  background:transparent; cursor:pointer; font-size:15px;
+  display:flex; align-items:center; justify-content:center;
+  transition:transform .2s; flex-shrink:0;
+  color:var(--muted);
+}
+.track-fav:active { transform:scale(.85); }
+.track-fav.faved { color:#d95f4b; }
+
+/* ── FOOTER ── */
+.footer {
+  position:relative; z-index:1;
+  margin:24px 16px 0;
+  background:var(--card); border-radius:20px;
+  padding:26px 24px; border:1px solid var(--card-border);
+  text-align:center; backdrop-filter:blur(8px);
+  animation:fadeUp .6s .9s ease both; opacity:0; animation-fill-mode:forwards;
+}
+.footer-quote { font-family:'Noto Serif TC',serif; font-size:14px; color:var(--text); line-height:2.1; margin-bottom:10px; white-space:pre-line; }
+.footer-attr { font-size:12px; color:var(--gold); }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-btn" href="menu.html">← 返回選單</a>
+  <span class="nav-title">冥想音樂</span>
+</nav>
+
+<div class="hero">
+  <span class="hero-tag">SAHAJA YOGA · 靜心音樂</span>
+  <h1>讓音樂<br><em>帶你往內走</em></h1>
+  <p class="hero-desc">Bhajan 梵唱・Mantra 真言・靜心輕音樂<br>選一首，靜靜地聽</p>
+</div>
+
+<div class="cat-tabs" id="cat-tabs"></div>
+
+<p class="section-label" id="section-label">全部音樂</p>
+<div class="tracks" id="tracks-wrap"></div>
+
+<div class="footer">
+  <p class="footer-quote" id="footer-quote"></p>
+  <p class="footer-attr" id="footer-attr"></p>
+</div>
+
+<!-- NOW PLAYING BAR -->
+<div class="now-playing" id="now-playing">
+  <div class="np-inner">
+    <div class="np-icon" id="np-icon"></div>
+    <div class="np-info">
+      <div class="np-title" id="np-title"></div>
+      <div class="np-sub" id="np-sub"></div>
+    </div>
+    <div class="np-bars" id="np-bars">
+      <div class="np-bar"></div>
+      <div class="np-bar"></div>
+      <div class="np-bar"></div>
+      <div class="np-bar"></div>
+    </div>
+    <div class="np-controls">
+      <button class="np-btn primary" id="np-play-btn" onclick="togglePlay()">⏸</button>
+      <button class="np-btn" onclick="stopTrack()">■</button>
+    </div>
+  </div>
+</div>
+
+<audio id="player" loop></audio>
+
+<script>
+const BASE = 'https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/';
+const FAV_KEY = 'sahaja_music_favs';
+
+let TRACKS = [];
+let CATS = [];
+let currentKey = null;
+let isPlaying = false;
+let currentCat = 'all';
+let favSet = new Set();
+
+try { favSet = new Set(JSON.parse(localStorage.getItem(FAV_KEY) || '[]')); } catch(e) {}
+
+const player = document.getElementById('player');
+
+fetch(BASE + 'meditation_music.json?t=' + Date.now())
+  .then(r => r.json())
+  .then(data => {
+    CATS = data.categories;
+    TRACKS = data.tracks;
+    renderCats();
+    renderTracks();
+    renderFooter(data.footer_quote);
+  })
+  .catch(() => {
+    document.getElementById('tracks-wrap').innerHTML =
+      '<p style="color:var(--muted);padding:40px 24px;text-align:center;">內容載入失敗，請稍後再試。</p>';
+  });
+
+function renderCats() {
+  const wrap = document.getElementById('cat-tabs');
+  wrap.innerHTML = CATS.map(c => `
+    <button class="cat-btn ${c.key === currentCat ? 'active' : ''}"
+      onclick="filterCat('${c.key}', this)">${c.label}</button>
+  `).join('');
+}
+
+function filterCat(key, btn) {
+  currentCat = key;
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const label = CATS.find(c => c.key === key)?.label || '全部音樂';
+  document.getElementById('section-label').textContent = label;
+  document.querySelectorAll('.track-card').forEach(card => {
+    const cat = card.dataset.cat;
+    const show = key === 'all' || cat === key;
+    card.classList.toggle('hidden', !show);
+  });
+}
+
+function renderTracks() {
+  const wrap = document.getElementById('tracks-wrap');
+  wrap.innerHTML = TRACKS.map(t => {
+    const isFav = favSet.has(t.key);
+    return `
+    <div class="track-card ${t.coming_soon ? 'coming' : ''}"
+      id="card-${t.key}" data-key="${t.key}" data-cat="${t.category}"
+      style="--tc-color:${t.color}">
+      <div class="track-inner" onclick="${t.coming_soon ? '' : `playTrack('${t.key}')`}">
+        <div class="track-icon" style="background:${t.tag_color}">
+          <span>${t.emoji}</span>
+          <div class="track-play-indicator"></div>
+        </div>
+        <div class="track-info">
+          <div class="track-title">${t.title}</div>
+          <div class="track-sub">${t.subtitle}</div>
+          <div class="track-meta">
+            <span class="track-dur">⏱ ${t.duration}</span>
+            ${t.coming_soon ? '<span class="coming-tag">即將上線</span>' : ''}
+          </div>
+        </div>
+        ${!t.coming_soon ? `
+        <button class="track-fav ${isFav ? 'faved' : ''}" data-key="${t.key}"
+          onclick="event.stopPropagation();toggleFav('${t.key}',this)">
+          ${isFav ? '♥' : '♡'}
+        </button>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderFooter(fq) {
+  if (!fq) return;
+  document.getElementById('footer-quote').textContent = fq.text;
+  document.getElementById('footer-attr').textContent = '— ' + fq.author;
+}
+
+function playTrack(key) {
+  const track = TRACKS.find(t => t.key === key);
+  if (!track || track.coming_soon) return;
+
+  // 靜默（無音樂）
+  if (!track.file) {
+    stopTrack();
+    return;
+  }
+
+  // 若點同一首：切換播放/暫停
+  if (currentKey === key) {
+    togglePlay();
+    return;
+  }
+
+  // 換曲
+  if (currentKey) clearPlaying(currentKey);
+  currentKey = key;
+  isPlaying = true;
+
+  player.src = BASE + track.file;
+  player.play().catch(() => {});
+
+  updateNowPlaying(track);
+  updateCardState(key, true, false);
+}
+
+function togglePlay() {
+  if (!currentKey) return;
+  if (isPlaying) {
+    player.pause(); isPlaying = false;
+    document.getElementById('np-play-btn').textContent = '▶';
+    document.getElementById('np-bars').classList.add('paused');
+    document.getElementById('card-' + currentKey)?.classList.add('paused');
+  } else {
+    player.play().catch(() => {}); isPlaying = true;
+    document.getElementById('np-play-btn').textContent = '⏸';
+    document.getElementById('np-bars').classList.remove('paused');
+    document.getElementById('card-' + currentKey)?.classList.remove('paused');
+  }
+}
+
+function stopTrack() {
+  if (currentKey) clearPlaying(currentKey);
+  player.pause(); player.src = '';
+  currentKey = null; isPlaying = false;
+  document.getElementById('now-playing').classList.remove('visible');
+}
+
+function clearPlaying(key) {
+  const card = document.getElementById('card-' + key);
+  card?.classList.remove('playing', 'paused');
+}
+
+function updateCardState(key, playing, paused) {
+  const card = document.getElementById('card-' + key);
+  if (!card) return;
+  card.classList.toggle('playing', playing);
+  card.classList.toggle('paused', paused);
+}
+
+function updateNowPlaying(track) {
+  document.getElementById('np-icon').textContent = track.emoji;
+  document.getElementById('np-icon').style.background = track.tag_color;
+  document.getElementById('np-title').textContent = track.title;
+  document.getElementById('np-sub').textContent = track.subtitle;
+  document.getElementById('np-play-btn').textContent = '⏸';
+  document.getElementById('np-bars').classList.remove('paused');
+  document.getElementById('now-playing').classList.add('visible');
+}
+
+function toggleFav(key, btn) {
+  if (favSet.has(key)) {
+    favSet.delete(key);
+    btn.textContent = '♡'; btn.classList.remove('faved');
+  } else {
+    favSet.add(key);
+    btn.textContent = '♥'; btn.classList.add('faved');
+  }
+  try { localStorage.setItem(FAV_KEY, JSON.stringify([...favSet])); } catch(e) {}
+}
+</script>
+</body>
+</html>

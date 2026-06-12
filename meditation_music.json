@@ -1,0 +1,134 @@
+{
+  "categories": [
+    { "key": "all",    "label": "全部" },
+    { "key": "bhajan", "label": "Bhajan 梵唱" },
+    { "key": "mantra", "label": "Mantra 真言" },
+    { "key": "instrumental", "label": "靜心輕音樂" }
+  ],
+  "tracks": [
+    {
+      "key": "piano_violin",
+      "category": "instrumental",
+      "title": "鋼琴與小提琴",
+      "subtitle": "輕柔流動，適合靜坐背景",
+      "emoji": "🎹",
+      "color": "#d4a843",
+      "tag_color": "#fdf8e7",
+      "duration": "循環播放",
+      "file": "audio/Piano.mp3",
+      "coming_soon": false
+    },
+    {
+      "key": "flute",
+      "category": "instrumental",
+      "title": "鋼琴與笛聲",
+      "subtitle": "清靈空透，帶出輕盈感",
+      "emoji": "🪈",
+      "color": "#5a9e72",
+      "tag_color": "#edf7f1",
+      "duration": "循環播放",
+      "file": "audio/Flute.mp3",
+      "coming_soon": false
+    },
+    {
+      "key": "bird",
+      "category": "instrumental",
+      "title": "吉他與鳥聲",
+      "subtitle": "自然氛圍，如在林間靜坐",
+      "emoji": "🐦",
+      "color": "#4a85c0",
+      "tag_color": "#eaf2fb",
+      "duration": "循環播放",
+      "file": "audio/Bird.mp3",
+      "coming_soon": false
+    },
+    {
+      "key": "om",
+      "category": "mantra",
+      "title": "OM 梵音",
+      "subtitle": "宇宙原始振動，淨化能量場",
+      "emoji": "🕉️",
+      "color": "#7b62b8",
+      "tag_color": "#f3eff9",
+      "duration": "循環播放",
+      "file": "audio/OM.mp3",
+      "coming_soon": false
+    },
+    {
+      "key": "raga",
+      "category": "instrumental",
+      "title": "印度古典音樂",
+      "subtitle": "Raga 旋律，深層寧靜的邀請",
+      "emoji": "🎶",
+      "color": "#e8834e",
+      "tag_color": "#fef0e7",
+      "duration": "循環播放",
+      "file": "audio/Raga.mp3",
+      "coming_soon": false
+    },
+    {
+      "key": "bhajan_1",
+      "category": "bhajan",
+      "title": "Devi Stuti",
+      "subtitle": "讚頌女神之歌，充滿虔誠與愛",
+      "emoji": "🌸",
+      "color": "#d95f4b",
+      "tag_color": "#fdecea",
+      "duration": "約 8 分鐘",
+      "file": "",
+      "coming_soon": true
+    },
+    {
+      "key": "bhajan_2",
+      "category": "bhajan",
+      "title": "Jai Jagadamba",
+      "subtitle": "宇宙母親的頌歌，喚醒心輪",
+      "emoji": "💚",
+      "color": "#5a9e72",
+      "tag_color": "#edf7f1",
+      "duration": "約 6 分鐘",
+      "file": "",
+      "coming_soon": true
+    },
+    {
+      "key": "mantra_ganesha",
+      "category": "mantra",
+      "title": "Ganesha Mantra",
+      "subtitle": "清除障礙，根輪淨化",
+      "emoji": "🌱",
+      "color": "#d95f4b",
+      "tag_color": "#fdecea",
+      "duration": "約 10 分鐘",
+      "file": "",
+      "coming_soon": true
+    },
+    {
+      "key": "mantra_mahalakshmi",
+      "category": "mantra",
+      "title": "Mahalakshmi Mantra",
+      "subtitle": "知足與豐盛，臍心輪共鳴",
+      "emoji": "☀️",
+      "color": "#d4a843",
+      "tag_color": "#fdf8e7",
+      "duration": "約 10 分鐘",
+      "file": "",
+      "coming_soon": true
+    },
+    {
+      "key": "silence",
+      "category": "instrumental",
+      "title": "靜默",
+      "subtitle": "不需要音樂，只是靜靜地坐著",
+      "emoji": "🤫",
+      "color": "#7a6e5f",
+      "tag_color": "rgba(201,168,76,0.08)",
+      "duration": "無限",
+      "file": "",
+      "coming_soon": false
+    }
+  ],
+  "footer_quote": {
+    "text": "「音樂是通往靈魂最短的路。\n當你聆聽，你已經在靜心了。」",
+    "author": "Shri Mataji Nirmala Devi"
+  }
+}

@@ -52,8 +52,8 @@
     "icon": "🎵",
     "label": "冥想音樂",
     "desc": "Bhajan・Mantra・靜心輕音樂",
-    "url": null,
-    "coming_soon": true
+    "url": "meditation_music.html",
+    "coming_soon": false
   },
   {
     "icon": "📍",
