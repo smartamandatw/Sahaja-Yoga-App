@@ -4,11 +4,11 @@
       "key": "website",
       "label": "官方網站",
       "icon": "❖",
-      "sub": "活動資訊、教學資源都在這裡",
+      "sub": "活動・課程・靜坐資源，全在這裡",
       "sections": [
         {
           "type": "intro",
-          "text": "想多了解 Sahaja Yoga 的台灣資訊？官網是最完整的地方。"
+          "text": "第一次認識 Sahaja Yoga？從這裡開始，課程、活動、靜坐資源一次看。"
         },
         {
           "type": "link",
@@ -26,24 +26,24 @@
       "sections": [
         {
           "type": "intro",
-          "text": "靜坐這件事，一個人做很好，但有人一起做更好。加入社群，分享體驗，也聽聽別人的故事。"
+          "text": "靜坐這件事，一個人做得到，但有同伴會走更遠。每週靜坐之後，有個地方可以說說自己的感受——這種踏實感，很不一樣。"
         },
         {
           "type": "link",
           "title": "LINE 官方帳號",
-          "desc": "加入後收到最新活動通知與靜坐提醒",
+          "desc": "最新活動通知與靜坐提醒",
           "url": "https://line.me/R/ti/p/@647aurlx"
         },
         {
           "type": "link",
           "title": "Facebook 粉絲頁",
-          "desc": "靜坐心得・活動照片・每日語錄",
+          "desc": "靜坐心得・活動照片・知識語錄",
           "url": "https://www.facebook.com/goinnertravel"
         },
         {
           "type": "link",
           "title": "YouTube 頻道",
-          "desc": "靜坐引導影片・Shri Mataji 演講・活動記錄",
+          "desc": "靜坐引導影片・Shri Mataji 演講",
           "url": "https://www.youtube.com/@sahajayoga635"
         },
         {
@@ -58,16 +58,11 @@
       "key": "contact",
       "label": "聯絡我們",
       "icon": "❖",
-      "sub": "有問題嗎？我們很樂意回覆你",
+      "sub": "有任何疑問，都歡迎找我們聊聊。",
       "sections": [
         {
           "type": "intro",
-          "text": "不管你是剛開始好奇，還是已經在練習，有任何問題都歡迎來找我們聊聊。"
-        },
-        {
-          "type": "paragraph",
-          "title": "怎麼聯絡？",
-          "text": "Email 或 LINE 都可以。沒有標準答案，也沒有蠢問題，我們通常在 2–3 個工作天內回覆。"
+          "text": "不管你是剛開始好奇，還是已經在練習，有任何問題都歡迎來找我們聊聊。通常 2–3 個工作天內會回覆你。"
         },
         {
           "type": "link",
