@@ -3,7 +3,7 @@
     {
       "key": "line",
       "label": "先從 LINE 開始",
-      "icon": "❖",
+      "icon": "✦",
       "sub": "活動通知、報名與問題詢問",
       "sections": [
         {
@@ -21,7 +21,7 @@
     {
       "key": "website",
       "label": "官方網站",
-      "icon": "❖",
+      "icon": "✦",
       "sub": "活動・課程・靜坐資源，全在這裡",
       "sections": [
         {
@@ -39,7 +39,7 @@
     {
       "key": "video",
       "label": "先看看影片",
-      "icon": "❖",
+      "icon": "✦",
       "sub": "想先聽聽看、感受看看",
       "sections": [
         {
@@ -57,7 +57,7 @@
     {
       "key": "community",
       "label": "看看社群動態",
-      "icon": "❖",
+      "icon": "✦",
       "sub": "活動照片、練習心得與日常分享",
       "sections": [
         {
@@ -75,7 +75,7 @@
     {
       "key": "contact",
       "label": "聯絡我們",
-      "icon": "❖",
+      "icon": "✦",
       "sub": "有任何疑問，都歡迎慢慢問",
       "sections": [
         {
