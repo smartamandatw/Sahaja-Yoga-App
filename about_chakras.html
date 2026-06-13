@@ -794,8 +794,8 @@ function showResult(){
 // ── scroll hint ──
 const scrollHint = document.getElementById('scrollHint');
 function updateScrollHint() {
-  const scrollable = document.documentElement.scrollHeight > window.innerHeight + 40;
-  const nearBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 60;
+  const scrollable = document.body.scrollHeight > window.innerHeight + 40;
+  const nearBottom = window.scrollY + window.innerHeight >= document.body.scrollHeight - 60;
   scrollHint.classList.toggle('visible', scrollable && !nearBottom);
 }
 window.addEventListener('scroll', updateScrollHint, { passive:true });

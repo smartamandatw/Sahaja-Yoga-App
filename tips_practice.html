@@ -16,6 +16,8 @@
   --card:     rgba(255,255,255,0.72);
   --card-b:   rgba(201,168,76,0.20);
   --soft:     rgba(201,168,76,0.10);
+  --bg-hint:  rgba(240,232,208,0.85);  /* scroll hint 背景 */
+
 }
 
 * { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
@@ -228,6 +230,25 @@ body::before {
 .footer-note em { font-style:normal; color:var(--gold); }
 
 /* ── ANIMATIONS ── */
+/* ── SCROLL HINT ── */
+.scroll-hint{
+  position:fixed;bottom:28px;left:50%;transform:translateX(-50%);
+  z-index:30;pointer-events:none;
+  width:40px;height:40px;border-radius:50%;
+  background:var(--bg-hint);
+  border:1.5px solid var(--gold);
+  backdrop-filter:blur(10px);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;color:var(--gold);
+  opacity:0;transition:opacity .4s;
+  animation:scrollBounce 1.6s ease-in-out infinite;
+}
+.scroll-hint.visible{opacity:1;pointer-events:auto;}
+@keyframes scrollBounce{
+  0%,100%{transform:translateX(-50%) translateY(0);}
+  50%{transform:translateX(-50%) translateY(5px);}
+}
+
 @keyframes fadeUp {
   from{opacity:0;transform:translateY(18px);}
   to{opacity:1;transform:translateY(0);}
@@ -248,6 +269,8 @@ body::before {
 <div class="footer-note">
   <p>每個方法都很簡單，<em>做過才知道效果</em>。<br>從最容易的那個開始吧。</p>
 </div>
+
+<div class="scroll-hint" id="scrollHint">&#8964;</div>
 
 <script>
 const BASE = 'https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/';
@@ -332,6 +355,18 @@ fetch(BASE + 'tips_practice.json?t=' + Date.now())
     document.getElementById('cards').innerHTML =
       '<p style="color:var(--muted);padding:40px 24px;text-align:center;font-family:\'Noto Serif TC\',serif;">內容載入失敗，請稍後再試。</p>';
   });
+
+// ── scroll hint ──
+const scrollHint = document.getElementById('scrollHint');
+function updateScrollHint() {
+  const scrollable = document.documentElement.scrollHeight > window.innerHeight + 40;
+  const nearBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 60;
+  scrollHint.classList.toggle('visible', scrollable && !nearBottom);
+}
+window.addEventListener('scroll', updateScrollHint, { passive:true });
+window.addEventListener('resize', updateScrollHint);
+setTimeout(updateScrollHint, 600);
+
 </script>
 </body>
 </html>
