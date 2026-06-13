@@ -223,6 +223,8 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   <button class="action-btn" onclick="goHome()">回到主畫面</button>
 </div>
 
+<div class="scroll-hint" id="scrollHint">&#8964;</div>
+
 <script>
 const BASE = 'https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/';
 const streak = parseInt(localStorage.getItem('sahaja_streak') || '1');
@@ -324,7 +326,5 @@ window.addEventListener('resize', updateScrollHint);
 setTimeout(updateScrollHint, 600);
 
 </script>
-<div class="scroll-hint" id="scrollHint">&#8964;</div>
-
 </body>
 </html>

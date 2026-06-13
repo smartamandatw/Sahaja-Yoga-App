@@ -523,6 +523,8 @@ body::before {
   </div>
 </div>
 
+<div class="scroll-hint" id="scrollHint">&#8964;</div>
+
 <script>
 const BASE = 'https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/';
 
@@ -557,13 +559,7 @@ fetch(BASE + 'about_chakras.json?t=' + Date.now())
 
 // ── RENDER SPINE NAV ──
 function renderSpineNav(chakras) {
-  const nav = document.getElementById('spine-nav');
-  nav.innerHTML = chakras.map((c, i) => `
-    <div class="spine-btn" data-i="${i}"
-      style="background:${c.color};color:${c.color}"
-      onclick="jumpCard(${i})">
-      <span class="spine-tip">${c.name_zh.replace(/（.*?）/,'')}</span>
-    </div>`).join('');
+  // spine nav removed
 }
 
 // ── RENDER CARDS ──
@@ -803,7 +799,5 @@ window.addEventListener('resize', updateScrollHint);
 setTimeout(updateScrollHint, 600);
 
 </script>
-<div class="scroll-hint" id="scrollHint">&#8964;</div>
-
 </body>
 </html>

@@ -16,12 +16,32 @@
   --card:     rgba(255,255,255,0.72);
   --card-b:   rgba(201,168,76,0.20);
   --soft:     rgba(201,168,76,0.10);
+  --bg-hint:      rgba(240,232,208,0.85); /* scroll hint 背景 */
 }
 
   * { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
   html,body { width:100%; height:100%; overflow:hidden; font-family:"Noto Sans TC",sans-serif; }
   @keyframes fadeChar { from{opacity:0;transform:translateY(3px)} to{opacity:1;transform:translateY(0)} }
-  @keyframes fadeUp { from{opacity:0;transform:translateY(18px);} to{opacity:1;transform:translateY(0);} }
+  /* ── SCROLL HINT ── */
+.scroll-hint{
+  position:fixed;bottom:28px;left:50%;transform:translateX(-50%);
+  z-index:30;pointer-events:none;
+  width:40px;height:40px;border-radius:50%;
+  background:var(--bg-hint);
+  border:1.5px solid var(--gold);
+  backdrop-filter:blur(10px);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;color:var(--gold);
+  opacity:0;transition:opacity .4s;
+  animation:scrollBounce 1.6s ease-in-out infinite;
+}
+.scroll-hint.visible{opacity:1;pointer-events:auto;}
+@keyframes scrollBounce{
+  0%,100%{transform:translateX(-50%) translateY(0);}
+  50%{transform:translateX(-50%) translateY(5px);}
+}
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(18px);} to{opacity:1;transform:translateY(0);} }
 
   #bg {
     position:fixed; inset:0; z-index:0;
@@ -364,6 +384,25 @@
   .bg-thumb.selected { border-color:rgba(240,232,210,0.9); }
 
 
+  /* ── Accordion 內部向下箭頭提示 ── */
+  .acc-scroll-hint {
+    display:none;
+    align-items:center; justify-content:center;
+    padding:4px 0 10px;
+    transition:opacity .4s;
+  }
+  .acc-scroll-hint.visible {
+    display:flex;
+    opacity:1;
+  }
+  .acc-scroll-arrow {
+    width:28px; height:28px; border-radius:50%;
+    background:var(--soft); border:1px solid var(--gold-dim);
+    display:flex; align-items:center; justify-content:center;
+    font-size:13px; color:var(--gold);
+    animation:scrollBounce 1.6s ease-in-out infinite;
+  }
+
   /* ── 引導「即將推出」狀態 ── */
   .item-btn.locked {
     opacity: 0.5;
@@ -444,6 +483,7 @@
         <div class="acc-body-inner" id="musicList"></div>
       </div>
     </div>
+    <div class="acc-scroll-hint" id="musicScrollHint"><div class="acc-scroll-arrow">&#8964;</div></div>
 
     <!-- 引導卡片 -->
     <div class="acc-card" id="guideCard">
@@ -459,6 +499,7 @@
         <div class="acc-body-inner" id="guideList"></div>
       </div>
     </div>
+    <div class="acc-scroll-hint" id="guideScrollHint"><div class="acc-scroll-arrow">&#8964;</div></div>
 
   </div>
 
@@ -491,6 +532,8 @@
 
 <div id="meditationToast">✦ 即將開放，敬請期待</div>
 
+<div class="scroll-hint" id="scrollHint">&#8964;</div>
+
 <script>
   const BASE = 'https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/';
 
@@ -503,9 +546,17 @@
     const card = document.getElementById(id);
     const isOpen = card.classList.contains('open');
     document.querySelectorAll('.acc-card').forEach(function(c) { c.classList.remove('open'); });
+    // 關閉所有箭頭
+    document.getElementById('musicScrollHint').classList.remove('visible');
+    document.getElementById('guideScrollHint').classList.remove('visible');
     if (!isOpen) {
       card.classList.add('open');
       setTimeout(function() { card.scrollIntoView({ behavior:'smooth', block:'nearest' }); }, 60);
+      // 展開後直接顯示對應箭頭
+      const hintId = (id === 'musicCard') ? 'musicScrollHint' : 'guideScrollHint';
+      setTimeout(function() {
+        document.getElementById(hintId).classList.add('visible');
+      }, 520);
     }
   }
 
@@ -580,6 +631,7 @@
           pa.pause();
           if (selMusicUrl) { pa.src = selMusicUrl; pa.volume = 0.4; pa.play().catch(function(){}); }
           checkReady();
+          document.getElementById('musicScrollHint').classList.remove('visible');
         });
         el.appendChild(btn);
       });
@@ -625,6 +677,7 @@
             pa.pause();
             pa.src = selGuideUrl; pa.volume = 0.4; pa.play().catch(function(){});
             checkReady();
+            document.getElementById('guideScrollHint').classList.remove('visible');
           });
         }
         el.appendChild(btn);
@@ -791,6 +844,18 @@
 
     window.location.href = 'feedback.html';
   }
+
+// ── scroll hint ──
+const scrollHint = document.getElementById('scrollHint');
+function updateScrollHint() {
+  const scrollable = document.body.scrollHeight > window.innerHeight + 40;
+  const nearBottom = window.scrollY + window.innerHeight >= document.body.scrollHeight - 60;
+  scrollHint.classList.toggle('visible', scrollable && !nearBottom);
+}
+window.addEventListener('scroll', updateScrollHint, { passive:true });
+window.addEventListener('resize', updateScrollHint);
+setTimeout(updateScrollHint, 600);
+
 </script>
 </body>
 </html>

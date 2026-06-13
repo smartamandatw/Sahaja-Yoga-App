@@ -43,6 +43,25 @@ body::before {
     radial-gradient(ellipse at 80% 90%, rgba(201,168,76,0.06) 0%, transparent 60%);
 }
 
+/* ── SCROLL HINT ── */
+.scroll-hint{
+  position:fixed;bottom:28px;left:50%;transform:translateX(-50%);
+  z-index:30;pointer-events:none;
+  width:40px;height:40px;border-radius:50%;
+  background:var(--bg-hint);
+  border:1.5px solid var(--gold);
+  backdrop-filter:blur(10px);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;color:var(--gold);
+  opacity:0;transition:opacity .4s;
+  animation:scrollBounce 1.6s ease-in-out infinite;
+}
+.scroll-hint.visible{opacity:1;pointer-events:auto;}
+@keyframes scrollBounce{
+  0%,100%{transform:translateX(-50%) translateY(0);}
+  50%{transform:translateX(-50%) translateY(5px);}
+}
+
 @keyframes fadeUp   { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
 @keyframes fadeIn   { from{opacity:0} to{opacity:1} }
 @keyframes floatDot { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
@@ -107,7 +126,7 @@ body::before {
   animation:fadeUp .6s .25s ease both; opacity:0; animation-fill-mode:forwards;
 }
 .progress-label { display:flex; justify-content:space-between; font-size:11px; color:var(--muted); margin-bottom:8px; letter-spacing:1px; }
-.progress-track { background:rgba(201,168,76,.15); border-radius:10px; height:5px; overflow:hidden; margin-bottom:12px; }
+.progress-track { background:var(--progress-bg); border-radius:10px; height:5px; overflow:hidden; margin-bottom:12px; }
 .progress-fill {
   height:100%; border-radius:10px;
   background:linear-gradient(90deg,#d95f4b,#e8834e,#d4a843,#5a9e72,#4a85c0,#7b62b8,#c9a84c);
@@ -117,7 +136,7 @@ body::before {
 .day-dot {
   width:30px; height:30px; border-radius:50%;
   display:flex; align-items:center; justify-content:center;
-  font-size:14px; border:1.5px solid rgba(201,168,76,0.2);
+  font-size:14px; border:1.5px solid var(--card-border-soft);
   background:var(--bg); cursor:pointer;
   transition:transform .2s, border-color .2s;
   animation:floatDot 3s ease-in-out infinite;
@@ -162,7 +181,7 @@ body::before {
 .card:nth-child(6){animation-delay:.70s}
 .card:nth-child(7){animation-delay:.77s}
 .card.active-card {
-  box-shadow:0 6px 32px rgba(201,168,76,.15);
+  box-shadow:0 6px 32px var(--shadow-open);
   border-color:var(--accent,var(--gold-dim));
 }
 
@@ -203,14 +222,14 @@ body::before {
   background:var(--soft); border:1px solid var(--gold-dim);
   font-style:italic;
 }
-.card-intro { font-size:13.5px; color:#5a4f44; line-height:1.9; margin-bottom:14px; }
+.card-intro { font-size:13.5px; color:var(--text-dim); line-height:1.9; margin-bottom:14px; }
 
 /* steps */
 .steps-label { font-size:11px; letter-spacing:2px; color:var(--muted); margin-bottom:8px; }
 .steps-list { display:flex; flex-direction:column; gap:7px; margin-bottom:14px; }
 .step-item {
   display:flex; gap:10px; align-items:flex-start;
-  font-size:13px; color:#5a4f44; line-height:1.7;
+  font-size:13px; color:var(--text-dim); line-height:1.7;
 }
 .step-num {
   width:20px; height:20px; border-radius:50%; flex-shrink:0;
@@ -245,7 +264,7 @@ body::before {
 /* ── MEDITATION MODAL ── */
 .med-overlay {
   position:fixed; inset:0;
-  background:rgba(28,26,23,.78); backdrop-filter:blur(8px);
+  background:var(--overlay-dark); backdrop-filter:blur(8px);
   z-index:100; display:flex; align-items:flex-end; justify-content:center;
   opacity:0; pointer-events:none; transition:opacity .35s;
 }
@@ -430,6 +449,8 @@ body::before {
     </div>
   </div>
 </div>
+
+<div class="scroll-hint" id="scrollHint">&#8964;</div>
 
 <script>
 const BASE = 'https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/';
@@ -689,6 +710,18 @@ function updateTimerDisplay() {
 function updateTimerRing() {
   document.getElementById('timer-ring-fg').style.strokeDashoffset = (CIRC*(elapsed/durSec)).toFixed(1);
 }
+
+// ── scroll hint ──
+const scrollHint = document.getElementById('scrollHint');
+function updateScrollHint() {
+  const scrollable = document.body.scrollHeight > window.innerHeight + 40;
+  const nearBottom = window.scrollY + window.innerHeight >= document.body.scrollHeight - 60;
+  scrollHint.classList.toggle('visible', scrollable && !nearBottom);
+}
+window.addEventListener('scroll', updateScrollHint, { passive:true });
+window.addEventListener('resize', updateScrollHint);
+setTimeout(updateScrollHint, 600);
+
 </script>
 </body>
 </html>
