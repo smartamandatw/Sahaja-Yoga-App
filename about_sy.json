@@ -1,6 +1,23 @@
 {
   "tabs": [
     {
+      "key": "welcome",
+      "label": "給自己幾分鐘",
+      "icon": "",
+      "sections": [
+        {
+          "type": "hero",
+          "title": "給自己幾分鐘",
+          "text": "你不需要成為另一個人。\n\n你只需要停下來幾分鐘。\n\nSahaja Yoga 是一種免費、自然的靜坐方式，幫助你在忙碌的生活中重新找回內在的平靜。"
+        },
+        {
+          "type": "paragraph",
+          "title": "不是逃離生活",
+          "text": "而是在忙碌之中，找到一個讓自己安靜下來的方法。"
+        }
+      ]
+    },
+    {
       "key": "benefits",
       "label": "能帶給我什麼？",
       "icon": "",
@@ -28,6 +45,38 @@
           "type": "paragraph",
           "title": "而且完全免費",
           "text": "全球超過 100 個國家都有 Sahaja Yoga 的靜坐課程，任何人都可以參加，從來不收費。"
+        },
+        {
+          "type": "paragraph",
+          "title": "為什麼完全免費？",
+          "text": "Sahaja Yoga 從創立開始就堅持免費分享。因為真正的成長與內在平衡，不應該被價格限制。"
+        }
+      ]
+    },
+    {
+      "key": "forwho",
+      "label": "適合誰？",
+      "icon": "",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "不需要任何經驗。如果你有以下的感受，也許可以試試看。"
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "工作很忙，腦袋停不下來",
+            "常常覺得疲憊，卻睡不好",
+            "想學冥想，但不知道從哪開始",
+            "情緒容易受到外界影響",
+            "想找回內在的平靜",
+            "想更了解真正的自己"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "title": "如果你正在尋找什麼",
+          "text": "也許不是更多的方法，而是給自己幾分鐘，安靜地回到內在。"
         }
       ]
     },
@@ -38,7 +87,7 @@
       "sections": [
         {
           "type": "intro",
-          "text": "Sahaja Yoga 是一種冥想方法，由 Shri Mataji Nirmala Devi 在 1970 年帶給世界。"
+          "text": "如果你常常覺得很累、很焦慮，卻不知道怎麼真正放鬆自己，Sahaja Yoga 提供了一種簡單而自然的方法。\n\n不需要改變信仰，也不需要學習複雜技巧，只要透過靜坐，就能慢慢找回內在的平衡。"
         },
         {
           "type": "paragraph",
@@ -53,33 +102,7 @@
         {
           "type": "paragraph",
           "title": "第一次靜坐可能就有感覺",
-          "text": "很多人第一次靜坐就感受到手掌或頭頂有清涼的微風感。那不是想像，那是你的昆達里尼能量在流動。"
-        }
-      ]
-    },
-    {
-      "key": "founder",
-      "label": "創辦人",
-      "icon": "",
-      "sections": [
-        {
-          "type": "intro",
-          "text": "Shri Mataji Nirmala Devi，1923 年生於印度，她把一生都用來做一件事——讓每個人都能免費得到自我覺悟。"
-        },
-        {
-          "type": "paragraph",
-          "title": "她做了什麼？",
-          "text": "在她之前，靈性覺醒被認為是少數人才能到達的境界。她找到了一個方法，讓這件事對所有人都變得可能，而且不收一分錢。"
-        },
-        {
-          "type": "paragraph",
-          "title": "環遊世界四十年",
-          "text": "從 1970 年開始，她在全球超過 100 個國家親自傳授靜坐。不是透過組織或代理人——是她本人，一個城市一個城市地去。"
-        },
-        {
-          "type": "quote",
-          "text": "「你必須成長，像樹般地生長，因為你的生命就像一棵樹。」",
-          "author": "— Shri Mataji Nirmala Devi"
+          "text": "很多人第一次靜坐時，會感受到手掌或頭頂有清涼感、溫熱感，或是一種難以形容的平靜。\n\n在 Sahaja Yoga 裡，我們稱這種現象為昆達里尼能量的覺醒。"
         }
       ]
     },
@@ -128,23 +151,60 @@
     },
     {
       "key": "video",
-      "label": "影片",
+      "label": "從這裡開始",
       "icon": "",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "第一次接觸 Sahaja Yoga？建議依照下面順序觀看。"
+        }
+      ],
       "videos": [
         {
-          "title": "什麼是 Sahaja Yoga？",
-          "desc": "三分鐘了解 Sahaja Yoga 的核心",
+          "title": "① 什麼是 Sahaja Yoga？",
+          "desc": "3 分鐘快速了解核心概念",
           "youtube_id": "dQw4w9WgXcQ"
         },
         {
-          "title": "Shri Mataji 談自我實現",
-          "desc": "聆聽創始人親自解說自我實現的意義",
+          "title": "② 第一次靜坐體驗",
+          "desc": "跟著引導完成第一次體驗",
+          "youtube_id": "fwKd9hUtc4w"
+        },
+        {
+          "title": "③ 常見問題",
+          "desc": "新手最常遇到的疑問",
           "youtube_id": "dQw4w9WgXcQ"
         },
         {
-          "title": "初學者靜坐引導",
-          "desc": "跟著引導完成你的第一次 Sahaja Yoga 體驗",
+          "title": "④ 想更深入了解",
+          "desc": "Shri Mataji 談自覺與靜坐",
           "youtube_id": "dQw4w9WgXcQ"
+        }
+      ]
+    },
+    {
+      "key": "founder",
+      "label": "創辦人",
+      "icon": "",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "Shri Mataji Nirmala Devi，1923 年生於印度。她把一生都用來做一件事——讓每個人都能免費得到自覺。"
+        },
+        {
+          "type": "paragraph",
+          "title": "她做了什麼？",
+          "text": "1970 年，她提出了一個簡單卻革命性的想法：每個人都可以透過自身體驗認識真正的自己，而且不需要付費。"
+        },
+        {
+          "type": "paragraph",
+          "title": "環遊世界分享靜坐",
+          "text": "從 1970 年開始，她在全球許多國家親自傳授 Sahaja Yoga，讓靈性覺醒不再只是少數人的追求，而成為每個人都能親身體驗的可能。"
+        },
+        {
+          "type": "quote",
+          "text": "「你必須成長，像樹般地生長，因為你的生命就像一棵樹。」",
+          "author": "— Shri Mataji Nirmala Devi"
         }
       ]
     }

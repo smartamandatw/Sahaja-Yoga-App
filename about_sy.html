@@ -119,6 +119,8 @@ body::after {
 .acc-card:nth-child(3){animation-delay:.26s;}
 .acc-card:nth-child(4){animation-delay:.34s;}
 .acc-card:nth-child(5){animation-delay:.42s;}
+.acc-card:nth-child(6){animation-delay:.50s;}
+.acc-card:nth-child(7){animation-delay:.58s;}
 
 .acc-card.open {
   box-shadow:0 6px 28px var(--shadow-open);
@@ -169,6 +171,64 @@ body::after {
   line-height:2; letter-spacing:.05em; margin-bottom:14px;
 }
 
+
+.c-hero-card {
+  margin-bottom:12px; padding:18px 18px; border-radius:18px;
+  background:linear-gradient(180deg, rgba(255,255,255,.68), rgba(201,168,76,.10));
+  border:1px solid rgba(201,168,76,0.28);
+}
+.c-hero-card h3 {
+  font-family:"Noto Serif TC",serif; font-size:16px;
+  color:var(--text); margin-bottom:8px; letter-spacing:.05em;
+}
+.c-hero-card p {
+  font-size:13.5px; color:var(--muted); line-height:2;
+  white-space:pre-line;
+}
+
+.c-checklist{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  margin-bottom:12px;
+}
+.c-check{
+  display:flex; align-items:flex-start; gap:10px;
+  padding:12px 14px;
+  border-radius:14px;
+  background:rgba(255,255,255,.6);
+  border:1px solid var(--gold-dim);
+  color:var(--text);
+  font-size:13px;
+  line-height:1.8;
+}
+.c-check-mark{
+  color:var(--gold); font-weight:700; flex-shrink:0;
+}
+
+.c-check-emoji{
+  width:24px; height:24px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(201,168,76,0.12);
+  border:1px solid rgba(201,168,76,0.22);
+  font-size:13px;
+}
+
+.c-cta-btn{
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  margin-top:14px; padding:14px 18px;
+  border-radius:999px;
+  background:rgba(201,168,76,0.28);
+  border:1px solid rgba(201,168,76,0.46);
+  color:var(--text);
+  text-decoration:none;
+  font-family:"Noto Serif TC",serif;
+  font-size:14px; font-weight:700; letter-spacing:.08em;
+  transition:background .2s, transform .15s;
+}
+.c-cta-btn:active{background:rgba(201,168,76,0.42);transform:scale(.98);}
+.c-cta-note{font-size:11.5px;color:var(--muted);text-align:center;line-height:1.7;margin-top:8px;}
+
 .c-paragraph {
   margin-bottom:12px; padding:14px 16px; border-radius:14px;
   background:rgba(255,255,255,.6); border:1px solid var(--gold-dim);
@@ -212,7 +272,34 @@ body::after {
 }
 .c-step-text p { font-size:12.8px; color:var(--muted); line-height:1.85; }
 
-.c-videos { display:flex; flex-direction:column; gap:8px; margin-bottom:4px; }
+.c-videos { display:flex; flex-direction:column; gap:10px; margin-bottom:4px; }
+.c-video-card{
+  display:flex; overflow:hidden; border-radius:16px;
+  background:rgba(255,255,255,.64); border:1px solid var(--gold-dim);
+  text-decoration:none; transition:background .2s, transform .15s;
+}
+.c-video-card:active{background:var(--gold-dim);transform:scale(.985);}
+.c-video-thumb{
+  width:96px; min-height:78px; flex-shrink:0; position:relative;
+  background-size:cover; background-position:center;
+  border-right:1px solid rgba(201,168,76,0.18);
+}
+.c-video-thumb::after{
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(135deg, rgba(28,26,23,.08), rgba(201,168,76,.18));
+}
+.c-video-play{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:1;
+  width:34px; height:34px; border-radius:50%;
+  background:rgba(240,232,208,.82); border:1px solid rgba(201,168,76,.62);
+  display:flex; align-items:center; justify-content:center;
+}
+.c-video-play svg{width:12px;height:12px;fill:var(--gold);margin-left:2px;}
+.c-video-content{flex:1;display:flex;align-items:center;gap:10px;padding:12px 12px;}
+.c-video-badge{
+  font-size:10.5px; color:var(--gold); letter-spacing:.08em;
+  margin-bottom:3px; font-weight:600;
+}
 .c-video-btn {
   display:flex; align-items:center; gap:12px;
   padding:12px 14px; border-radius:14px;
@@ -281,9 +368,12 @@ body::after {
 </div>
 
 <div class="hero">
-  <span class="hero-tag">點開每個主題，用自己的步調慢慢了解</span>
-  <h1>自然而然<br><em>與生俱來</em></h1>
-  <p class="hero-desc">用簡單、安靜的方式，慢慢認識 Sahaja Yoga 的核心。</p>
+  <span class="hero-tag">不需要任何經驗，也不需要相信任何事</span>
+  <h1>你不需要成為<br><em>另一個人</em></h1>
+  <p class="hero-desc">
+    你只需要停下來幾分鐘。<br><br>
+    Sahaja Yoga 是一種免費、自然的靜坐方式，幫助你在忙碌的生活中重新找回內在的平靜。
+  </p>
 </div>
 
 <div class="cards" id="cards"></div>
@@ -300,19 +390,36 @@ const BASE = 'https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/ma
 
 // icon map per tab key
 const ICONS = {
+  welcome:  '✧',
   benefits: '✧',
-  what:     '✧',
-  founder:  '✧',
+  forwho:   '✧',
   practice: '✧',
+  what:     '✧',
   video:    '✧',
+  founder:  '✧'
 };
 const SUBS = {
+  welcome:  '給自己幾分鐘',
   benefits: '對我的生活有什麼幫助？',
-  what:     '這到底是什麼？',
-  founder:  '誰創辦了 Sahaja Yoga？',
+  forwho:   '看看是不是正在描述你',
   practice: '我現在就可以試試看',
-  video:    '用影片了解更多',
+  what:     '這到底是什麼？',
+  video:    '第一次接觸建議從這裡開始',
+  founder:  '誰創辦了 Sahaja Yoga？'
 };
+
+const CHECK_ICONS = [
+  '💼','😴','🧘','🌊','🌿','🤍'
+];
+
+function videoThumb(id){
+  return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+}
+
+function videoBadge(index){
+  const labels = ['第一步','第二步','第三步','深入了解'];
+  return labels[index] || '推薦影片';
+}
 
 let openIdx = -1;
 
@@ -325,7 +432,7 @@ function toggleCard(i) {
     if (openIdx >= 0) cards[openIdx].classList.remove('open');
     cards[i].classList.add('open');
     openIdx = i;
-    setTimeout(() => cards[i].scrollIntoView({ behavior:'smooth', block:'nearest' }), 60);
+    setTimeout(() => { cards[i].scrollIntoView({ behavior:'smooth', block:'nearest' }); updateScrollHint(); }, 60);
   }
 }
 
@@ -336,10 +443,19 @@ function renderSections(tab) {
     tab.sections.forEach(s => {
       if (s.type === 'intro') {
         html += `<p class="c-intro">${s.text}</p>`;
+      } else if (s.type === 'hero') {
+        html += `<div class="c-hero-card"><h3>${s.title}</h3><p>${s.text}</p></div>`;
       } else if (s.type === 'paragraph') {
         html += `<div class="c-paragraph"><h3>${s.title}</h3><p>${s.text}</p></div>`;
       } else if (s.type === 'quote') {
         html += `<div class="c-quote"><p>${s.text}</p><div class="author">${s.author}</div></div>`;
+      } else if (s.type === 'checklist') {
+        html += `<div class="c-checklist">`;
+        s.items.forEach((item, idx) => {
+          const icon = CHECK_ICONS[idx] || '✓';
+          html += `<div class="c-check"><span class="c-check-emoji">${icon}</span><span>${item}</span></div>`;
+        });
+        html += `</div>`;
       } else if (s.type === 'steps') {
         html += `<div class="c-steps">`;
         s.items.forEach(item => {
@@ -353,13 +469,22 @@ function renderSections(tab) {
     });
   }
 
+  if (tab.key === 'practice') {
+    html += `<a class="c-cta-btn" href="meditation_room.html">立即體驗靜坐 <span>→</span></a>`;
+    html += `<div class="c-cta-note">不需要準備，找一個安靜的位置就可以開始。</div>`;
+  }
+
   if (tab.videos) {
     html += `<div class="c-videos">`;
-    tab.videos.forEach(v => {
-      html += `<a class="c-video-btn" href="https://www.youtube.com/watch?v=${v.youtube_id}" target="_blank" rel="noopener">
-        <div class="c-video-icon"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
-        <div class="c-video-info"><h4>${v.title}</h4><p>${v.desc}</p></div>
-        <span class="c-video-arrow">›</span>
+    tab.videos.forEach((v, idx) => {
+      html += `<a class="c-video-card" href="https://www.youtube.com/watch?v=${v.youtube_id}" target="_blank" rel="noopener">
+        <div class="c-video-thumb" style="background-image:url('${videoThumb(v.youtube_id)}')">
+          <div class="c-video-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+        </div>
+        <div class="c-video-content">
+          <div class="c-video-info"><div class="c-video-badge">${videoBadge(idx)}</div><h4>${v.title}</h4><p>${v.desc}</p></div>
+          <span class="c-video-arrow">›</span>
+        </div>
       </a>`;
     });
     html += `</div>`;
@@ -371,7 +496,7 @@ function renderSections(tab) {
 function renderCards(tabs) {
   const wrap = document.getElementById('cards');
   wrap.innerHTML = tabs.map((tab, i) => `
-    <div class="acc-card" id="card-${i}">
+    <div class="acc-card ${i === 0 ? 'open' : ''}" id="card-${i}">
       <div class="acc-header" onclick="toggleCard(${i})">
         <div class="acc-icon">${ICONS[tab.key] || tab.icon || '✦'}</div>
         <div class="acc-titles">
@@ -387,6 +512,7 @@ function renderCards(tabs) {
       </div>
     </div>
   `).join('');
+  openIdx = tabs.length ? 0 : -1;
 }
 
 function goBack() {
@@ -396,7 +522,16 @@ function goBack() {
 
 fetch(BASE + 'about_sy.json?t=' + Date.now())
   .then(r => r.json())
-  .then(data => { renderCards(data.tabs); setTimeout(updateScrollHint, 200); })
+  .then(data => {
+    const order = ['welcome','benefits','forwho','practice','what','video','founder'];
+    const sortedTabs = [...data.tabs].sort((a,b) => {
+      const ai = order.indexOf(a.key);
+      const bi = order.indexOf(b.key);
+      return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+    });
+    renderCards(sortedTabs);
+    setTimeout(updateScrollHint, 200);
+  })
   .catch(() => {
     document.getElementById('cards').innerHTML =
       '<p style="color:var(--muted);padding:40px 24px;text-align:center;font-family:\'Noto Serif TC\',serif;">內容載入失敗，請稍後再試。</p>';
