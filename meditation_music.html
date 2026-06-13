@@ -43,6 +43,25 @@ body::before {
     radial-gradient(ellipse at 80% 90%, rgba(201,168,76,0.06) 0%, transparent 60%);
 }
 
+/* ── SCROLL HINT ── */
+.scroll-hint{
+  position:fixed;bottom:28px;left:50%;transform:translateX(-50%);
+  z-index:30;pointer-events:none;
+  width:40px;height:40px;border-radius:50%;
+  background:var(--bg-hint);
+  border:1.5px solid var(--gold);
+  backdrop-filter:blur(10px);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;color:var(--gold);
+  opacity:0;transition:opacity .4s;
+  animation:scrollBounce 1.6s ease-in-out infinite;
+}
+.scroll-hint.visible{opacity:1;pointer-events:auto;}
+@keyframes scrollBounce{
+  0%,100%{transform:translateX(-50%) translateY(0);}
+  50%{transform:translateX(-50%) translateY(5px);}
+}
+
 @keyframes fadeUp   { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
 @keyframes fadeIn   { from{opacity:0} to{opacity:1} }
 @keyframes spin     { to{transform:rotate(360deg)} }
@@ -133,7 +152,7 @@ body::before {
 .np-btn:active { transform:scale(.92); }
 .np-btn.primary { background:var(--text); color:var(--bg); }
 .np-btn:hover { background:var(--gold-dim); }
-.np-btn.primary:hover { background:#3a3530; }
+.np-btn.primary:hover { background:var(--btn-dark); }
 
 /* ── CATEGORY TABS ── */
 .cat-tabs {
@@ -181,7 +200,7 @@ body::before {
 .track-card:nth-child(10){animation-delay:.84s}
 .track-card.playing {
   border-color:var(--tc-color, var(--gold-dim));
-  box-shadow:0 4px 24px rgba(201,168,76,.12);
+  box-shadow:0 4px 24px var(--shadow-card);
 }
 .track-card.coming {
   opacity:.55;
@@ -202,10 +221,10 @@ body::before {
 .track-play-indicator {
   position:absolute; inset:0; border-radius:14px;
   display:none; align-items:center; justify-content:center;
-  background:rgba(0,0,0,.15); font-size:14px;
+  background:var(--overlay-light); font-size:14px;
 }
 .track-card.playing .track-play-indicator { display:flex; }
-.track-card.playing .track-play-indicator::after { content:'▶'; font-size:12px; color:#fff; }
+.track-card.playing .track-play-indicator::after { content:'▶'; font-size:12px; color:var(--bg); }
 .track-card.playing.paused .track-play-indicator::after { content:'⏸'; }
 
 .track-info { flex:1; min-width:0; }
@@ -227,7 +246,7 @@ body::before {
   color:var(--muted);
 }
 .track-fav:active { transform:scale(.85); }
-.track-fav.faved { color:#d95f4b; }
+.track-fav.faved { color:var(--fav-color); }
 
 /* ── FOOTER ── */
 .footer {
@@ -454,6 +473,20 @@ function toggleFav(key, btn) {
   }
   try { localStorage.setItem(FAV_KEY, JSON.stringify([...favSet])); } catch(e) {}
 }
+
+// ── scroll hint ──
+const scrollHint = document.getElementById('scrollHint');
+function updateScrollHint() {
+  const scrollable = document.documentElement.scrollHeight > window.innerHeight + 40;
+  const nearBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 60;
+  scrollHint.classList.toggle('visible', scrollable && !nearBottom);
+}
+window.addEventListener('scroll', updateScrollHint, { passive:true });
+window.addEventListener('resize', updateScrollHint);
+setTimeout(updateScrollHint, 600);
+
 </script>
+<div class="scroll-hint" id="scrollHint">&#8964;</div>
+
 </body>
 </html>

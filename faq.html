@@ -16,6 +16,14 @@
   --card:     rgba(255,255,255,0.72);
   --card-b:   rgba(201,168,76,0.20);
   --soft:     rgba(201,168,76,0.10);
+  --bg-blur:  rgba(240,232,208,0.94);  /* nav 毛玻璃背景 */
+  --bg-hint:  rgba(240,232,208,0.85);  /* scroll hint 背景 */
+  --shadow-open: rgba(201,168,76,0.14); /* 展開卡片陰影 */
+  --card-open-b: rgba(201,168,76,0.40); /* 展開卡片邊框 */
+  --card-white:  rgba(255,255,255,0.60); /* 內層白卡底色 */
+  --card-white2: rgba(255,255,255,0.80); /* 內層白卡底色（較深）*/
+  --btn-gold:    rgba(201,168,76,0.25);  /* 金色按鈕底色 */
+  --btn-gold-active: rgba(201,168,76,0.45); /* 金色按鈕 active */
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 
@@ -72,7 +80,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 
 /* ── FAQ ITEMS inside each category ── */
 .faq-item{border-radius:14px;background:rgba(255,255,255,.55);border:1px solid var(--gold-dim);margin-bottom:7px;overflow:hidden;transition:background .2s,border-color .2s;}
-.faq-item.open{background:rgba(255,255,255,.8);border-color:rgba(201,168,76,.4);}
+.faq-item.open{background:var(--card-white2);border-color:var(--card-open-b);}
 
 .faq-q{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding:14px 15px;cursor:pointer;font-family:"Noto Serif TC",serif;font-size:clamp(13px,3.6vw,14.5px);color:var(--text);line-height:1.65;letter-spacing:.03em;user-select:none;}
 .faq-q:active{opacity:.75;}
@@ -91,6 +99,25 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .footer-note{position:relative;z-index:1;margin:0 16px 48px;background:var(--card);border-radius:20px;border:1px solid var(--card-b);padding:22px;backdrop-filter:blur(8px);text-align:center;animation:fadeUp .5s .45s ease both;opacity:0;animation-fill-mode:forwards;}
 .footer-note p{font-family:"Noto Serif TC",serif;font-size:13px;color:var(--muted);line-height:2;}
 .footer-note em{font-style:normal;color:var(--gold);}
+
+/* ── SCROLL HINT ── */
+.scroll-hint{
+  position:fixed;bottom:28px;left:50%;transform:translateX(-50%);
+  z-index:30;pointer-events:none;
+  width:40px;height:40px;border-radius:50%;
+  background:var(--bg-hint);
+  border:1.5px solid var(--gold);
+  backdrop-filter:blur(10px);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;color:var(--gold);
+  opacity:0;transition:opacity .4s;
+  animation:scrollBounce 1.6s ease-in-out infinite;
+}
+.scroll-hint.visible{opacity:1;pointer-events:auto;}
+@keyframes scrollBounce{
+  0%,100%{transform:translateX(-50%) translateY(0);}
+  50%{transform:translateX(-50%) translateY(5px);}
+}
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
 </style>
@@ -179,11 +206,25 @@ function goBack() {
 
 fetch(BASE + 'faq.json?t=' + Date.now())
   .then(r => r.json())
-  .then(data => renderCats(data))
+  .then(data => { renderCats(data); setTimeout(updateScrollHint, 200); })
   .catch(() => {
     document.getElementById('cats').innerHTML =
       '<div class="loading">載入失敗，請稍後再試。</div>';
   });
+
+// ── scroll hint ──
+const scrollHint = document.getElementById('scrollHint');
+function updateScrollHint() {
+  const scrollable = document.documentElement.scrollHeight > window.innerHeight + 40;
+  const nearBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 60;
+  scrollHint.classList.toggle('visible', scrollable && !nearBottom);
+}
+window.addEventListener('scroll', updateScrollHint, { passive:true });
+window.addEventListener('resize', updateScrollHint);
+setTimeout(updateScrollHint, 600);
+
 </script>
+<div class="scroll-hint" id="scrollHint">&#8964;</div>
+
 </body>
 </html>

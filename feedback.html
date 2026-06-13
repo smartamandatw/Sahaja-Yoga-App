@@ -16,6 +16,14 @@
   --card:     rgba(255,255,255,0.72);
   --card-b:   rgba(201,168,76,0.20);
   --soft:     rgba(201,168,76,0.10);
+  --bg-blur:  rgba(240,232,208,0.94);  /* nav 毛玻璃背景 */
+  --bg-hint:  rgba(240,232,208,0.85);  /* scroll hint 背景 */
+  --shadow-open: rgba(201,168,76,0.14); /* 展開卡片陰影 */
+  --card-open-b: rgba(201,168,76,0.40); /* 展開卡片邊框 */
+  --card-white:  rgba(255,255,255,0.60); /* 內層白卡底色 */
+  --card-white2: rgba(255,255,255,0.80); /* 內層白卡底色（較深）*/
+  --btn-gold:    rgba(201,168,76,0.25);  /* 金色按鈕底色 */
+  --btn-gold-active: rgba(201,168,76,0.45); /* 金色按鈕 active */
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 
@@ -64,7 +72,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   transition:box-shadow .25s, border-color .2s;
 }
 .feeling-item.open{
-  box-shadow:0 6px 28px rgba(201,168,76,.14);
+  box-shadow:0 6px 28px var(--shadow-open);
   border-color:var(--gold-dim);
 }
 
@@ -110,14 +118,14 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   display:block; margin:0 auto;
   width:200px; padding:13px 0;
   border-radius:999px;
-  background:rgba(201,168,76,0.25);
+  background:var(--btn-gold);
   border:1px solid var(--gold);
   color:var(--text); font-family:"Noto Serif TC",serif;
   font-size:14px; letter-spacing:.12em;
   cursor:pointer; text-align:center;
   transition:background .2s, transform .1s;
 }
-.action-btn:active{ background:rgba(201,168,76,0.45); transform:scale(0.97); }
+.action-btn:active{ background:var(--btn-gold-active); transform:scale(0.97); }
 
 /* ── JOURNAL ── */
 .journal-wrap{display:flex;flex-direction:column;gap:12px;margin-bottom:20px;}
@@ -146,6 +154,25 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .stats-duration{font-family:"Noto Serif TC",serif;font-size:clamp(13px,3.8vw,15px);color:var(--muted);letter-spacing:.08em;}
 .stats-divider{width:60px;height:1px;background:var(--gold-dim);}
 .stats-msg{font-family:"Noto Serif TC",serif;font-size:clamp(13px,3.6vw,15px);color:var(--text);letter-spacing:.08em;line-height:1.9;}
+
+/* ── SCROLL HINT ── */
+.scroll-hint{
+  position:fixed;bottom:28px;left:50%;transform:translateX(-50%);
+  z-index:30;pointer-events:none;
+  width:40px;height:40px;border-radius:50%;
+  background:var(--bg-hint);
+  border:1.5px solid var(--gold);
+  backdrop-filter:blur(10px);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;color:var(--gold);
+  opacity:0;transition:opacity .4s;
+  animation:scrollBounce 1.6s ease-in-out infinite;
+}
+.scroll-hint.visible{opacity:1;pointer-events:auto;}
+@keyframes scrollBounce{
+  0%,100%{transform:translateX(-50%) translateY(0);}
+  50%{transform:translateX(-50%) translateY(5px);}
+}
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
 </style>
@@ -284,6 +311,20 @@ function goHome() {
   sessionStorage.setItem('fromMeditation', '1');
   window.location.href = 'index.html';
 }
+
+// ── scroll hint ──
+const scrollHint = document.getElementById('scrollHint');
+function updateScrollHint() {
+  const scrollable = document.documentElement.scrollHeight > window.innerHeight + 40;
+  const nearBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 60;
+  scrollHint.classList.toggle('visible', scrollable && !nearBottom);
+}
+window.addEventListener('scroll', updateScrollHint, { passive:true });
+window.addEventListener('resize', updateScrollHint);
+setTimeout(updateScrollHint, 600);
+
 </script>
+<div class="scroll-hint" id="scrollHint">&#8964;</div>
+
 </body>
 </html>

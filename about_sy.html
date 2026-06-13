@@ -16,6 +16,14 @@
   --card:     rgba(255,255,255,0.72);
   --card-b:   rgba(201,168,76,0.20);
   --soft:     rgba(201,168,76,0.10);
+  --bg-blur:  rgba(240,232,208,0.94);  /* nav 毛玻璃背景 */
+  --bg-hint:  rgba(240,232,208,0.85);  /* scroll hint 背景 */
+  --shadow-open: rgba(201,168,76,0.14); /* 展開卡片陰影 */
+  --card-open-b: rgba(201,168,76,0.40); /* 展開卡片邊框 */
+  --card-white:  rgba(255,255,255,0.60); /* 內層白卡底色 */
+  --card-white2: rgba(255,255,255,0.80); /* 內層白卡底色（較深）*/
+  --btn-gold:    rgba(201,168,76,0.25);  /* 金色按鈕底色 */
+  --btn-gold-active: rgba(201,168,76,0.45); /* 金色按鈕 active */
 }
 
 * { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
@@ -39,7 +47,7 @@ body::before {
 /* ── TOP NAV ── */
 .top-nav {
   position:sticky; top:0; z-index:20;
-  background:rgba(240,232,208,.94);
+  background:var(--bg-blur);
   backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
   border-bottom:1px solid var(--gold-dim);
   padding:14px 16px 12px;
@@ -100,7 +108,7 @@ body::before {
 .acc-card:nth-child(5){animation-delay:.42s;}
 
 .acc-card.open {
-  box-shadow:0 6px 28px rgba(201,168,76,.14);
+  box-shadow:0 6px 28px var(--shadow-open);
   border-color:var(--gold-dim);
 }
 
@@ -110,6 +118,15 @@ body::before {
   padding:18px 18px; cursor:pointer;
   user-select:none; -webkit-tap-highlight-color:transparent;
 }
+.acc-icon {
+  width:44px; height:44px; border-radius:14px;
+  background:var(--soft); border:1px solid var(--gold-dim);
+  display:flex; align-items:center; justify-content:center;
+  font-size:20px; flex-shrink:0;
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+}
+.acc-card.open .acc-icon { transform:scale(1.1) rotate(-5deg); }
+
 .acc-titles { flex:1; }
 .acc-zh {
   font-family:"Noto Serif TC",serif; font-size:1rem; font-weight:700;
@@ -219,26 +236,26 @@ body::before {
 }
 .footer-quote span { font-size:12px; color:var(--gold); }
 
+/* ── ANIMATIONS ── */
 /* ── SCROLL HINT ── */
-.scroll-hint {
-  position:fixed; bottom:28px; left:50%; transform:translateX(-50%);
-  z-index:30; pointer-events:none;
-  width:40px; height:40px; border-radius:50%;
-  background:rgba(240,232,208,.85);
+.scroll-hint{
+  position:fixed;bottom:28px;left:50%;transform:translateX(-50%);
+  z-index:30;pointer-events:none;
+  width:40px;height:40px;border-radius:50%;
+  background:var(--bg-hint);
   border:1.5px solid var(--gold);
   backdrop-filter:blur(10px);
-  display:flex; align-items:center; justify-content:center;
-  font-size:16px; color:var(--gold);
-  opacity:0; transition:opacity .4s;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;color:var(--gold);
+  opacity:0;transition:opacity .4s;
   animation:scrollBounce 1.6s ease-in-out infinite;
 }
-.scroll-hint.visible { opacity:1; pointer-events:auto; }
-@keyframes scrollBounce {
-  0%,100% { transform:translateX(-50%) translateY(0); }
-  50%      { transform:translateX(-50%) translateY(5px); }
+.scroll-hint.visible{opacity:1;pointer-events:auto;}
+@keyframes scrollBounce{
+  0%,100%{transform:translateX(-50%) translateY(0);}
+  50%{transform:translateX(-50%) translateY(5px);}
 }
 
-/* ── ANIMATIONS ── */
 @keyframes fadeUp { from{opacity:0;transform:translateY(18px);} to{opacity:1;transform:translateY(0);} }
 </style>
 </head>
@@ -247,8 +264,9 @@ body::before {
 <button class="back-btn" style="position:sticky;top:16px;margin:16px 0 0 16px;z-index:20;display:inline-block;" onclick="goBack()">← 返回</button>
 
 <div class="hero">
-  <h1>靜下來，遇見<em>真正的自己</em></h1>
-  <span class="hero-tag">點開每個主題，用自己的步調慢慢了解</span>
+  <span class="hero-tag">SAHAJA YOGA · 基礎認識</span>
+  <h1>靜下來，<br>遇見<em>真正的自己</em></h1>
+  <p class="hero-desc">點開每個主題，用自己的步調慢慢了解 ✨</p>
 </div>
 
 <div class="cards" id="cards"></div>
@@ -258,18 +276,16 @@ body::before {
   <span>— Shri Mataji Nirmala Devi</span>
 </div>
 
-<div class="scroll-hint" id="scrollHint">&#8964;</div>
-
 <script>
 const BASE = 'https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/';
 
 // icon map per tab key
 const ICONS = {
-  benefits: '✧',
-  what:     '✧',
-  founder:  '✧',
-  practice: '✧',
-  video:    '✧',
+  benefits: '🌱',
+  what:     '🌸',
+  founder:  '✨',
+  practice: '🕊️',
+  video:    '▶️',
 };
 const SUBS = {
   benefits: '對我的生活有什麼幫助？',
@@ -338,6 +354,7 @@ function renderCards(tabs) {
   wrap.innerHTML = tabs.map((tab, i) => `
     <div class="acc-card" id="card-${i}">
       <div class="acc-header" onclick="toggleCard(${i})">
+        <div class="acc-icon">${ICONS[tab.key] || tab.icon || '✦'}</div>
         <div class="acc-titles">
           <div class="acc-zh">${tab.label}</div>
           <div class="acc-sub">${SUBS[tab.key] || ''}</div>
@@ -358,21 +375,6 @@ function goBack() {
   else window.location.href = 'menu.html';
 }
 
-// ── scroll hint ──
-const scrollHint = document.getElementById('scrollHint');
-function updateScrollHint() {
-  const scrollable = document.documentElement.scrollHeight > window.innerHeight + 40;
-  const nearBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 60;
-  if (scrollable && !nearBottom) {
-    scrollHint.classList.add('visible');
-  } else {
-    scrollHint.classList.remove('visible');
-  }
-}
-window.addEventListener('scroll', updateScrollHint, { passive:true });
-window.addEventListener('resize', updateScrollHint);
-setTimeout(updateScrollHint, 600);
-
 fetch(BASE + 'about_sy.json?t=' + Date.now())
   .then(r => r.json())
   .then(data => { renderCards(data.tabs); setTimeout(updateScrollHint, 200); })
@@ -380,6 +382,20 @@ fetch(BASE + 'about_sy.json?t=' + Date.now())
     document.getElementById('cards').innerHTML =
       '<p style="color:var(--muted);padding:40px 24px;text-align:center;font-family:\'Noto Serif TC\',serif;">內容載入失敗，請稍後再試。</p>';
   });
+
+// ── scroll hint ──
+const scrollHint = document.getElementById('scrollHint');
+function updateScrollHint() {
+  const scrollable = document.documentElement.scrollHeight > window.innerHeight + 40;
+  const nearBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 60;
+  scrollHint.classList.toggle('visible', scrollable && !nearBottom);
+}
+window.addEventListener('scroll', updateScrollHint, { passive:true });
+window.addEventListener('resize', updateScrollHint);
+setTimeout(updateScrollHint, 600);
+
 </script>
+<div class="scroll-hint" id="scrollHint">&#8964;</div>
+
 </body>
 </html>

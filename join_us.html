@@ -16,6 +16,14 @@
   --card:     rgba(255,255,255,0.72);
   --card-b:   rgba(201,168,76,0.20);
   --soft:     rgba(201,168,76,0.10);
+  --bg-blur:  rgba(240,232,208,0.94);  /* nav 毛玻璃背景 */
+  --bg-hint:  rgba(240,232,208,0.85);  /* scroll hint 背景 */
+  --shadow-open: rgba(201,168,76,0.14); /* 展開卡片陰影 */
+  --card-open-b: rgba(201,168,76,0.40); /* 展開卡片邊框 */
+  --card-white:  rgba(255,255,255,0.60); /* 內層白卡底色 */
+  --card-white2: rgba(255,255,255,0.80); /* 內層白卡底色（較深）*/
+  --btn-gold:    rgba(201,168,76,0.25);  /* 金色按鈕底色 */
+  --btn-gold-active: rgba(201,168,76,0.45); /* 金色按鈕 active */
 }
 * { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
 html,body {
@@ -37,7 +45,7 @@ body::before {
 /* ── TOP NAV ── */
 .top-nav {
   position:sticky; top:0; z-index:20;
-  background:rgba(240,232,208,.94);
+  background:var(--bg-blur);
   backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
   border-bottom:1px solid var(--gold-dim);
   padding:14px 16px 12px;
@@ -97,7 +105,7 @@ body::before {
 .acc-card:nth-child(2){animation-delay:.16s}
 .acc-card:nth-child(3){animation-delay:.24s}
 .acc-card.open {
-  box-shadow:0 6px 28px rgba(201,168,76,.14);
+  box-shadow:0 6px 28px var(--shadow-open);
   border-color:var(--gold-dim);
 }
 
@@ -211,7 +219,7 @@ body::before {
   position:fixed; bottom:28px; left:50%; transform:translateX(-50%);
   z-index:30; pointer-events:none;
   width:40px; height:40px; border-radius:50%;
-  background:rgba(240,232,208,.85);
+  background:var(--bg-hint);
   border:1.5px solid var(--gold);
   backdrop-filter:blur(10px);
   display:flex; align-items:center; justify-content:center;

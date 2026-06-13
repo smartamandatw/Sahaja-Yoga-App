@@ -16,6 +16,17 @@
   --card:     rgba(255,255,255,0.72);
   --card-b:   rgba(201,168,76,0.20);
   --soft:     rgba(201,168,76,0.10);
+  --green:       #3d7a56;            /* 免費標籤文字色 */
+  --green-bg:    rgba(90,158,114,0.12); /* 免費標籤底色 */
+  --green-b:     rgba(90,158,114,0.30); /* 免費標籤邊框 */
+  --bg-blur:  rgba(240,232,208,0.94);  /* nav 毛玻璃背景 */
+  --bg-hint:  rgba(240,232,208,0.85);  /* scroll hint 背景 */
+  --shadow-open: rgba(201,168,76,0.14); /* 展開卡片陰影 */
+  --card-open-b: rgba(201,168,76,0.40); /* 展開卡片邊框 */
+  --card-white:  rgba(255,255,255,0.60); /* 內層白卡底色 */
+  --card-white2: rgba(255,255,255,0.80); /* 內層白卡底色（較深）*/
+  --btn-gold:    rgba(201,168,76,0.25);  /* 金色按鈕底色 */
+  --btn-gold-active: rgba(201,168,76,0.45); /* 金色按鈕 active */
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 
@@ -55,7 +66,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .acc-card{background:var(--card);border-radius:20px;border:1px solid var(--card-b);overflow:hidden;backdrop-filter:blur(8px);transition:box-shadow .25s;opacity:0;animation:fadeUp .5s ease both;}
 .acc-card:nth-child(1){animation-delay:.08s}
 .acc-card:nth-child(2){animation-delay:.16s}
-.acc-card.open{box-shadow:0 6px 28px rgba(201,168,76,.14);border-color:var(--gold-dim);}
+.acc-card.open{box-shadow:0 6px 28px var(--shadow-open);border-color:var(--gold-dim);}
 
 .acc-header{display:flex;align-items:center;gap:14px;padding:18px;cursor:pointer;user-select:none;}
 .acc-icon{width:44px;height:44px;border-radius:14px;flex-shrink:0;background:var(--soft);border:1px solid var(--gold-dim);display:flex;align-items:center;justify-content:center;font-size:20px;transition:transform .35s cubic-bezier(.34,1.56,.64,1);}
@@ -81,9 +92,9 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 /* ── FREE BADGE ── */
 .free-badge{
   display:inline-flex; align-items:center; gap:6px;
-  background:rgba(90,158,114,.12); border:1px solid rgba(90,158,114,.3);
+  background:var(--green-bg); border:1px solid var(--green-b);
   border-radius:20px; padding:5px 12px; margin-bottom:14px;
-  font-size:12px; color:#3d7a56; font-weight:500;
+  font-size:12px; color:var(--green); font-weight:500;
 }
 
 /* ── LINK BUTTONS ── */
@@ -100,6 +111,25 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .footer-note{position:relative;z-index:1;margin:0 16px 48px;background:var(--card);border-radius:20px;border:1px solid var(--card-b);padding:22px;backdrop-filter:blur(8px);text-align:center;animation:fadeUp .5s .25s ease both;opacity:0;animation-fill-mode:forwards;}
 .footer-note p{font-family:"Noto Serif TC",serif;font-size:13px;color:var(--muted);line-height:2;}
 .footer-note em{font-style:normal;color:var(--gold);}
+
+/* ── SCROLL HINT ── */
+.scroll-hint{
+  position:fixed;bottom:28px;left:50%;transform:translateX(-50%);
+  z-index:30;pointer-events:none;
+  width:40px;height:40px;border-radius:50%;
+  background:var(--bg-hint);
+  border:1.5px solid var(--gold);
+  backdrop-filter:blur(10px);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;color:var(--gold);
+  opacity:0;transition:opacity .4s;
+  animation:scrollBounce 1.6s ease-in-out infinite;
+}
+.scroll-hint.visible{opacity:1;pointer-events:auto;}
+@keyframes scrollBounce{
+  0%,100%{transform:translateX(-50%) translateY(0);}
+  50%{transform:translateX(-50%) translateY(5px);}
+}
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
 </style>
@@ -198,11 +228,25 @@ function goBack() {
 
 fetch(BASE + 'events.json?t=' + Date.now())
   .then(r => r.json())
-  .then(data => renderCards(data.tabs))
+  .then(data => { renderCards(data.tabs); setTimeout(updateScrollHint, 200); })
   .catch(() => {
     document.getElementById('cards').innerHTML =
       '<p style="color:var(--muted);padding:40px 24px;text-align:center;font-family:\'Noto Serif TC\',serif;">內容載入失敗，請稍後再試。</p>';
   });
+
+// ── scroll hint ──
+const scrollHint = document.getElementById('scrollHint');
+function updateScrollHint() {
+  const scrollable = document.documentElement.scrollHeight > window.innerHeight + 40;
+  const nearBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 60;
+  scrollHint.classList.toggle('visible', scrollable && !nearBottom);
+}
+window.addEventListener('scroll', updateScrollHint, { passive:true });
+window.addEventListener('resize', updateScrollHint);
+setTimeout(updateScrollHint, 600);
+
 </script>
+<div class="scroll-hint" id="scrollHint">&#8964;</div>
+
 </body>
 </html>
