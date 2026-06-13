@@ -8,17 +8,25 @@
   },
   {
     "icon": "",
-    "label": "七個輪穴",
-    "desc": "認識身體裡的七個能量中心",
-    "url": "about_chakras.html",
+    "label": "常見問答",
+    "desc": "你可能想問的都在這裡",
+    "url": "faq.html",
     "coming_soon": false
   },
+  {
+    "icon": "",
+    "label": "靜坐技巧",
+    "desc": "腳浴・元素・左右脈平衡法",
+    "url": "tips_practice.html",
+    "coming_soon": true
+  },
+
   {
     "icon": "",
     "label": "七天靜心之旅",
     "desc": "從零開始，建立每天靜坐的習慣",
     "url": "seven_days.html",
-    "coming_soon": false
+    "coming_soon": true
   },
   {
     "icon": "",
@@ -29,31 +37,24 @@
   },
   {
     "icon": "",
-    "label": "靜坐技巧",
-    "desc": "腳浴・元素・左右脈平衡法",
-    "url": "tips_practice.html",
-    "coming_soon": false
+    "label": "七個輪穴",
+    "desc": "認識身體裡的七個能量中心",
+    "url": "about_chakras.html",
+    "coming_soon": true
   },
-  {
-    "icon": "",
-    "label": "常見問答",
-    "desc": "你可能想問的都在這裡",
-    "url": "faq.html",
-    "coming_soon": false
-  },
-  {
+ {
     "icon": "",
     "label": "深入探索",
     "desc": "昆達里尼・三脈・精微能量系統",
     "url": "deep_explore.html",
-    "coming_soon": false
+    "coming_soon": true
   },
   {
     "icon": "",
     "label": "冥想音樂",
     "desc": "Bhajan・Mantra・靜心輕音樂",
     "url": "meditation_music.html",
-    "coming_soon": false
+    "coming_soon": true
   },
   {
     "icon": "",
