@@ -26,12 +26,12 @@
       "sections": [
         {
           "type": "intro",
-          "text": "靜坐這件事，一個人做得到，但有同伴會走更遠。每週靜坐之後，有個地方可以說說自己的感受——這種踏實感，很不一樣。"
+          "text": "靜坐這件事，一個人做得到，但有同伴會走更遠。向內的旅程，有伴不孤單。"
         },
         {
           "type": "link",
           "title": "LINE 官方帳號",
-          "desc": "最新活動通知與靜坐提醒",
+          "desc": "最新活動通知與報名",
           "url": "https://line.me/R/ti/p/@647aurlx"
         },
         {
@@ -45,12 +45,6 @@
           "title": "YouTube 頻道",
           "desc": "靜坐引導影片・Shri Mataji 演講",
           "url": "https://www.youtube.com/@sahajayoga635"
-        },
-        {
-          "type": "link",
-          "title": "Threads",
-          "desc": "日常靜坐分享・靈性小語",
-          "url": "https://www.threads.com/@sahaja_yoga_taiwan"
         }
       ]
     },
