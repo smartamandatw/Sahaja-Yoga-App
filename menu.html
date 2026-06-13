@@ -123,8 +123,6 @@ body::before{
   opacity:.5;
 }
 
-.card-icon{font-size:26px;line-height:1;}
-
 .card-body{flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:5px;}
 .card-label{
   font-family:"Noto Serif TC",serif;
@@ -160,6 +158,25 @@ body::before{
 }
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
+/* ── SCROLL HINT ── */
+.scroll-hint{
+  position:fixed;bottom:28px;left:50%;transform:translateX(-50%);
+  z-index:30;pointer-events:none;
+  width:40px;height:40px;border-radius:50%;
+  background:rgba(240,232,208,.85);
+  border:1.5px solid var(--gold);
+  backdrop-filter:blur(10px);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;color:var(--gold);
+  opacity:0;transition:opacity .4s;
+  animation:scrollBounce 1.6s ease-in-out infinite;
+}
+.scroll-hint.visible{opacity:1;pointer-events:auto;}
+@keyframes scrollBounce{
+  0%,100%{transform:translateX(-50%) translateY(0);}
+  50%{transform:translateX(-50%) translateY(5px);}
+}
+
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
 </style>
 </head>
@@ -174,10 +191,23 @@ body::before{
 
 <div class="grid" id="grid"></div>
 
+<div class="scroll-hint" id="scrollHint">&#8964;</div>
+
 <div class="toast" id="toast">✦ 即將開放，敬請期待</div>
 
 <script>
 const BASE = 'https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/';
+
+// ── scroll hint ──
+const scrollHint = document.getElementById('scrollHint');
+function updateScrollHint() {
+  const scrollable = document.documentElement.scrollHeight > window.innerHeight + 40;
+  const nearBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 60;
+  scrollHint.classList.toggle('visible', scrollable && !nearBottom);
+}
+window.addEventListener('scroll', updateScrollHint, { passive:true });
+window.addEventListener('resize', updateScrollHint);
+setTimeout(updateScrollHint, 600);
 
 let toastTimer = null;
 function showToast() {
@@ -200,8 +230,7 @@ fetch(BASE + 'menu.json?t=' + Date.now())
       const el = document.createElement('div');
       el.className = 'card' + (item.coming_soon ? ' coming-soon' : '');
       el.innerHTML =
-        `<div class="card-icon">${item.icon}</div>
-         <div class="card-body">
+        `<div class="card-body">
            <div class="card-label">${item.label}</div>
            <div class="card-desc">${item.desc}</div>
          </div>` +
@@ -212,6 +241,7 @@ fetch(BASE + 'menu.json?t=' + Date.now())
       });
       grid.appendChild(el);
     });
+    setTimeout(updateScrollHint, 200);
   })
   .catch(() => {
     document.getElementById('grid').innerHTML =
