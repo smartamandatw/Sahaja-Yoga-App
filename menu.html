@@ -8,15 +8,24 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:       #F0E8D0;
-  --text:     #1C1A17;
-  --gold:     #C9A84C;
-  --gold-dim: rgba(201,168,76,0.22);
-  --muted:    #7a6e5f;
-  --card:     rgba(255,255,255,0.75);
-  --card-b:   rgba(201,168,76,0.22);
-  --soft:     rgba(201,168,76,0.10);
+  /* ── 主色系 ── */
+  --bg:           #F0E8D0;              /* 頁面底色：暖米白 */
+  --text:         #1C1A17;              /* 主要文字：深墨 */
+  --muted:        #7a6e5f;              /* 次要文字：灰褐 */
+  --gold:         #C9A84C;              /* 強調色：金 */
+
+  /* ── 衍生色（自動從主色計算，改主色這裡跟著變） ── */
+  --gold-dim:     rgba(201,168,76,0.22);  /* 金色邊框、淡背景 */
+  --soft:         rgba(201,168,76,0.10);  /* 極淡金底 */
+  --card:         rgba(255,255,255,0.75); /* 卡片底色 */
+  --card-b:       rgba(201,168,76,0.22);  /* 卡片邊框 */
+  --bg-blur:      rgba(240,232,208,0.94); /* nav 毛玻璃背景 */
+  --bg-hint:      rgba(240,232,208,0.85); /* scroll hint 背景 */
+  --card-coming:  rgba(255,255,255,0.45); /* 即將開放卡片底色 */
+  --shadow-sm:    rgba(201,168,76,0.10);  /* 輕陰影 */
+  --shadow-md:    rgba(201,168,76,0.15);  /* 中陰影 */
 }
+
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html,body{width:100%;min-height:100%;font-family:"Noto Sans TC",sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
 
@@ -35,7 +44,7 @@ body::before{
 /* ── TOP NAV ── */
 .top-nav{
   position:sticky;top:0;z-index:20;
-  background:rgba(240,232,208,.94);
+  background:var(--bg-blur);
   backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
   border-bottom:1px solid var(--gold-dim);
   display:flex;align-items:center;justify-content:space-between;
@@ -101,12 +110,15 @@ body::before{
   transition:transform .15s,box-shadow .2s;
   opacity:0;animation:fadeUp .45s ease forwards;
 }
-.card:active{transform:scale(0.96);box-shadow:0 2px 12px rgba(201,168,76,.1);}
-.card:not(.coming-soon):hover{box-shadow:0 4px 20px rgba(201,168,76,.15);}
+.card:active{transform:scale(0.96);box-shadow:0 2px 12px var(--shadow-sm);}
+.card:not(.coming-soon):hover{box-shadow:0 4px 20px var(--shadow-md);}
 
-.card.coming-soon{opacity:0!important;animation:fadeUp .45s ease forwards;border-color:var(--gold-dim);background:rgba(255,255,255,.45);}
-.card.coming-soon .card-label,.card.coming-soon .card-desc{opacity:.45;}
-.card.coming-soon .card-icon{opacity:.4;filter:grayscale(30%);}
+.card.coming-soon{
+  opacity:0!important;animation:fadeUp .45s ease forwards;
+  border-color:var(--gold-dim);background:var(--card-coming);
+}
+.card.coming-soon .card-label,
+.card.coming-soon .card-desc{opacity:.45;}
 
 /* staggered delays */
 .card:nth-child(1){animation-delay:.05s} .card:nth-child(2){animation-delay:.10s}
@@ -134,8 +146,11 @@ body::before{
   color:var(--muted);letter-spacing:.02em;line-height:1.5;
 }
 
+/* ── BADGE 即將開放（一直顯示） ── */
 .badge-soon{
-  position:absolute;top:11px;right:11px;
+  display:inline-block;
+  margin-top:6px;
+  align-self:flex-start;
   font-family:"Noto Sans TC",sans-serif;font-size:9px;
   letter-spacing:.04em;color:var(--muted);
   background:var(--soft);border:1px solid var(--gold-dim);
@@ -162,7 +177,7 @@ body::before{
   position:fixed;bottom:28px;left:50%;transform:translateX(-50%);
   z-index:30;pointer-events:none;
   width:40px;height:40px;border-radius:50%;
-  background:rgba(240,232,208,.85);
+  background:var(--bg-hint);
   border:1.5px solid var(--gold);
   backdrop-filter:blur(10px);
   display:flex;align-items:center;justify-content:center;
@@ -232,8 +247,8 @@ fetch(BASE + 'menu.json?t=' + Date.now())
         `<div class="card-body">
            <div class="card-label">${item.label}</div>
            <div class="card-desc">${item.desc}</div>
-         </div>` +
-        (item.coming_soon ? '<span class="badge-soon">即將開放</span>' : '');
+           ${item.coming_soon ? '<span class="badge-soon">即將開放</span>' : ''}
+         </div>`;
       el.addEventListener('click', () => {
         if (item.url) window.location.href = item.url;
         else showToast();
