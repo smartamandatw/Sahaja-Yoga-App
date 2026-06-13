@@ -51,7 +51,9 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 
 /* ── HERO ── */
 .hero{padding:32px 22px 22px;text-align:center;position:relative;z-index:1;animation:fadeUp .6s ease both;}
-.hero-tag{display:inline-block;background:var(--soft);color:var(--gold);font-size:11px;letter-spacing:3px;padding:4px 14px;border-radius:20px;margin-bottom:14px;border:1px solid var(--gold-dim);}
+.hero-tag{display:inline-block;background:var(--bg);
+          color:var(--text);font-size:11px;letter-spacing:3px;padding:4px 14px;
+          border-radius:20px;margin-bottom:14px;border:1px solid var(--gold-dim);}
 .hero h1{font-family:"Noto Serif TC",serif;font-size:clamp(1.5rem,5vw,1.9rem);font-weight:700;color:var(--text);line-height:1.4;margin-bottom:10px;}
 .hero h1 em{font-style:normal;color:var(--gold);}
 .hero-desc{font-size:13.5px;color:var(--muted);line-height:1.9;max-width:300px;margin:0 auto;}
@@ -127,9 +129,8 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 <button class="back-btn" style="position:sticky;top:16px;margin:16px 0 0 16px;z-index:20;display:inline-block;" onclick="goBack()">← 返回</button>
 
 <div class="hero">
-  <span class="hero-tag">SAHAJA YOGA · FAQ</span>
-  <h1>你想問的，<br><em>這裡大概都有</em></h1>
-  <p class="hero-desc">點開分類，找到你的問題 🌿</p>
+  <h1>你想問的，<em>這裡大概都有</em></h1>
+  <span class="hero-tag">點開分類，找到你的問題</span>
 </div>
 
 <div class="cats" id="cats"><div class="loading">載入中⋯⋯</div></div>
