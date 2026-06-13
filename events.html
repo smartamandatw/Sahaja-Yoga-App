@@ -161,15 +161,15 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 </div>
 
 <div class="hero">
-  <span class="hero-tag">全台各地・線上課程・完全免費</span>
-  <h1>活動<em>資訊</em></h1>
-  <p class="hero-desc">找一個適合你的時間，親自來感受看看。</p>
+  <span class="hero-tag">免費參加・新手友善</span>
+  <h1>找一個時間<br><em>來坐坐看</em></h1>
+  <p class="hero-desc">不用準備，也不用有經驗。選一個方便的時間，來親自感受看看。</p>
 </div>
 
 <div class="cards" id="cards"></div>
 
 <div class="footer-note">
-  <p>第一次去不知道會怎樣？<br><em>帶著好奇心出現就夠了。</em></p>
+  <p>第一次參加不用擔心。<br><em>不需要懂靜坐，也不會被要求加入任何東西。</em></p>
 </div>
 
 <div class="scroll-hint" id="scrollHint">&#8964;</div>
@@ -207,7 +207,7 @@ function renderSections(tab) {
   }
 
   // free badge
-  html += `<div class="free-badge">✓ 所有活動完全免費，無需報名</div>`;
+  html += `<div class="free-badge">✓ 免費參加・新手友善</div>`;
 
   if (tab.sections) {
     tab.sections.forEach(s => {
@@ -243,6 +243,16 @@ function renderCards(tabs) {
       </div>
     </div>
   `).join('');
+
+  // 預設展開第一張卡片，讓第一次進來的人不用多點一次
+  setTimeout(() => {
+    const first = document.getElementById('card-0');
+    if (first) {
+      first.classList.add('open');
+      openIdx = 0;
+      updateScrollHint();
+    }
+  }, 80);
 }
 
 function goBack() {
