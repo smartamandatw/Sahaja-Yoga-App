@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>常見問與答 — Sahaja Yoga</title>
+<title>常見問答 — Sahaja Yoga</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -16,34 +16,34 @@
   --card:     rgba(255,255,255,0.82);
   --card-b:   rgba(201,168,76,0.20);
   --soft:     rgba(201,168,76,0.10);
-  --bg-blur:  rgba(240,232,208,0.94);  /* nav 毛玻璃背景 */
-  --bg-hint:  rgba(240,232,208,0.85);  /* scroll hint 背景 */
-  --shadow-open: rgba(201,168,76,0.14); /* 展開卡片陰影 */
-  --card-open-b: rgba(201,168,76,0.40); /* 展開卡片邊框 */
-  --card-white:  rgba(255,255,255,0.72); /* 內層白卡底色 */
-  --card-white2: rgba(255,255,255,0.88); /* 內層白卡底色（較深）*/
-  --btn-gold:    rgba(201,168,76,0.25);  /* 金色按鈕底色 */
-  --btn-gold-active: rgba(201,168,76,0.45); /* 金色按鈕 active */
-  --brown:    #3A2F18; /* 深咖啡色 */
+  --bg-hint:  rgba(240,232,208,0.85);
+  --shadow-open: rgba(201,168,76,0.14);
+  --card-open-b: rgba(201,168,76,0.40);
+  --card-white:  rgba(255,255,255,0.72);
+  --card-white2: rgba(255,255,255,0.88);
+  --brown:    #3A2F18;
 }
+
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 
-html,body{width:100%;min-height:100%;font-family:"Noto Sans TC",sans-serif;
-background:var(--bg);color:var(--text);overflow-x:hidden;
-background-image: url("https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/png/app_back_ground.png");
-background-size: cover;
-background-position: center;}
+html,body{
+  width:100%;min-height:100%;font-family:"Noto Sans TC",sans-serif;
+  background:var(--bg);color:var(--text);overflow-x:hidden;
+  background-image:url("https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/png/app_back_ground.png");
+  background-size:cover;background-position:center;
+}
 
-body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   background:
-    linear-gradient(rgba(240,232,208,.38),rgba(240,232,208,.38)),
+    linear-gradient(rgba(240,232,208,.42),rgba(240,232,208,.42)),
     radial-gradient(ellipse at 15% 0%,rgba(201,168,76,.12) 0%,transparent 55%),
-    radial-gradient(ellipse at 85% 100%,rgba(201,168,76,.09) 0%,transparent 55%);}
+    radial-gradient(ellipse at 85% 100%,rgba(201,168,76,.09) 0%,transparent 55%);
+}
 
 /* ── TOP NAV ── */
 .top-nav{
-  position:sticky;top:0;z-index:20;
-  width:100%;
+  position:sticky;top:0;z-index:20;width:100%;
   background:rgba(240,232,208,0.82);
   backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
   border-bottom:1px solid rgba(201,168,76,0.18);
@@ -51,42 +51,104 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   padding:12px 16px 10px;
   padding-top:max(env(safe-area-inset-top,0px),12px);
 }
-.back-btn {
-  font-family:"Noto Sans TC",sans-serif; font-size:13px;
-  color:var(--muted); background:rgba(255,255,255,0.48);
-  border:1px solid rgba(201,168,76,0.32); border-radius:999px;
-  padding:7px 13px; cursor:pointer;
-  transition:background .2s,color .2s,transform .1s; white-space:nowrap;
+.back-btn{
+  font-family:"Noto Sans TC",sans-serif;font-size:13px;color:var(--muted);
+  background:rgba(255,255,255,0.48);border:1px solid rgba(201,168,76,0.32);
+  border-radius:999px;padding:7px 13px;cursor:pointer;
+  transition:background .2s,color .2s,transform .1s;white-space:nowrap;
 }
-.back-btn:active { background:var(--gold-dim); color:var(--text); transform:scale(0.97); }
+.back-btn:active{background:var(--gold-dim);color:var(--text);transform:scale(0.97);}
 .nav-title{
-  font-family:"Noto Serif TC",serif;
-  font-size:clamp(14px,3.8vw,16px);
-  color:var(--text);letter-spacing:.16em;
-  position:absolute;left:50%;transform:translateX(-50%);
+  font-family:"Noto Serif TC",serif;font-size:clamp(14px,3.8vw,16px);
+  color:var(--text);letter-spacing:.16em;position:absolute;left:50%;transform:translateX(-50%);
 }
 .nav-spacer{width:76px;}
 
 /* ── HERO ── */
-.hero{padding:38px 22px 24px;text-align:center;position:relative;z-index:1;animation:fadeUp .6s ease both;}
-.hero-tag{display:inline-block;background:var(--bg);
-          color:var(--text);font-size:11px;letter-spacing:3px;padding:4px 14px;
-          border-radius:20px;margin-bottom:14px;border:1px solid var(--gold-dim);}
-.hero h1{font-family:"Noto Serif TC",serif;font-size:clamp(1.6rem,5vw,2rem);font-weight:700;color:var(--text);line-height:1.4;margin-bottom:10px;}
+.hero{
+  padding:34px 22px 20px;text-align:center;position:relative;z-index:1;
+  animation:fadeUp .6s ease both;
+}
+.hero-tag{
+  display:inline-block;background:rgba(255,255,255,.48);color:var(--muted);
+  font-size:11px;letter-spacing:3px;padding:5px 15px;border-radius:999px;
+  margin-bottom:14px;border:1px solid var(--gold-dim);
+}
+.hero h1{
+  font-family:"Noto Serif TC",serif;font-size:clamp(1.55rem,5vw,2rem);
+  font-weight:700;color:var(--text);line-height:1.45;margin-bottom:10px;
+}
 .hero h1 em{font-style:normal;color:var(--gold);}
-.hero-desc{font-size:13.5px;color:var(--muted);line-height:1.9;max-width:300px;margin:0 auto;}
+.hero-desc{
+  font-size:13.5px;color:var(--muted);line-height:1.9;max-width:320px;margin:0 auto;
+}
+
+/* ── SEARCH + HOT QUESTIONS ── */
+.faq-tools{
+  position:relative;z-index:1;padding:0 16px 14px;animation:fadeUp .55s .08s ease both;opacity:0;animation-fill-mode:forwards;
+}
+.search-box{
+  display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.70);
+  border:1px solid var(--gold-dim);border-radius:18px;padding:11px 14px;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  box-shadow:0 4px 18px rgba(120,95,40,.06);
+}
+.search-icon{font-size:15px;color:var(--gold);flex-shrink:0;}
+.search-box input{
+  flex:1;border:0;outline:0;background:transparent;color:var(--text);
+  font-family:"Noto Sans TC",sans-serif;font-size:14px;line-height:1.4;
+}
+.search-box input::placeholder{color:rgba(106,95,82,.72);}
+.clear-search{
+  border:0;background:rgba(201,168,76,.12);color:var(--muted);
+  width:24px;height:24px;border-radius:50%;font-size:14px;cursor:pointer;display:none;
+}
+.clear-search.visible{display:flex;align-items:center;justify-content:center;}
+
+.search-status{
+  display:none;margin:9px 2px 0;font-size:12px;color:var(--muted);line-height:1.7;
+}
+.search-status.visible{display:block;}
+
+.hot-wrap{
+  margin-top:12px;background:rgba(255,255,255,.50);border:1px solid rgba(201,168,76,.18);
+  border-radius:18px;padding:12px 12px 11px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+}
+.hot-title{
+  font-family:"Noto Serif TC",serif;font-size:12.5px;color:var(--text);letter-spacing:.08em;
+  margin-bottom:8px;padding-left:2px;
+}
+.hot-chips{display:flex;gap:7px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none;}
+.hot-chips::-webkit-scrollbar{display:none;}
+.hot-chip{
+  flex:0 0 auto;border:1px solid var(--gold-dim);background:rgba(255,255,255,.68);
+  color:var(--muted);border-radius:999px;padding:7px 11px;font-size:12px;line-height:1;
+  cursor:pointer;white-space:nowrap;font-family:"Noto Sans TC",sans-serif;
+}
+.hot-chip:active{background:var(--gold-dim);color:var(--text);transform:scale(.98);}
 
 /* ── OUTER CATEGORY CARDS ── */
-.cats{position:relative;z-index:1;display:flex;flex-direction:column;gap:10px;padding:0 16px;margin-bottom:48px;}
-
-.cat-card{background:var(--card);border-radius:20px;border:1px solid var(--card-b);overflow:hidden;backdrop-filter:blur(8px);transition:box-shadow .25s;opacity:0;animation:fadeUp .5s ease both;}
-.cat-card:nth-child(1){animation-delay:.06s} .cat-card:nth-child(2){animation-delay:.12s}
-.cat-card:nth-child(3){animation-delay:.18s} .cat-card:nth-child(4){animation-delay:.24s}
-.cat-card:nth-child(5){animation-delay:.30s} .cat-card:nth-child(6){animation-delay:.36s}
-.cat-card.open{box-shadow:0 6px 28px rgba(201,168,76,.14);border-color:var(--gold-dim);}
+.cats{
+  position:relative;z-index:1;display:flex;flex-direction:column;gap:10px;
+  padding:0 16px;margin-bottom:48px;
+}
+.cat-card{
+  background:var(--card);border-radius:20px;border:1px solid var(--card-b);overflow:hidden;
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  transition:box-shadow .25s,border-color .25s;opacity:0;animation:fadeUp .5s ease both;
+}
+.cat-card:nth-child(1){animation-delay:.06s}.cat-card:nth-child(2){animation-delay:.12s}
+.cat-card:nth-child(3){animation-delay:.18s}.cat-card:nth-child(4){animation-delay:.24s}
+.cat-card:nth-child(5){animation-delay:.30s}.cat-card:nth-child(6){animation-delay:.36s}
+.cat-card.open{box-shadow:0 6px 28px var(--shadow-open);border-color:var(--gold-dim);}
+.cat-card.search-mode{border-color:rgba(201,168,76,.34);}
 
 .cat-header{display:flex;align-items:center;gap:14px;padding:17px 18px;cursor:pointer;user-select:none;}
-.cat-icon{width:44px;height:44px;border-radius:14px;flex-shrink:0;background:var(--soft);border:1px solid var(--gold-dim);display:flex;align-items:center;justify-content:center;font-size:20px;transition:transform .35s cubic-bezier(.34,1.56,.64,1);}
+.cat-icon{
+  width:44px;height:44px;border-radius:14px;flex-shrink:0;background:var(--soft);
+  border:1px solid var(--gold-dim);display:flex;align-items:center;justify-content:center;
+  font-size:20px;transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+}
 .cat-card.open .cat-icon{transform:scale(1.1) rotate(-5deg);}
 .cat-titles{flex:1;min-width:0;}
 .cat-name{font-family:"Noto Serif TC",serif;font-size:1rem;font-weight:700;color:var(--text);}
@@ -95,53 +157,70 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .cat-card.open .cat-arrow{transform:rotate(90deg);color:var(--gold);}
 
 .cat-body{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.4,0,.2,1),opacity .35s;opacity:0;}
-.cat-card.open .cat-body{max-height:4000px;opacity:1;}
+.cat-card.open .cat-body{max-height:5000px;opacity:1;}
 .cat-body-inner{padding:0 14px 16px;}
 
-/* ── FAQ ITEMS inside each category ── */
-.faq-item{border-radius:14px;background:rgba(255,255,255,.55);border:1px solid var(--gold-dim);margin-bottom:7px;overflow:hidden;transition:background .2s,border-color .2s;}
+/* ── FAQ ITEMS ── */
+.faq-item{
+  border-radius:14px;background:rgba(255,255,255,.55);border:1px solid var(--gold-dim);
+  margin-bottom:7px;overflow:hidden;transition:background .2s,border-color .2s;
+}
 .faq-item.open{background:var(--card-white2);border-color:var(--card-open-b);}
+.faq-item.highlight{box-shadow:0 0 0 2px rgba(201,168,76,.18);}
 
-.faq-q{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding:14px 15px;cursor:pointer;font-family:"Noto Serif TC",serif;font-size:clamp(13px,3.6vw,14.5px);color:var(--text);line-height:1.65;letter-spacing:.03em;user-select:none;}
+.faq-q{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding:14px 15px;
+  cursor:pointer;font-family:"Noto Serif TC",serif;font-size:clamp(13px,3.6vw,14.5px);
+  color:var(--text);line-height:1.65;letter-spacing:.03em;user-select:none;
+}
 .faq-q:active{opacity:.75;}
-
-.faq-chevron{flex-shrink:0;width:20px;height:20px;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:11px;transition:transform .28s ease;margin-top:1px;}
+.faq-chevron{
+  flex-shrink:0;width:20px;height:20px;display:flex;align-items:center;justify-content:center;
+  color:var(--gold);font-size:11px;transition:transform .28s ease;margin-top:1px;
+}
 .faq-item.open .faq-chevron{transform:rotate(180deg);}
-
 .faq-a-wrap{max-height:0;overflow:hidden;transition:max-height .38s ease,opacity .28s;opacity:0;}
-.faq-item.open .faq-a-wrap{max-height:1000px;opacity:1;}
-.faq-a{padding:0 15px 15px;padding-top:2px;font-size:clamp(12.5px,3.4vw,13.5px);color:#4f463d;line-height:1.95;white-space:pre-line;border-top:1px solid var(--gold-dim);}
+.faq-item.open .faq-a-wrap{max-height:1200px;opacity:1;}
+.faq-a{
+  padding:0 15px 15px;padding-top:2px;font-size:clamp(12.5px,3.4vw,13.5px);
+  color:#4f463d;line-height:1.95;white-space:pre-line;border-top:1px solid var(--gold-dim);
+}
+mark{background:rgba(201,168,76,.25);color:inherit;border-radius:4px;padding:0 2px;}
+
+.empty-state{
+  display:none;position:relative;z-index:1;margin:0 16px 18px;padding:22px 18px;
+  background:var(--card);border:1px solid var(--card-b);border-radius:20px;text-align:center;
+  color:var(--muted);line-height:1.9;font-size:13.5px;font-family:"Noto Serif TC",serif;
+}
+.empty-state.visible{display:block;}
+.empty-state em{font-style:normal;color:var(--brown);}
 
 /* ── LOADING ── */
-.loading{display:flex;align-items:center;justify-content:center;padding:80px 24px;font-family:"Noto Serif TC",serif;font-size:14px;color:var(--muted);letter-spacing:.15em;position:relative;z-index:1;}
+.loading{
+  display:flex;align-items:center;justify-content:center;padding:80px 24px;
+  font-family:"Noto Serif TC",serif;font-size:14px;color:var(--muted);letter-spacing:.15em;
+  position:relative;z-index:1;
+}
 
 /* ── FOOTER ── */
-.footer-note{position:relative;z-index:1;margin:0 16px 48px;background:var(--card);
-             border-radius:20px;border:1px solid var(--card-b);padding:22px;backdrop-filter:blur(8px);
-             text-align:center;animation:fadeUp .5s .45s ease both;opacity:0;animation-fill-mode:forwards;}
-.footer-note p{font-family:"Noto Serif TC",serif;font-size:13px;color:var(--muted);
-                line-height:2;}
+.footer-note{
+  position:relative;z-index:1;margin:0 16px 48px;background:var(--card);
+  border-radius:20px;border:1px solid var(--card-b);padding:22px;backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);text-align:center;animation:fadeUp .5s .45s ease both;
+  opacity:0;animation-fill-mode:forwards;
+}
+.footer-note p{font-family:"Noto Serif TC",serif;font-size:13px;color:var(--muted);line-height:2;}
 .footer-note em{font-style:normal;color:var(--brown);}
 
 /* ── SCROLL HINT ── */
 .scroll-hint{
-  position:fixed;bottom:28px;left:50%;transform:translateX(-50%);
-  z-index:30;pointer-events:none;
-  width:40px;height:40px;border-radius:50%;
-  background:var(--bg-hint);
-  border:1.5px solid var(--gold);
-  backdrop-filter:blur(10px);
-  display:flex;align-items:center;justify-content:center;
-  font-size:16px;color:var(--gold);
-  opacity:0;transition:opacity .4s;
-  animation:scrollBounce 1.6s ease-in-out infinite;
+  position:fixed;bottom:28px;left:50%;transform:translateX(-50%);z-index:30;pointer-events:none;
+  width:40px;height:40px;border-radius:50%;background:var(--bg-hint);border:1.5px solid var(--gold);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;
+  font-size:16px;color:var(--gold);opacity:0;transition:opacity .4s;animation:scrollBounce 1.6s ease-in-out infinite;
 }
 .scroll-hint.visible{opacity:1;pointer-events:auto;}
-@keyframes scrollBounce{
-  0%,100%{transform:translateX(-50%) translateY(0);}
-  50%{transform:translateX(-50%) translateY(5px);}
-}
-
+@keyframes scrollBounce{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(5px);}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
 </style>
 </head>
@@ -154,68 +233,149 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 </div>
 
 <div class="hero">
-  <span class="hero-tag">開始練習前，不妨先看看</span>
-  <h1>常見<em>問答</em></h1>
-  <p class="hero-desc">新手最常遇到的問題，<br>都整理在這裡。</p>
+  <span class="hero-tag">不需要懂冥想，也可以從這裡開始</span>
+  <h1>第一次接觸 <em>Sahaja Yoga？</em></h1>
+  <p class="hero-desc">你可能也有這些問題。<br>答案都整理在這裡。</p>
+</div>
+
+<div class="faq-tools">
+  <div class="search-box">
+    <span class="search-icon">⌕</span>
+    <input id="faqSearch" type="search" placeholder="搜尋問題，例如：睡眠、宗教、自覺、付費" autocomplete="off">
+    <button class="clear-search" id="clearSearch" aria-label="清除搜尋">×</button>
+  </div>
+  <div class="search-status" id="searchStatus"></div>
+
+  <div class="hot-wrap">
+    <div class="hot-title">熱門問題</div>
+    <div class="hot-chips">
+      <button class="hot-chip" data-keyword="什麼是自覺">什麼是自覺？</button>
+      <button class="hot-chip" data-keyword="需要付費">需要付費嗎？</button>
+      <button class="hot-chip" data-keyword="宗教嗎">是宗教嗎？</button>
+      <button class="hot-chip" data-keyword="盤腿">一定要盤腿嗎？</button>
+      <button class="hot-chip" data-keyword="多久才會有感覺">多久會有感覺？</button>
+    </div>
+  </div>
+</div>
+
+<div class="empty-state" id="emptyState">
+  沒有找到完全符合的問題。<br><em>可以換一個關鍵字，或直接聯絡我們。</em>
 </div>
 
 <div class="cats" id="cats"><div class="loading">載入中⋯⋯</div></div>
 
 <div class="footer-note" id="footer-note" style="display:none">
-  <p>還有其他問題嗎？<br><em>歡迎透過 LINE 或 Email 直接問我們</em></p>
+  <p>沒有找到你的問題嗎？<br><em>歡迎直接聯絡我們。</em><br>不需要懂冥想，<br>也不需要有任何經驗。</p>
 </div>
 
 <div class="scroll-hint" id="scrollHint">&#8964;</div>
 
 <script>
 const BASE = 'https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/';
-let openCat = -1;
+let allFaqData = [];
+let openCat = 0;
+let searchTerm = '';
 
+const CATEGORY_META = {
+  '開始練習': { icon:'🌱', name:'第一次開始' },
+  '認識 Sahaja Yoga': { icon:'❓', name:'關於 Sahaja Yoga' },
+  '身體的感受': { icon:'🖐️', name:'身體感受到什麼' },
+  '日常保養': { icon:'🌿', name:'日常練習' },
+  '一個人練習還是一起練習？': { icon:'🤝', name:'一起練習' },
+  '關於成長與改變': { icon:'✨', name:'練習後的改變' }
+};
 
-function splitCat(str) {
-  const m = str.match(/^(\S+)\s+(.+)$/);
-  return m ? { emoji: m[1], name: m[2] } : { emoji: '✦', name: str };
+function escapeHTML(str='') {
+  return String(str)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#039;');
+}
+
+function highlight(text, term) {
+  const safe = escapeHTML(text);
+  if (!term) return safe;
+  const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return safe.replace(new RegExp(escaped, 'gi'), match => `<mark>${match}</mark>`);
+}
+
+function getCatMeta(cat) {
+  return CATEGORY_META[cat.category] || { icon: cat.icon || '✦', name: cat.category };
+}
+
+function filterData(data, term) {
+  const q = term.trim().toLowerCase();
+  if (!q) return data.map(cat => ({ ...cat, items: [...cat.items] }));
+
+  return data.map(cat => {
+    const meta = getCatMeta(cat);
+    const items = cat.items.filter(item => {
+      const haystack = `${cat.category} ${meta.name} ${item.q} ${item.a}`.toLowerCase();
+      return haystack.includes(q);
+    });
+    return { ...cat, items };
+  }).filter(cat => cat.items.length > 0);
 }
 
 function toggleCat(i) {
   const cards = document.querySelectorAll('.cat-card');
-  if (openCat === i) { cards[i].classList.remove('open'); openCat = -1; }
-  else {
-    if (openCat >= 0) cards[openCat].classList.remove('open');
-    cards[i].classList.add('open'); openCat = i;
-    setTimeout(() => cards[i].scrollIntoView({ behavior:'smooth', block:'nearest' }), 60);
+  if (openCat === i) {
+    cards[i]?.classList.remove('open');
+    openCat = -1;
+  } else {
+    if (openCat >= 0) cards[openCat]?.classList.remove('open');
+    cards[i]?.classList.add('open');
+    openCat = i;
+    setTimeout(() => cards[i]?.scrollIntoView({ behavior:'smooth', block:'nearest' }), 60);
   }
+  updateScrollHint();
 }
 
 function toggleFaq(item) {
   const isOpen = item.classList.contains('open');
-  // close siblings
   item.closest('.cat-body-inner').querySelectorAll('.faq-item').forEach(el => el.classList.remove('open'));
   if (!isOpen) item.classList.add('open');
+  updateScrollHint();
 }
 
-function renderCats(data) {
+function renderCats(data, opts = {}) {
   const wrap = document.getElementById('cats');
+  const empty = document.getElementById('emptyState');
+  const term = opts.term || '';
+  const isSearch = !!term;
+
+  if (!data.length) {
+    wrap.innerHTML = '';
+    empty.classList.add('visible');
+    document.getElementById('footer-note').style.display = '';
+    updateScrollHint();
+    return;
+  }
+
+  empty.classList.remove('visible');
+
   wrap.innerHTML = data.map((cat, i) => {
-    const icon = cat.icon || '✦';
-    const name = cat.category;
+    const meta = getCatMeta(cat);
+    const isOpen = isSearch || i === openCat;
     const faqs = cat.items.map((item, j) => `
-      <div class="faq-item" id="faq-${i}-${j}">
+      <div class="faq-item" id="faq-${i}-${j}" data-q="${escapeHTML(item.q)}">
         <div class="faq-q" onclick="toggleFaq(this.closest('.faq-item'))">
-          <span>${item.q}</span>
+          <span>${highlight(item.q, term)}</span>
           <span class="faq-chevron">▼</span>
         </div>
         <div class="faq-a-wrap">
-          <div class="faq-a">${item.a}</div>
+          <div class="faq-a">${highlight(item.a, term)}</div>
         </div>
       </div>`).join('');
 
     return `
-      <div class="cat-card" id="cat-${i}">
+      <div class="cat-card ${isOpen ? 'open' : ''} ${isSearch ? 'search-mode' : ''}" id="cat-${i}">
         <div class="cat-header" onclick="toggleCat(${i})">
-          <div class="cat-icon">${icon}</div>
+          <div class="cat-icon">${meta.icon}</div>
           <div class="cat-titles">
-            <div class="cat-name">${name}</div>
+            <div class="cat-name">${escapeHTML(meta.name)}</div>
             <div class="cat-count">${cat.items.length} 個問題</div>
           </div>
           <span class="cat-arrow">▶</span>
@@ -226,7 +386,71 @@ function renderCats(data) {
       </div>`;
   }).join('');
 
+  if (isSearch) openCat = 0;
   document.getElementById('footer-note').style.display = '';
+  updateScrollHint();
+}
+
+function updateSearch(term) {
+  searchTerm = term.trim();
+  const filtered = filterData(allFaqData, searchTerm);
+  const status = document.getElementById('searchStatus');
+  const clearBtn = document.getElementById('clearSearch');
+
+  clearBtn.classList.toggle('visible', !!searchTerm);
+
+  if (searchTerm) {
+    const total = filtered.reduce((sum, cat) => sum + cat.items.length, 0);
+    status.textContent = total ? `找到 ${total} 個相關問題` : '沒有找到相關問題';
+    status.classList.add('visible');
+    renderCats(filtered, { term: searchTerm });
+  } else {
+    status.textContent = '';
+    status.classList.remove('visible');
+    openCat = 0;
+    renderCats(filtered, { term: '' });
+  }
+}
+
+function openQuestion(keyword) {
+  const input = document.getElementById('faqSearch');
+  input.value = '';
+  updateSearch('');
+
+  const target = findQuestion(keyword);
+  if (!target) {
+    input.value = keyword;
+    updateSearch(keyword);
+    return;
+  }
+
+  openCat = target.catIndex;
+  renderCats(allFaqData, { term: '' });
+
+  setTimeout(() => {
+    const cat = document.getElementById(`cat-${target.catIndex}`);
+    const item = document.getElementById(`faq-${target.catIndex}-${target.itemIndex}`);
+    document.querySelectorAll('.cat-card').forEach(el => el.classList.remove('open'));
+    cat?.classList.add('open');
+    document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('open','highlight'));
+    item?.classList.add('open','highlight');
+    cat?.scrollIntoView({ behavior:'smooth', block:'start' });
+    setTimeout(() => item?.classList.remove('highlight'), 1600);
+  }, 80);
+}
+
+function findQuestion(keyword) {
+  const k = keyword.toLowerCase();
+  for (let i = 0; i < allFaqData.length; i++) {
+    const items = allFaqData[i].items;
+    for (let j = 0; j < items.length; j++) {
+      const q = items[j].q.toLowerCase();
+      if (q.includes(k) || k.includes(q.replace(/[？?]/g,''))) {
+        return { catIndex:i, itemIndex:j };
+      }
+    }
+  }
+  return null;
 }
 
 function goBack() {
@@ -234,12 +458,33 @@ function goBack() {
   else window.location.href = 'menu.html';
 }
 
+function initEvents() {
+  const input = document.getElementById('faqSearch');
+  const clearBtn = document.getElementById('clearSearch');
+
+  input.addEventListener('input', e => updateSearch(e.target.value));
+  clearBtn.addEventListener('click', () => {
+    input.value = '';
+    updateSearch('');
+    input.focus();
+  });
+
+  document.querySelectorAll('.hot-chip').forEach(btn => {
+    btn.addEventListener('click', () => openQuestion(btn.dataset.keyword));
+  });
+}
+
 fetch(BASE + 'faq.json?t=' + Date.now())
   .then(r => r.json())
-  .then(data => { renderCats(data); setTimeout(updateScrollHint, 200); })
+  .then(data => {
+    allFaqData = data;
+    openCat = 0;
+    renderCats(allFaqData, { term: '' });
+    initEvents();
+    setTimeout(updateScrollHint, 250);
+  })
   .catch(() => {
-    document.getElementById('cats').innerHTML =
-      '<div class="loading">載入失敗，請稍後再試。</div>';
+    document.getElementById('cats').innerHTML = '<div class="loading">載入失敗，請稍後再試。</div>';
   });
 
 // ── scroll hint ──
@@ -252,7 +497,6 @@ function updateScrollHint() {
 window.addEventListener('scroll', updateScrollHint, { passive:true });
 window.addEventListener('resize', updateScrollHint);
 setTimeout(updateScrollHint, 600);
-
 </script>
 </body>
 </html>

@@ -1,6 +1,24 @@
 {
   "tabs": [
     {
+      "key": "line",
+      "label": "先從 LINE 開始",
+      "icon": "❖",
+      "sub": "活動通知、報名與問題詢問",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "不需要先懂靜坐，也不用急著參加課程。你可以先加入 LINE，看看最新活動，或直接問一個你心裡的問題。"
+        },
+        {
+          "type": "link",
+          "title": "LINE 官方帳號",
+          "desc": "活動通知・課程報名・新手提問",
+          "url": "https://line.me/R/ti/p/@647aurlx"
+        }
+      ]
+    },
+    {
       "key": "website",
       "label": "官方網站",
       "icon": "❖",
@@ -8,7 +26,7 @@
       "sections": [
         {
           "type": "intro",
-          "text": "第一次認識 Sahaja Yoga？從這裡開始，課程、活動、靜坐資源一次看。"
+          "text": "想比較完整地了解 Sahaja Yoga？官網整理了活動資訊、教學資源與靜坐課程，適合慢慢閱讀。"
         },
         {
           "type": "link",
@@ -19,26 +37,14 @@
       ]
     },
     {
-      "key": "community",
-      "label": "加入社群",
+      "key": "video",
+      "label": "先看看影片",
       "icon": "❖",
-      "sub": "跟更多靜坐同好一起，不孤單",
+      "sub": "想先聽聽看、感受看看",
       "sections": [
         {
           "type": "intro",
-          "text": "靜坐這件事，一個人做得到，但有同伴會走更遠。向內的旅程，有伴不孤單。"
-        },
-        {
-          "type": "link",
-          "title": "LINE 官方帳號",
-          "desc": "最新活動通知與報名",
-          "url": "https://line.me/R/ti/p/@647aurlx"
-        },
-        {
-          "type": "link",
-          "title": "Facebook 粉絲頁",
-          "desc": "靜坐心得・活動照片・知識語錄",
-          "url": "https://www.facebook.com/goinnertravel"
+          "text": "如果你還不確定要不要參加，可以先從影片開始。聽一段引導，或看看 Shri Mataji 的分享，用自己的感受判斷。"
         },
         {
           "type": "link",
@@ -49,14 +55,32 @@
       ]
     },
     {
-      "key": "contact",
-      "label": "聯絡我們",
+      "key": "community",
+      "label": "看看社群動態",
       "icon": "❖",
-      "sub": "有任何疑問，都歡迎找我們聊聊。",
+      "sub": "活動照片、練習心得與日常分享",
       "sections": [
         {
           "type": "intro",
-          "text": "不管你是剛開始好奇，還是已經在練習，有任何問題都歡迎來找我們聊聊。通常 2–3 個工作天內會回覆你。"
+          "text": "靜坐這件事，一個人做得到；但有同伴時，會更容易持續。你可以先看看社群裡的活動與分享，慢慢感受這個練習的氛圍。"
+        },
+        {
+          "type": "link",
+          "title": "Facebook 粉絲頁",
+          "desc": "靜坐心得・活動照片・知識語錄",
+          "url": "https://www.facebook.com/goinnertravel"
+        }
+      ]
+    },
+    {
+      "key": "contact",
+      "label": "聯絡我們",
+      "icon": "❖",
+      "sub": "有任何疑問，都歡迎慢慢問",
+      "sections": [
+        {
+          "type": "intro",
+          "text": "如果你不確定自己適不適合、該從哪裡開始，或只是想問一個小問題，都可以聯絡我們。通常 2–3 個工作天內會回覆。"
         },
         {
           "type": "link",

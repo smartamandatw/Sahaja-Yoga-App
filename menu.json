@@ -25,7 +25,7 @@
     "label": "常見問答",
     "desc": "你可能想問的都在這裡",
     "url": "faq.html",
-    "coming_soon": true
+    "coming_soon": false
   },
   {
     "icon": "",
@@ -60,13 +60,13 @@
     "label": "活動資訊",
     "desc": "全台各地・線上課程・完全免費",
     "url": "events.html",
-    "coming_soon": true
+    "coming_soon": false
   },
   {
     "icon": "",
     "label": "加入我們",
     "desc": "官網・社群・聯絡方式",
     "url": "join_us.html",
-    "coming_soon": true
+    "coming_soon": false
   }
 ]
