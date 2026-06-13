@@ -37,42 +37,6 @@
       ]
     },
     {
-      "key": "video",
-      "label": "先看看影片",
-      "icon": "✦",
-      "sub": "想先聽聽看、感受看看",
-      "sections": [
-        {
-          "type": "intro",
-          "text": "如果你還不確定要不要參加，可以先從影片開始。聽一段引導，或看看 Shri Mataji 的分享，用自己的感受判斷。"
-        },
-        {
-          "type": "link",
-          "title": "YouTube 頻道",
-          "desc": "靜坐引導影片・Shri Mataji 演講",
-          "url": "https://www.youtube.com/@sahajayoga635"
-        }
-      ]
-    },
-    {
-      "key": "community",
-      "label": "看看社群動態",
-      "icon": "✦",
-      "sub": "活動照片、練習心得與日常分享",
-      "sections": [
-        {
-          "type": "intro",
-          "text": "靜坐這件事，一個人做得到；但有同伴時，會更容易持續。你可以先看看社群裡的活動與分享，慢慢感受這個練習的氛圍。"
-        },
-        {
-          "type": "link",
-          "title": "Facebook 粉絲頁",
-          "desc": "靜坐心得・活動照片・知識語錄",
-          "url": "https://www.facebook.com/goinnertravel"
-        }
-      ]
-    },
-    {
       "key": "contact",
       "label": "聯絡我們",
       "icon": "✦",
