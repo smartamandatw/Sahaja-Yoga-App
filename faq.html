@@ -24,6 +24,7 @@
   --card-white2: rgba(255,255,255,0.80); /* 內層白卡底色（較深）*/
   --btn-gold:    rgba(201,168,76,0.25);  /* 金色按鈕底色 */
   --btn-gold-active: rgba(201,168,76,0.45); /* 金色按鈕 active */
+  --brown:    #3A2F18  --深咖啡色
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 
@@ -98,9 +99,12 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .loading{display:flex;align-items:center;justify-content:center;padding:80px 24px;font-family:"Noto Serif TC",serif;font-size:14px;color:var(--muted);letter-spacing:.15em;position:relative;z-index:1;}
 
 /* ── FOOTER ── */
-.footer-note{position:relative;z-index:1;margin:0 16px 48px;background:var(--card);border-radius:20px;border:1px solid var(--card-b);padding:22px;backdrop-filter:blur(8px);text-align:center;animation:fadeUp .5s .45s ease both;opacity:0;animation-fill-mode:forwards;}
-.footer-note p{font-family:"Noto Serif TC",serif;font-size:13px;color:var(--muted);line-height:2;}
-.footer-note em{font-style:normal;color:var(--gold);}
+.footer-note{position:relative;z-index:1;margin:0 16px 48px;background:var(--card);
+             border-radius:20px;border:1px solid var(--card-b);padding:22px;backdrop-filter:blur(8px);
+             text-align:center;animation:fadeUp .5s .45s ease both;opacity:0;animation-fill-mode:forwards;}
+.footer-note p{font-family:"Noto Serif TC",serif;font-size:13px;color:var(--muted);
+                line-height:2;}
+.footer-note em{font-style:normal;color:var(--brown);}
 
 /* ── SCROLL HINT ── */
 .scroll-hint{
@@ -145,7 +149,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 const BASE = 'https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/';
 let openCat = -1;
 
-// extract emoji from category string like "🌱 開始練習"
+
 function splitCat(str) {
   const m = str.match(/^(\S+)\s+(.+)$/);
   return m ? { emoji: m[1], name: m[2] } : { emoji: '✦', name: str };
@@ -171,7 +175,8 @@ function toggleFaq(item) {
 function renderCats(data) {
   const wrap = document.getElementById('cats');
   wrap.innerHTML = data.map((cat, i) => {
-    const { emoji, name } = splitCat(cat.category);
+    const icon = cat.icon || '✦';
+    const name = cat.category;
     const faqs = cat.items.map((item, j) => `
       <div class="faq-item" id="faq-${i}-${j}">
         <div class="faq-q" onclick="toggleFaq(this.closest('.faq-item'))">
@@ -186,7 +191,7 @@ function renderCats(data) {
     return `
       <div class="cat-card" id="cat-${i}">
         <div class="cat-header" onclick="toggleCat(${i})">
-          <div class="cat-icon">${emoji}</div>
+          <div class="cat-icon">${icon}</div>
           <div class="cat-titles">
             <div class="cat-name">${name}</div>
             <div class="cat-count">${cat.items.length} 個問題</div>
