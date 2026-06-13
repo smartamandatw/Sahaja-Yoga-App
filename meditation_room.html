@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>Sahaja Yoga</title>
+<title>靜坐引導｜Sahaja Yoga</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -12,11 +12,13 @@
   --text:     #1C1A17;
   --gold:     #C9A84C;
   --gold-dim: rgba(201,168,76,0.22);
-  --muted:    #7a6e5f;
-  --card:     rgba(255,255,255,0.72);
+  --muted:    #6A5F52;
+  --card:     rgba(255,255,255,0.82);
   --card-b:   rgba(201,168,76,0.20);
   --soft:     rgba(201,168,76,0.10);
   --bg-hint:      rgba(240,232,208,0.85); /* scroll hint 背景 */
+  --btn-gold:    rgba(201,168,76,0.25);
+  --btn-gold-active: rgba(201,168,76,0.45);
 }
 
   * { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
@@ -50,7 +52,7 @@
   }
   #overlay {
     position:fixed; inset:0; z-index:1;
-    background:rgba(10,12,8,0.5);
+    background:rgba(240,232,208,0.32);
     transition:background 0.5s;
   }
 
@@ -69,48 +71,51 @@
   #selectPage.hide { opacity:0; pointer-events:none; }
 
   /* ── TOP NAV ── */
-  .top-nav {
-    position:sticky; top:0; z-index:20;
-    width:100%;
-    background:rgba(240,232,208,.94);
-    backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
-    border-bottom:1px solid var(--gold-dim);
-    padding:14px 16px 12px;
-    display:flex; align-items:center; gap:12px;
-    flex-shrink:0;
-  }
-  .back-btn {
-  font-family:"Noto Sans TC",sans-serif; font-size:13px;
-  color:var(--muted); background:var(--soft);
-  border:1px solid var(--gold); border-radius:10px;
-  padding:6px 12px; cursor:pointer;
-  transition:background .2s,color .2s; white-space:nowrap;
+.top-nav{
+  position:sticky;top:0;z-index:20;
+  width:100%;
+  background:rgba(240,232,208,0.82);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(201,168,76,0.18);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 16px 10px;
+  padding-top:max(env(safe-area-inset-top,0px),12px);
 }
-.back-btn:active { background:var(--gold-dim); color:var(--text); }
-  .nav-title {
-    font-family:"Noto Serif TC",serif; font-size:clamp(14px,3.8vw,16px);
-    color:var(--text); letter-spacing:.1em;
-  }
+.back-btn {
+  font-family:"Noto Sans TC",sans-serif; font-size:13px;
+  color:var(--muted); background:rgba(255,255,255,0.48);
+  border:1px solid rgba(201,168,76,0.32); border-radius:999px;
+  padding:7px 13px; cursor:pointer;
+  transition:background .2s,color .2s,transform .1s; white-space:nowrap;
+}
+.back-btn:active { background:var(--gold-dim); color:var(--text); transform:scale(0.97); }
+.nav-title{
+  font-family:"Noto Serif TC",serif;
+  font-size:clamp(14px,3.8vw,16px);
+  color:var(--text);letter-spacing:.16em;
+  position:absolute;left:50%;transform:translateX(-50%);
+}
+.nav-spacer{width:76px;}
 
-  /* ── HERO ── */
+/* ── HERO ── */
   .hero {
-    padding:28px 22px 16px; text-align:center;
+    padding:32px 22px 22px; text-align:center;
     position:relative; z-index:1; width:100%;
     animation:fadeUp .6s ease both;
     flex-shrink:0;
   }
   .hero-tag {
-    display:inline-block; background:var(--bg); color:var(--text:);
+    display:inline-block; background:var(--bg); color:var(--text);
     font-size:11px; letter-spacing:3px; padding:4px 14px;
     border-radius:20px; margin-bottom:12px; border:1px solid var(--gold-dim);
   }
   .hero h1 {
-    font-family:"Noto Serif TC",serif; font-size:clamp(1.3rem,4.5vw,1.7rem);
+    font-family:"Noto Serif TC",serif; font-size:clamp(1.5rem,5vw,1.9rem);
     font-weight:700; color:var(--text); line-height:1.4; margin-bottom:8px;
   }
   .hero h1 em { font-style:normal; color:var(--gold); }
   .hero-desc {
-    font-size:13px; color:var(--muted); line-height:1.8;
+    font-size:13.5px; color:var(--muted); line-height:1.9;
     max-width:300px; margin:0 auto;
   }
 
@@ -175,17 +180,17 @@
   .item-btn {
     padding:12px 14px; border-radius:14px;
     border:1px solid var(--gold-dim);
-    background:rgba(255,255,255,0.6);
+    background:rgba(255,255,255,0.72);
     color:var(--text);
     font-family:"Noto Serif TC",serif;
-    font-size:clamp(13px,3.5vw,15px); letter-spacing:0.06em;
+    font-size:clamp(13.5px,3.6vw,15.5px); letter-spacing:0.06em;
     cursor:pointer; text-align:left; line-height:1.4;
     transition:background 0.2s, border-color 0.2s, transform 0.1s;
     flex-shrink:0;
   }
   .item-btn .btn-label {
     display:block;
-    font-size:clamp(13px,3.5vw,15px);
+    font-size:clamp(13.5px,3.6vw,15.5px);
     color:var(--text);
     letter-spacing:0.08em;
     margin-bottom:4px;
@@ -234,21 +239,21 @@
   }
   
   .start-btn {
-    width:180px;
-    padding:10px 30px;
+    width:200px;
+    padding:13px 0;
     border-radius:999px;
-    background:rgba(210,200,178,0.65);
+    background:var(--btn-gold, rgba(201,168,76,0.25));
     backdrop-filter:blur(12px);
-    border:1px solid rgba(255,255,255,0.5);
-    color:#1C1609;
+    border:1px solid var(--gold);
+    color:var(--text);
     font-family:"Noto Serif TC",serif; font-size:14px;
     font-weight:400;
-    letter-spacing:0.1em;
+    letter-spacing:0.12em;
     cursor:pointer;
-    transition:transform 0.1s;
+    transition:background .2s, transform 0.1s;
 }
 
-  .start-btn:active { transform:scale(0.97); }
+  .start-btn:active { background:var(--btn-gold-active); transform:scale(0.97); }
 
 
   /* ── 靜坐畫面 ── */
@@ -459,11 +464,16 @@
 <!-- 選擇畫面：accordion -->
 <div id="selectPage">
 
-  <button class="back-btn" style="position:sticky;top:16px;margin:16px 0 0 16px;z-index:20;align-self:flex-start;" onclick="goHome()">← 返回</button>
+  <div class="top-nav">
+    <button class="back-btn" onclick="goHome()">← 返回</button>
+    <div class="nav-title">靜坐引導</div>
+    <div class="nav-spacer"></div>
+  </div>
 
   <div class="hero">
+    <span class="hero-tag">開始之前，依今天的狀態慢慢挑選</span>
     <h1>選擇你的<em>音樂與引導</em></h1>
-    <span class="hero-tag">MEDITATION · 開始之前展開 · 每個選項，依心情挑選</span>
+    <p class="hero-desc">選好背景音樂與靜坐引導，就可以開始。</p>
   </div>
 
   <div class="acc-cards">
@@ -703,7 +713,7 @@
     document.getElementById('bgSwitcherWrap').classList.remove('show');
     document.getElementById('meditationPage').classList.remove('show');
     document.getElementById('selectPage').classList.remove('hide');
-    document.getElementById('overlay').style.background = 'rgba(10,12,8,0.5)';
+    document.getElementById('overlay').style.background = 'rgba(240,232,208,0.32)';
     // 還原菜單預設背景
     selBg = 'default'; selBgUrl = menuBgUrl;
     document.getElementById('bg').style.backgroundImage = "url('" + menuBgUrl + "')";

@@ -12,16 +12,16 @@
   --text:     #1C1A17;
   --gold:     #C9A84C;
   --gold-dim: rgba(201,168,76,0.22);
-  --muted:    #7a6e5f;
-  --card:     rgba(255,255,255,0.72);
+  --muted:    #6A5F52;
+  --card:     rgba(255,255,255,0.82);
   --card-b:   rgba(201,168,76,0.20);
   --soft:     rgba(201,168,76,0.10);
   --bg-blur:  rgba(240,232,208,0.94);  /* nav 毛玻璃背景 */
   --bg-hint:  rgba(240,232,208,0.85);  /* scroll hint 背景 */
   --shadow-open: rgba(201,168,76,0.14); /* 展開卡片陰影 */
   --card-open-b: rgba(201,168,76,0.40); /* 展開卡片邊框 */
-  --card-white:  rgba(255,255,255,0.60); /* 內層白卡底色 */
-  --card-white2: rgba(255,255,255,0.80); /* 內層白卡底色（較深）*/
+  --card-white:  rgba(255,255,255,0.68); /* 內層白卡底色 */
+  --card-white2: rgba(255,255,255,0.86); /* 內層白卡底色（較深）*/
   --btn-gold:    rgba(201,168,76,0.25);  /* 金色按鈕底色 */
   --btn-gold-active: rgba(201,168,76,0.45); /* 金色按鈕 active */
 }
@@ -37,24 +37,44 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   background:radial-gradient(ellipse at 15% 0%,rgba(201,168,76,.12) 0%,transparent 55%),
              radial-gradient(ellipse at 85% 100%,rgba(201,168,76,.09) 0%,transparent 55%);}
 
+body::after{
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:rgba(240,232,208,0.32);
+}
+
 /* ── TOP NAV ── */
-.top-nav{position:sticky;top:0;z-index:20;background:rgba(240,232,208,.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--gold-dim);padding:14px 16px 12px;display:flex;align-items:center;gap:12px;}
+.top-nav{
+  position:sticky;top:0;z-index:20;
+  width:100%;
+  background:rgba(240,232,208,0.82);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(201,168,76,0.18);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 16px 10px;
+  padding-top:max(env(safe-area-inset-top,0px),12px);
+}
 .back-btn {
   font-family:"Noto Sans TC",sans-serif; font-size:13px;
-  color:var(--muted); background:var(--soft);
-  border:1px solid var(--gold); border-radius:10px;
-  padding:6px 12px; cursor:pointer;
-  transition:background .2s,color .2s; white-space:nowrap;
+  color:var(--muted); background:rgba(255,255,255,0.48);
+  border:1px solid rgba(201,168,76,0.32); border-radius:999px;
+  padding:7px 13px; cursor:pointer;
+  transition:background .2s,color .2s,transform .1s; white-space:nowrap;
 }
-.back-btn:active { background:var(--gold-dim); color:var(--text); }
-.nav-title{font-family:"Noto Serif TC",serif;font-size:clamp(14px,3.8vw,16px);color:var(--text);letter-spacing:.1em;}
+.back-btn:active { background:var(--gold-dim); color:var(--text); transform:scale(0.97); }
+.nav-title{
+  font-family:"Noto Serif TC",serif;
+  font-size:clamp(14px,3.8vw,16px);
+  color:var(--text);letter-spacing:.16em;
+  position:absolute;left:50%;transform:translateX(-50%);
+}
+.nav-spacer{width:76px;}
 
 /* ── HERO ── */
-.hero{padding:32px 22px 22px;text-align:center;position:relative;z-index:1;animation:fadeUp .6s ease both;}
+.hero{padding:34px 22px 24px;text-align:center;position:relative;z-index:1;animation:fadeUp .6s ease both;}
 .hero-tag{display:inline-block;background:var(--bg);
           color:var(--text);font-size:11px;letter-spacing:3px;padding:4px 14px;
           border-radius:20px;margin-bottom:14px;border:1px solid var(--gold-dim);}
-.hero h1{font-family:"Noto Serif TC",serif;font-size:clamp(1.5rem,5vw,1.9rem);font-weight:700;color:var(--text);line-height:1.4;margin-bottom:10px;}
+.hero h1{font-family:"Noto Serif TC",serif;font-size:clamp(1.6rem,5vw,2rem);font-weight:700;color:var(--text);line-height:1.4;margin-bottom:10px;}
 .hero h1 em{font-style:normal;color:var(--gold);}
 .hero-desc{font-size:13.5px;color:var(--muted);line-height:1.9;max-width:300px;margin:0 auto;}
 
@@ -110,7 +130,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .feeling-body-inner{
   padding:0 16px 14px;padding-top:2px;
   font-size:clamp(12.5px,3.4vw,13.5px);
-  color:var(--muted);line-height:1.95;
+  color:#4f463d;line-height:1.95;
   border-top:1px solid var(--gold-dim);
 }
 .feeling-body-inner a{color:var(--gold);text-decoration:underline;text-underline-offset:3px;}
@@ -181,13 +201,17 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 </head>
 <body>
 
-<button class="back-btn" style="position:sticky;top:16px;margin:16px 0 0 16px;z-index:20;display:inline-block;" onclick="goBack()">← 返回</button>
+<div class="top-nav">
+  <button class="back-btn" onclick="goBack()">← 返回</button>
+  <div class="nav-title">覺察回饋</div>
+  <div class="nav-spacer"></div>
+</div>
 
-<!-- 步驟一：選感受 -->
 <div class="page show" id="step1">
   <div class="hero">
-    <h1>這次靜坐，<em>感受如何呢？</em></h1>
     <span class="hero-tag">點開感受，看看說明</span>
+    <h1>覺察<em>回饋</em></h1>
+    <p class="hero-desc">這次靜坐，身體與內在有什麼感覺？</p>
   </div>
 
   <div class="feeling-list" id="feelingList"></div>
@@ -200,8 +224,8 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 <!-- 步驟二：寫日誌 -->
 <div class="page" id="step2">
   <div class="hero">
-    <h1>記錄這次的<em>感受</em></h1>
     <span class="hero-tag">寫下來，或直接略過也可以</span>
+    <h1>記錄這次的<em>感受</em></h1>
   </div>
   <div class="journal-wrap">
     <div class="journal-label">（可以不填）</div>
@@ -213,6 +237,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 <!-- 步驟三：統計 -->
 <div class="page" id="step3">
   <div class="hero">
+    <span class="hero-tag">今天也完成了一次回到自己</span>
     <h1><em>完成</em>了！</h1>
   </div>
   <div class="stats-wrap">
@@ -270,12 +295,15 @@ fetch(BASE + 'feelings.json?t=' + Date.now())
       });
       container.appendChild(item);
     });
+    setTimeout(updateScrollHint, 200);
   })
   .catch(() => console.log('feelings.json 載入失敗'));
 
 function goToJournal() {
   document.getElementById('step1').classList.remove('show');
   document.getElementById('step2').classList.add('show');
+  window.scrollTo({ top:0, behavior:'smooth' });
+  setTimeout(updateScrollHint, 250);
 }
 
 function saveAndShowStats() {
@@ -297,6 +325,8 @@ function saveAndShowStats() {
 function showStats() {
   document.getElementById('step2').classList.remove('show');
   document.getElementById('step3').classList.add('show');
+  window.scrollTo({ top:0, behavior:'smooth' });
+  setTimeout(updateScrollHint, 250);
   document.getElementById('statsStreak').textContent = streak;
   document.getElementById('statsDuration').textContent = '本次靜坐 ' + m + ' 分 ' + s + ' 秒';
   let msg = '繼續保持，每天一點點<br>內在的改變正在發生';

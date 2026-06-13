@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>靜坐技巧</title>
+<title>提升靜坐品質｜Sahaja Yoga</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -12,11 +12,13 @@
   --text:     #1C1A17;
   --gold:     #C9A84C;
   --gold-dim: rgba(201,168,76,0.22);
-  --muted:    #7a6e5f;
-  --card:     rgba(255,255,255,0.72);
+  --muted:    #6A5F52;
+  --card:     rgba(255,255,255,0.82);
   --card-b:   rgba(201,168,76,0.20);
   --soft:     rgba(201,168,76,0.10);
+  --bg-blur:  rgba(240,232,208,0.94);  /* nav 毛玻璃背景 */
   --bg-hint:  rgba(240,232,208,0.85);  /* scroll hint 背景 */
+  --card-white: rgba(255,255,255,0.68);
 
 }
 
@@ -37,32 +39,41 @@ body::before {
     radial-gradient(ellipse at 85% 100%, rgba(201,168,76,.09) 0%, transparent 55%);
 }
 
+body::after {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:rgba(240,232,208,0.32);
+}
+
 /* ── TOP NAV ── */
-.top-nav {
-  position:sticky; top:0; z-index:20;
-  background:rgba(240,232,208,.94);
-  backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--gold-dim);
-  padding:14px 16px 12px;
-  display:flex; align-items:center; gap:12px;
+.top-nav{
+  position:sticky;top:0;z-index:20;
+  width:100%;
+  background:rgba(240,232,208,0.82);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(201,168,76,0.18);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 16px 10px;
+  padding-top:max(env(safe-area-inset-top,0px),12px);
 }
 .back-btn {
   font-family:"Noto Sans TC",sans-serif; font-size:13px;
-  color:var(--muted); background:var(--soft);
-  border:1px solid var(--gold); border-radius:10px;
-  padding:6px 12px; cursor:pointer;
-  transition:background .2s,color .2s; white-space:nowrap;
+  color:var(--muted); background:rgba(255,255,255,0.48);
+  border:1px solid rgba(201,168,76,0.32); border-radius:999px;
+  padding:7px 13px; cursor:pointer;
+  transition:background .2s,color .2s,transform .1s; white-space:nowrap;
 }
-.back-btn:active { background:var(--gold-dim); color:var(--text); }
-.nav-title {
+.back-btn:active { background:var(--gold-dim); color:var(--text); transform:scale(0.97); }
+.nav-title{
   font-family:"Noto Serif TC",serif;
   font-size:clamp(14px,3.8vw,16px);
-  color:var(--text); letter-spacing:.1em;
+  color:var(--text);letter-spacing:.16em;
+  position:absolute;left:50%;transform:translateX(-50%);
 }
+.nav-spacer{width:76px;}
 
 /* ── HERO ── */
 .hero {
-  padding:32px 22px 22px; text-align:center;
+  padding:34px 22px 24px; text-align:center;
   position:relative; z-index:1;
   animation:fadeUp .6s ease both;
 }
@@ -73,13 +84,13 @@ body::before {
 }
 .hero h1 {
   font-family:"Noto Serif TC",serif;
-  font-size:clamp(1.5rem,5vw,1.9rem);
+  font-size:clamp(1.6rem,5vw,2rem);
   font-weight:700; color:var(--text); line-height:1.4; margin-bottom:10px;
 }
 .hero h1 em { font-style:normal; color:var(--gold); }
 .hero-desc {
   font-size:13.5px; color:var(--muted); line-height:1.9;
-  max-width:300px; margin:0 auto;
+  max-width:300px; margin:0 auto; white-space:pre-line;
 }
 
 /* ── CARDS ── */
@@ -151,7 +162,7 @@ body::before {
 
 .c-paragraph {
   margin-bottom:10px; padding:14px 16px; border-radius:14px;
-  background:rgba(255,255,255,.6); border:1px solid var(--gold-dim);
+  background:var(--card-white); border:1px solid var(--gold-dim);
 }
 .c-paragraph h3 {
   font-family:"Noto Serif TC",serif; font-size:13.5px;
@@ -178,7 +189,7 @@ body::before {
 .c-step {
   display:flex; gap:12px; align-items:flex-start;
   padding:12px 14px; border-radius:14px;
-  background:rgba(255,255,255,.6); border:1px solid var(--gold-dim);
+  background:var(--card-white); border:1px solid var(--gold-dim);
 }
 .c-step-num {
   width:28px; height:28px; border-radius:50%; flex-shrink:0;
@@ -196,7 +207,7 @@ body::before {
 .c-video-btn {
   display:flex; align-items:center; gap:12px;
   padding:12px 14px; border-radius:14px;
-  background:rgba(255,255,255,.6); border:1px solid var(--gold-dim);
+  background:var(--card-white); border:1px solid var(--gold-dim);
   text-decoration:none; transition:background .2s, transform .15s;
 }
 .c-video-btn:active { background:var(--gold-dim); transform:scale(.98); }
@@ -257,11 +268,17 @@ body::before {
 </head>
 <body>
 
-<button class="back-btn" style="position:sticky;top:16px;margin:16px 0 0 16px;z-index:20;display:inline-block;" onclick="goBack()">← 返回</button>
+<div class="top-nav">
+  <button class="back-btn" onclick="goBack()">← 返回</button>
+  <div class="nav-title">提升靜坐品質</div>
+  <div class="nav-spacer"></div>
+</div>
 
 <div class="hero">
-  <h1>讓靜坐<em>真正有感</em>的幾個小技巧</h1>
-  <span class="hero-tag">點開你想試的方法，跟著做就好</span>
+  <span class="hero-tag">泡腳法・自然元素・能量平衡技巧</span>
+  <h1>提升<em>靜坐品質</em></h1>
+  <p class="hero-desc">選一個今天適合你的方法，
+跟著做就好。</p>
 </div>
 
 <div class="cards" id="cards"></div>
@@ -350,7 +367,7 @@ function goBack() {
 
 fetch(BASE + 'tips_practice.json?t=' + Date.now())
   .then(r => r.json())
-  .then(data => renderCards(data.items))
+  .then(data => { renderCards(data.items); setTimeout(updateScrollHint, 200); })
   .catch(() => {
     document.getElementById('cards').innerHTML =
       '<p style="color:var(--muted);padding:40px 24px;text-align:center;font-family:\'Noto Serif TC\',serif;">內容載入失敗，請稍後再試。</p>';

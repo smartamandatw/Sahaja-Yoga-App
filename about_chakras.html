@@ -9,13 +9,25 @@
 
 :root {
   --bg: #F0E8D0;
-  --card: rgba(255,255,255,0.72);
-  --card-border: rgba(201,168,76,0.18);
+  --card: rgba(255,255,255,0.82);
+  --card-border: rgba(201,168,76,0.22);
   --text: #1C1A17;
-  --muted: #7a6e5f;
+  --muted: #6A5F52;
   --soft: rgba(201,168,76,0.12);
   --gold: #C9A84C;
   --gold-dim: rgba(201,168,76,0.25);
+  --bg-blur: rgba(240,232,208,0.94);
+  --bg-hint: rgba(240,232,208,0.85);
+  --shadow-open: rgba(201,168,76,0.14);
+  --progress-bg: rgba(201,168,76,0.14);
+  --overlay-dark: rgba(28,26,23,0.42);
+  --text-dim: #4f463d;
+  --green-bg: rgba(90,158,114,0.12);
+  --green-b: rgba(90,158,114,0.35);
+  --green: #4f8f63;
+  --red-bg: rgba(188,91,73,0.12);
+  --red-b: rgba(188,91,73,0.35);
+  --red: #A55345;
 }
 
 * { box-sizing:border-box; margin:0; padding:0; }
@@ -29,19 +41,25 @@ body {
   font-family: 'Noto Sans TC', sans-serif;
   font-weight: 300;
   line-height: 1.8;
-  max-width: 480px;
-  margin: 0 auto;
   padding-bottom: 100px;
   overflow-x: hidden;
 }
 
-/* subtle texture overlay */
+/* subtle texture + mist overlay */
 body::before {
   content:'';
   position:fixed; inset:0; pointer-events:none; z-index:0;
   background:
-    radial-gradient(ellipse at 20% 10%, rgba(201,168,76,0.08) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 90%, rgba(201,168,76,0.06) 0%, transparent 60%);
+    radial-gradient(ellipse at 15% 0%, rgba(201,168,76,.12) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(201,168,76,.09) 0%, transparent 55%);
+}
+body::after{
+  content:'';
+  position:fixed;
+  inset:0;
+  background:rgba(240,232,208,0.32);
+  pointer-events:none;
+  z-index:0;
 }
 
 /* ── ANIMATIONS ── */
@@ -79,25 +97,38 @@ body::before {
   from{stroke-dashoffset:160} to{stroke-dashoffset:0}
 }
 
+.hero,.progress-wrap,.section-label,.cards,.quiz-wrap,.footer{
+  max-width:480px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
 /* ── TOP NAV ── */
-.top-nav {
-  position: relative; z-index:1;
-  display: flex; align-items:center; gap:12px;
-  padding: 20px 20px 0;
-  animation: fadeIn .5s ease both;
+.top-nav{
+  position:sticky;top:0;z-index:20;
+  width:100%;
+  background:rgba(240,232,208,0.82);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(201,168,76,0.18);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 16px 10px;
+  padding-top:max(env(safe-area-inset-top,0px),12px);
 }
 .back-btn {
   font-family:"Noto Sans TC",sans-serif; font-size:13px;
-  color:var(--muted); background:var(--soft);
-  border:1px solid var(--gold); border-radius:10px; text-decoration:none;
-  padding:6px 12px; cursor:pointer;
-  transition:background .2s,color .2s; white-space:nowrap;
+  color:var(--muted); background:rgba(255,255,255,0.48);
+  border:1px solid rgba(201,168,76,0.32); border-radius:999px;
+  padding:7px 13px; cursor:pointer;
+  transition:background .2s,color .2s,transform .1s; white-space:nowrap;
 }
-.back-btn:active { background:var(--gold-dim); color:var(--text); }
-.nav-title {
-  font-family: 'Noto Serif TC', serif;
-  font-size: 13px; color: var(--muted); letter-spacing: 1px;
+.back-btn:active { background:var(--gold-dim); color:var(--text); transform:scale(0.97); }
+.nav-title{
+  font-family:"Noto Serif TC",serif;
+  font-size:clamp(14px,3.8vw,16px);
+  color:var(--text);letter-spacing:.16em;
+  position:absolute;left:50%;transform:translateX(-50%);
 }
+.nav-spacer{width:76px;}
 
 /* ── HERO ── */
 .hero {
@@ -111,7 +142,7 @@ body::before {
   margin-bottom:14px; border:1px solid var(--gold-dim);
 }
 .hero h1 {
-  font-family:'Noto Serif TC',serif; font-size:1.8rem; font-weight:700;
+  font-family:'Noto Serif TC',serif; font-size:clamp(1.6rem,5vw,2rem); font-weight:700;
   color:var(--text); line-height:1.35; margin-bottom:10px;
 }
 .hero h1 em { font-style:normal; color:var(--gold); }
@@ -427,16 +458,29 @@ body::before {
 }
 .footer-quote{font-family:'Noto Serif TC',serif;font-size:14px;color:var(--text);line-height:2.1;margin-bottom:10px;}
 .footer-attr{font-size:12px;color:var(--gold);}
+
+/* ── APP WIDTH ── */
+.hero,.section-label,.cards,.quiz-wrap,.footer{max-width:480px;margin-left:auto;margin-right:auto;}
+.progress-wrap{max-width:440px;margin-left:auto;margin-right:auto;}
+.card-desc,.med-affirmation,.quiz-sub{color:#4f463d;}
+.card,.progress-wrap,.quiz-wrap,.footer{background:var(--card);}
+
 </style>
 </head>
 <body>
 
 <!-- TOP NAV -->
-<button class="back-btn" style="position:sticky;top:16px;margin:16px 0 0 16px;z-index:20;display:inline-block;" onclick="window.location.href='menu.html'">← 返回</button>
+<div class="top-nav">
+  <button class="back-btn" onclick="goBack()">← 返回</button>
+  <div class="nav-title">七個輪穴</div>
+  <div class="nav-spacer"></div>
+</div>
+
 <!-- HERO -->
 <div class="hero">
-  <h1>身體裡住著<em>七個能量中心</em></h1>
-  <span class="hero-tag">點開每個輪穴認識它，或直接進入對應的靜坐冥想</span>
+  <span class="hero-tag">認識身體裡的七個能量中心</span>
+  <h1>七個<em>輪穴</em></h1>
+  <p class="hero-desc">點開每個輪穴，了解它的特質、失衡狀態，或進入對應的簡易靜坐。</p>
 </div>
 
 <!-- PROGRESS -->
@@ -634,7 +678,8 @@ function markRead(i) {
   readSet.add(i);
   const btn = document.querySelector(`.read-btn[data-i="${i}"]`);
   btn.textContent = '✓ 已讀完'; btn.classList.add('done');
-  document.querySelector(`.spine-btn[data-i="${i}"]`).classList.add('read');
+  const spineBtn = document.querySelector(`.spine-btn[data-i="${i}"]`);
+  if (spineBtn) spineBtn.classList.add('read');
   updateProgress();
 }
 function updateProgress() {
@@ -642,8 +687,11 @@ function updateProgress() {
   const total = CHAKRAS.length;
   document.getElementById('prog-text').textContent = `${n} / ${total} 已讀`;
   document.getElementById('prog-fill').style.width = `${(n / total) * 100}%`;
-  const yStart = 145, yEnd = 6;
-  document.getElementById('k-line').setAttribute('y2', yStart - (yStart - yEnd) * (n / total));
+  const kLine = document.getElementById('k-line');
+  if (kLine) {
+    const yStart = 145, yEnd = 6;
+    kLine.setAttribute('y2', yStart - (yStart - yEnd) * (n / total));
+  }
 }
 
 // ── MEDITATION ──
@@ -661,7 +709,8 @@ function openMed(i) {
   document.getElementById('med-mantra').textContent = c.mantra;
   document.getElementById('med-affirmation').textContent = c.affirmation;
   document.getElementById('med-affirmation').style.display = '';
-  document.getElementById('med-goto-full').style.display = '';
+  const medGotoFull = document.getElementById('med-goto-full');
+  if (medGotoFull) medGotoFull.style.display = '';
   document.getElementById('med-complete-msg').style.display = 'none';
   document.getElementById('dur-picker').style.display = '';
   document.getElementById('med-controls').style.display = '';
@@ -725,7 +774,8 @@ function completeMed() {
   document.getElementById('dur-picker').style.display = 'none';
   document.querySelector('.timer-ring-wrap').style.display = 'none';
   document.getElementById('breath-guide').textContent = '';
-  document.getElementById('med-goto-full').style.display = 'block';
+  const medGotoFull2 = document.getElementById('med-goto-full');
+  if (medGotoFull2) medGotoFull2.style.display = 'block';
 }
 function doBreathe(phase, sec) {
   if (!running) return;

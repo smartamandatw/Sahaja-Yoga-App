@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>深入探索</title>
+<title>探索精微能量系統｜Sahaja Yoga</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -12,16 +12,16 @@
   --text:     #1C1A17;
   --gold:     #C9A84C;
   --gold-dim: rgba(201,168,76,0.22);
-  --muted:    #7a6e5f;
-  --card:     rgba(255,255,255,0.72);
+  --muted:    #6A5F52;
+  --card:     rgba(255,255,255,0.82);
   --card-b:   rgba(201,168,76,0.20);
   --soft:     rgba(201,168,76,0.10);
   --bg-blur:  rgba(240,232,208,0.94);  /* nav 毛玻璃背景 */
   --bg-hint:  rgba(240,232,208,0.85);  /* scroll hint 背景 */
   --shadow-open: rgba(201,168,76,0.14); /* 展開卡片陰影 */
   --card-open-b: rgba(201,168,76,0.40); /* 展開卡片邊框 */
-  --card-white:  rgba(255,255,255,0.60); /* 內層白卡底色 */
-  --card-white2: rgba(255,255,255,0.80); /* 內層白卡底色（較深）*/
+  --card-white:  rgba(255,255,255,0.72); /* 內層白卡底色 */
+  --card-white2: rgba(255,255,255,0.88); /* 內層白卡底色（較深）*/
   --btn-gold:    rgba(201,168,76,0.25);  /* 金色按鈕底色 */
   --btn-gold-active: rgba(201,168,76,0.45); /* 金色按鈕 active */
 }
@@ -39,25 +39,44 @@ color:var(--text);overflow-x:hidden;}
 body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   background:radial-gradient(ellipse at 15% 0%,rgba(201,168,76,.12) 0%,transparent 55%),
              radial-gradient(ellipse at 85% 100%,rgba(201,168,76,.09) 0%,transparent 55%);}
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:rgba(240,232,208,0.32);
+}
 
 /* ── TOP NAV ── */
-.top-nav{position:sticky;top:0;z-index:20;background:rgba(240,232,208,.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--gold-dim);padding:14px 16px 12px;display:flex;align-items:center;gap:12px;}
+.top-nav{
+  position:sticky;top:0;z-index:20;
+  width:100%;
+  background:rgba(240,232,208,0.82);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(201,168,76,0.18);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 16px 10px;
+  padding-top:max(env(safe-area-inset-top,0px),12px);
+}
 .back-btn {
   font-family:"Noto Sans TC",sans-serif; font-size:13px;
-  color:var(--muted); background:var(--soft);
-  border:1px solid var(--gold); border-radius:10px;
-  padding:6px 12px; cursor:pointer;
-  transition:background .2s,color .2s; white-space:nowrap;
+  color:var(--muted); background:rgba(255,255,255,0.48);
+  border:1px solid rgba(201,168,76,0.32); border-radius:999px;
+  padding:7px 13px; cursor:pointer;
+  transition:background .2s,color .2s,transform .1s; white-space:nowrap;
 }
-.back-btn:active { background:var(--gold-dim); color:var(--text); }
-.nav-title{font-family:"Noto Serif TC",serif;font-size:clamp(14px,3.8vw,16px);color:var(--text);letter-spacing:.1em;}
+.back-btn:active { background:var(--gold-dim); color:var(--text); transform:scale(0.97); }
+.nav-title{
+  font-family:"Noto Serif TC",serif;
+  font-size:clamp(14px,3.8vw,16px);
+  color:var(--text);letter-spacing:.16em;
+  position:absolute;left:50%;transform:translateX(-50%);
+}
+.nav-spacer{width:76px;}
 
 /* ── HERO ── */
-.hero{padding:32px 22px 22px;text-align:center;position:relative;z-index:1;animation:fadeUp .6s ease both;}
+.hero{padding:38px 22px 24px;text-align:center;position:relative;z-index:1;animation:fadeUp .6s ease both;}
 .hero-tag{display:inline-block;background:var(--bg);color:var(--text);
           font-size:11px;letter-spacing:3px;padding:4px 14px;
           border-radius:20px;margin-bottom:14px;border:1px solid var(--gold-dim);}
-.hero h1{font-family:"Noto Serif TC",serif;font-size:clamp(1.5rem,5vw,1.9rem);font-weight:700;color:var(--text);line-height:1.4;margin-bottom:10px;}
+.hero h1{font-family:"Noto Serif TC",serif;font-size:clamp(1.6rem,5vw,2rem);font-weight:700;color:var(--text);line-height:1.4;margin-bottom:10px;}
 .hero h1 em{font-style:normal;color:var(--gold);}
 .hero-desc{font-size:13.5px;color:var(--muted);line-height:1.9;max-width:300px;margin:0 auto;}
 
@@ -76,7 +95,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .acc-card.open .acc-icon{transform:scale(1.1) rotate(-5deg);}
 .acc-titles{flex:1;min-width:0;}
 .acc-zh{font-family:"Noto Serif TC",serif;font-size:1rem;font-weight:700;color:var(--text);line-height:1.2;}
-.acc-sub{font-size:11.5px;color:var(--muted);margin-top:3px;line-height:1.4;}
+.acc-sub{font-size:11.8px;color:var(--muted);margin-top:3px;line-height:1.4;}
 .acc-arrow{font-size:13px;color:var(--muted);flex-shrink:0;transition:transform .3s,color .2s;}
 .acc-card.open .acc-arrow{transform:rotate(90deg);color:var(--gold);}
 
@@ -85,12 +104,12 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .acc-body-inner{padding:0 18px 20px;}
 
 /* ── CONTENT TYPES ── */
-.c-intro{font-family:"Noto Serif TC",serif;font-size:clamp(14px,3.8vw,15.5px);color:var(--text);line-height:2;letter-spacing:.04em;margin-bottom:14px;}
+.c-intro{font-family:"Noto Serif TC",serif;font-size:clamp(14.5px,3.8vw,16px);color:var(--text);line-height:2;letter-spacing:.04em;margin-bottom:14px;}
 
 .c-paragraph{margin-bottom:10px;padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.6);border:1px solid var(--gold-dim);}
 .c-paragraph h3{font-family:"Noto Serif TC",serif;font-size:13.5px;color:var(--text);margin-bottom:6px;display:flex;align-items:flex-start;gap:7px;}
 .c-paragraph h3::before{content:'';display:inline-block;width:3px;min-height:14px;background:var(--gold);border-radius:2px;flex-shrink:0;margin-top:3px;}
-.c-paragraph p{font-size:13px;color:var(--muted);line-height:1.9;}
+.c-paragraph p{font-size:13.2px;color:#4f463d;line-height:1.95;}
 
 .c-quote{margin-bottom:10px;padding:14px 16px;border-radius:14px;background:var(--soft);border-left:3px solid var(--gold);}
 .c-quote p{font-family:"Noto Serif TC",serif;font-size:13.5px;color:var(--text);line-height:2;font-style:italic;}
@@ -150,11 +169,16 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 </head>
 <body>
 
-<button class="back-btn" style="position:sticky;top:16px;margin:16px 0 0 16px;z-index:20;display:inline-block;" onclick="goBack()">← 返回</button>
+<div class="top-nav">
+  <button class="back-btn" onclick="goBack()">← 返回</button>
+  <div class="nav-title">探索精微能量系統</div>
+  <div class="nav-spacer"></div>
+</div>
 
 <div class="hero">
-  <h1>想多了解一點？<em>從這裡開始</em></h1>
-  <span class="hero-tag">八個主題，用自己的步調慢慢探索</span>
+  <span class="hero-tag">昆達里尼・三脈・能量運作</span>
+  <h1>探索<em>精微能量系統</em></h1>
+  <p class="hero-desc">先看見整體地圖，再慢慢理解內在能量如何運作。</p>
 </div>
 
 <div class="cards" id="cards"></div>
