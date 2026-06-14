@@ -187,6 +187,26 @@ body::before{
 }
 mark{background:rgba(201,168,76,.25);color:inherit;border-radius:4px;padding:0 2px;}
 
+
+
+/* ── FAQ LINE CTA ── */
+.faq-line-cta{
+  margin:13px 0 2px;padding:14px 14px 15px;border-radius:16px;
+  background:rgba(255,255,255,.62);border:1px solid rgba(201,168,76,.28);
+  text-align:center;white-space:normal;line-height:1.8;
+}
+.faq-line-cta .faq-line-text{
+  font-family:"Noto Serif TC",serif;font-size:13px;color:#4f463d;margin-bottom:10px;
+}
+.faq-line-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  min-width:160px;padding:9px 16px;border-radius:999px;
+  background:rgba(201,168,76,.16);border:1px solid rgba(201,168,76,.42);
+  color:var(--brown);text-decoration:none;font-family:"Noto Serif TC",serif;
+  font-size:13px;letter-spacing:.05em;transition:background .2s,transform .1s;
+}
+.faq-line-btn:active{background:rgba(201,168,76,.26);transform:scale(.98);}
+
 .empty-state{
   display:none;position:relative;z-index:1;margin:0 16px 18px;padding:22px 18px;
   background:var(--card);border:1px solid var(--card-b);border-radius:20px;text-align:center;
@@ -264,13 +284,23 @@ mark{background:rgba(201,168,76,.25);color:inherit;border-radius:4px;padding:0 2
 <div class="cats" id="cats"><div class="loading">載入中⋯⋯</div></div>
 
 <div class="footer-note" id="footer-note" style="display:none">
-  <p>沒有找到你的問題嗎？<br><em>歡迎直接聯絡我們。</em></p>
+	<p>
+		沒有找到你的問題嗎？<br>
+		<em>歡迎加入 LINE 與我們交流。</em>
+	</p>
+
+	<a class="footer-line-btn"
+		   href="https://line.me/R/ti/p/@647aurlx"
+		   target="_blank">
+		  ◇ 加入 LINE
+	</a>
 </div>
 
 <div class="scroll-hint" id="scrollHint">&#8964;</div>
 
 <script>
 const BASE = 'https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/';
+const LINE_URL = 'https://line.me/R/ti/p/@647aurlx';
 let allFaqData = [];
 let openCat = 0;
 let searchTerm = '';
@@ -339,6 +369,16 @@ function toggleFaq(item) {
   updateScrollHint();
 }
 
+
+function getLineCTA(item) {
+  if (!item.q.includes('鹽水泡腳法')) return '';
+  return `
+    <div class="faq-line-cta">
+      <div class="faq-line-text">◇ 想了解更完整的泡腳法與日常練習？<br>加入 LINE 與我們交流。</div>
+      <a class="faq-line-btn" href="${LINE_URL}" target="_blank" rel="noopener noreferrer">加入 LINE 社群</a>
+    </div>`;
+}
+
 function renderCats(data, opts = {}) {
   const wrap = document.getElementById('cats');
   const empty = document.getElementById('emptyState');
@@ -365,7 +405,7 @@ function renderCats(data, opts = {}) {
           <span class="faq-chevron">▼</span>
         </div>
         <div class="faq-a-wrap">
-          <div class="faq-a">${highlight(item.a, term)}</div>
+          <div class="faq-a">${highlight(item.a, term)}${getLineCTA(item)}</div>
         </div>
       </div>`).join('');
 
