@@ -107,6 +107,8 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .c-paragraph h3::before{content:'';display:inline-block;width:3px;min-height:14px;background:var(--gold);border-radius:2px;flex-shrink:0;margin-top:3px;}
 .c-paragraph p{font-size:13px;color:#4f463d;line-height:1.9;}
 
+.c-paragraph em{color:var(--gold);font-style:normal;font-weight:600;}
+
 /* ── FREE BADGE ── */
 .free-badge{
   display:inline-flex; align-items:center; gap:6px;
@@ -206,6 +208,7 @@ function renderSections(tab) {
   }
 
   // free badge
+  html += `<div class="free-badge">✓ 免費參加・新手友善</div>`;
 
   if (tab.sections) {
     tab.sections.forEach(s => {
