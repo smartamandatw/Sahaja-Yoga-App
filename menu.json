@@ -57,15 +57,15 @@
   },
   {
     "icon": "",
-    "label": "活動資訊",
-    "desc": "全台各地課室資訊・推廣活動・線上課程・完全免費",
+    "label": "課室與活動資訊",
+    "desc": "全台各地課室資訊・推廣活動・線上課程<br>完全免費",
     "url": "events.html",
     "coming_soon": false
   },
   {
     "icon": "",
     "label": "我們在這裡",
-    "desc": "官網・社群・聯絡方式",
+    "desc": "官網・社群<br>聯絡方式",
     "url": "join_us.html",
     "coming_soon": false
   }
