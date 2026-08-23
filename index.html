@@ -1,272 +1,44 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
+<!doctype html>
+<html lang="zh-Hant">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<title>Sahaja Yoga</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  * { box-sizing:border-box; margin:0; padding:0; }
-  html,body { width:100%; height:100%; overflow:hidden; }
-
-  @keyframes pulse    { 0%,100%{opacity:0.5} 50%{opacity:1} }
-  @keyframes fadeChar { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)} }
-  @keyframes fadeIn   { from{opacity:0} to{opacity:1} }
-
-  #bg {
-    position:fixed; inset:0; z-index:0;
-    background-image: url("https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/png/app_first_page.png");
-    background-size: cover;
-    background-position: center;
-  }
-  #overlay { position:fixed; inset:0; z-index:1; background:rgba(10,12,8,0.35); }
-
-  /* ── PAGE 1 ── */
-  #page1 {
-    position:fixed; inset:0; z-index:10;
-    display:flex; flex-direction:column;
-    align-items:center; justify-content:center;
-    background:rgba(10,12,8,0.45);
-    cursor:pointer; transition:opacity 0.8s;
-  }
-  #page1.hide { opacity:0; pointer-events:none; }
-
-  #page1 .title {
-    font-family:"Noto Serif TC",serif;
-    font-size:clamp(22px,6vw,30px);
-    color:#F0E8D0; line-height:1.9;
-    letter-spacing:0.12em; text-align:center;
-    margin-top:-8vh; pointer-events:none;
-  }
-  #page1 .tap {
-    position:fixed; bottom:calc(5% + 175px);
-    left:0; right:0;
-    display:flex; justify-content:flex-end; padding-right:16px;
-    animation:pulse 2s ease-in-out infinite;
-    pointer-events:none;
-  }
-  .btn-cta {
-    font-family:"Noto Sans TC",sans-serif; font-size:13px;
-    color:rgba(240,232,210,0.85);
-    background:rgba(240,232,210,0.12);
-    border:1px solid rgba(240,232,210,0.38);
-    border-radius:10px;
-    padding:6px 14px;
-    letter-spacing:0.05em; white-space:nowrap;
-    backdrop-filter:blur(8px);
-  }
-
-  /* ── PAGE 2 — quote ── */
-  #quoteWrap {
-    position:fixed; top:47%; left:0; right:0;
-    transform:translateY(-50%);
-    z-index:5; opacity:0; transition:opacity 1s ease 0.3s;
-    pointer-events:none; text-align:center;
-    padding:0 clamp(24px,6vw,32px);
-  }
-  #quoteWrap.show { opacity:1; }
-
-  #quoteText {
-    font-family:"Noto Serif TC",serif;
-    font-size:clamp(22px,6vw,30px);
-    color:#F0E8D0; line-height:1.9; letter-spacing:0.12em;
-    text-shadow:0 1px 8px rgba(0,0,0,0.3);
-  }
-  #quoteText .char {
-    opacity:0; display:inline-block;
-    animation:fadeChar 0.6s ease forwards;
-  }
-  #quoteAuthor {
-    font-family:"Noto Serif TC",serif;
-    font-size:clamp(13px,3.4vw,15px);
-    color:rgba(240,232,210,0.75); margin-top:12px;
-    letter-spacing:0.15em;
-    opacity:0; transition:opacity 1.5s ease;
-    text-shadow:0 1px 6px rgba(0,0,0,0.4);
-  }
-
-  /* 主要按鈕：進入冥想室 */
-  #tapEnter {
-    position:fixed; bottom:calc(5% + 175px);
-    left:0; right:0; z-index:6;
-    display:none;
-    justify-content:flex-end; padding-right:16px;
-    animation:pulse 2.5s ease-in-out infinite;
-    cursor:pointer;
-  }
-  #tapEnter.show { display:flex; }
-
-  /* 次要按鈕區：功能選單（比主按鈕小、低調） */
-  #menuBtn {
-    position:fixed; bottom:5%;
-    left:50%; transform:translateX(-50%);
-    z-index:6; display:none;
-    opacity:0; animation:fadeIn .6s ease .4s forwards;
-  }
-  .btn-sub {
-    padding:9px 28px;
-    border-radius:999px;
-    background:rgba(240,232,210,0.10);
-    backdrop-filter:blur(12px);
-    border:0.5px solid rgba(240,232,210,0.28);
-    color:rgba(240,232,210,0.60);           /* 明顯比主按鈕淡 */
-    font-family:"Noto Serif TC",serif;
-    font-size:clamp(12px,3.2vw,14px);      /* 比主按鈕小一號 */
-    font-weight:400;
-    letter-spacing:0.1em;
-    cursor:pointer;
-    transition:background .2s, color .2s, transform .1s;
-  }
-  .btn-sub:active {
-    transform:scale(0.96);
-    background:rgba(240,232,210,0.18);
-    color:rgba(240,232,210,0.85);
-  }
-
-  /* ── 音效按鈕 ── */
-  #soundBtn {
-    position:fixed; bottom:8%; right:18px; z-index:20;
-    width:34px; height:34px; border-radius:50%;
-    background:rgba(230,220,200,0.55); backdrop-filter:blur(6px);
-    border:0.5px solid rgba(255,255,255,0.4);
-    display:none; align-items:center; justify-content:center; /* flex，不用 block */
-    cursor:pointer; font-size:17px;
-  }
-  #soundBtn.show { display:flex; }   /* ← bug 修正：一律用 flex */
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex, noarchive">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="還你本來的寧靜｜霎哈嘉瑜伽靜坐法">
+  <meta property="og:description" content="一個簡單、自然，適合初學者的靜坐方法。">
+  <meta property="og:url" content="https://sahajayogatw.github.io/The-Silence-Within/">
+  <meta property="og:image" content="https://sahajayogatw.github.io/The-Silence-Within/assets/og.png?v=2">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://sahajayogatw.github.io/The-Silence-Within/assets/og.png?v=2">
+  <link rel="canonical" href="https://sahajayogatw.github.io/The-Silence-Within/">
+  <title>還你本來的寧靜｜霎哈嘉瑜伽靜坐法</title>
+  <style>
+    :root{--ink:#17372f;--deep:#0d2b25;--lake:#496f65;--mist:#e8eee8;--paper:#f6f3eb;--line:rgba(23,55,47,.22);--serif:"Noto Serif TC","Songti TC","PMingLiU",serif;--sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.75}a{color:inherit}button{font:inherit}.site-header{position:absolute;inset:0 0 auto;z-index:10;height:70px;padding:0 18px;display:flex;align-items:center;color:#fff;border-bottom:1px solid rgba(255,255,255,.28)}
+    .brand{display:flex;align-items:center;gap:10px;text-decoration:none}.mark{font-size:13px}.brand-copy{display:flex;flex-direction:column;line-height:1.35}.brand-copy strong{font-family:var(--serif);font-size:13px;letter-spacing:.06em}.brand-copy span{font-size:11px;opacity:.84;letter-spacing:.08em}
+    .menu-button{margin-left:auto;width:44px;height:44px;border:0;background:transparent;color:inherit;display:grid;place-items:center;cursor:pointer}.menu-icon,.menu-icon:before,.menu-icon:after{content:"";display:block;width:23px;height:1px;background:currentColor;position:relative}.menu-icon:before{position:absolute;top:-7px}.menu-icon:after{position:absolute;top:7px}.menu-button[aria-expanded=true] .menu-icon{background:transparent}.menu-button[aria-expanded=true] .menu-icon:before{top:0;transform:rotate(45deg)}.menu-button[aria-expanded=true] .menu-icon:after{top:0;transform:rotate(-45deg)}
+    .mobile-nav{position:fixed;z-index:9;inset:0;background:var(--deep);color:#fff;padding:112px 24px 40px;display:flex;flex-direction:column;transform:translateY(-102%);transition:transform .3s ease}.mobile-nav.open{transform:none}.mobile-nav a{font-family:var(--serif);font-size:28px;text-decoration:none;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.18)}.mobile-nav a[aria-current="page"]{border-bottom-color:rgba(255,255,255,.72)}.mobile-nav small{margin-top:auto;opacity:.65}
+    .hero{height:100svh;min-height:620px;position:relative;display:flex;align-items:flex-end;color:#fff;overflow:hidden;background:#58736a}.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:82% center}.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(7,29,25,.24),rgba(7,29,25,.01) 58%,rgba(7,29,25,.82))}.hero-copy{position:relative;z-index:1;width:100%;padding:0 22px max(62px,calc(env(safe-area-inset-bottom) + 42px))}.hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(33px,9.5vw,42px);line-height:1.2;letter-spacing:.025em;white-space:nowrap;margin:0 0 15px}.hero-lede{font-family:var(--serif);font-size:19px;line-height:1.65;letter-spacing:.025em;margin:0}.hero-note{font-size:13px;margin:13px 0 0;color:rgba(255,255,255,.84)}.line-link{display:inline-block;margin-top:18px;padding-bottom:4px;border-bottom:1px solid currentColor;text-decoration:none;font-size:14px;letter-spacing:.05em}
+    .experience{background:var(--mist)}.experience-copy{padding:68px 22px 58px}.kicker{font-size:12px;letter-spacing:.17em;color:var(--lake);margin:0 0 13px}.experience h2,.work h2{font-family:var(--serif);font-weight:500;letter-spacing:.035em}.experience h2{font-size:clamp(30px,8.8vw,40px);line-height:1.5;margin:0 0 23px}.experience-text{font-size:16px;color:#3c5851;margin:0;max-width:34em}.experience-photo{display:block;width:100%;height:clamp(270px,42svh,420px);object-fit:cover;object-position:center 44%}
+    .work{padding:72px 22px 68px;background:var(--paper)}.work h2{font-size:clamp(28px,8.2vw,38px);line-height:1.48;margin:0 0 22px}.work-copy{font-size:15px;color:#3c5851;margin:0;max-width:36em}.work .line-link{color:var(--ink);margin-top:25px}
+    .gateways{padding:32px 22px 40px}.gateway-list{display:flex;align-items:center;justify-content:center}.gateway{display:flex;align-items:center;text-decoration:none;font-family:var(--serif);font-size:15px;white-space:nowrap}.gateway:not(:last-child):after{content:"｜";margin:0 7px;color:#879993;font-family:var(--sans);font-weight:300}.gateway strong{font-weight:500}.gateway:active{color:var(--lake)}
+    footer{background:var(--deep);color:#dce5df;padding:42px 22px}.footer-meta{display:flex;align-items:baseline;flex-wrap:wrap;gap:5px 10px}.footer-name{font-family:var(--serif);font-size:clamp(11px,3.15vw,13px);line-height:1.7;letter-spacing:.01em;white-space:nowrap;margin:0}.footer-link{color:#b9cac2;font-size:12px;text-underline-offset:4px;white-space:nowrap}
+    .mobile-line{display:inline}
+    @media(max-width:599px){.mobile-line{display:block}.desktop-break{display:none}.experience h2{font-size:28px;line-height:1.55}}
+    @media(min-width:600px){.site-header{padding-inline:32px}.hero-copy,.experience-copy,.work,.gateways,footer{padding-left:max(32px,calc((100vw - 680px)/2));padding-right:max(32px,calc((100vw - 680px)/2))}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.mobile-nav{transition:none}}
+  </style>
 </head>
 <body>
-<div id="bg"></div>
-<div id="overlay"></div>
-
-<audio id="bgMusic" loop preload="none">
-  <source src="https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/audio/backgroup_music.mp3" type="audio/mp3">
-</audio>
-
-<!-- 第一頁 -->
-<div id="page1" onclick="startApp()">
-  <div class="title">歡迎你的到來<br>這是一趟向內的旅程</div>
-  <div class="tap"><span class="btn-cta">輕觸開始旅程 »</span></div>
-</div>
-
-<!-- 第二頁 -->
-<div id="quoteWrap">
-  <div id="quoteText"></div>
-  <div id="quoteAuthor">— Shri Mataji</div>
-</div>
-
-<!-- 主要 CTA：進入冥想室 -->
-<div id="tapEnter" onclick="enterMeditation()"><span class="btn-cta">輕觸進入冥想室 »</span></div>
-
-<!-- 次要 CTA：功能選單（視覺上比主按鈕退後一步） -->
-<div id="menuBtn"><button class="btn-sub" onclick="openMenu()">功能選單</button></div>
-
-<!-- 音效切換 -->
-<div id="soundBtn" onclick="toggleSound()">🔊</div>
-
-<script>
-const audio    = document.getElementById("bgMusic");
-const soundBtn = document.getElementById("soundBtn");
-let muted  = false;
-let started = false;
-
-function showPage2() {
-  document.getElementById("quoteWrap").classList.add("show");
-  document.getElementById("tapEnter").classList.add("show");
-  document.getElementById("menuBtn").style.display   = "flex";   // ← 修正：flex
-  soundBtn.classList.add("show");
-  startQuotes();
-}
-
-// 從靜坐結束回來，直接跳過進入畫面
-if (sessionStorage.getItem('fromMeditation') === '1') {
-  sessionStorage.removeItem('fromMeditation');
-  started = true;
-  audio.volume = 0.5;
-  audio.play().catch(() => {});
-  document.getElementById("page1").classList.add("hide");
-  setTimeout(showPage2, 300);
-}
-
-function startApp() {
-  if (started) return;
-  started = true;
-  audio.volume = 0.5;
-  audio.play().catch(() => {});
-  document.getElementById("page1").classList.add("hide");
-  setTimeout(showPage2, 600);
-}
-
-function toggleSound() {
-  muted = !muted;
-  audio.muted = muted;
-  soundBtn.textContent = muted ? "🔇" : "🔊";
-}
-
-/* ── quotes ── */
-let quotes = [], current = 0;
-const textEl   = document.getElementById("quoteText");
-const authorEl = document.getElementById("quoteAuthor");
-
-fetch("https://raw.githubusercontent.com/smartamandatw/Sahaja-Yoga-App/main/quotes.json?t=" + Date.now())
-  .then(r => r.json())
-  .then(data => { quotes = data; quotes.sort(() => Math.random() - 0.5); })
-  .catch(() => {
-    quotes = [
-      { zh:"真正的靜默，",  zh2:"是思想的靜止。", author:"Shri Mataji" },
-      { zh:"靜坐不是努力，", zh2:"而是放下努力。", author:"Shri Mataji" }
-    ];
-  });
-
-function renderChars(el, line1, line2, delay) {
-  el.innerHTML = "";
-  line1.split("").forEach((ch, i) => {
-    const s = document.createElement("span");
-    s.className = "char"; s.textContent = ch;
-    s.style.animationDelay = (delay + i * 0.12) + "s";
-    el.appendChild(s);
-  });
-  if (line2) {
-    el.appendChild(document.createElement("br"));
-    line2.split("").forEach((ch, i) => {
-      const s = document.createElement("span");
-      s.className = "char"; s.textContent = ch;
-      s.style.animationDelay = (delay + (line1.length + i) * 0.12) + "s";
-      el.appendChild(s);
-    });
-  }
-}
-
-function showQuote(idx) {
-  if (!quotes.length) return;
-  textEl.style.opacity   = "0";
-  authorEl.style.opacity = "0";
-  setTimeout(() => {
-    const q = quotes[idx];
-    textEl.style.opacity = "1";
-    renderChars(textEl, q.zh, q.zh2 || "", 0);
-    authorEl.textContent = "— " + q.author;
-    const totalChars = q.zh.length + (q.zh2 ? q.zh2.length : 0);
-    setTimeout(() => { authorEl.style.opacity = "1"; }, totalChars * 120 + 400);
-  }, 900);
-}
-
-function startQuotes() {
-  const go = () => {
-    if (!quotes.length) { setTimeout(go, 300); return; }
-    const q = quotes[0];
-    renderChars(textEl, q.zh, q.zh2 || "", 0.3);
-    authorEl.textContent = "— " + q.author;
-    const totalChars = q.zh.length + (q.zh2 ? q.zh2.length : 0);
-    setTimeout(() => { authorEl.style.opacity = "1"; }, totalChars * 120 + 700);
-    setInterval(() => { current = (current + 1) % quotes.length; showQuote(current); }, 8000);
-  };
-  go();
-}
-
-function enterMeditation() { window.location.href = 'meditation_room.html'; }
-function openMenu()        { window.location.href = 'menu.html'; }
-</script>
+  <header class="site-header"><a class="brand" href="#top"><span class="mark" aria-hidden="true">✦</span><span class="brand-copy"><strong>台灣生命永恆交流協會</strong><span>霎哈嘉瑜伽靜坐法</span></span></a><button class="menu-button" type="button" aria-label="開啟主要導覽" aria-expanded="false"><span class="menu-icon"></span></button></header>
+  <nav class="mobile-nav" aria-label="主要導覽"><a href="index.html" aria-current="page">首頁</a><a href="activities.html">近期活動</a><a href="about.html">認識我們</a><a href="cooperate.html">合作洽詢</a><a href="https://sahajayoga-tw.com/" target="_blank" rel="noopener">霎哈嘉瑜伽官網 ↗</a><small>簡單、自然，從親身體驗開始。</small></nav>
+  <main id="top">
+    <section class="hero"><img src="assets/home-lake-clean.png" alt="清晨薄霧中的湖面，一位練習者在水邊安靜靜坐"><div class="hero-copy"><h1>還你本來的寧靜</h1><p class="hero-lede"><span class="mobile-line">不用拉筋，也不用刻意</span><span class="mobile-line">壓制腦中的紛亂。</span></p><p class="hero-note">一個簡單、自然的靜坐方法</p><a class="line-link" href="activities.html">看看近期活動 →</a></div></section>
+    <section class="experience"><div class="experience-copy"><h2><span class="mobile-line">坐不住，就是坐不住。</span><br class="desktop-break"><span class="mobile-line">是有原因的，</span><span class="mobile-line">也是有方法的。</span></h2><p class="experience-text">靜坐不是要去抵抗腦中的聲音。<br>而是學會輕輕地與它保持一點距離。<br>我們會陪伴你練習。</p></div><img class="experience-photo" src="assets/about-class.jpg" alt="真實課程中，參與者一起安靜練習靜坐"></section>
+    <section class="work"><p class="kicker">我們在做什麼</p><h2><span class="mobile-line">把能帶進日常生活的</span><span class="mobile-line">靜坐方法，</span><br class="desktop-break"><span class="mobile-line">好好地分享出去。</span></h2><p class="work-copy">我們舉辦免費的靜坐體驗與基礎課程，讓每一個渴望內在寧靜的人，都能找到屬於自己的喜樂與靜默。</p></section>
+    <section class="gateways" aria-label="主要入口"><div class="gateway-list"><a class="gateway" href="activities.html"><strong>近期活動</strong></a><a class="gateway" href="about.html"><strong>認識我們</strong></a><a class="gateway" href="cooperate.html"><strong>合作洽詢</strong></a></div></section>
+  </main>
+  <script>const b=document.querySelector('.menu-button'),n=document.querySelector('.mobile-nav');function closeMenu(){b.setAttribute('aria-expanded','false');b.setAttribute('aria-label','開啟主要導覽');n.classList.remove('open');document.body.style.overflow=''}b.addEventListener('click',()=>{const o=b.getAttribute('aria-expanded')!=='true';b.setAttribute('aria-expanded',String(o));b.setAttribute('aria-label',o?'關閉主要導覽':'開啟主要導覽');n.classList.toggle('open',o);document.body.style.overflow=o?'hidden':''});n.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu()});</script>
 </body>
 </html>
